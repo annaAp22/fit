@@ -40,8 +40,16 @@
                         <i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
                     </button>
                 </div>
-                <a class="product-gallery__image-wrap" href="#">
-                    <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                <div class="product-gallery__image-wrap">
+                    <a class="product-gallery__image-link active" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
+                        <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                    </a>
+
+                    @foreach($product->photos as $i => $photo)
+                        <a class="product-gallery__image-link" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
+                            <img class="product-gallery__image" src="{{ $photo->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                        </a>
+                    @endforeach
 
                     @include('catalog.products.labels')
 
@@ -55,7 +63,7 @@
                             <span class="popup-notice__text done">Товар добавлен в закладки!</span>
                         </span>
                     </span>
-                </a>
+                </div>
             </div>
 
             <div class="product-detailed__details">

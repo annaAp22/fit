@@ -4582,6 +4582,14 @@ footer .line {
   max-height: 100%;
 }
 
+.product-gallery__image-link {
+  display: none;
+}
+
+.product-gallery__image-link.active {
+  display: block;
+}
+
 .description-scroll {
   height: 225px;
   padding: 0 0 40px 24px;
