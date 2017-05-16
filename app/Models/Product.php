@@ -46,10 +46,11 @@ class Product extends Model
         'img' => [
             'extensions' => 'jpg,jpeg,png',
             'preview'    => '45x67',
-            'thumb'      => '64x96',
+            'thumb'      => '96x144',
             'cart'       => '81x122',
             'modal'      => '120x180',
-            'listing'    => '228x342',
+            'listing'    => '360x540',
+            'kit'        => '330x495',
             'detail'     => '408x613',
             'big'        => '1240x1860'
         ],
