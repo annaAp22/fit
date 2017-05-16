@@ -26,11 +26,11 @@
                     </button>
                     <div class="product-gallery__wrap">
                         <div class="product-gallery__track">
-                            <div class="product-gallery__thumb active">
+                            <div class="product-gallery__thumb active js-gallery-thumb">
                                 <img src="{{ $product->uploads->img->thumb->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </div>
                             @foreach($product->photos as $i => $photo)
-                                <div class="product-gallery__thumb">
+                                <div class="product-gallery__thumb js-gallery-thumb">
                                     <img src="{{ $photo->uploads->img->thumb->url() }}" alt="{{ $product->name }}" role="presentation"/>
                                 </div>
                             @endforeach
@@ -41,12 +41,12 @@
                     </button>
                 </div>
                 <div class="product-gallery__image-wrap">
-                    <a class="product-gallery__image-link active" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
+                    <a class="product-gallery__image-link active js-gallery-big" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
                         <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
                     </a>
 
                     @foreach($product->photos as $i => $photo)
-                        <a class="product-gallery__image-link" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
+                        <a class="product-gallery__image-link js-gallery-big" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
                             <img class="product-gallery__image" src="{{ $photo->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
                         </a>
                     @endforeach

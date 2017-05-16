@@ -467,7 +467,15 @@ $(function(){
         }
     });
 
-
+    // Product gallery thumbs switch
+    $body.on('click', '.js-gallery-thumb', function(e) {
+        var $this = $(this),
+            images = $('.js-gallery-big');
+        $('.js-gallery-thumb').removeClass('active');
+        $this.addClass('active');
+        images.removeClass('active');
+        images.eq($this.index()).addClass('active');
+    });
 
 });
 
