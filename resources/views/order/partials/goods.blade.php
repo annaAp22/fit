@@ -2,7 +2,7 @@
     <div class="checkout-goods__title">Мои покупки</div>
     @foreach($cart['products'] as $product)
         <div class="checkout-goods__product">
-            <div class="checkout-goods__image"><img src="{{ $product->uploads->img->preview->url() }}" alt="{{ $product->name }}"></div>
+            <div class="checkout-goods__image"><img src="{{ $product->uploads->img->thumb->url() }}" alt="{{ $product->name }}"></div>
             <div>
                 <div class="checkout-goods__name">{{ $product->name }}
                     <div class="checkout-goods__art"> {{ $product->sku }}

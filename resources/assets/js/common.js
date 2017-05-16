@@ -285,7 +285,7 @@ $(function(){
     $(".js-vk-comments-widget").on('click.vk',function() {
         $(this).off('click.vk');
         $.getScript("//vk.com/js/api/openapi.js?145", function() {
-            VK.init({apiId: API_ID, onlyWidgets: true});
+            VK.init({apiId: 4411901, onlyWidgets: true});
             VK.Widgets.Comments("js-vk_comments", {limit: 5, attach: false});
         });
     });

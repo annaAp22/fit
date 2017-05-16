@@ -27,11 +27,11 @@
                     <div class="product-gallery__wrap">
                         <div class="product-gallery__track">
                             <div class="product-gallery__thumb active">
-                                <img src="{{ $product->uploads->img->preview->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                                <img src="{{ $product->uploads->img->thumb->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </div>
                             @foreach($product->photos as $i => $photo)
                                 <div class="product-gallery__thumb">
-                                    <img src="{{ $photo->uploads->img->preview->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                                    <img src="{{ $photo->uploads->img->thumb->url() }}" alt="{{ $product->name }}" role="presentation"/>
                                 </div>
                             @endforeach
                         </div>
@@ -41,7 +41,7 @@
                     </button>
                 </div>
                 <a class="product-gallery__image-wrap" href="#">
-                    <img class="product-gallery__image" src="{{ $product->uploads->img->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                    <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
 
                     @include('catalog.products.labels')
 

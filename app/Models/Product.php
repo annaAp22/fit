@@ -27,7 +27,7 @@ class Product extends Model
         'title',
         'description',
         'keywords',
-
+        'img',
         'video_url',
 
         'price',
@@ -46,11 +46,12 @@ class Product extends Model
         'img' => [
             'extensions' => 'jpg,jpeg,png',
             'preview'    => '45x67',
-            'modal' => '93x140',
-            'listing'       => '179x269',
-            'small'      => '400x600',
-            'main'  => '1240x1860',
-            'cart' => '65x98'
+            'thumb'      => '64x96',
+            'cart'       => '81x122',
+            'modal'      => '120x180',
+            'listing'    => '228x342',
+            'detail'     => '408x613',
+            'big'        => '1240x1860'
         ],
     ];
 
