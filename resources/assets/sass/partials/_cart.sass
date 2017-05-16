@@ -1,0 +1,233 @@
+// Cart page with products
+.product-cart
+  min-width: 100%
+.product-cart-header
+  margin-top: 30px
+  +media-sm(up)
+    display: flex
+    +align(between, center)
+  &__title
+    display: flex
+  &__h1
+    margin: 0
+  &__count
+    font-size: 12px
+    margin-left: 20px
+    & > i
+      font-style: normal
+      padding: 5px
+      text-align: center
+  & > .btn_back-link
+    +hidden-xs()
+
+
+// Cart products table
+.product-cart-table
+  margin-top: 30px
+  &__header
+    font-size: 12px
+    color: #9f9f9f
+    +media-xs()
+      & > div
+        &:nth-child(3), &:nth-child(4), &:nth-child(5), &:nth-child(6)
+          +hidden-xs()
+  &__row
+    padding-top: 10px
+    +align(start, center)
+    &:after
+      margin-top: 10px
+      +col(24)
+      content: ""
+      width: 100%
+      border-bottom: 1px solid #d6d6d6
+  &__col
+    +media-xs()
+      padding-top: 20px
+    &_photo
+      +media-xs()
+        +col(12)
+      +media-sm(up)
+        +col(4)
+      +media-lg(up)
+        +col(3)
+    &_name
+      +media-xs()
+        +col(12)
+      +media-sm()
+        +col(7)
+      +media-md(up)
+        +col(6)
+    &_quantity
+      text-align: center
+      +media-xs()
+        +col(12)
+      +media-sm(up)
+        +col(5)
+    &_price
+      +hidden-sm(down)
+      +media-sm()
+        +col(4)
+      +media-md()
+        +col(3)
+      +media-lg(up)
+        +offset(right, 1)
+        +col(3)
+    &_price-sum
+      +media-xs()
+        +col(12)
+      +media-sm()
+        +col(5)
+      +media-md()
+        +col(4)
+      +media-lg(up)
+        +offset(right, 1)
+        +col(3)
+    &_remove
+      text-align: right
+      +col(2)
+  &__product
+    position: relative
+  &__image
+    display: block
+    position: relative
+    width: 100%
+    height: 122px
+    border: 1px solid #ebebeb
+    & > img
+      +image-center()
+  &__name
+    text-decoration: none
+    color: #303030
+    font-size: 14px
+    & > span
+      color: #a6a6a6
+  &__size
+    margin-top: 20px
+    font-size: 14px
+    font-weight: 700
+    & > span
+      margin-left: 10px
+      font-weight: 500
+      color: #a6a6a6
+  &__price
+    font-size: 16px
+    font-weight: 700
+  &__price-sum
+    +media-xs()
+      font-size: 24px
+    +media-sm()
+      font-size: 20px
+    +media-md(up)
+      font-size: 24px
+    line-height: 1
+    font-weight: 700
+  &__remove
+    position: absolute
+    top: -1px
+    right: 12px
+    display: inline-block
+    cursor: pointer
+    width: 30px
+    height: 30px
+    border: 1px solid #d6d6d6
+    text-align: center
+    line-height: 30px
+    transition: background-color .3s ease
+    &.icon-fade > i.active
+      top: 8px
+      left: 8px
+    &:hover, &:focus
+      background-color: #f5f5f5
+  &__separator
+    width: 1px
+    height: 80px
+    background-color: #ebebeb
+    +hidden-xs()
+    &_md-up
+      +hidden-sm(down)
+
+// Products quantity input
+.quantity
+  display: inline-flex
+  +align(start, center)
+  position: relative
+  &__input
+    +media-md(down)
+      width: 40px
+    +media-lg(up)
+      width: 85px
+    padding: 5px
+    border: 1px solid #c2c2c2
+    text-align: center
+    font-size: 14px
+    line-height: 18px
+  &__handle
+    cursor: pointer
+    &.icon-fade
+      & > i
+        &.active
+          top: -3px
+          left: -5px
+    &_minus
+      margin-right: 15px
+      margin-top: 3px
+    &_plus
+      margin-left: 15px
+      margin-top: -2px
+      transform: rotate(180deg)
+
+// Cart footer
+.product-cart-footer
+  margin-top: 30px
+  +align(start, center)
+  &__checkout
+    +media-xs()
+      +col(24)
+    +media-sm()
+      +col(12)
+    +media-md()
+      +col(8)
+    +media-lg(up)
+      +col(5)
+    font-size: 18px
+    font-weight: 700
+  &__quick-buy
+    +media-xs()
+      +col(24)
+      margin-top: 20px
+    +media-sm()
+      +col(12)
+    +media-md()
+      +col(8)
+    +media-lg(up)
+      +col(5)
+    font-size: 18px
+    font-weight: 700
+  &__back-link
+    +media-sm(down)
+      margin-top: 30px
+      +col(24)
+      text-align: center
+    +media-md()
+      text-align: right
+      +col(8)
+    +media-lg(up)
+      text-align: left
+      +col(5)
+  &__cart-total
+    +media-md(down)
+      +col(24)
+      text-align: right
+      order: -1
+      margin-bottom: 30px
+    +media-lg(up)
+      +col(9)
+    font-size: 24px
+    font-weight: 300
+    color: #010101
+  &__price-total
+    display: inline-block
+    font-weight: 700
+    font-size: 30px
+    color: #000000
+    margin-left: 20px

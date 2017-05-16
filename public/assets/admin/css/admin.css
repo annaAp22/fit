@@ -1,0 +1,23 @@
+.ibox-tools {
+    display: inline-block;
+    float: right;
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+    margin-right: 3px;
+}
+
+.input-color {
+    display: flex;
+    align-items: center;
+}
+
+.input-checklist {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -4px;
+}
+
+.input-checklist .sizebox { margin: 0px 10px; }
+.chosen-container { width: 100% !important; }

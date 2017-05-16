@@ -1,0 +1,256 @@
+@import "normalize"
+@import "gmdjs"
+//@import "styles/grid"
+//@import "styles/training"
+// @import "section"
+@import "fonts"
+@import "sprite_main"
+@import "animations"
+@import "loader"
+.sprite_main-icon__arrow_green_down, .sprite_main-icon__arrow_green_up, .sprite_main-icon__arrow_black_to_right
+  margin-left: 10px
+.sprite_main-header__enter, .sprite_main-header__city_point, .sprite_main-listing__filter_reset_red, .sprite_main-footer__phone
+  margin-right: 10px
+*
+  box-sizing: border-box
+$base-color: #272727
+body
+  position: relative
+  min-width: 320px
+  background-color: #ffffff
+  font-family: "museo_sans_cyrl", sans-serif
+  font-weight: 500
+  margin: 0
+  color: $base-color
+.main-wrapper
+  max-width: 100%
+  overflow: hidden
+a
+  color: #36b057
+.container
+  +media-md(down)
+    +grid(fluid)
+    padding: 0 24px
+  +media-lg(up)
+    +grid()
+  +media-xs()
+    padding: 0 12px
+.container-in
+  +grid-in()
+input, textarea
+  outline: none
+  font-size: 16px
+  font-family: "museo_sans_cyrl", sans-serif
+  resize: none
+
+.input, .textarea
+  transition: border-color .3s ease
+  &_text
+    font-size: 14px
+    color: #484848
+    padding: 10px 25px
+    border: 1px solid #c6c6c6
+    margin-top: 8px
+    width: 100%
+    &:focus, &:active
+      padding: 9px 24px
+      border: 2px solid #36b057
+  &.error
+    border: 1px solid red
+
+.radio
+  &_square
+    position: relative
+    text-align: center
+    & > input
+      opacity: 0
+    & > .fake-input
+      top: 0
+      left: 0
+      position: absolute
+      width: 22px
+      height: 22px
+      border: 1px solid #c6c6c6
+      background-color: #ffffff
+      cursor: pointer
+      & > span
+        top: 3px
+        left: 3px
+        position: absolute
+        width: 14px
+        height: 14px
+        background-color: #ffffff
+        transition: background-color .3s ease
+    & > input:checked + span
+      & > span
+        background-color: #fcd82f
+    & > .label
+      font-size: 16px
+      color: #484848
+      font-weight: 300
+
+@import "buttons"
+
+// sprite icon toggle active state
+.icon-fade
+  position: relative
+  display: inline-block
+  padding: 0
+  i
+    transition: opacity .3s ease
+    &.active
+      position: absolute
+      left: 0
+      top: 0
+      opacity: 0
+  &:hover, &:focus, &.active
+    i
+      &.normal
+        opacity: 0
+      &.active
+        opacity: 1
+
+// Wysiwyg editor and before footer text
+.page-text
+  &__title, h1, h2, h3
+    font-weight: 900
+    &_700
+      font-weight: 700
+    &_green-line
+      position: relative
+      border-left: 5px solid #36b057
+      padding-left: 10px
+      line-height: 0.8
+    &_h1, h1
+      font-size: 28px
+      margin-bottom: 30px
+    &_h2, h2
+      margin-top: 30px
+      font-size: 24px
+    &_h3, h3
+      font-size: 20px
+      margin-bottom: 30px
+  &__text
+    font-size: 14px
+    margin: 30px 0
+    line-height: 24px
+  &__image
+    max-width: 100%
+  &__pull-right
+    +media-md(down)
+      //width: 100%
+      margin-bottom: 30px
+    +media-lg(up)
+      float: right
+      margin: 0 0 60px 60px
+  &__pull-left
+    +media-md(down)
+      //width: 100%
+      margin-bottom: 30px
+    +media-lg(up)
+      float: left
+      margin: 0 60px 60px 0
+.youtube-video
+  display: inline-block
+  position: relative
+  text-decoration: none
+  &__play
+    position: absolute
+    padding: 20px
+    margin-top: -70/2 * 1px
+    margin-left: -68/2 * 1px
+    +media-lg(up)
+      padding: 35px
+      margin-top: -127/2 * 1px
+      margin-left: -127/2 * 1px
+    background-color: #292929
+    top: 50%
+    left: 50%
+
+    &:before
+      content: ""
+      display: block
+      width: 0
+      height: 0
+      border-style: solid
+      border-width: 14.5px 0 14.5px 30px
+      +media-lg(up)
+        border-width: 30.5px 0 30.5px 52px
+      border-color: transparent transparent transparent #ffffff
+      transform: rotate(360deg)
+      transition: border-color .3s ease
+    &:hover
+      &:before
+        border-color: transparent transparent transparent #fcd82f
+  img
+    max-width: 100%
+    display: block
+    +media-md(down)
+      width: 100%
+  &__title
+    position: absolute
+    color: #ffffff
+    font-size: 16px
+    &_bottom-left-black
+      bottom: 40px
+      left: 40px
+    &_top-left-white
+      background-color: #fff
+      color: #000000
+      font-weight: 700
+      padding: 20px
+      top: 0
+      left: 0
+      +media-md()
+        padding: 40px 30px
+        max-width: 320px
+      +media-sm(down)
+        position: static
+        display: block
+        background-color: #f5f5f5
+
+
+// UL styles
+.ul
+  line-height: 24px
+  list-style: none
+  padding: 0
+  a
+    text-decoration: none
+    color: $base-color
+    transition: color .3s ease, font-weight .3s ease
+    & > *
+      vertical-align: middle
+  &_green-hover
+    a
+      color: #6a6a6a
+      &:hover
+        font-weight: 700
+        color: #36b057
+// mixins
+=image-center()
+  position: absolute
+  margin: auto
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  max-width: 100%
+  max-height: 100%
+
+// For Vue.js
+*[v-cloak]
+  display: none
+
+@import "popup"
+@import "partials/header"
+@import "partials/sidebar"
+@import "partials/listing"
+@import "vendor/nouislider"
+@import "partials/footer"
+@import "partials/product"
+@import "partials/main"
+@import "partials/cart"
+@import "partials/checkout"
+@import "vendor/jquery.fancybox.min"
+@import "modals"

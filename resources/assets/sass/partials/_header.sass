@@ -1,0 +1,444 @@
+header
+  position: relative
+  border-bottom: 1px solid #e3e3e3
+
+  // Resize detection by transitionEnd event
+  min-height: 0
+  transition: min-height 0.01s
+  +media-lg(only)
+    min-height: 1px
+  +media-sm(only)
+    min-height: 1px
+  &:before
+    display: none
+    content: 'mobile'
+    +media-lg(up)
+      content: 'desktop'
+  &:after
+    display: none
+    +media-xl()
+      content: 'xl'
+    +media-lg()
+      content: 'lg'
+    +media-md()
+      content: 'md'
+    +media-sm()
+      content: 'sm'
+    +media-xs()
+      content: 'xs'
+  .line
+    +hidden-xs()
+    position: absolute
+    top: 107px
+    +media-md(up)
+      top: 115px
+    width: 100%
+    height: 1px
+    background-color: #e3e3e3
+    &_lg
+      top: 30px
+      +media-md()
+        top: 30px
+      +hidden-xl(up)
+// Hamburger menu icon
+.hamburger
+  width: 30px
+  height: 30px
+  +media-md(up)
+    width: 60px
+    height: 45px
+  position: relative
+  transform: rotate(0deg)
+  transition: .5s ease-in-out
+  cursor: pointer
+  & *
+    margin: 0
+    padding: 0
+  span
+    display: block
+    position: absolute
+    height: 5px
+    +media-md(up)
+      height: 9px
+    width: 100%
+    background: #404040
+    border-radius: 9px
+    opacity: 1
+    left: 0
+    transform: rotate(0deg)
+    transition: .25s ease-in-out
+    &:nth-child(1)
+      top: 0px
+      transform-origin: left center
+    &:nth-child(2)
+      top: 10px
+      +media-md(up)
+        top: 18px
+      transform-origin: left center
+    &:nth-child(3)
+      top: 20px
+      +media-md(up)
+        top: 36px
+      transform-origin: left center
+  &.active
+    span
+      &:nth-child(1)
+        transform: rotate(45deg)
+        top: -1px
+        +media-md(up)
+          top: -3px
+        left: 8px
+      &:nth-child(2)
+        width: 0%
+        opacity: 0
+      &:nth-child(3)
+        transform: rotate(-45deg)
+        top: 20px
+        +media-md(up)
+          top: 39px
+        left: 8px
+.header
+  +grid-in()
+  +align(between, center)
+  &__time
+    +hidden-xs()
+    +media-sm()
+      letter-spacing: -0.3px
+      +col(8)
+    +col-md(12)
+    +hidden-xl(up)
+    order: -2
+    font-size: 14px
+    font-weight: 300
+    color: #b0b0b0
+    line-height: 30px
+  &__hamburger
+    +hidden-lg(up)
+    +col(3)
+  &__logo
+    +col(8)
+    +col-sm(6)
+    +col-lg(4)
+    +offset-md(left,10, only)
+    padding: 10px 0
+    +media-xl(up)
+      padding: 25px 0
+    img
+      max-width: 100%
+  &__city
+    +hidden-md(down)
+    +col-lg(4)
+    +col-xl(3)
+    & > *
+      vertical-align: middle
+    span
+      font-size: 14px
+  &__search
+    +media-sm(down)
+      padding-top: 10px
+      margin-bottom: 10px
+    +media-md(down)
+      order: 1
+    +media-lg(up)
+      order: 0
+    +media-xs()
+      border-top: 1px solid #e3e3e3
+    +col(24)
+    +col-md(18)
+    +col-lg(10)
+    +col-xl(6)
+    position: relative
+    button.icon-fade
+      position: absolute
+      +media-md(up)
+        top: 10px
+      top: 20px
+      left: 10px
+      cursor: pointer
+    input
+      width: 100%
+      padding: 10px 10px 10px 40px
+      font-size: 14px
+      border: 1px solid #e3e3e3
+      outline: none
+      &:focus
+        background-color: #f5f5f5
+
+  &__phones
+    +col-xl(8)
+    +col-md(12)
+    +col-sm(16)
+    +col(24)
+    +media-sm(down)
+      text-align: center
+      & > div
+        margin: 5px 0 10px
+    +media-xs()
+      +align(around)
+      border-bottom: 1px solid #e3e3e3
+    order: -1
+    +media-xl(up)
+      order: 0
+    display: flex
+    +align(end, center)
+    +align-xl(between, center)
+    & > *:not(:first-child)
+      margin-left: 10px
+    a
+      text-decoration: none
+      font-weight: 700
+      font-size: 14px
+      color: #000000
+      +media-xl()
+        font-size: 18px
+    span
+      font-size: 14px
+      color: #8e8e8e
+      +hidden-xl(down)
+    i
+      +hidden-xs()
+  &__basket
+    +col(6)
+    +col-sm(7)
+    +col-md(6)
+    +col-lg(4)
+    +col-xl(3)
+    display: flex
+    +align(between, center)
+    & > a
+      text-decoration: none
+      color: #FFFFFF
+      position: relative
+      &:last-child
+        padding-left: 12px
+    .header-wishlist
+      width: 26px
+      height: 21px
+      +hidden-xs()
+    .seen
+      width: 31px
+      height: 18px
+      +hidden-xs()
+    .basket
+      width: 44px
+      height: 46px
+
+    .count
+      text-align: center
+      width: 21px
+      height: 21px
+      border-radius: 50%
+      background-color: #36b057
+      font-size: 13px
+      line-height: 21px
+      position: absolute
+      z-index: 1
+      top: 9px
+      left: 0
+  &__navigation
+    +hidden-md(down)
+    +col-lg(20)
+    +col-xl(21)
+    display: flex
+  &__enter
+    +hidden-sm(down)
+    +col-md(6)
+    +col-lg(4)
+    +col-xl(3)
+    +media-md(down)
+      order: 2
+    text-align: center
+    text-decoration: none
+    color: #272727
+    font-size: 13px
+    padding: 21px 0
+    border-left: 1px solid #d1d1d1
+    border-right: 1px solid #d1d1d1
+    transition: background-color .3s ease
+    & > *
+      vertical-align: middle
+    &:hover, &:focus
+      background-color: #f3f3f3
+.nav-catalog
+  display: flex
+  margin-bottom: -3px
+  &__item
+    margin-right: 20px
+    padding: 20px 0
+    border-bottom: 3px solid transparent
+    transition: border-color .3s ease
+    & > *
+      vertical-align: middle
+    span
+      font-weight: 900
+      font-size: 16px
+      width: 117px
+      display: inline-block
+    & > i
+      transition: transform .3s ease
+    &:hover, &.active
+      cursor: pointer
+      border-color: #fcd82f
+      z-index: 6
+    &.active
+      & > i
+        transform: rotate(-180deg)
+.nav-pages
+  display: flex
+  margin-right: 30px
+  &__item
+    padding: 20px
+    text-decoration: none
+    color: #272727
+    font-size: 13px
+    line-height: 18px
+    position: relative
+    cursor: pointer
+    transition: background-color .3s ease
+    & > *
+      vertical-align: middle
+    i
+      transition: transform .3s ease
+    &:hover, &:focus
+      background-color: #f3f3f3
+    &.active
+      .nav-pages__dropdown
+        max-height: 500px
+        padding-top: 40px
+        padding-bottom: 40px
+      i
+        transform: rotate(180deg)
+  &__dropdown
+    width: 260px
+    background-color: #ffffff
+    box-shadow: 0px 10px 24px 0px rgba(0, 0, 2, 0.09)
+    position: absolute
+    padding: 0 40px
+    list-style: none
+    max-height: 0
+    overflow: hidden
+    z-index: 1
+    top: 59px
+    left: 0
+    margin: 0
+    transition: max-height .3s ease, padding .3s ease
+    a
+      font-size: 14px
+      line-height: 24px
+      color: #272727
+      text-decoration: none
+      transition: font-weight .3s ease, color .3s ease
+      &:hover, &:focus
+        font-weight: 700
+        color: #00ad5d
+    & > li > button, & > .mobile-sidebar__title
+      +hidden-lg(up)
+
+
+.breadcrumbs
+  background-color: #f3f3f3
+  .container
+    +align(start, center)
+  &__item
+    text-decoration: none
+    color: #272727
+    padding: 10px 20px
+    font-size: 14px
+    position: relative
+    &:not(:last-child)
+      &:after
+        content: ""
+        display: block
+        position: absolute
+        width: 1px
+        height: 14px
+        background-color: #272727
+        right: 0
+        top: 12px
+    &_current
+      color: #b0b0b0
+
+// Dropdown catalog
+.catalog-dropdown
+  box-shadow: 0px 10px 24px 0px rgba(0, 0, 2, 0.09)
+  background-color: #ffffff
+  border-top: 1px solid #EBEBEB
+  position: absolute
+  left: 0
+  width: 100%
+  z-index: 5
+  &__item
+    overflow: hidden
+    top: 0
+    opacity: 0
+    height: 0
+    width: 100%
+    display: flex
+    +align(between)
+    transform: scale(0.95)
+    transition: opacity .3s ease, transform .6s ease
+    &.active
+      transform: scale(1)
+      height: 380px
+      opacity: 1
+  &__categories
+    padding-top: 40px
+    width: calc(100% - 578px)
+  &__title
+    font-size: 12px
+    text-transform: uppercase
+    font-weight: 900
+    margin-bottom: 30px
+  &__column
+    +col-lg(8)
+    +col-xl(6)
+  .star
+    margin-top: 30px
+    span
+      margin-left: 10px
+
+// Dropdown look
+.look-dropdown
+  +media-lg()
+    width: 470px
+  +media-xl(up)
+    width: 578px
+  height: 380px
+  display: flex
+  &__text
+    background-color: #fcd82f
+    width: 249px
+    position: relative
+    padding: 14px
+    &:before
+      content: ""
+      display: block
+      position: absolute
+      border: 1px solid #fcc52f
+      top: 14px
+      left: 14px
+      width: calc(100% - 28px)
+      height: calc(100% - 28px)
+  &__header
+    font-size: 32px
+    font-weight: 900
+    text-transform: uppercase
+    color: #ffffff
+    display: flex
+    margin: 25px 0 10px 13px
+    position: relative
+    z-index: 1
+    & > *
+      vertical-align: top
+  &__body
+    font-size: 14px
+    color: #d17109
+    margin: 0 30px
+    position: relative
+    z-index: 1
+    span
+      display: inline-block
+      margin-bottom: 40px
+  &__image
+    background-size: cover
+

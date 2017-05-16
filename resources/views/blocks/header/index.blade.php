@@ -1,0 +1,96 @@
+<header>
+    <div class="line line_lg"></div>
+    <div class="line"></div>
+    <div class="container">
+        <div class="header">
+            <!-- Schedule -->
+            <div class="header__time">с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</div>
+
+            <!-- Hamburger -->
+            <div class="header__hamburger">
+                <div class="hamburger js-toggle-sidebar" data-target=".js-nav-visible">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Site logo -->
+            <a class="header__logo" href="/"><img src="/img/header__logo-min.png" alt="fit2u"/></a>
+            <div class="header__city">
+                <i class="sprite_main sprite_main-header__city_point"></i>
+                <span>г. Екатеринбург</span>
+                <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+            </div>
+
+            <!-- Search Start -->
+            <form class="header__search" method="POST" action="{{ route('search') }}">
+                {{ csrf_field() }}
+                <button class="icon-fade">
+                    <i class="sprite_main sprite_main-header__search_active normal"></i>
+                    <i class="sprite_main sprite_main-header__search active"></i>
+                </button>
+                <input type="search" name="text" placeholder="Поиск по товарам..."/>
+            </form>
+            <!-- Search End -->
+
+            {{-- Phones --}}
+            <div class="header__phones"><i class="sprite_main sprite_main-header__phones_whatsapp"></i><i class="sprite_main sprite_main-header__phones_viber"></i>
+                <div class="header__item">{!! $global_settings['phone_number']->value['free'] !!}<br/><span>Бесплатно по России</span>
+                </div>
+                <div class="header__item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
+                </div>
+            </div>
+
+
+            <div class="header__basket">
+                {{-- WishList--}}
+                <a href="{{ route('bookmarks') }}">
+                    <span class="icon-fade header-wishlist">
+                        <i class="sprite_main sprite_main-header__basket_wishlist normal"></i>
+                        <i class="sprite_main sprite_main-header__basket_wishlist_active active"></i>
+                    </span>
+                </a>
+
+                {{-- Seen products --}}
+                <a href="{{ route('views') }}">
+                    <span class="icon-fade seen">
+                        <i class="sprite_main sprite_main-header__basket_seen normal"></i>
+                        <i class="sprite_main sprite_main-header__basket_seen_active active"></i>
+                    </span>
+                </a>
+
+                {{-- Basket--}}
+                <a href="{{ route('cart') }}">
+                    <div class="count">
+                        <span class="js-cart-quantity">{{ count(session()->get('products.cart')) }}</span>
+                    </div>
+                    <span class="icon-fade basket">
+                        <i class="sprite_main sprite_main-header__basket normal"></i>
+                        <i class="sprite_main sprite_main-header__basket_active active"></i>
+                    </span>
+                </a>
+
+            </div>
+            <div class="header__navigation">
+                <div class="nav-catalog">
+                    <div class="nav-catalog__item js-toggle-active-target js-women js-catalog" data-target=".js-women" data-reset=".js-men"><span>ДЛЯ ЖЕНЩИН</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                    </div>
+                    <div class="nav-catalog__item js-toggle-active-target js-men js-catalog" data-target=".js-men" data-reset=".js-women"><span>ДЛЯ МУЖЧИН</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                    </div>
+                </div>
+
+                {{-- Pages navigation --}}
+                @widget('PageNavigation')
+
+            </div>
+            <!-- Site login-->
+            <a class="header__enter" href="#">
+                <i class="sprite_main sprite_main-header__enter"></i>
+                <span>Войти / Вступить</span>
+            </a>
+        </div>
+    </div>
+
+    @widget('CatalogWidget')
+</header>

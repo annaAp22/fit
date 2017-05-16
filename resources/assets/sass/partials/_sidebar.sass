@@ -1,0 +1,466 @@
+.sidebar
+  width: 240px
+  margin-right: 48px
+  //background-color: rgba(100, 149, 237, 0.1)
+  padding: 40px 0
+  +hidden-md(down)
+
+// Catalog menu
+.sidebar-catalog
+  margin-bottom: 30px
+  ul
+    list-style: none
+  &__title
+    font-size: 18px
+    font-weight: 900
+    margin-bottom: 30px
+    text-transform: uppercase
+  &__level-1
+    padding-left: 0
+    & > li
+      padding: 5px 0
+      & > a
+        text-transform: uppercase
+        font-size: 14px
+        font-weight: 900
+        text-decoration: none
+        color: #272727
+        & > *
+          vertical-align: middle
+        & > i
+          transition: transform .3s ease
+      &.active
+        & > a
+          & > i
+            transform: rotate(-180deg)
+  .list-item
+    &__level-2
+      padding: 0
+      max-height: 0
+      overflow: hidden
+      opacity: 0
+      transition: padding .3s ease, max-height .3s ease
+      & > li
+        position: relative
+        & > i
+          position: absolute
+          top: 8px
+          left: -30px
+        & > a
+          text-decoration: none
+          color: #6d6d6d
+          display: inline-block
+          padding: 5px 0
+          &:hover, &.active
+            color: #00ad5d
+    &.active
+      .list-item__level-2
+        padding: 30px 0 20px 30px
+        max-height: 500px
+        opacity: 1
+        transition: opacity .3s ease .3s, padding-left .3s ease .3s, max-height .3s ease, padding-top .3s ease, padding-bottom .3s ease
+
+// Filters
+.sidebar-filter
+  padding: 28px 18px 0
+  border: 1px solid #ebebeb
+  margin-bottom: 40px
+  &__title
+    font-size: 16px
+    font-weight: 900
+    text-transform: uppercase
+    margin-bottom: 30px
+  &__subtitle
+    font-size: 16px
+    font-weight: 700
+    padding-bottom: 20px
+    &.collapsed
+      display: flex
+      justify-content: space-between
+      align-items: center
+      cursor: pointer
+      border-bottom: 1px solid #EBEBEB
+      i
+        transition: transform .3s ease
+      & + div
+        opacity: 0
+        max-height: 0
+        padding-bottom: 0
+        transition: max-height .3s, padding-bottom .3s ease
+      &.active
+        border-bottom: none
+        i
+          transform: rotate(180deg)
+        & + div
+          opacity: 1
+          max-height: 500px
+          padding-bottom: 10px
+          transition: max-height .3s ease, padding-bottom .3s ease, opacity .3s ease .1s
+  &__annotation
+    font-size: 13px
+    color: #b5b5b5
+    margin-bottom: 20px
+  &__item
+    margin-bottom: 20px
+    border-bottom: 1px solid #ebebeb
+  // Filter submit buttons
+  button
+    margin-bottom: 20px
+  // show hidden filters
+  &__hidden
+    opacity: 0
+    max-height: 0
+    overflow: hidden
+    transition: max-height .6s ease
+  &.active
+    .sidebar-filter__hidden
+      opacity: 1
+      max-height: 500px
+      transition: max-height .6s ease, opacity .3s ease .1s
+
+// Range slider filter
+.range-slider
+  padding-bottom: 20px
+  &__slider
+    margin: 15px 0 30px
+  &__label
+    display: flex
+    justify-content: space-between
+    font-size: 12px
+    color: #b5b5b5
+    &.text > span:last-child
+      padding-right: 70px
+  .input
+    display: flex
+    justify-content: space-between
+    margin-top: 10px
+    position: relative
+    &:before, &:after
+      content: attr(data-currency)
+      position: absolute
+      top: 8px
+      z-index: 1
+    &:before
+      left: 65px
+    &:after
+      right: 10px
+    &__text
+      width: 86px
+      border: 1px solid #ebebeb
+      background-color: #f6f6f6
+      padding: 7px 25px 7px 10px
+      outline: none
+      transition: border-color .3s ease
+      position: relative
+      text-align: right
+      &:focus
+        border-color: #00ad5d
+// Square check filters
+.square-filter
+  display: flex
+  flex-wrap: wrap
+  margin-left: -7px
+  margin-right: -7px
+  padding-bottom: 13px
+.size-filter
+  position: relative
+  &__size
+    width: 30px
+    height: 30px
+    border: 1px solid #ebebeb
+    line-height: 30px
+    text-align: center
+    margin: 0 7px 14px 7px
+    cursor: pointer
+    transition: border-color .3s ease, transform .3s ease
+    span
+      cursor: pointer
+      transition: transform .3s ease
+      display: inline-block
+      font-weight: 700
+    &.active
+      transform: rotateY(180deg)
+      border-color: #fcd82f
+      span
+        transform: rotateY(-180deg)
+.color-filter
+  &__color
+    width: 30px
+    height: 30px
+    margin: 0 7px 14px 7px
+    cursor: pointer
+    line-height: 28px
+    text-align: center
+    i
+      vertical-align: middle
+      transform: scale(0)
+      opacity: 0
+      transition: transform .3s ease, opacity .3s ease
+    &_white
+      border: 1px solid #ebebeb
+      line-height: 26px
+    &.active
+      i
+        transform: scale(1)
+        opacity: 1
+.switch-additional-filters
+  text-align: center
+  padding: 15px 0
+  margin: 0 -18px
+  border-top: 1px solid #ebebeb
+  cursor: pointer
+  transition: background-color .3s ease, transform .3s ease
+  &:hover, &:focus
+    background-color: #f8f8f8
+  & > *
+    vertical-align: middle
+  i
+    transition: transform .3s ease
+  span
+    font-size: 12px
+    color: #575757
+    margin: 0 10px
+    &:nth-child(3)
+      display: none
+  &.active
+    transform: rotateX(180deg)
+    border-top: none
+    border-bottom: 1px solid #ebebeb
+    span
+      transform: rotateX(-180deg)
+      &:nth-child(2)
+        display: none
+      &:nth-child(3)
+        display: inline-block
+// Checkbox filter
+.checkbox-filter
+  padding-bottom: 10px
+  label
+    display: flex
+    align-items: center
+    margin-bottom: 15px
+    font-size: 14px
+  input
+    display: none
+    &:checked + .checkbox-filter__checkbox
+      border: 2px solid #fcd82f
+      line-height: 19px
+      &:after
+        width: 0
+  &__checkbox
+    width: 22px
+    height: 22px
+    border: 1px solid #EBEBEB
+    text-align: center
+    cursor: pointer
+    display: inline-block
+    margin-right: 20px
+    line-height: 21px
+    transition: border-color .3s ease
+    position: relative
+    &:after
+      content: ""
+      position: absolute
+      display: block
+      width: 100%
+      height: 100%
+      background-color: #fff
+      top: 0
+      right: 0
+      transition: width .3s ease-in-out
+
+// Sidebar tags block
+.sidebar-tags
+  padding: 28px 18px 0 40px
+  border: 1px solid #ebebeb
+  margin-bottom: 40px
+  background-color: #f6f6f6
+  &__title
+    color: #3f3f3f
+    font-size: 18px
+    margin-bottom: 30px
+  &__tags
+    margin-bottom: 20px
+  &__tag
+    font-size: 13px
+    color: #a4a4a4
+    transition: color .3s ease, text-decoration .3s ease
+    display: block
+    margin: 10px 0
+    text-decoration: none
+    &:hover
+      color: #00ad5d
+      text-decoration: underline
+  // show hidden tags
+  &__hidden
+    opacity: 0
+    max-height: 0
+    overflow: hidden
+    transition: max-height .6s ease
+  &.active
+    .sidebar-tags__hidden
+      opacity: 1
+      max-height: 500px
+      transition: max-height .6s ease, opacity .3s ease .1s
+
+
+.switch-more-tags
+  padding: 15px 0 15px 40px
+  margin: 0 -18px 0 -40px
+  border-top: 1px solid #ebebeb
+  cursor: pointer
+  transition: color .3s ease, transform .3s ease
+  &:hover, &:focus
+    span
+      color: #00ad5d
+  & > *
+    vertical-align: middle
+  i
+    transition: transform .3s ease
+  span
+    font-size: 13px
+    color: #575757
+    &:nth-child(2)
+      display: none
+  &.active
+    transform: rotateX(180deg)
+    border-top: none
+    border-bottom: 1px solid #ebebeb
+    span
+      transform: rotateX(-180deg)
+      &:nth-child(1)
+        display: none
+      &:nth-child(2)
+        display: inline-block
+
+// Sidebar banners
+body
+  +media-md(down)
+    overflow-x: hidden
+.sidebar-banners
+  &__banner
+    display: block
+    margin-bottom: 15px
+
+// Mobile sidebar
+#main
+  background-color: #ffffff
+  position: relative
+  z-index: 1
+  transition: transform .3s ease
+  box-shadow: 0 0 20px 0 rgba(0,0,0,.09)
+  &.active
+    +media-md(down)
+      transform: translateX(265px) translateZ(0)
+.mobile-sidebar
+  position: absolute
+  top: 0
+  left: 0
+  width: 260px
+  visibility: hidden
+  padding: 50px 20px 50px 20px
+  transition: visibility 0s ease .3s
+  .btn_more
+    color: #515151
+    margin-bottom: 40px
+    & > span
+      margin-left: 10px
+    & > i
+      transform: rotate(-90deg)
+  &.active
+    visibility: visible
+    transition: visibility 0s ease
+  &__title
+    text-transform: uppercase
+    font-size: 24px
+    font-weight: 900
+    line-height: 36px
+    color: #272727
+    margin-bottom: 20px
+  &__catalog
+    list-style: none
+    padding: 0
+  &__catalog-item
+    font-size: 16px
+    font-weight: 900
+    text-transform: uppercase
+    padding: 20px
+    margin: 0 -20px
+    display: flex
+    +align(between, center)
+    cursor: pointer
+    transition: background-color .3s ease
+    &:hover, &:focus
+      background-color: #f3f3f3
+    & > i
+      transform: rotate(-90deg)
+    & > a
+      text-decoration: none
+      color: #272727
+    &.active
+      & > div
+        transform: translateX(0) translateZ(0)
+  &__level-2
+    padding: 50px 10px 50px 20px
+    width: 260px
+    position: absolute
+    top: 0
+    left: 0
+    transform: translateX(-260px) translateZ(0)
+    background-color: #ffffff
+    transition: transform .3s ease
+    cursor: auto
+    z-index: 1
+    & > .catalog-dropdown__categories
+      flex-direction: column
+      width: 100%
+      padding: 0
+
+    .catalog-dropdown__title
+      font-size: 18px
+    .catalog-dropdown__column
+      margin-bottom: 30px
+      a
+        font-size: 16px
+        line-height: 36px
+        font-weight: 500
+        text-transform: none
+        padding: 10px 0
+        display: block
+        &:hover, &:focus
+          font-weight: 700
+  & > .nav-pages
+    flex-direction: column
+    margin-right: 0
+    margin-bottom: 50px
+    .nav-pages__item
+      position: static
+      display: flex
+      +align(between, center)
+      margin: 0 -20px
+      font-size: 16px
+      & > i
+        transform: rotate(-90deg)
+      &.active
+        .nav-pages__dropdown
+          transform: translateX(0) translateZ(0)
+    .nav-pages__dropdown
+      cursor: auto
+      box-shadow: none
+      top: 0
+      padding: 50px 10px 50px 20px
+      width: 260px
+      min-height: 1000px
+      z-index: 1
+      transition: transform .3s ease
+      transform: translateX(-260px) translateZ(0)
+      & > li > a
+        font-size: 16px
+        line-height: 36px
+        padding: 10px 0
+  .sidebar-filter
+    border: none
+    padding-left: 0
+    padding-right: 0
+    & > .sidebar-filter__title
+      font-size: 18px

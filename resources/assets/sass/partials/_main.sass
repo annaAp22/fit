@@ -1,0 +1,605 @@
+// Main slider
+.main-slider
+  position: relative
+  +hidden-xs()
+  &__wrap
+    margin: 0 auto
+    max-width: 1920px
+    overflow: hidden
+  &__track
+    display: flex
+    &:not(.js-dragged)
+      transition: transform .3s ease
+  &__banner
+    max-width: 100%
+    display: block
+    &_md-up
+      +hidden-sm(down)
+    &_sm
+      +hidden-md(up)
+  & > .btn
+    position: absolute
+    z-index: 1
+    top: 50%
+    width: 68px
+    height: 68px
+    padding: 0
+    transform: translateY(-50%)
+    &.left
+      left: 5%
+    &.right
+      right: 5%
+      transform: translateY(-50%) rotate(180deg)
+
+// Carousel pagination
+.carousel-pagination
+  position: absolute
+  bottom: 5%
+  width: 100%
+  text-align: center
+  &__page
+    vertical-align: middle
+    display: inline-block
+    width: 13px
+    height: 13px
+    border: 2px solid #ffffff
+    border-radius: 50%
+    margin: 5px 9px
+    cursor: pointer
+    transition: background-color .2s ease, margin .2s ease, width .2s ease, height .2s ease
+    &.active
+      width: 23px
+      height: 23px
+      margin: 0 4px
+      border-width: 7px
+      background-color: #00ad5d
+
+// Colored background
+.colored-bg
+  &_f3f3f3
+    background-color: #f3f3f3
+  &_mt
+    +media-md(down)
+      margin-top: 12px
+    +media-lg(up)
+      margin-top: 48px
+
+// Main benefits
+.main-benefits
+  padding: 0 12px
+.main-benefits-banner
+  +col-lg(8,no)
+  color: #ffffff
+  position: relative
+  display: block
+  text-decoration: none
+  &:nth-child(2)
+    +media-sm(down)
+      +col(24,no)
+    +media-md()
+      +col(15,no)
+      flex-grow: 1
+  &:nth-child(3)
+    +media-md(down)
+      +col(24,no)
+  &_light-gray
+    background-color: #c4c4c4
+  &_dark-gray
+    background-color: #737373
+  &__link
+    text-decoration: none
+    color: #000000
+  &__image
+    display: block
+    max-width: 100%
+    max-height: 100%
+    position: absolute
+    bottom: 0
+    right: 0
+  &__caption
+    +media-lg(up)
+      padding: 40px
+    +media-md(down)
+      padding: 30px
+    display: block
+    z-index: 1
+    position: relative
+    & > *
+      display: block
+    & > .btn
+      margin-top: 40px
+  &__text
+    margin-top: 20px
+    font-size: 16px
+    max-width: 70%
+  &__title
+    font-weight: 900
+    font-size: 47px
+// Sale green block
+.main-benefits-banner-green
+  +media-sm(down)
+    +col(24,no)
+    order: 1
+  +media-lg(up)
+    +col(8,no)
+    padding: 40px
+  +media-md()
+    +col(9,no)
+  +media-md(down)
+    padding: 30px
+  background-color: #00ad5d
+  color: #ffffff
+  text-decoration: none
+  min-width: 240px
+  flex-grow: 1
+  &__title
+    font-size: 36px
+    font-weight: 700
+    display: block
+    &:after
+      margin-top: 10px
+      content: ""
+      display: block
+      width: 50px
+      height: 5px
+      background-color: #ffffff
+  &__text
+    +media-xl()
+      margin-top: 40px
+    +media-lg(down)
+      margin-top: 20px
+    display: block
+    text-align: center
+    span
+      vertical-align: top
+      &:first-child
+        font-weight: 300
+        font-size: 24px
+      &:last-child
+        +media-xl()
+          font-size: 100px
+        +media-lg(down)
+          font-size: 80px
+          line-height: 1
+        font-weight: 900
+  &__link
+    +media-xl()
+      margin-top: 40px
+    +media-lg(down)
+      margin-top: 20px
+    display: block
+    text-align: right
+    & > *
+      vertical-align: middle
+    & > i
+      margin-left: 10px
+// Main made from italian fiber
+.main-benefits-made-from
+  min-width: 100%
+  margin-top: 30px
+  display: flex
+  +media-md(down)
+    order: 2
+  &__col
+    +media-lg(up)
+      +col(10)
+    &:first-child
+      +offset-lg(right, 1)
+      +media-md()
+        +offset(right, 4)
+        +col(16)
+      +media-sm()
+        +offset(right, 2)
+        +col(20)
+      +media-xs()
+        +col(22)
+        +offset(right, 2)
+    &:last-child
+      +hidden-md(down)
+      +offset(right,2)
+      display: flex
+      flex-direction: column-reverse
+  &__image
+    display: block
+    max-width: 100%
+    +media-lg()
+      max-height: 529px
+    &_mt
+      +media-xs()
+        padding-right: 12px
+        margin-bottom: 20px
+      +media-sm(up)
+        margin: 20px auto
+      +media-lg()
+        margin: 30px 0
+      +media-xl()
+        margin: 40px 0
+  &__title
+    +media-lg(down)
+      font-size: 26px
+    +media-xl()
+      font-size: 32px
+    padding: 40px 0
+    font-weight: 900
+    color: #2a2a2a
+    background-color: #f3f3f3
+    +media-sm(down)
+      margin-left: - 40px
+    +media-md(up)
+      margin-left: -68px
+    +media-xl()
+      margin-left: -80px
+  &__border
+    +media-lg(up)
+      margin-top: 14px
+    border: 4px solid #5fcad4
+    padding: 14px
+    +media-sm(up)
+      display: flex
+      +align(start, center)
+  &__warranty
+    +media-xs()
+      margin-top: 20px
+    +media-lg(down)
+      padding: 20px 20px 30px
+    +media-xl()
+      padding: 40px 40px 50px
+      min-width: 210px
+    background-color: #ffffff
+    text-align: center
+
+  &__text
+    margin-top: 20px
+    &_des
+      +media-xs()
+        margin-right: 12px
+      +media-lg()
+        margin-top: 30px
+      +media-xl()
+        margin-top: 50px
+      color: #2a2a2a
+      font-size: 14px
+      line-height: 22px
+      font-weight: 300
+    &_green
+      font-size: 14px
+      font-weight: 900
+      color: #36b057
+    &_gray
+      font-size: 12px
+      color: #7d7d7d
+
+// Video and Quality
+.video-and-quality
+  padding: 0 12px
+  +media-md(down)
+    //+align(start, start)
+  & > *
+    max-height: 606px
+  & > .youtube-video
+    background-color: #f6c339
+    //+media-md(down)
+      //border-bottom: 20px solid #f7c339
+    +media-md()
+      +col(14,no)
+    +media-lg(up)
+      +col(16,no)
+  & > .main-quality
+    +media-md()
+      +col(10,no)
+    +media-lg(up)
+      +col(8,no)
+  .youtube-video__title
+    +media-lg(up)
+      max-width: 300px
+    +media-md(down)
+      background-color: rgba(255, 255, 255, 0.5)
+      //position: static
+      display: block
+      //max-width: none
+      //width: 100%
+      padding: 20px 40px
+  .youtube-video__image
+    width: 100%
+
+.main-quality
+  position: relative
+  display: block
+  text-decoration: none
+  background-color: #00ad5d
+  overflow: hidden
+  +hidden-sm(down)
+  &__image
+    max-width: 100%
+    min-width: 350px
+    +media-md(up)
+      width: 100%
+    display: block
+    position: absolute
+  &__caption
+    +media-md(down)
+      padding: 40px 30px 30px 40px
+    +media-lg()
+      padding: 80px 50px 0 80px
+    +media-xl()
+      padding: 140px 50px 140px 90px
+    position: relative
+    z-index: 1
+    color: #ffffff
+    display: block
+    & > *
+      display: block
+    & > .btn
+      margin-top: 40px
+  &__title
+    font-size: 48px
+    line-height: 1
+    font-weight: 900
+    border-left: 6px solid #f6c339
+    padding-left: 20px
+  &__text
+    +hidden-md(down)
+    margin-top: 40px
+    font-size: 14px
+    padding: 20px 20px 20px 26px
+    background-color: rgba(0, 0, 0, .5)
+
+// Main style and design
+.style-and-design
+  +media-md(down)
+    margin-top: 12px
+  +media-lg(up)
+    margin-top: 48px
+  +align(between)
+  &__col
+    &:first-child
+      +hidden-md(down)
+      +media-lg(up)
+        +col(9)
+    &:last-child
+      +media-md(down)
+        +col(24)
+      +media-lg(up)
+        +col(14)
+  &__image
+    max-width: 100%
+    display: block
+  &__border
+    +media-xs()
+      margin: 0
+    +media-md(down)
+      padding: 20px
+    border: 1px solid #f3f3f3
+    text-align: center
+    color: #303030
+    +media-md(up)
+      padding: 30px 20%
+    height: 100%
+    display: flex
+    flex-direction: column
+    +align(around, center)
+    & > .btn
+      +media-md(down)
+        margin-top: 20px
+      max-width: 200px
+  &__title
+    +media-sm(down)
+      font-size: 24px
+    +media-md(up)
+      font-size: 36px
+    font-weight: 900
+    text-transform: uppercase
+    display: flex
+    align-items: center
+    & > *
+      vertical-align: middle
+    & > i
+      min-width: 39px
+      &:first-child
+        transform: rotateY(180deg)
+    & > span
+      margin: 0 20px
+  &__text
+    max-width: 100%
+    +media-md(down)
+      margin-top: 20px
+    font-size: 16px
+    +media-md(up)
+      line-height: 24px
+
+// Main find size
+.main-find-size
+  +align(between)
+  &__col
+    &:first-child
+      +media-xs()
+        +col(24)
+      +media-sm()
+        +offset(right, 1)
+        +col(22,no)
+      +media-md()
+        +offset(right,2)
+        +col(20,no)
+      +media-lg(up)
+        +col(12)
+    &:last-child
+      +media-lg(up)
+        text-align: right
+        +col(12)
+      +hidden-md(down)
+  &__title
+    +media-xs()
+      margin-top: 30px
+    +media-sm(up)
+      margin-top: 100px
+    color: #42444e
+    display: flex
+    & > i
+      min-width: 47px
+      +media-xs()
+        margin-right: 20px
+      +media-sm(up)
+        margin-right: 40px
+    & > div > span
+      display: block
+      &:first-child
+        font-weight: 900
+        +media-md(down)
+          +media-sm(up)
+            font-size: 30px
+          +media-xs()
+            font-size: 24px
+        +media-lg(up)
+          font-size: 42px
+        text-transform: uppercase
+      &:last-child
+        margin-top: 30px
+        font-weight: 300
+        font-size: 16px
+  &__image
+    display: inline-block
+    height: 100%
+.main-find-size-white-block
+  +media-md(up)
+    margin-top: 90px
+    padding: 30px 30px 0 0
+  +media-sm(down)
+    margin-top: 30px
+    padding: 10px 10px 20px
+  background-color: #ffffff
+  display: flex
+  color: #42444e
+  &__image
+    max-width: 100%
+    width: 288px
+    min-width: 288px
+    max-height: 267px
+    display: block
+    margin-right: 24px
+    +hidden-sm(down)
+  &__title
+    margin-top: 20px
+    font-size: 24px
+    font-weight: 900
+  &__text
+    margin-top: 30px
+    font-size: 14px
+  &__caption
+    +media-sm(down)
+      margin: 0 auto
+      text-align: center
+    & > .btn
+      padding-left: 0
+      padding-right: 0
+      max-width: 300px
+
+// Main news
+.main-news
+  margin-top: 50px
+  min-width: 100%
+
+// Main recipes articles
+.main-recipes
+  min-width: 100%
+.recipe-articles
+  +media-md(down)
+    +grid-in()
+  +media-lg(up)
+    display: flex
+    flex-wrap: wrap
+    +align(between)
+    margin-top: -24px
+    margin-left: -24px
+    margin-right: -24px
+  &__article
+    position: relative
+    flex-grow: 1
+    +media-lg(up)
+      margin: 24px
+    +media-md(down)
+      margin-top: 12px
+      margin-bottom: 12px
+    overflow: hidden
+    +media-lg(up)
+      max-height: 358px
+    +media-md(down)
+      max-height: 300px
+    &:first-child
+      +media-lg(up)
+        width: calc(40% - 48px)
+      +media-md()
+        +col(16)
+      +media-sm(down)
+        +col(24)
+    &:nth-child(2)
+      +media-lg(up)
+        width: calc(30% - 48px)
+      +media-md()
+        +col(8)
+      +media-sm()
+        +col(12)
+      +media-xs()
+        +col(24)
+    &:nth-child(3)
+      +media-lg(up)
+        width: calc(30% - 48px)
+      +media-md()
+        +col(8)
+      +media-sm()
+        +col(12)
+      +media-xs()
+        +col(24)
+    &:nth-child(4)
+      +media-lg(up)
+        width: calc(40% - 48px)
+      +media-md()
+        +col(16)
+      +media-sm(down)
+        +col(24)
+    &:last-child
+      +media-lg(up)
+        width: calc(60% - 48px)
+      +media-md(down)
+        +col(24)
+
+
+.recipe-article-preview
+  position: relative
+  color: #ffffff
+  text-shadow: 1px 1px rgba(0,0,0,.3)
+  &__image
+    & > img
+      min-width: 100%
+      display: block
+      transition: transform 1s .1s
+    &:after
+      content: ""
+      display: block
+      position: absolute
+      bottom: 0
+      left: 0
+      background-color: rgba(0, 0, 0, 0.3)
+      width: 0
+      height: 0
+      border-radius: 50%
+      opacity: 0
+      transform: scale(.2)
+      transition: transform .6s .1s, opacity .6s .1s, width .6s .1s, height .6s .1s
+    &:hover, &:focus, &:active
+      & > img
+        transform: rotate(-2deg) scale(1.05)
+      &:after
+        width: 100%
+        height: 100%
+        opacity: 1
+        transform: scale(2)
+  &__caption
+    position: absolute
+    bottom: 20px
+    left: 20px
+  &__title
+    font-size: 24px
+    font-weight: 900
+  &__preview-text
+    margin-top: 20px
+    font-size: 16px

@@ -1,0 +1,112 @@
+footer
+  background-color: #292929
+  padding: 60px 0 50px
+  position: relative
+  +media-md(down)
+    padding-top: 40px
+  .line
+    +hidden-sm(down)
+    border-top: 1px solid #474747
+    position: absolute
+    bottom: 164px
+    width: 100%
+    left: 0
+.footer
+  width: 100%
+  &__info
+    padding-top: 50px
+    font-size: 14px
+    color: #afafaf
+    text-align: center
+.navigation-footer
+  +grid-in()
+  +align(between)
+  margin-bottom: 40px
+  ul
+    padding: 0
+  a
+    color: #ffffff
+    text-decoration: none
+    font-size: 14px
+    line-height: 30px
+    transition: color .3s ease
+    &:hover, &:focus
+      color: #f6c339
+  &__column
+    +col(24)
+    +col-lg(4)
+    &:last-child
+      +media-sm(down)
+        text-align: center
+      +media-md()
+        display: flex
+        +align(between)
+      +media-lg()
+        +col(5)
+
+    +media-md(down)
+      &_dropdown
+        border-bottom: 1px solid #474747
+        & > ul
+          overflow: hidden
+          max-height: 0
+          margin: 0
+          transition: max-height .3s ease, margin .3s ease
+          & > li > a
+            display: block
+            height: 100%
+        .navigation-footer__title
+          display: flex
+          +align(between, center)
+          cursor: pointer
+  &__title
+    font-size: 18px
+    font-weight: 900
+    color: #ffffff
+    text-transform: uppercase
+    +media-md(down)
+      margin: 0
+      padding: 20px 0
+    +media-lg(up)
+      margin-top: 0
+      margin-bottom: 30px
+    &_mt
+      margin-top: 50px
+    i
+      +hidden-lg(up)
+      transition: transform .3s ease
+    &.active
+      i
+        transform: rotate(180deg)
+      & + ul
+        max-height: 400px
+        margin: 16px 0
+  &__phone
+    +media-sm(down)
+      text-align: center
+      & > div
+        display: inline-block
+      & > *
+        vertical-align: top
+    +media-md(up)
+      display: flex
+    margin-bottom: 20px
+
+    a
+      font-size: 18px
+      font-weight: 700
+      line-height: .8
+    span
+      color: #ffffff
+      font-size: 14px
+      font-weight: 300
+  &__social
+    a:not(:first-child)
+      margin-left: 35px
+
+// Footer map
+.map
+  height: 400px
+  width: 100%
+  +hidden-sm(down)
+  background: url(/img/footer-map-min.jpg) no-repeat top center

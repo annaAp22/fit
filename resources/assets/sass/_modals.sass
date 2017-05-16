@@ -1,0 +1,134 @@
+// Product add to cart
+#cart-modal
+  width: 825px 
+
+
+.cart-modal_top 
+  padding: 40px 30px 20px 30px
+  overflow: hidden
+  border-bottom: 1px solid #eaeaea
+  display: flex
+  +align(between, center)
+  flex-wrap: wrap
+
+.cart-modal_top_img 
+  margin: 0 30px 0 0
+  width: 160px
+  height: 160px
+  border: 1px solid #f2f2f2
+  text-align: center 
+
+.cart-modal_top_img
+  position: relative
+  img 
+    +image-center()
+
+
+.cart-modal_top_name 
+  width: 150px
+  margin-right: 50px
+  a
+    outline: none
+    text-decoration: none
+    font-size: 14px
+    display: block
+    color: #000
+    margin-bottom: 15px 
+  div 
+    font-size: 14px
+    span 
+      font-weight: 300
+      color: #a6a6a6
+
+.cart-modal_top_price 
+  text-align: right
+  width: 190px
+  span.price
+    color: #000000
+    font-size: 18px
+    font-weight: bold 
+  span 
+    color: #000
+    font-size: 16px
+    font-weight: normal  
+
+.cart-modal_bottom 
+  padding: 30px 0
+  display: flex
+  +align(around)
+  .btn
+    width: 100%
+    +media-md(up)
+      max-width: 300px
+
+
+.form-modal_title 
+  font-weight: 900
+  text-transform: uppercase
+  margin-bottom: 20px
+  font-size: 18px
+  min-width: 100%
+
+.form-modal 
+  label
+    color: #9f9f9f
+    display: block
+    font-weight: 500
+    font-size: 16px
+    & > span
+      color: red
+  input[type=submit]
+    margin-top: 10px
+    padding: 0 60px  
+
+
+.form-modal_line 
+  margin-bottom: 18px
+
+// Quick order
+#quick-order
+  form
+    display: flex
+    +align(start,center)
+  .form-modal
+    padding: 45px 55px
+    width: 460px
+    border-right: 1px solid #e8e8e8
+    display: inline-block
+    &_line > button
+      min-width: 100%
+
+
+.quick-order_col
+  width: 340px
+  padding: 45px 35px
+  overflow: hidden
+  display: flex
+  flex-direction: column
+  +align(start, center)
+
+.quick-order_col_thumb
+  width: 140px
+  img
+    width: 100%
+
+.quick-order_col_data
+  margin-top: 20px
+  overflow: hidden
+  width: 140px
+  a
+    text-align: center
+    text-decoration: none
+    font-size: 14px
+    display: block
+    color: #000
+  .quantity
+    margin: 20px auto 0
+
+.quick-order_col_price
+  margin-top: 20px
+  text-align: center
+  span.price
+    color: #000000
+    font-size: 18px
+    font-weight: 700

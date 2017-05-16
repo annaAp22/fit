@@ -1,0 +1,567 @@
+.content
+  +media-md(down)
+    width: 100%
+  +media-lg(up)
+    width: calc(100% - 240px - 48px)
+
+
+// Related articles header
+.related-header
+  +hidden-sm(down)
+  margin-bottom: 40px
+  +grid-in()
+  +align(end, center)
+  &_xs
+    +media-sm(down)
+      display: block
+      text-align: center
+      margin-bottom: 20px
+  &__title
+    +media-md(down)
+      font-size: 32px
+    +media-lg(up)
+      font-size: 36px
+    font-weight: 700
+    +media-sm(down)
+      +col(24)
+    +col-md(10)
+    +offset-md(right, 6)
+    +offset-lg(8)
+    +col-lg(8)
+    text-align: center
+    span
+      color: #00ad5d
+  &__listing-link
+    &.sm
+      text-align: center
+      margin: 20px
+      +hidden-md(up)
+    &:not(.sm)
+      +hidden-sm(down)
+    +media-sm(down)
+      +col(24)
+    +col-md(8)
+    font-size: 16px
+    font-weight: 700
+    color: #00ad5d
+    text-align: right
+    text-decoration: none
+    transition: color .3s ease
+    &:hover, &:focus
+      color: #076a3c
+
+// Related articles list
+.articles
+  +hidden-sm(down)
+  +grid-in()
+  +align(between)
+.article-preview
+  +col-md(6)
+  +col-lg(5)
+  text-align: center
+  display: flex
+  flex-direction: column
+  +align(between, center)
+  padding-bottom: 50px
+  &__image
+    margin-bottom: 20px
+    overflow: hidden
+    display: block
+    width: 100%
+    & > img
+      max-width: 100%
+      transition: transform .6s ease
+      +media-md(down)
+        width: 100%
+    &:hover, &:focus
+      & > img
+        transform: scale(1.05) rotate(2deg)
+  &__title
+    font-size: 18px
+    font-weight: 700
+    margin-bottom: 20px
+  &__preview-text
+    font-size: 13px
+    font-weight: 300
+    color: #909090
+    margin-bottom: 20px
+  & > .btn
+    margin-top: auto
+    text-transform: uppercase
+    font-size: 13px
+    border: 2px solid #c6c6c6
+    text-decoration: none
+    color: #171620
+    font-weight: 900
+    display: inline-block
+    padding: 10px 15px
+    +media-lg(up)
+      width: 50%
+    transition: border-color .3s ease
+    &:hover, &:focus
+      border-color: #909090
+
+// Subscription
+.subscription
+  display: flex
+  border-top: 50px solid #FFFFFF
+  background-color: #e8e8e8
+  padding-bottom: 60px
+  +media-lg(up)
+    padding-bottom: 30px
+  &__image
+    +media-md(down)
+      display: none
+    +col(8)
+    +offset(right,1)
+    & > img
+      position: relative
+      margin-top: -45px
+  &__form
+    +col(22)
+    +offset(right,1)
+    +col-lg(13)
+  &__header
+    +media-md(up)
+      display: flex
+    margin-top: 80px
+    margin-bottom: 30px
+    +media-sm(down)
+      text-align: center
+  &__percent-icon
+    padding: 20px
+    background-color: #fe7f39
+    color: #ffffff
+    font-size: 48px
+    +media-lg(up)
+      font-size: 76px
+    font-weight: 900
+    line-height: .8
+    +media-md(up)
+      margin-right: (48/804) * 100%
+    +media-sm(down)
+      display: inline-block
+      margin-bottom: 20px
+  &__title
+    +media-sm(down)
+      font-size: 25px
+    +media-md()
+      font-size: 30px
+    +media-lg(up)
+      font-size: 43px
+    font-weight: 900
+    color: #292929
+    text-transform: uppercase
+  &__text
+    +hidden-sm(down)
+    font-size: 16px
+    color: #646464
+    margin-bottom: 40px
+  &__input-group
+    display: flex
+    & > button
+      flex-grow: 1
+    +media-sm(down)
+      flex-wrap: wrap
+  &__input
+    position: relative
+    +media-sm(down)
+      width: 100%
+      padding: 14px
+      text-align: center
+      margin-bottom: 20px
+    +media-md(up)
+      flex-grow: 2
+      padding: 0 20px
+    border: 1px solid transparent
+    transition: border-color .3s ease
+    &:focus
+      border-color: #00ad5d
+
+// Listing header
+.header-listing
+  +col(24)
+  display: flex
+  +align(between, center)
+  h1
+    font-size: 22px
+    +media-md(up)
+      font-size: 32px
+    font-weight: 700
+    color: #272727
+    margin: 30px 0
+  span
+    font-size: 14px
+    color: #999898
+    margin-right: 20px
+    +hidden-sm(down)
+  i
+    font-size: 12px
+    color: #303030
+    text-align: center
+    line-height: 22px
+    font-weight: 700
+    font-style: normal
+    position: relative
+    top: -15px
+// Look banner
+.banner-look
+  +hidden-md(down)
+  +col(24)
+  margin-bottom: 24px
+  &__image
+    max-width: 100%
+    &_xl
+      +hidden-md(down)
+    &_md
+      +hidden-lg(up)
+
+// Filter show button
+.btn_filter
+  +hidden-lg(up)
+  +col(24)
+  margin-bottom: 25px
+
+// Sorting
+.goods-sorting
+  +media-sm(down)
+    flex-wrap: wrap
+  +col(24)
+  +col-lg(12)
+  +col-md(14)
+  display: flex
+  +align(start, center)
+  & > *
+    vertical-align: middle
+  & > span
+    font-size: 14px
+    font-weight: 700
+    color: #303030
+    margin-left: 10px
+    margin-right: 20px
+.sorting-select
+  width: 198px
+  padding: 8px 18px
+  border: 1px solid #B0C0CE
+  font-size: 14px
+  position: relative
+  cursor: pointer
+  +media-sm(down)
+    width: 100%
+    margin: 20px 0
+    padding: 11px 18px
+  i
+    position: absolute
+    right: 10px
+    top: calc(50% - 3px)
+    transition: transform .3s ease
+  &__dropdown
+    width: 100%
+    overflow: hidden
+    max-height: 0
+    position: absolute
+    top: 34px
+    left: 0
+    background-color: #ffffff
+    z-index: 1
+    box-shadow: 0px 10px 24px 0px rgba(0, 0, 2, 0.09)
+    transition: max-height .3s ease, padding .3s ease
+  &__option
+    padding: 10px 10px 10px 30px
+    transition: background-color .3s ease
+    &:not(:last-child)
+      border-bottom: 1px solid #ebebeb
+    &:hover, &:focus
+      background-color: #f7f7f7
+  &.active
+    .sorting-select__dropdown
+      max-height: 240px
+    i
+      transform: rotate(180deg)
+
+// Goods change view
+.goods-view
+  +col(12)
+  display: flex
+  +align(end, center)
+  +hidden-md(down)
+  & > span
+    font-size: 14px
+    font-weight: 700
+    color: #303030
+    margin-right: 30px
+  & > .icon-fade
+    cursor: pointer
+    transition: transform 1s ease
+    &.active
+      transform: rotateY(180deg)
+    &:last-child
+      margin-left: 20px
+// Look link
+.btn_look
+  +hidden-sm(down)
+  +hidden-lg(up)
+  +col(8)
+  +offset(right, 2)
+
+// Goods listing
+.goods-listing
+  margin-top: 30px
+  width: 100%
+
+  +media-md(down)
+    +grid-in()
+    margin-left: 0
+    margin-right: 0
+    width: calc(100% + 24px)
+  +media-lg(up)
+    +grid()
+    &.active
+      .product
+        +col(12)
+        display: flex
+        &__image
+          width: 50%
+          height: auto
+        &__description
+          width: 50%
+          height: auto
+          padding-bottom: 0
+          border: 1px solid #EBEBEB
+          border-left: none
+        &__hidden
+          border: none
+          position: relative
+          top: 0
+          left: 0
+          opacity: 1
+          height: auto
+          width: 100%
+        &__wishlist
+          left: calc(50% - 57px)
+        &:hover, &:focus
+          .product__hidden
+            box-shadow: none
+          .product__description
+            border-left: none
+  & > .product
+    +col(12)
+    +col-md(8)
+    +col-xl(6)
+
+// Product tile
+.product
+  text-align: center
+  margin-bottom: 24px
+  background-color: #fff
+  position: relative
+  transition: box-shadow .3s ease
+  &__image
+    position: relative
+    border: 1px solid #ebebeb
+    height: 260px
+    +media-sm(up)
+      height: 342px
+    display: block
+    & > img
+      +image-center()
+  &__name
+    font-size: 14px
+    color: #272727
+    +media-sm(up)
+      padding: 0 10%
+    height: 60px
+    margin-bottom: 20px
+    display: block
+    text-decoration: none
+  &__price
+    position: relative
+    padding-bottom: 20px
+    z-index: 1
+    background-color: #ffffff
+    .current
+      color: #000000
+      font-size: 20px
+      font-weight: 700
+    .old-price
+      font-size: 13px
+      position: absolute
+      font-style: normal
+      line-height: 27px
+      margin-right: 10px
+      top: 24px
+      text-align: center
+      +media-lg(up)
+        top: -11px
+        left: 50%
+        margin-left: -133px
+      span
+        position: relative
+        &:after
+          content: ""
+          display: block
+          position: absolute
+          top: 8px
+          left: -2px
+          width: 100%
+          height: 1px
+          background-color: #f24841
+        
+  &__description
+    position: relative
+    height: 180px
+    +media-lg(up)
+      height: 145px
+      padding-bottom: 46px
+    padding-top: 25px
+    padding-bottom: 65px
+  &__hidden
+    +hidden-md(down)
+    position: absolute
+    top: 165px
+    +media-sm(up)
+      top: 148px
+    left: -1px
+    width: calc(100% + 2px)
+    opacity: 0
+    height: 0
+    background-color: #ffffff
+    border: 1px solid #EBEBEB
+    border-top: none
+    padding-bottom: 45px
+    transition: box-shadow .3s ease, opacity .3s ease
+  &__size
+    margin: 25px 9% 11px
+  &__buy
+    font-weight: 700
+    width: 70%
+    & > *
+      & > *
+        vertical-align: middle
+      & > i
+        margin-right: 10px
+    .done
+      display: none
+    &.active
+      .done
+        display: inline-block
+        text-decoration: none
+        color: #ffffff
+      .put
+        display: none
+  &:hover, &:focus
+    +media-md(up)
+      z-index: 2
+      box-shadow: 0px 0px 24px 0px rgba(0, 0, 2, 0.09)
+    +media-sm(down)
+      z-index: 3
+    .product__description
+      +media-md(up)
+        border-left: 1px solid #EBEBEB
+        border-right: 1px solid #EBEBEB
+    .product__hidden
+      opacity: 1
+      height: auto
+      box-shadow: 0px 0 24px 0px rgba(0, 0, 2, 0.09)
+
+// Ribbons
+.ribbons
+  position: absolute
+  top: 10px
+  left: 10px
+  &__ribbon
+    display: block
+    width: 51px
+    height: 51px
+    border-radius: 50%
+    line-height: 53px
+    font-size: 14px
+    font-weight: 900
+    text-transform: uppercase
+    color: #ffffff
+    text-align: center
+    margin-bottom: 10px
+    &_hit
+      background-color: #ff7b41
+    &_new
+      background-color: #36b057
+    &_sale
+      color: #000000
+      background-color: #fcd82f
+
+// WishList
+.wishlist
+  width: 47px
+  height: 47px
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 2, 0.09)
+  border-radius: 50%
+  position: absolute
+  top: 10px
+  right: 10px
+  cursor: pointer
+  background-color: #ffffff
+  transition: background-color .3s ease
+  .icon-fade
+    padding: 15px 10px 7px 11px
+    i:last-child
+      top: 15px
+      left: 11px
+  &:hover, &:focus
+    background-color: #F8F8F8
+  .sprite_main-product__wishlist_done
+    margin: 14px 12px
+  .done
+    display: none
+  &.active
+    .popup-notice__text:not(.done), .icon-fade
+      display: none
+    .done
+      display: inline-block
+
+// Product rating
+.product-rating
+  & > *
+    vertical-align: middle
+  &__count
+    font-size: 12px
+    color: #000000
+    font-weight: 700
+    line-height: 28px
+    margin-right: 10px
+    text-align: center
+  &__star
+    margin: 0 2px
+
+// Page navigation
+.page-navigation
+  z-index: 1
+  padding: 10px 0 100px
+  display: flex
+  width: 100%
+  flex-wrap: wrap
+  .btn_more
+    +media-md(up)
+      text-align: right
+    +col(24)
+    +col-md(9)
+    +offset-md(right, 7)
+    +col-lg(8)
+    +offset-lg(right, 8)
+    +col-xl(6)
+    +offset-xl(right, 9)
+  .btn_show-all
+    +col(24)
+    +media-sm(down)
+      margin-top: 20px
+    +media-md(up)
+      text-align: right
+    +col-md(8)
+    +col-lg(6)
+    +offset-lg(right, 2)
+
+// Full width content
+.content-full-width
+  min-width: 100%
+  margin-top: 30px
+  z-index: 1
+  background-color: #ffffff
