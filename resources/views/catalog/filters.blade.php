@@ -71,7 +71,7 @@
 
         <!-- All other filters -->
         @if($filtersCount > 3)
-            @foreach($filters->slice(3) as $filter)
+            @foreach($filters->whereNotIn('name',['Размеры', 'Основной цвет', 'Цвет вставок']) as $filter)
                 <div class="sidebar-filter__hidden">
                     <div class="sidebar-filter__subtitle collapsed js-toggle-active">{{ $filter->name }}:<i class="sprite_main sprite_main-icon__arrow_green_down"></i></div>
                     <div class="checkbox-filter sidebar-filter__item">
