@@ -125,9 +125,11 @@ class Category extends Model
             if(isset($product->relations['attributes']))
                 foreach($product->relations['attributes'] as $attr) {
                     if(in_array($attr->original['type'], ['checklist']))
-                        $attr->value = json_decode($attr->value);
+                        $attr->value = json_decode($attr->original['pivot_value']);
+                    else
+                        $attr->value = $attr->original['pivot_value'];
                     if(isset($filters[$attr->id])) {
-                        $filters[$attr->id]->values = $filters[$attr->id]->values->merge($attr->value)->sort();
+                        $filters[$attr->id]->values = $filters[$attr->id]->values->merge($attr->value)->unique()->sort();
                         continue;
                     }
 
