@@ -27,11 +27,11 @@
                     <div class="product-gallery__wrap">
                         <div class="product-gallery__track">
                             <div class="product-gallery__thumb active js-gallery-thumb">
-                                <img src="{{ $product->uploads->img->thumb->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                                <img src="{{ $product->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </div>
                             @foreach($product->photos as $i => $photo)
                                 <div class="product-gallery__thumb js-gallery-thumb">
-                                    <img src="{{ $photo->uploads->img->thumb->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                                    <img src="{{ $photo->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
                                 </div>
                             @endforeach
                         </div>

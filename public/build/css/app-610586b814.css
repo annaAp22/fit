@@ -4533,7 +4533,7 @@ footer .line {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   display: block;
-  max-width: 100%;
+  width: 100%;
 }
 
 .product-gallery__thumb.active,
