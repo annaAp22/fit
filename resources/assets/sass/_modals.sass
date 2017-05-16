@@ -10,13 +10,16 @@
   display: flex
   +align(between, center)
   flex-wrap: wrap
+  +media-xs(down)
+    text-align: center
 
 .cart-modal_top_img
-  margin: 0
+  +media-xs()
+    margin: 0 auto
   +media-sm()
-    margin-right: 5%
+    margin: 0 5% 0 0
   +media-md(up)
-    margin-right: 30px
+    margin: 0 30px 0 0
   //width: 160px
   //height: 160px
   border: 1px solid #f2f2f2

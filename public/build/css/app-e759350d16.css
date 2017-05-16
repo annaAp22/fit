@@ -7420,7 +7420,6 @@ li.fancybox-thumbs-loading {
 }
 
 .cart-modal_top_img {
-  margin: 0;
   border: 1px solid #f2f2f2;
   text-align: center;
 }
@@ -8348,7 +8347,7 @@ li.fancybox-thumbs-loading {
   }
 
   .cart-modal_top_img {
-    margin-right: 30px;
+    margin: 0 30px 0 0;
   }
 
   .cart-modal_top_name {
@@ -11370,6 +11369,14 @@ li.fancybox-thumbs-loading {
     display: block;
   }
 
+  .cart-modal_top {
+    text-align: center;
+  }
+
+  .cart-modal_top_img {
+    margin: 0 auto;
+  }
+
   .cart-modal_top_name {
     margin-top: 20px;
     width: 100%;
@@ -12116,7 +12123,7 @@ li.fancybox-thumbs-loading {
   }
 
   .cart-modal_top_img {
-    margin-right: 5%;
+    margin: 0 5% 0 0;
   }
 
   .cart-modal_top_name {
