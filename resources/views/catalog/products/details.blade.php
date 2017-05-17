@@ -26,12 +26,12 @@
                     </button>
                     <div class="product-gallery__wrap">
                         <div class="product-gallery__track">
-                            <div class="product-gallery__thumb active">
-                                <img src="{{ $product->uploads->img->preview->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                            <div class="product-gallery__thumb active js-gallery-thumb">
+                                <img src="{{ $product->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </div>
                             @foreach($product->photos as $i => $photo)
-                                <div class="product-gallery__thumb">
-                                    <img src="{{ $photo->uploads->img->preview->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                                <div class="product-gallery__thumb js-gallery-thumb">
+                                    <img src="{{ $photo->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
                                 </div>
                             @endforeach
                         </div>
@@ -40,8 +40,16 @@
                         <i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
                     </button>
                 </div>
-                <a class="product-gallery__image-wrap" href="#">
-                    <img class="product-gallery__image" src="{{ $product->uploads->img->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                <div class="product-gallery__image-wrap">
+                    <a class="product-gallery__image-link active js-gallery-big" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
+                        <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                    </a>
+
+                    @foreach($product->photos as $i => $photo)
+                        <a class="product-gallery__image-link js-gallery-big" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
+                            <img class="product-gallery__image" src="{{ $photo->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                        </a>
+                    @endforeach
 
                     @include('catalog.products.labels')
 
@@ -55,7 +63,7 @@
                             <span class="popup-notice__text done">Товар добавлен в закладки!</span>
                         </span>
                     </span>
-                </a>
+                </div>
             </div>
 
             <div class="product-detailed__details">
@@ -149,7 +157,7 @@
                                 <!-- Color-->
                                 @php
                                     $main_color = $product->attributes->where('name', 'Основной цвет')->first();
-                                    $sub_color = $product->attributes->where('name', 'Дополнительный цвет')->first();
+                                    $sub_color = $product->attributes->where('name', 'Цвет вставок')->first();
                                     $country_of_origin = $product->attributes->where('name', 'Страна производства')->first();
                                     // dd($main_color, $sub_color);
                                 @endphp

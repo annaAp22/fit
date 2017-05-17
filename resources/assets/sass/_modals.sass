@@ -1,6 +1,8 @@
 // Product add to cart
 #cart-modal
-  width: 825px 
+  +media-sm(down)
+    width: 90%
+  max-width: 825px
 
 
 .cart-modal_top 
@@ -10,23 +12,42 @@
   display: flex
   +align(between, center)
   flex-wrap: wrap
+  +media-xs(down)
+    text-align: center
 
-.cart-modal_top_img 
-  margin: 0 30px 0 0
-  width: 160px
-  height: 160px
+.cart-modal_top_img
+  +media-xs()
+    margin: 0 auto
+  +media-sm()
+    margin: 0 5% 0 0
+  +media-md(up)
+    margin: 0 30px 0 0
+  //width: 160px
+  //height: 160px
   border: 1px solid #f2f2f2
   text-align: center 
 
 .cart-modal_top_img
   position: relative
-  img 
-    +image-center()
+  img
+    display: block
+    max-width: 100%
+    //+image-center()
+.cart-modal_top_counter
+  +media-sm(down)
+    margin-top: 20px
+    width: 100%
+    text-align: center
 
-
-.cart-modal_top_name 
-  width: 150px
-  margin-right: 50px
+.cart-modal_top_name
+  +media-xs()
+    margin-top: 20px
+    width: 100%
+  +media-sm()
+    width: 70%
+  +media-md(up)
+    width: 150px
+    margin-right: 50px
   a
     outline: none
     text-decoration: none
@@ -40,9 +61,15 @@
       font-weight: 300
       color: #a6a6a6
 
-.cart-modal_top_price 
-  text-align: right
-  width: 190px
+.cart-modal_top_price
+  +media-sm(down)
+    font-size: 24px
+    margin-top: 20px
+    width: 100%
+    text-align: center
+  +media-md(up)
+    text-align: right
+    width: 190px
   span.price
     color: #000000
     font-size: 18px
@@ -53,13 +80,18 @@
     font-weight: normal  
 
 .cart-modal_bottom 
-  padding: 30px 0
+  padding: 30px 20px
   display: flex
   +align(around)
+  flex-wrap: wrap
   .btn
     width: 100%
     +media-md(up)
       max-width: 300px
+  & > button
+    +media-sm(down)
+      margin-top: 20px
+      order: 2
 
 
 .form-modal_title 
@@ -87,19 +119,29 @@
 
 // Quick order
 #quick-order
+  width: 90%
+  &.quick-order-cart
+    +media-md(up)
+      max-width: 460px
+
   form
     display: flex
     +align(start,center)
   .form-modal
-    padding: 45px 55px
-    width: 460px
-    border-right: 1px solid #e8e8e8
+    width: 100%
+    +media-sm(down)
+      padding: 45px 30px
+    +media-md(up)
+      padding: 45px 55px
+      max-width: 460px
+      border-right: 1px solid #e8e8e8
     display: inline-block
     &_line > button
       min-width: 100%
 
 
 .quick-order_col
+  +hidden-sm(down)
   width: 340px
   padding: 45px 35px
   overflow: hidden
@@ -116,6 +158,8 @@
   margin-top: 20px
   overflow: hidden
   width: 140px
+  display: flex
+  flex-direction: column
   a
     text-align: center
     text-decoration: none
@@ -132,3 +176,6 @@
     color: #000000
     font-size: 18px
     font-weight: 700
+
+#order-success
+  max-width: 90%

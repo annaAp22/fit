@@ -176,41 +176,112 @@ class CatalogController extends Controller
 
     /**
      * Страница акции - товары с ярлыком "Акция"
+     * @param $sysname - чпу родительской категории
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function actions() {
-        $products = Product::where('act', 1)->where('status', 1)->orderBy('name')->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    public function actions($sysname = null) {
+        if($sysname)
+        {
+            $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
+            $category_ids = $category->children_ids($category, collect([]));
+            $products = Product::with('attributes')
+                ->whereHas('categories',
+                    function($query) use($category_ids) {
+                        $query->whereIn('categories.id', $category_ids);
+                    })
+                ->where('act', 1)
+                ->published();
+        }
+        else
+        {
+            $products = Product::where('act', 1)->where('status', 1)->orderBy('name');
+        }
+
+        $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
         $products->min_price = Product::where('act', 1)->where('status', 1)->min('price');
         $products->max_price = Product::where('act', 1)->where('status', 1)->max('price');
 
-        $this->setMetaTags();
-        return view('catalog.catalog', ['products' => $products]);
+        $page = $this->setMetaTags();
+        if($page && isset($category))
+        {
+            $page->category = $category;
+            $page->sysname = $category->sysname;
+        }
+        return view('catalog.catalog', compact('products', 'page'));
     }
 
     /**
      * Страница новинки - товары с ярлыком "Новинка"
+     * @param $sysname - ЧПУ родительской категории
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function newProducts() {
-        $products = Product::where('new', 1)->where('status', 1)->orderBy('name')->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    public function newProducts($sysname = null) {
+        if($sysname)
+        {
+            $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
+            $category_ids = $category->children_ids($category, collect([]));
+            $products = Product::with('attributes')
+                ->whereHas('categories',
+                    function($query) use($category_ids) {
+                        $query->whereIn('categories.id', $category_ids);
+                    })
+                ->where('new', 1)
+                ->published();
+        }
+        else
+        {
+            $products = Product::where('new', 1)->where('status', 1)->orderBy('name');
+        }
+
+        $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+
+
         $products->min_price = Product::where('new', 1)->where('status', 1)->min('price');
         $products->max_price = Product::where('new', 1)->where('status', 1)->max('price');
 
-        $this->setMetaTags();
-        return view('catalog.catalog', ['products' => $products]);
+        $page = $this->setMetaTags();
+        if($page && isset($category))
+        {
+            $page->category = $category;
+            $page->sysname = $category->sysname;
+        }
+        return view('catalog.catalog', compact('products', 'page'));
     }
 
     /**
      * Страница выбор покупателей - товары с ярлыком "Хит"
+     * @param $sysname - ЧПУ родительской категории
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function hits() {
-        $products = Product::where('hit', 1)->where('status', 1)->orderBy('name')->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    public function hits($sysname = null) {
+        if($sysname)
+        {
+            $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
+            $category_ids = $category->children_ids($category, collect([]));
+            $products = Product::with('attributes')
+                ->whereHas('categories',
+                    function($query) use($category_ids) {
+                        $query->whereIn('categories.id', $category_ids);
+                    })
+                ->where('hit', 1)
+                ->published();
+        }
+        else
+        {
+            $products = Product::where('hit', 1)->where('status', 1)->orderBy('name');
+        }
+
+        $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
         $products->min_price = Product::where('hit', 1)->where('status', 1)->min('price');
         $products->max_price = Product::where('hit', 1)->where('status', 1)->max('price');
 
-        $this->setMetaTags();
-        return view('catalog.catalog', ['products' => $products]);
+        $page = $this->setMetaTags();
+        if($page && isset($category))
+        {
+            $page->category = $category;
+            $page->sysname = $category->sysname;
+        }
+        return view('catalog.catalog', compact('products', 'page'));
     }
 
     /**

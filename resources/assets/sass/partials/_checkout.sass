@@ -104,19 +104,21 @@
     display: flex
   &__image
     margin-right: 20px
-    width: 100% * 73/278
-    height: 90px
+    //width: 100% * 73/278
+    //height: 90px
     border: 1px solid #ebebeb
     position: relative
-    min-width: 90px
-    flex-basis: 90px
+    //min-width: 90px
+    //flex-basis: 90px
     & > img
-      +image-center()
+      display: block
+      min-width: 100%
+      //+image-center()
   &__name
     +media-md(down)
       font-size: 16px
     +media-lg(up)
-      font-size: 12px
+      font-size: 14px
     color: #272727
   &__art
     color: #a6a6a6

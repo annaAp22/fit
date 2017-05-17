@@ -276,6 +276,7 @@ class FrontApiController extends Controller
             'phone' => $request->input('phone'),
             'datetime' => date('Y-m-d H:i:s'),
             'status' => 'wait',
+            'email' => $request->input('email', 'no email'),
         ];
 
         if($is_multiple)

@@ -38,22 +38,22 @@ Route::group([
 
         // Товары
         Route::get('/product/{sysname}', ['as' => 'product', 'uses' => 'CatalogController@product'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
-        Route::get('/actions', ['as' => 'actions', 'uses' => 'CatalogController@actions']); // Sale category
-        Route::get('/new', ['as' => 'new', 'uses' => 'CatalogController@newproducts']);
-        Route::get('/hits', ['as' => 'hits', 'uses' => 'CatalogController@hits']);
+        Route::get('/actions/{sysname?}', ['as' => 'actions', 'uses' => 'CatalogController@actions']); // Sale category
+        Route::get('/new/{sysname?}', ['as' => 'new', 'uses' => 'CatalogController@newproducts']);
+        Route::get('/hits/{sysname?}', ['as' => 'hits', 'uses' => 'CatalogController@hits']);
 
         // Отзывы
         Route::get('/reviews', ['as' => 'reviews', 'uses' => 'MainController@reviews']);
 
         // Новости
-        Route::get('/news.html', ['as' => 'news', 'uses' => 'MainController@news']);
-        Route::get('/news/{sysname}.html', ['as' => 'news.record', 'uses' => 'MainController@newsSingle']);
+        Route::get('/news', ['as' => 'news', 'uses' => 'MainController@news']);
+        Route::get('/news/{sysname}', ['as' => 'news.record', 'uses' => 'MainController@newsSingle']);
     //});
 
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
     Route::get('/order.html', ['as' => 'order', 'uses' => 'OrderController@order']);
     Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
-    Route::get('/order/confirm.html', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
+//    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Каталог (совместимость со старым ЧПУ)
     Route::get('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);

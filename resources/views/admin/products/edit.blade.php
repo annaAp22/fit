@@ -118,20 +118,33 @@
                                             <ul class="ace-thumbnails clearfix">
                                                 <li>
                                                     <a href="{{ $image->url() }}"  data-rel="colorbox" class="cboxElement">
-                                                        <img  src="{{ $image->small->url() }}">
+                                                        <img  src="{{ $image->detail->url() }}">
                                                     </a>
                                                     <div class="tools">
                                                         <a href="{{ route('admin.image.crop', [
                                                             'img'         => $image->url(),
-                                                            'preview'     => $image->main->url(),
-                                                            'width'       => $image->main->width,
-                                                            'height'      => $image->main->height,
-                                                            'previews[0]' => $image->preview->url(),
-                                                            'widths[0]'   => $image->preview->width,
-                                                            'heights[0]'  => $image->preview->height,
-                                                            'previews[1]' => $image->small->url(),
-                                                            'widths[1]'   => $image->small->width,
-                                                            'heights[1]'  => $image->small->height ]) }}" title="Изменить">
+                                                            'preview'     => $image->big->url(),
+                                                            'width'       => $image->big->width,
+                                                            'height'      => $image->big->height,
+                                                            'previews[0]' => $image->detail->url(),
+                                                            'widths[0]'   => $image->detail->width,
+                                                            'heights[0]'  => $image->detail->height,
+                                                            'previews[1]' => $image->listing->url(),
+                                                            'widths[1]'   => $image->listing->width,
+                                                            'heights[1]'  => $image->listing->height,
+                                                            'previews[2]' => $image->modal->url(),
+                                                            'widths[2]'   => $image->modal->width,
+                                                            'heights[2]'  => $image->modal->height,
+                                                            'previews[3]' => $image->cart->url(),
+                                                            'widths[3]'   => $image->cart->width,
+                                                            'heights[3]'  => $image->cart->height,
+                                                            'previews[4]' => $image->thumb->url(),
+                                                            'widths[4]'   => $image->thumb->width,
+                                                            'heights[4]'  => $image->thumb->height,
+                                                            'previews[5]' => $image->preview->url(),
+                                                            'widths[5]'   => $image->preview->width,
+                                                            'heights[5]'  => $image->preview->height,
+                                                            ]) }}" title="Изменить">
                                                             <i class="ace-icon glyphicon glyphicon-camera"></i>
                                                         </a>
                                                     </div>
@@ -175,7 +188,7 @@
                                                 @foreach($product->photos as $photo)
                                                     <li class="photo-container-item">
                                                         <a href="{{$photo->uploads->img->url()}}" data-rel="colorbox" title="{{$photo->name}}">
-                                                            <img src="{{$photo->uploads->img->main->url()}}" />
+                                                            <img src="{{$photo->uploads->img->detail->url()}}" />
                                                             <div class="tags">
                                                                 <span class="label-holder label-delete" style="display: none;">
                                                                     <span class="label label-danger arrowed">На удаление</span>
@@ -192,16 +205,28 @@
 
                                                             @php $image = $photo->uploads->img; @endphp
                                                             <a href="{{route('admin.image.crop', [
-                                                                'img' => $image->url(),
-                                                                'preview' => $image->main->url(),
-                                                                'width' => $image->main->width,
-                                                                'height' => $image->main->height,
-                                                                'previews[0]' => $image->preview->url(),
-                                                                'widths[0]' => $image->preview->width,
-                                                                'heights[0]' => $image->preview->height,
-                                                                'previews[1]' => $image->small->url(),
-                                                                'widths[1]' => $image->small->width,
-                                                                'heights[1]' => $image->small->height 
+                                                                'img'         => $image->url(),
+                                                            'preview'     => $image->big->url(),
+                                                            'width'       => $image->big->width,
+                                                            'height'      => $image->big->height,
+                                                            'previews[0]' => $image->detail->url(),
+                                                            'widths[0]'   => $image->detail->width,
+                                                            'heights[0]'  => $image->detail->height,
+                                                            'previews[1]' => $image->listing->url(),
+                                                            'widths[1]'   => $image->listing->width,
+                                                            'heights[1]'  => $image->listing->height,
+                                                            'previews[2]' => $image->modal->url(),
+                                                            'widths[2]'   => $image->modal->width,
+                                                            'heights[2]'  => $image->modal->height,
+                                                            'previews[3]' => $image->cart->url(),
+                                                            'widths[3]'   => $image->cart->width,
+                                                            'heights[3]'  => $image->cart->height,
+                                                            'previews[4]' => $image->thumb->url(),
+                                                            'widths[4]'   => $image->thumb->width,
+                                                            'heights[4]'  => $image->thumb->height,
+                                                            'previews[5]' => $image->preview->url(),
+                                                            'widths[5]'   => $image->preview->width,
+                                                            'heights[5]'  => $image->preview->height,
                                                             ])}}" title="Изменить">
                                                                 <i class="ace-icon glyphicon glyphicon-camera"></i>
                                                             </a>

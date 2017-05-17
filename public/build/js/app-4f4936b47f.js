@@ -666,7 +666,7 @@ $(function(){
     $(".js-vk-comments-widget").on('click.vk',function() {
         $(this).off('click.vk');
         $.getScript("//vk.com/js/api/openapi.js?145", function() {
-            VK.init({apiId: API_ID, onlyWidgets: true});
+            VK.init({apiId: 4411901, onlyWidgets: true});
             VK.Widgets.Comments("js-vk_comments", {limit: 5, attach: false});
         });
     });
@@ -730,10 +730,15 @@ $(function(){
         formSubmit($(this));
     });
 
-    $body.on('click', '.js-fast-order', function(e) {
-        e.preventDefault();
-        document.getElementById('is_fast').value = 1;
-        formSubmit($(this).closest('form'));
+    $body.on('click', '.js-cart-submit', function(e) {
+        var $this = $(this),
+            is_fast = $this.data('is_fast');
+        document.getElementById('is_fast').value = is_fast;
+        if(is_fast) {
+            e.preventDefault();
+            formSubmit($this.closest('form'));
+        }
+
     });
 
     // Form validate
@@ -848,7 +853,15 @@ $(function(){
         }
     });
 
-
+    // Product gallery thumbs switch
+    $body.on('click', '.js-gallery-thumb', function(e) {
+        var $this = $(this),
+            images = $('.js-gallery-big');
+        $('.js-gallery-thumb').removeClass('active');
+        $this.addClass('active');
+        images.removeClass('active');
+        images.eq($this.index()).addClass('active');
+    });
 
 });
 

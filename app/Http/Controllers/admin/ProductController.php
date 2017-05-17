@@ -198,6 +198,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $data = $request->all();
         $data['brand_id'] = ($data['brand_id'] ?: null);
+
         $product->update($data);
 
         //связь с категориями
@@ -217,7 +218,16 @@ class ProductController extends Controller
             }
         }
 
-        //добавление изображений
+        //добавление основного изображения
+        if($img = $request->file('img')) {
+            $validator = Validator::make(['img' => $img], ProductPhoto::$rules);
+            if ($validator->passes()) {
+                $product->uploads->upload();
+                $product->save();
+            }
+        }
+
+        //добавление дополнительных изображений
         if($request->file('photos')) {
             foreach($request->file('photos') as $key => $photo) {
                 $validator = Validator::make(['img' => $photo], ProductPhoto::$rules);

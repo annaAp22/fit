@@ -1,4 +1,4 @@
-<div id="quick-order" class="modal-box" style="display: inline-block;">
+<div id="quick-order" class="modal-box quick-order-cart" style="display: inline-block;">
     <form class="js-form-ajax" action="{{ route('ajax.order.fast') }}" method="POST">
         <div class="form-modal">
             {{ csrf_field() }}

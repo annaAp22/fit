@@ -18,6 +18,9 @@ class Controller extends BaseController
     public function setMetaTags($replacement = null, $title = null, $description = null, $keywords = null) {
         $metatags = Metatag::where('route', Route::currentRouteName())->first();
 
+        $res = false;
+
+        $name = ($title ?: (!empty($metatags) ? $metatags->name : null));
         $title = ($title ?: (!empty($metatags) ? $metatags->title : null));
         $description = ($description ?: (!empty($metatags) ? $metatags->description : null));
         $keywords = ($keywords ?: (!empty($metatags) ? $metatags->keywords : null));
@@ -32,6 +35,9 @@ class Controller extends BaseController
             Meta::setTitle($title)
                 ->setMetaDescription($description)
                 ->setMetaKeywords($keywords);
+
+            $res = $metatags;
         }
+        return $res;
     }
 }

@@ -7,7 +7,11 @@
         if(isset($brand)) $root = $brand;
         if(isset($tag)) $root = $tag;
     @endphp
-	{!!  Breadcrumbs::render('catalog', $root) !!}
+    @if(isset($page))
+        {!!  Breadcrumbs::render('new_hit_act', $page) !!}
+    @else
+	    {!!  Breadcrumbs::render('catalog', $root) !!}
+    @endif
 @endsection
 
 @section('content')
@@ -52,6 +56,8 @@
                             <h1>{{ $category->name }}</h1>
                         @elseif(isset($tag))
                             <h1>{{ $tag->name }}</h1>
+                        @elseif(isset($page))
+                            <h1>{{ $page->name }}</h1>
                         @endif
                         <div class="goods-count">
                             <span>Товаров в категории</span>
@@ -60,11 +66,9 @@
                     </div>
 
                     <!-- Look banner-->
-                    {{--
-<a class="banner-look" href="#">
-                        <img class="banner-look__image banner-look__image_xl" src="/img/listing_look_banner-min.jpg" alt="" role="presentation"/><img class="banner-look__image banner-look__image_md" src="/img/listing_look_banner-md-min.jpg" alt="" role="presentation"/>
-                    </a>
-                    --}}
+                {{-- <a class="banner-look" href="#">
+                     <img class="banner-look__image banner-look__image_xl" src="/img/listing_look_banner-min.jpg" alt="" role="presentation"/><img class="banner-look__image banner-look__image_md" src="/img/listing_look_banner-md-min.jpg" alt="" role="presentation"/>
+                 </a>--}}
                     <!-- Show filters button md down-->
                     <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры подбора товаров</button>
                     <!-- Sorting and view-->

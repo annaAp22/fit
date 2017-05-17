@@ -17,11 +17,13 @@
 
             <!-- Site logo -->
             <a class="header__logo" href="/"><img src="/img/header__logo-min.png" alt="fit2u"/></a>
-            <div class="header__city">
+
+            {{-- City choose --}}
+            {{--<div class="header__city">
                 <i class="sprite_main sprite_main-header__city_point"></i>
                 <span>г. Екатеринбург</span>
                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-            </div>
+            </div>--}}
 
             <!-- Search Start -->
             <form class="header__search" method="POST" action="{{ route('search') }}">
@@ -45,18 +47,34 @@
 
             <div class="header__basket">
                 {{-- WishList--}}
-                <a href="{{ route('bookmarks') }}">
+                <a href="{{ route('bookmarks') }}" class="js-hover-notice">
+
+                    {{-- Icon--}}
                     <span class="icon-fade header-wishlist">
                         <i class="sprite_main sprite_main-header__basket_wishlist normal"></i>
                         <i class="sprite_main sprite_main-header__basket_wishlist_active active"></i>
                     </span>
+
+                    {{-- Popup --}}
+                    <span class="popup-notice popup-notice_wishlist-header">
+                        <span class="popup-notice__triangle">▼</span>
+                        <span class="popup-notice__text">Отложенное</span>
+                    </span>
                 </a>
 
                 {{-- Seen products --}}
-                <a href="{{ route('views') }}">
+                <a href="{{ route('views') }}" class="js-hover-notice">
+
+                    {{-- Icon--}}
                     <span class="icon-fade seen">
                         <i class="sprite_main sprite_main-header__basket_seen normal"></i>
                         <i class="sprite_main sprite_main-header__basket_seen_active active"></i>
+                    </span>
+
+                    {{-- Poupup--}}
+                    <span class="popup-notice popup-notice_wishlist-header">
+                        <span class="popup-notice__triangle">▼</span>
+                        <span class="popup-notice__text">Просмотренное</span>
                     </span>
                 </a>
 

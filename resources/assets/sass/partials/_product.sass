@@ -218,6 +218,7 @@
     height: 97px
     border-bottom: 1px solid #dddddd
     border-left: 1px solid #dddddd
+    overflow: hidden
     +media-sm(down)
       border-top: 1px solid #dddddd
       border-left: none
@@ -231,7 +232,9 @@
       border-top: 1px solid #dddddd
     & > img
       transform: translateZ(0)
-      +image-center()
+      //+image-center()
+      display: block
+      width: 100%
     &:hover, &:focus, &.active
       box-shadow: 0 0 24px 0px rgba(0, 0, 0, 0.09)
       z-index: 1
@@ -253,14 +256,18 @@
     position: relative
     display: block
     +media-sm(down)
-      max-height: 300px
-      min-height: 300px
+      height: 442px
     +media-md(up)
       height: 613px
       width: calc(100% - 97px)
     border: 1px solid #dddddd
   &__image
     +image-center()
+
+  &__image-link
+    display: none
+    &.active
+      display: block
 .description-scroll
   height: 225px
   padding: 0 0 40px 24px
@@ -581,10 +588,12 @@
   &__image
     position: relative
     border: 1px solid #ebebeb
-    height: 180px
+    //height: 180px
     display: block
     & > img
-      +image-center()
+      //+image-center()
+      max-width: 100%
+      display: block
   &__name
     max-width: 100%
     display: block

@@ -45,22 +45,23 @@
       padding-top: 20px
     &_photo
       +media-xs()
-        +col(12)
+        +col(9)
       +media-sm(up)
         +col(4)
       +media-lg(up)
         +col(3)
     &_name
       +media-xs()
-        +col(12)
+        +col(15)
       +media-sm()
         +col(7)
       +media-md(up)
         +col(6)
     &_quantity
-      text-align: center
+      +media-md(up)
+        text-align: center
       +media-xs()
-        +col(12)
+        +col(9)
       +media-sm(up)
         +col(5)
     &_price
@@ -74,7 +75,7 @@
         +col(3)
     &_price-sum
       +media-xs()
-        +col(12)
+        +col(15)
       +media-sm()
         +col(5)
       +media-md()
@@ -88,13 +89,15 @@
   &__product
     position: relative
   &__image
-    display: block
+    display: inline-block
     position: relative
-    width: 100%
-    height: 122px
+    //width: 100%
+    //height: 122px
     border: 1px solid #ebebeb
     & > img
-      +image-center()
+      display: block
+      max-width: 100%
+      //+image-center()
   &__name
     text-decoration: none
     color: #303030

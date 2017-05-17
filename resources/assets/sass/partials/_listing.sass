@@ -359,12 +359,15 @@
   &__image
     position: relative
     border: 1px solid #ebebeb
-    height: 260px
-    +media-sm(up)
-      height: 342px
+    //+media-xs()
+    //  height: 201px
+    //+media-sm(up)
+    //  height: 342px
     display: block
     & > img
-      +image-center()
+      display: block
+      max-width: 100%
+      //+image-center()
   &__name
     font-size: 14px
     color: #272727
@@ -384,6 +387,7 @@
       font-size: 20px
       font-weight: 700
     .old-price
+      padding-right: 24px
       font-size: 13px
       position: absolute
       font-style: normal
@@ -463,6 +467,8 @@
       opacity: 1
       height: auto
       box-shadow: 0px 0 24px 0px rgba(0, 0, 2, 0.09)
+  &__wishlist
+    +hidden-xs()
 
 // Ribbons
 .ribbons
