@@ -19,82 +19,6 @@ $(function(){
         return false;
     });
 
-    // Price range slider init
-    var rangeSlider = document.getElementById('js-range-slider');
-    if( rangeSlider ) {
-        var $this = $(rangeSlider);
-        rStart = $this.data('start'),
-            rRange = $this.data('range');
-
-        noUiSlider.create(rangeSlider, {
-            start: [ rStart[0], rStart[1] ],
-            connect: true,
-            range: {
-                'min': rRange[0],
-                'max': rRange[1]
-            }
-        });
-
-        var priceMin = document.getElementById('js-price-min'),
-            priceMax = document.getElementById('js-price-max');
-
-        rangeSlider.noUiSlider.on('update', function( values, handle ) {
-
-            var value = values[handle];
-
-            if ( handle ) {
-                priceMax.value = Math.round(value);
-            } else {
-                priceMin.value = Math.round(value);
-            }
-        });
-
-        priceMin.addEventListener('change', function(){
-            rangeSlider.noUiSlider.set([this.value, null]);
-        });
-        priceMax.addEventListener('change', function(){
-            rangeSlider.noUiSlider.set([null, this.value]);
-        });
-    }
-
-    // Square check filter (size, color)
-    var squareCheckFilter = $('.js-square-check-filter');
-    if( squareCheckFilter ) {
-        $(squareCheckFilter).each(function() {
-            var filter = $(this);
-
-
-
-            filter.find(".js-square").click(function(){
-                var square = $(this),
-                    parent = square.parent(),
-                    single = false;
-
-                // if single checked needed then reset all checkboxes
-                if(parent.hasClass("js-square-check-single")) {
-                    single = true;
-                }
-
-                if( square.hasClass("active") ) {
-                    if(single) {
-                        removeActiveSquares(parent);
-                    }
-                    else {
-                        square.removeClass("active");
-                        square.find("input").attr("disabled", true);
-                    }
-                }
-                else {
-                    if(single) {
-                        removeActiveSquares(parent);
-                    }
-                    square.addClass("active");
-                    square.find("input").attr("disabled", null);
-                }
-            });
-        });
-    }
-
     // Remove active class from all squares
     function removeActiveSquares(parent) {
         parent.find(".active").each(function(){
@@ -119,37 +43,12 @@ $(function(){
         });
     });
 
-    // Toggle target active class on click
-    $(".js-toggle-active-target").click(function(e){
-        e.preventDefault();
-        toggleActiveTarget($(this));
-    });
 
     // Toggle target active class on mouse over
     $(".js-toggle-active-target_over").mouseenter(function(){
         if( !$(this).hasClass('active'))
             toggleActiveTarget($(this));
     });
-
-    function toggleActiveTarget($this) {
-        var target = $this.data('target'),
-            switchN = $this.data('switch'),
-            reset = $this.data('reset');
-
-        // toggle switch if needed
-        if(typeof switchN !== 'undefined') {
-            $("[data-switch="+switchN+"]").toggleClass("active");
-        }
-        // remove active from all elements
-        else if(typeof reset !== 'undefined') {
-            $(reset).removeClass("active")
-        }
-        else {
-            $this.toggleClass("active");
-        }
-
-        $(target).toggleClass("active");
-    }
 
     // Show notice popup on element hover
     $(".js-hover-notice").hover(function() {
@@ -309,6 +208,67 @@ $(function(){
             VK.Widgets.Comments("js-vk_comments", {limit: 5, attach: false});
         });
     });
+    //good review
+    $('.product-review-form').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        $.post(form.attr('action'), form.serialize(), function(data) {
+            if(data.result === 'ok') {
+                var title = form.find('.form-success__title');
+                var body = form.find('.product-review-form__body');
+                body.children().css('display', 'none');
+                title.text('Спасибо, '+ form.get(0)['name'].value +'!');
+                body.find('.form-success').css('display', 'block');
+            } else {
+
+            }
+        });
+        return false;
+    });
+    function recalcProductReviews(currentCount, totalCount) {
+        if(!totalCount)
+            totalCount = $('#product-reviews').data('count');
+        if(!currentCount)
+            currentCount = $('.product-review').length;
+        var moreCount = totalCount - currentCount;
+        if(moreCount > 20)
+            moreCount = 20;
+        if(moreCount > 0) {
+            var s = '(' + (moreCount) + ')';
+            $('#product-reviews .btn_more .count').text(s);
+        }else {
+            $('.product-reviews-navigation:first').hide();
+        }
+
+    }
+    recalcProductReviews();
+    //get more reviews
+    $('#product-reviews .btn_more').click(function(e) {
+        var btn = $(this);
+        var totalCount = $('#product-reviews').data('count');
+        var currenCount = $('.product-review').length;
+        var data = {'product_id' : btn.data('product-id'), 'count':20, 'skip':currenCount};
+        $.get('/get/comments', data, function(response) {
+            if(response) {
+                //$('.product-review').last().insertAfter(response);
+                $('.product-reviews-navigation').before(response);
+                recalcProductReviews(null, totalCount);
+            }
+        })
+    });
+    //get all reviews
+    $('#product-reviews .btn_show-all').click(function(e) {
+        var btn = $(this);
+        var data = {'product_id' : btn.data('product-id')};
+        $.get('/get/comments', data, function(response) {
+            if(response) {
+                $('.product-review').remove();
+                $('#product-reviews').prepend(response);
+                $('.product-reviews-navigation:first').hide();
+            }
+        })
+    });
+
 });
 
 

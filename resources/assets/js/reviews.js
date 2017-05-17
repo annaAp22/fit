@@ -18,7 +18,6 @@ $(function() {
 
     $form.on('submit', function(e) {
         e.preventDefault();
-
         var customerName = $form.find('input[name=name]').val();
 
         $.post($(this).attr('action'), $(this).serialize(), function(data) {

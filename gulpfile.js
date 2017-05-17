@@ -80,8 +80,8 @@ elixir(function(mix) {
         // 'size-selector.js',
         // 'contacts.js',
         'map.js',
-        'common.js'
-        // 'app.js'
+        'common.js',
+        'app.js'
     ], 'public/js/app.js');
 
     mix.version([
@@ -89,6 +89,5 @@ elixir(function(mix) {
         'js/vendor.js',
         'js/lib.js',
         'js/app.js',
-        'js/application.js',
     ]);
 });

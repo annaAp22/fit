@@ -59,7 +59,8 @@ Route::group([
     Route::get('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
 });
-
+Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
+Route::get('/get/comments', ['as' => 'get.comments', 'uses' => 'FrontApiController@getComments']);
 //Route::get('/offer.html', ['as' => 'offer', function(){
 //    return 'Страница публичной офферты';
 //}]);

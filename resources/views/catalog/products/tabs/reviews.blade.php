@@ -11,31 +11,10 @@
     </div>
 
     <!-- Reviews-->
-    <div class="product-reviews container-in active js-reviews">
+    <div id="product-reviews" class="product-reviews container-in active js-reviews" data-count="{{$product->commentsCount()}}">
         <!-- Reviews items-->
-        @forelse($product->comments as $review)
-            <div class="product-review review">
-                <div class="product-review__info">
-                    <i class="sprite_main sprite_main-product_review-person-green"></i>
-                    <div>
-                        <div class="product-review__name">{{ $review->name }}</div>
-                        <div class="product-review__date">{{ $review->created_at }}</div>
-                        <div class="product-rating">
-                            <div class="icon-fade product-rating__star active"><i class="sprite_main sprite_main-product__star normal"></i><i class="sprite_main sprite_main-product__star_active active"></i>
-                            </div>
-                            <div class="icon-fade product-rating__star active"><i class="sprite_main sprite_main-product__star normal"></i><i class="sprite_main sprite_main-product__star_active active"></i>
-                            </div>
-                            <div class="icon-fade product-rating__star active"><i class="sprite_main sprite_main-product__star normal"></i><i class="sprite_main sprite_main-product__star_active active"></i>
-                            </div>
-                            <div class="icon-fade product-rating__star active"><i class="sprite_main sprite_main-product__star normal"></i><i class="sprite_main sprite_main-product__star_active active"></i>
-                            </div>
-                            <div class="icon-fade product-rating__star"><i class="sprite_main sprite_main-product__star normal"></i><i class="sprite_main sprite_main-product__star_active active"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-review__text">{{ $review->text }}</div>
-            </div>
+        @forelse($product->getComments(5) as $review)
+            @include('reviews.review', ['review' => $review])
         @empty
             <!-- Empty reviews-->
             <div class="reviews-empty"><i class="sprite_main sprite_main-empty-reviews-arrow-gray"></i>
@@ -58,19 +37,21 @@
             </div>
         @endif
         <!-- Reviews navigation-->
-        <div class="product-reviews-navigation">
-            <button class="btn btn_more"><span class="text">Показать больше</span><span class="count">(20)</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-            </button>
-            <button class="btn btn_show-all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-            </button>
-        </div>
+        @if(isset($review))
+            <div class="product-reviews-navigation">
+                <button class="btn btn_more" data-product-id="{{$product->id}}"><span class="text">Показать больше</span><span class="count">(20)</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                </button>
+                <button class="btn btn_show-all" data-product-id="{{$product->id}}"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                </button>
+            </div>
+        @endif
     </div>
     <!-- VK comments-->
     <div class="product-vk-comments js-reviews" id="js-vk_comments">
     </div>
 </div>
 
-<form class="product-review-form" method="post">
+<form class="product-review-form" method="post" action="/comment">
     <div class="product-review-form__title">Оставить свой отзыв
     </div>
     <!-- Form body-->
@@ -83,6 +64,7 @@
             </div>
         </div>
         <!-- Form fields-->
+        <input type="hidden" name="product_id" value="{{$product->id}}"/>
         <div class="product-review-form__label">Представьтесь
         </div><input class="input input_text" type="text" name="name" placeholder="Ваше имя"/>
         <div class="product-review-form__label product-review-form__label_mt">Оцените товар по 5-ти бальной шкале
