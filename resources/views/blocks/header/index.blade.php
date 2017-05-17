@@ -17,11 +17,13 @@
 
             <!-- Site logo -->
             <a class="header__logo" href="/"><img src="/img/header__logo-min.png" alt="fit2u"/></a>
-            <div class="header__city">
+
+            {{-- City choose --}}
+            {{--<div class="header__city">
                 <i class="sprite_main sprite_main-header__city_point"></i>
                 <span>г. Екатеринбург</span>
                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-            </div>
+            </div>--}}
 
             <!-- Search Start -->
             <form class="header__search" method="POST" action="{{ route('search') }}">

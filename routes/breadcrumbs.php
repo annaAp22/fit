@@ -69,6 +69,16 @@ Breadcrumbs::register('catalog', function($breadcrumbs, $root) {
     }
 });
 
+// New, hit, action products page
+Breadcrumbs::register('new_hit_act', function($breadcrumbs, $page) {
+    if(isset($page->category))
+        $breadcrumbs->parent('catalog', $page->category);
+    else
+        $breadcrumbs->parent('index');
+
+    $breadcrumbs->push($page->name, route($page->route, ['sysname' => $page->sysname]));
+});
+
 Breadcrumbs::register('product', function($breadcrumbs, $product) {
     $category = $product->categories->count() ? $product->categories->first() : null;
 

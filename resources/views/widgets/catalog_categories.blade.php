@@ -16,9 +16,9 @@
 	<div class="catalog-dropdown__column">
 		<div class="catalog-dropdown__title">Наши предложения</div>
 		<ul class="ul ul_green-hover">
-			<li><a href="{{ route('new') }}">Новинки</a></li>
-			<li><a href="{{ route('actions') }}">Акции</a></li>
-			<li><a href="{{ route('hits') }}">Хиты продаж</a></li>
+			<li><a href="{{ route('new', ['sysname' => $category->sysname]) }}">Новинки</a></li>
+			<li><a href="{{ route('actions', ['sysname' => $category->sysname]) }}">Акции</a></li>
+			<li><a href="{{ route('hits', ['sysname' => $category->sysname]) }}">Хиты продаж</a></li>
 
             {{-- Look page link--}}
 			{{--<li class="star">

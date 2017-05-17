@@ -21,8 +21,10 @@
   </ul>
   <div class="mobile-sidebar__title js-pages-mobile">Навигация
   </div>
-  <div class="mobile-sidebar__title">Ваш город
-  </div>
+
+  {{-- City choose --}}
+  {{--<div class="mobile-sidebar__title">Ваш город
+  </div>--}}
 </div>
 <div class="mobile-sidebar js-filter-visible" id="sidebar-filters">
 </div>

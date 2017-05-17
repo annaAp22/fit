@@ -7,7 +7,11 @@
         if(isset($brand)) $root = $brand;
         if(isset($tag)) $root = $tag;
     @endphp
-	{!!  Breadcrumbs::render('catalog', $root) !!}
+    @if(isset($page))
+        {!!  Breadcrumbs::render('new_hit_act', $page) !!}
+    @else
+	    {!!  Breadcrumbs::render('catalog', $root) !!}
+    @endif
 @endsection
 
 @section('content')
@@ -53,6 +57,8 @@
                             <h1>{{ $category->name }}</h1>
                         @elseif(isset($tag))
                             <h1>{{ $tag->name }}</h1>
+                        @elseif(isset($page))
+                            <h1>{{ $page->name }}</h1>
                         @endif
                         <div class="goods-count">
                             <span>Товаров в категории</span>
