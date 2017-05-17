@@ -16,7 +16,7 @@ class CreateReviewsTable extends Migration {
             $table->increments('id');
 
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->text('message');
 
             $table->integer('status')->default(0);

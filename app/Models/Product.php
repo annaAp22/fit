@@ -65,17 +65,21 @@ class Product extends Model
 
         return $slideClass;
     }
-
-
+    public function getComments($count, $skip = 0) {
+        return $this->hasMany('App\Models\ProductComment', 'product_id')->skip($skip)->take($count)->get();
+    }
 
     public function photos() {
         return $this->hasMany('App\Models\ProductPhoto', 'product_id');
+    }
+    public function commentsCount() {
+        return $this->hasMany('App\Models\ProductComment', 'product_id')->count();
     }
 
     public function comments() {
         return $this->hasMany('App\Models\ProductComment', 'product_id');
     }
-    
+
     public function avgRating() {
         return $this->comments()
             ->selectRaw('avg(rating) as aggregate, product_id')

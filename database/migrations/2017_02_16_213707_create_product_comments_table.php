@@ -17,7 +17,7 @@ class CreateProductCommentsTable extends Migration
             $table->integer('product_id')->unsigned();
             
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->text('text');
             $table->text('pros')->nullable();
             $table->text('cons')->nullable();

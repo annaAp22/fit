@@ -15,6 +15,8 @@ class VerifyCsrfToken extends BaseVerifier
         //
         'ajax/*',
         'order/details',
-        'admin/products/search'
+        'admin/products/search',
+        'comment',
+        'get/comments'
     ];
 }

@@ -29,7 +29,6 @@
                     if(isset($tag))
                         $filtersParams['filters'] = $tag->filters;
 
-                {{--Request::session()->flush();--}}
                 @endphp
 
                 @if($products->total() > 1)
@@ -61,10 +60,11 @@
                     </div>
 
                     <!-- Look banner-->
-                    <a class="banner-look" href="#">
+                    {{--
+<a class="banner-look" href="#">
                         <img class="banner-look__image banner-look__image_xl" src="/img/listing_look_banner-min.jpg" alt="" role="presentation"/><img class="banner-look__image banner-look__image_md" src="/img/listing_look_banner-md-min.jpg" alt="" role="presentation"/>
                     </a>
-
+                    --}}
                     <!-- Show filters button md down-->
                     <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры подбора товаров</button>
                     <!-- Sorting and view-->

@@ -228,7 +228,7 @@
 
             @include('catalog.products.tabs.kits')
 
-            @include('catalog.products.tabs.reviews')
+            @include('catalog.products.tabs.reviews', ['product' => $product])
 
         </section>
 

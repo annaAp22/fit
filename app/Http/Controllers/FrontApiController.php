@@ -334,19 +334,32 @@ class FrontApiController extends Controller
         $defer = session()->get('products.defer');
         return ['count' => count($defer)];
     }
-
+    /***/
+    public function getComments(Request $request) {
+        $data = $request->input();
+        $product = Product::find($data['product_id']);
+        if(!$product)
+            return null;
+        if(isset($data['count'])) {
+            $reviews = $product->getComments($data['count']);
+        }else
+            $reviews = $product->comments;
+        $response = '';
+        foreach ($reviews as $review)
+            $response.= view('reviews.review', ['review' => $review])->render();
+        echo $response;
+    }
     /**
      * Добавление коментария к товару
      * @param $id
      * @param Request $request
      * @return string|\Illuminate\Http\JsonResponse
      */
-    public function comment($id, Request $request) {
+    public function comment(Request $request) {
         $data = $request->input();
-        $data['product_id'] = $id;
         //Статус - На модерации
         $data['status'] = 0;
-        $data['text'] = $data['message'];
+        $data['message'] = $data['text'];
         $validatorOptions = $data['product_id'] == 0 ?
             [
                 'name' => 'required',
@@ -355,7 +368,6 @@ class FrontApiController extends Controller
             ] : [
                 'product_id' => 'required|exists:products,id',
                 'name' => 'required',
-                'email' => 'required|email',
                 'text' => 'required',
             ];
         $validator = Validator::make($data, $validatorOptions);
@@ -368,6 +380,7 @@ class FrontApiController extends Controller
             \App\Models\Review::create($data);
         else {
             $data['rating'] = floatval($request->rating);
+            \App\Models\Review::create($data);
             \App\Models\ProductComment::create($data);
         }
 
