@@ -179,7 +179,7 @@ class CatalogController extends Controller
      * @param $sysname - чпу родительской категории
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function actions($sysname) {
+    public function actions($sysname = null) {
         if($sysname)
         {
             $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
@@ -215,7 +215,7 @@ class CatalogController extends Controller
      * @param $sysname - ЧПУ родительской категории
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function newProducts($sysname) {
+    public function newProducts($sysname = null) {
         if($sysname)
         {
             $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
@@ -253,7 +253,7 @@ class CatalogController extends Controller
      * @param $sysname - ЧПУ родительской категории
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function hits($sysname) {
+    public function hits($sysname = null) {
         if($sysname)
         {
             $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
