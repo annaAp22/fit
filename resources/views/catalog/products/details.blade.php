@@ -157,7 +157,7 @@
                                 <!-- Color-->
                                 @php
                                     $main_color = $product->attributes->where('name', 'Основной цвет')->first();
-                                    $sub_color = $product->attributes->where('name', 'Дополнительный цвет')->first();
+                                    $sub_color = $product->attributes->where('name', 'Цвет вставок')->first();
                                     $country_of_origin = $product->attributes->where('name', 'Страна производства')->first();
                                     // dd($main_color, $sub_color);
                                 @endphp

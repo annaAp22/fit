@@ -1,5 +1,7 @@
 // Product add to cart
 #cart-modal
+  +media-sm(down)
+    width: 90%
   max-width: 825px
 
 
@@ -117,19 +119,29 @@
 
 // Quick order
 #quick-order
+  width: 90%
+  &.quick-order-cart
+    +media-md(up)
+      max-width: 460px
+
   form
     display: flex
     +align(start,center)
   .form-modal
-    padding: 45px 55px
-    max-width: 460px
-    border-right: 1px solid #e8e8e8
+    width: 100%
+    +media-sm(down)
+      padding: 45px 30px
+    +media-md(up)
+      padding: 45px 55px
+      max-width: 460px
+      border-right: 1px solid #e8e8e8
     display: inline-block
     &_line > button
       min-width: 100%
 
 
 .quick-order_col
+  +hidden-sm(down)
   width: 340px
   padding: 45px 35px
   overflow: hidden
@@ -146,6 +158,8 @@
   margin-top: 20px
   overflow: hidden
   width: 140px
+  display: flex
+  flex-direction: column
   a
     text-align: center
     text-decoration: none
@@ -162,3 +176,6 @@
     color: #000000
     font-size: 18px
     font-weight: 700
+
+#order-success
+  max-width: 90%

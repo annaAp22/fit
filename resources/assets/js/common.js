@@ -349,10 +349,15 @@ $(function(){
         formSubmit($(this));
     });
 
-    $body.on('click', '.js-fast-order', function(e) {
-        e.preventDefault();
-        document.getElementById('is_fast').value = 1;
-        formSubmit($(this).closest('form'));
+    $body.on('click', '.js-cart-submit', function(e) {
+        var $this = $(this),
+            is_fast = $this.data('is_fast');
+        document.getElementById('is_fast').value = is_fast;
+        if(is_fast) {
+            e.preventDefault();
+            formSubmit($this.closest('form'));
+        }
+
     });
 
     // Form validate
