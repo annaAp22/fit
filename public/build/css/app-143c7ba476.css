@@ -3726,6 +3726,7 @@ header .line_lg {
 }
 
 .product__price .old-price {
+  padding-right: 24px;
   font-size: 13px;
   position: absolute;
   font-style: normal;
