@@ -284,13 +284,15 @@ class FrontApiController extends Controller
         {
             $order = Order::create($data);
             $amount = 0;
-            foreach(session()->get('products.cart') as $product_id => $product) {
-                $order->products()->attach($product_id, [
-                    'cnt'          => $product['cnt'],
-                    'price'        => $product['price'],
-                    'extra_params' => isset($product['extra']) ? json_encode($product['extra']) : '',
-                ]);
-                $amount += $product['cnt']*$product['price'];
+            foreach(session()->get('products.cart') as $product_id => $items) {
+                foreach($items as $p_size => $product ) {
+                    $order->products()->attach($product_id, [
+                        'cnt'          => $product['cnt'],
+                        'price'        => $product['price'],
+                        'extra_params' => isset($product['extra']) ? json_encode($product['extra']) : '',
+                    ]);
+                    $amount += $product['cnt']*$product['price'];
+                }
             }
             $order->update(['amount' => $amount]);
 

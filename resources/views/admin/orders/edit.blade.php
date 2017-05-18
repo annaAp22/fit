@@ -191,13 +191,13 @@
                                     <tbody>
                                         @foreach($order->products as $product)
                                         <tr class="product">
-                                            <td class="">
+                                            <td class="" style="display: flex">
                                             @if($product->img && $product->uploads)
-                                                <a class="img-wr a-l-c">
-                                                    <img src="{{$product->uploads->img->preview->path()}}" width="29px" />
+                                                <a target="_blank" href="{{ route('product', ['sysname' => $product->sysname]) }}" class="img-wr a-l-c">
+                                                    <img src="{{$product->uploads->img->preview->url()}}" width="29px" />
                                                 </a>
                                             @endif
-                                            {{$product->name}}
+                                                <a target="_blank"  href="{{ route('product', ['sysname' => $product->sysname]) }}">{{$product->name}}</a>
                                             </td>
                                             <td>
                                                 @php $extras = json_decode($product->pivot->extra_params); @endphp
