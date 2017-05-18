@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\ProductComment;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
@@ -291,17 +291,23 @@ class CatalogController extends Controller
      */
     public function search(Request $request) {
         //TODO: переделать на полнотекстовой через эластиксеарч
+        $per_page = $request->input('per_page', 1) == 'all'?400:3;
         if($request->has('text') && $request->input('text') !='') {
-            $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')->where('status', 1)->orderBy('name')->paginate(3);
+            $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')->where('status', 1)->orderBy('name')->paginate($per_page);
         }
 
         if($request->isXmlHttpRequest()) {
             $nextPage = ($products->currentPage() == $products->lastPage()) ? false : $products->currentPage() + 1;
             return response()->json([
-                'html' => view('catalog.products.grid', [
+                'html' => view('catalog.products.list', [
                     'products' => $products,
                 ])->render(),
-                'nextPage' => $nextPage
+                'nextPage' => $nextPage,
+                'total' => $products->total(),
+                'count' => $products->total() - $products->currentPage() * $products->perPage(),
+                'action' => 'appendGoods',
+                'clear' => $request->input('per_page', 1) == 'all',
+                'text' => $request->input('text'),
             ]);
         } else {
             $this->setMetaTags();
@@ -359,10 +365,8 @@ class CatalogController extends Controller
             'attributes',
             'kits.products.attributes',
             'related.attributes',
-            'comments' => function($query) {
-                $query->published();
-            },
         ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
+        $comments = $product->comments()->paginate(5);
         $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
 
         //добавляем товар в просмотренные
@@ -376,7 +380,8 @@ class CatalogController extends Controller
 
         return view('catalog.products.details', [
             'product' => $product,
-            'analogues' => $analogues
+            'analogues' => $analogues,
+            'comments' => $comments,
         ]);
     }
 

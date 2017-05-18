@@ -11,9 +11,9 @@
     </div>
 
     <!-- Reviews-->
-    <div id="product-reviews" class="product-reviews container-in active js-reviews" data-count="{{$product->commentsCount()}}">
+    <div id="product-reviews" class="product-reviews container-in active js-reviews" data-count="{{$comments->count()}}">
         <!-- Reviews items-->
-        @forelse($product->getComments(5) as $review)
+        @forelse($comments as $review)
             @include('reviews.review', ['review' => $review])
         @empty
             <!-- Empty reviews-->
@@ -37,11 +37,11 @@
             </div>
         @endif
         <!-- Reviews navigation-->
-        @if(isset($review))
-            <div class="product-reviews-navigation">
-                <button class="btn btn_more" data-product-id="{{$product->id}}"><span class="text">Показать больше</span><span class="count">(20)</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+        @if($comments->lastPage() > $comments->currentPage())
+            <div id="product-reviews-navigation" class="product-reviews-navigation">
+                <button class="btn btn_more js-get" data-action="{{route('get.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
-                <button class="btn btn_show-all" data-product-id="{{$product->id}}"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_show-all js-get" data-action="{{route('get.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
             </div>
         @endif

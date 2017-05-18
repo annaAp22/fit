@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -334,6 +335,32 @@ class FrontApiController extends Controller
 
         $defer = session()->get('products.defer');
         return ['count' => count($defer)];
+    }
+    public function comments(Request $request) {
+        $product_id = $request->input('product_id');
+        $perPage = $request->input('per_page', 1) == 'all' ? 1000 : 5;
+        $comments = ProductComment::published();
+        if($product_id) {
+            $comments->whereHas('product', function($query) use($product_id) {
+                $query->where('id', $product_id);
+            });
+        }
+        $comments = $comments->paginate($perPage);
+        $next_page = $comments->lastPage() > $comments->currentPage() ? ($comments->currentPage() + 1) : null; // номер следующей страницы
+        $count = $next_page ? $comments->total() - ($comments->currentPage() * $comments->perPage()) : 0; // количество оставшихся комментариев
+        $response = '';
+        foreach ($comments as $comment)
+            $response.= view('reviews.review', ['review' => $comment])->render();
+        return [
+            'clear' => $request->input('per_page', 1) == 'all', // если true заменяем комментарии на странице, false добавляем в конецclear' => $page == 'all', // если true заменяем комментарии на странице, false добавляем в конец
+            'html' => $response,
+            'action' => 'appendComments',
+            'total' => $comments->total(),
+            'currentPage' => $comments->currentPage(),
+            'next_page' => $next_page,
+            'count' => $count,
+            // ... другие необходимые параметры пагинации можно посмотреть в документация к методу paginate()
+        ];
     }
     /***/
     public function getComments(Request $request) {

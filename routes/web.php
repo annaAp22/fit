@@ -60,7 +60,7 @@ Route::group([
 
 });
 Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
-Route::get('/get/comments', ['as' => 'get.comments', 'uses' => 'FrontApiController@getComments']);
+Route::get('/get/comments', ['as' => 'get.comments', 'uses' => 'FrontApiController@comments']);
 //Route::get('/offer.html', ['as' => 'offer', function(){
 //    return 'Страница публичной офферты';
 //}]);

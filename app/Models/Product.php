@@ -67,15 +67,9 @@ class Product extends Model
 
         return $slideClass;
     }
-    public function getComments($count, $skip = 0) {
-        return $this->hasMany('App\Models\ProductComment', 'product_id')->skip($skip)->take($count)->get();
-    }
 
     public function photos() {
         return $this->hasMany('App\Models\ProductPhoto', 'product_id');
-    }
-    public function commentsCount() {
-        return $this->hasMany('App\Models\ProductComment', 'product_id')->count();
     }
 
     public function comments() {
@@ -145,7 +139,6 @@ class Product extends Model
     public function scopeSale($query) { return $this->scopeAct($query); }
     public function scopeNew($query) { return $query->where('new', 1); }
     public function scopeRecentlyAdded($query) { return $query->orderBy('created_at', 'desc'); }
-
 
 
 
