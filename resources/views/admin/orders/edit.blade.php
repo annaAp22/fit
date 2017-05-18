@@ -40,7 +40,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title smaller">
                             <i class="ace-icon fa fa-quote-left smaller-80"></i>
-                            Данные по заказу
+                            Данные по заказу № {{ $order->id }}
                         </h4>
                     </div>
 
@@ -212,7 +212,7 @@
                                             <td colspan="4" style="text-align: right">
                                                 Сумма:
                                             </td>
-                                            <td class="text-success amount">{{$order->products->sum('pivot.cnt') * $order->products->sum('pivot.price')}}</td>
+                                            <td class="text-success amount">{{$order->amount}}</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right">

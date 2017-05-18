@@ -167,4 +167,9 @@ class Category extends Model
 
         return ($min == PHP_INT_MAX) ? false : $min;
     }
+
+    // Set zero if parent is not selected
+    public function setParentIdAttribute($value) {
+        $this->attributes['parent_id'] = $value ? $value : 0;
+    }
 }

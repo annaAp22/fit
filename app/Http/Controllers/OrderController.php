@@ -20,19 +20,34 @@ class OrderController extends Controller
         $cart = [
             'products' => collect()
         ];
+
+        // Clear session if needed
+//        session()->flush();
         if(session()->has('products.cart')) {
             $cart = session()->get('products.cart');
             //товары коллекции
-            $cart['products'] = Product::whereIn('id', array_keys($cart))->where('status', 1)->with(['related', 'related.attributes'])->get();
+            $products = Product::whereIn('id', array_keys($cart))->published()->with(['related', 'related.attributes'])->get();
             //с товарами покупают
-            $cart['related'] = collect();
-            foreach($cart['products'] as $key => $product) {
-                $product->count = $cart[$product->id]['cnt'];
-                $product->amount = $cart[$product->id]['cnt'] * $product->price;
-                $product->extra_params = collect(session()->get('products.cart.'.$product->id.'.extra'));
+            $related = collect();
 
-                $cart['related'] = $cart['related']->merge($product->related);
+            $cart_products = collect();
+            foreach($cart as $product_id => $sizes)
+            {
+                foreach($sizes as $size => $item )
+                {
+                    $product = clone $products->where('id', $product_id)->first();
+                    $product->size = $size;
+                    $product->count = $item['cnt'];
+                    $product->amount = $item['cnt'] * $product->price;
+                    $product->extra_params = collect($item['extra']);
+
+                    $cart_products->push($product);
+                    $related = $related->merge($product->related);
+                }
             }
+            $cart['products'] = $cart_products;
+            $cart['related'] = $related;
+
             $cart['related'] = $cart['related']->unique('id')->reject(function ($item, $key) use ($cart) {
                 $id = $item->id;
                 return $cart['products']->search(function ($item2, $key2) use ($id) {
@@ -56,12 +71,22 @@ class OrderController extends Controller
         }
 
         $cart = session()->get('products.cart');
-        //товары коллекции
-        $cart['products'] = Product::whereIn('id', array_keys($cart))->where('status', 1)->get();
-        foreach($cart['products'] as $key => $product) {
-            $product->count = $cart[$product->id]['cnt'];
-            $product->amount = $cart[$product->id]['cnt'] * $product->price;
+        $products = Product::whereIn('id', array_keys($cart))->published()->get();
+        $cart_products = collect();
+
+        foreach($cart as $product_id => $sizes)
+        {
+            foreach($sizes as $size => $item )
+            {
+                $product = clone $products->where('id', $product_id)->first();
+                $product->size = $size;
+                $product->count = $item['cnt'];
+                $product->amount = $item['cnt'] * $product->price;
+
+                $cart_products->push($product);
+            }
         }
+        $cart['products'] = $cart_products;
         $cart['amount'] = $cart['products']->sum('amount');
 
 
@@ -96,14 +121,20 @@ class OrderController extends Controller
 
         $order = Order::create($data);
         $amount = 0;
-        foreach(session()->get('products.cart') as $product_id => $product) {
-            $order->products()->attach($product_id, [
-                'cnt'          => $product['cnt'],
-                'price'        => $product['price'],
-                'extra_params' => isset($product['extra']) ? json_encode($product['extra']) : '',
-            ]);
-            $amount += $product['cnt']*$product['price'];
+
+        foreach( session()->get('products.cart') as $product_id => $items )
+        {
+            foreach( $items as $size => $product )
+            {
+                $order->products()->attach($product_id, [
+                    'cnt'          => $product['cnt'],
+                    'price'        => $product['price'],
+                    'extra_params' => isset($product['extra']) ? json_encode($product['extra']) : '',
+                ]);
+                $amount += $product['cnt']*$product['price'];
+            }
         }
+
         $order->update(['amount' => $amount]);
 
         session()->forget('products.cart');

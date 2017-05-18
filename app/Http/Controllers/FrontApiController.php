@@ -400,10 +400,10 @@ class FrontApiController extends Controller
         $is_fast = $request->input('is_fast', 0);
         $cnt = $cnt ?: 1;
 
+        $size = $request->input('size', 0);
         if($is_fast)
         {
             // Open fast order form modal
-            $size = $request->input('size', null);
             $product = Product::find($id);
             $response = [
                 'action' => 'openModal',
@@ -412,36 +412,51 @@ class FrontApiController extends Controller
         }
         else
         {
-            if(session()->has('products.cart.'.$id)) {
-                session()->put('products.cart.'.$id.'.cnt', session()->get('products.cart.'.$id.'.cnt') + $cnt);
-            } else {
-                $product = Product::where('id', $id)->where('status', 1)->first();
-                session()->put('products.cart.'.$id, [
+            // Put different sizes separately, products without size attribute has $size = 0
+
+            // Increase product count if size already in cart
+            if(session()->has('products.cart.'.$id.'.'.$size))
+            {
+                session()->put('products.cart.'.$id.'.'.$size.'.cnt', session()->get('products.cart.'.$id.'.'.$size.'.cnt') + $cnt);
+            }
+            else
+            {
+                $product = Product::published()->find($id);
+                session()->put('products.cart.'.$id.'.'.$size, [
                     'cnt' => $cnt,
                     'price' => $product->price
                 ]);
 
                 // Модальное окно "Товар добавлен"
-                $response['modal'] = view('modals.cart_add', compact('product','cnt'))->render();
+                $response['modal'] = view('modals.cart_add', compact('product','cnt','size'))->render();
             }
 
             // Добавляем доп. параметры, которые разделяют товар на варианты.
             // Например, размер, цвета, рисунок, ёмкость накопителя и т. д.
             $extra_params = $request->all();
             if(!empty($extra_params))
-                foreach($extra_params as $param => $value)
-                    session()->put('products.cart.'.$id.'.extra.'.$param, $value);
+                foreach($extra_params as $param => $value) {
+                    session()->put('products.cart.'.$id.'.'.$size.'.extra.'.$param, $value);
+                }
 
             $cart = session()->get('products.cart');
             $response['amount'] = 0;
 
-            foreach($cart as $key => $item)
-                $response['amount'] += $item['price']*$cart[$key]['cnt'];
+            $count = 0;
+            foreach($cart as $product_id => $items)
+            {
+                foreach( $items as $size => $product )
+                {
+                    $response['amount'] += $product['price']*$product['cnt'];
+                    $count++;
+                }
+            }
+
 
             $response['id'] = $id;
             $response['action'] = 'updateCart';
-            $response['count'] = count($cart);
-            $response['unit_count'] = $cart[$id]['cnt'];
+            $response['count'] = $count;
+            $response['unit_count'] = $cart[$id][$size]['cnt'];
             $response['count_name'] = Lang::choice('товар|товара|товаров', count($cart), [], 'ru');
         }
         return $response;
@@ -450,22 +465,35 @@ class FrontApiController extends Controller
     /**
      * Убрать товар из корзины
      * @param $id - id товара
+     * @param $size - размер товара
+     * @return
      */
-    public function removeFromCart($id) {
+    public function removeFromCart($id, $size) {
         $response = [];
-        session()->forget('products.cart.'.$id);
+        session()->forget('products.cart.'.$id.'.'.$size);
         $cart = session()->get('products.cart');
         $response['amount'] = 0;
+        $count = 0;
 
-        foreach($cart as $key => $item)
-            $response['amount'] += $item['price']*$cart[$key]['cnt'];
+        foreach($cart as $product_id => $items)
+        {
+            // Remove product completely if all sizes removed
+            if( !count($items) )
+                session()->forget('products.cart.'.$id);
+
+            foreach( $items as $p_size => $product )
+            {
+                $response['amount'] += $product['price']*$product['cnt'];
+                $count++;
+            }
+        }
 
         if(count($cart) == 0)
             session()->forget('products.cart');
 
         $response['action'] = 'updateCart';
-        $response['count'] = count($cart);
-        $response['removed'] = $id;
+        $response['count'] = $count;
+        $response['removed'] = $id.'-'.$size;
 //        $response['count_name'] = Lang::choice('товар|товара|товаров', count($cart), [], 'ru');
 
         return response()->json($response);
@@ -480,12 +508,18 @@ class FrontApiController extends Controller
     {
         $id = $request->input('id');
         $quantity = $request->input('quantity', 1);
+        $size = $request->input('size', 0);
 
-        if($id && session()->has( 'products.cart.'. $id ))
+        if($id && session()->has( 'products.cart.'. $id . '.' . $size ))
         {
-            session()->put('products.cart.'. $id .'.cnt', $quantity);
+            session()->put('products.cart.'. $id . '.' . $size .'.cnt', $quantity);
+
+            $count = 0;
+            foreach($cart = session()->get('products.cart') as $items ){
+                $count += count($items);
+            }
             $res = [
-                'count' => count(session()->get('products.cart')),
+                'count' => $count,
                 'action' => 'updateCart',
             ];
         }
@@ -511,12 +545,15 @@ class FrontApiController extends Controller
         }
         $cart = session()->get('products.cart');
         session()->forget('products.cart');
-        foreach($request->input('products') as $id => $cnt) {
-            session()->put('products.cart.'.$id, [
-                'cnt' => $cnt,
-                'price' => $cart[$id]['price'],
-                'extra' => isset($cart[$id]['extra']) ? $cart[$id]['extra'] : '',
-            ]);
+        foreach($request->input('products') as $id => $items) {
+            foreach($items as $size => $cnt)
+            {
+                session()->put('products.cart.'.$id.'.'.$size, [
+                    'cnt' => $cnt,
+                    'price' => $cart[$id][$size]['price'],
+                    'extra' => isset($cart[$id][$size]['extra']) ? $cart[$id][$size]['extra'] : '',
+                ]);
+            }
         }
 
         if($request->input('is_fast', 0))

@@ -137,7 +137,7 @@ $(function(){
     $body.on("click", ".js-add-to-cart", function(e) {
         e.preventDefault();
         var $this = $(this);
-        if( !$(this).hasClass('active') ) {
+        //if( !$(this).hasClass('active') ) {
             var form = $this.closest('form'),
                 data = form.serializeFormJSON();
             if(typeof data.size === "undefined") {
@@ -151,10 +151,10 @@ $(function(){
                 form.submit();
                 $this.addClass('active');
             }
-        }
-        else {
-            window.location = $this.find('a').attr('href');
-        }
+        //}
+        //else {
+        //    window.location = $this.find('a').attr('href');
+        //}
     });
 
     // Form serialize as json
@@ -486,6 +486,7 @@ $(function(){
 
 // Update cart widget
 function updateCart(data){
+    console.log(data);
     if(typeof data.count !== 'undefined') {
         $(".js-cart-quantity").text(data.count);
     }
