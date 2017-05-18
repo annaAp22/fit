@@ -291,17 +291,23 @@ class CatalogController extends Controller
      */
     public function search(Request $request) {
         //TODO: переделать на полнотекстовой через эластиксеарч
+        $per_page = $request->input('per_page', 1) == 'all'?400:3;
         if($request->has('text') && $request->input('text') !='') {
-            $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')->where('status', 1)->orderBy('name')->paginate(3);
+            $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')->where('status', 1)->orderBy('name')->paginate($per_page);
         }
 
         if($request->isXmlHttpRequest()) {
             $nextPage = ($products->currentPage() == $products->lastPage()) ? false : $products->currentPage() + 1;
             return response()->json([
-                'html' => view('catalog.products.grid', [
+                'html' => view('catalog.products.list', [
                     'products' => $products,
                 ])->render(),
-                'nextPage' => $nextPage
+                'nextPage' => $nextPage,
+                'total' => $products->total(),
+                'count' => $products->total() - $products->currentPage() * $products->perPage(),
+                'action' => 'appendGoods',
+                'clear' => $request->input('per_page', 1) == 'all',
+                'text' => $request->input('text'),
             ]);
         } else {
             $this->setMetaTags();

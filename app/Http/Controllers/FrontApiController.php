@@ -352,7 +352,7 @@ class FrontApiController extends Controller
         foreach ($comments as $comment)
             $response.= view('reviews.review', ['review' => $comment])->render();
         return [
-            'clear' => $request->input('page', 1) == 'all', // если true заменяем комментарии на странице, false добавляем в конецclear' => $page == 'all', // если true заменяем комментарии на странице, false добавляем в конец
+            'clear' => $request->input('per_page', 1) == 'all', // если true заменяем комментарии на странице, false добавляем в конецclear' => $page == 'all', // если true заменяем комментарии на странице, false добавляем в конец
             'html' => $response,
             'action' => 'appendComments',
             'total' => $comments->total(),

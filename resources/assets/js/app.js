@@ -261,4 +261,19 @@ function appendComments(data) {
     navigation.before(data['html']);
 }
 
+function appendGoods(data) {
+    var $goods_block = $('#js-goods');
+    var $navigation = $('.page-navigation');
+    var $btn_more = $navigation.find('.btn_more');
+    if(data['nextPage']) {
+        $btn_more.data('page', data['nextPage']);
+        $btn_more.find('.count').text('(' + data['count'] + ')');
+    } else {
+        $navigation.remove();
+    }
+    if(data['clear']) {
+        $goods_block.text('');
+    }
+    $goods_block.append(data['html']);
+}
 
