@@ -666,7 +666,7 @@ $(function(){
     $(".js-vk-comments-widget").on('click.vk',function() {
         $(this).off('click.vk');
         $.getScript("//vk.com/js/api/openapi.js?145", function() {
-            VK.init({apiId: API_ID, onlyWidgets: true});
+            VK.init({apiId: 4411901, onlyWidgets: true});
             VK.Widgets.Comments("js-vk_comments", {limit: 5, attach: false});
         });
     });
@@ -730,10 +730,15 @@ $(function(){
         formSubmit($(this));
     });
 
-    $body.on('click', '.js-fast-order', function(e) {
-        e.preventDefault();
-        document.getElementById('is_fast').value = 1;
-        formSubmit($(this).closest('form'));
+    $body.on('click', '.js-cart-submit', function(e) {
+        var $this = $(this),
+            is_fast = $this.data('is_fast');
+        document.getElementById('is_fast').value = is_fast;
+        if(is_fast) {
+            e.preventDefault();
+            formSubmit($this.closest('form'));
+        }
+
     });
 
     // Form validate
@@ -833,6 +838,25 @@ $(function(){
             }
         });
     });
+    $body.on('click', '.js-get', function(e) {
+        e.preventDefault();
+        var url = $(this).data('action');
+        var post_data = $(this).data();
+        delete post_data['action'];
+        $.get(url, post_data, function(data) {
+            // Exception
+            if(typeof data.error !== 'undefined'){
+                console.log(data.message);
+            }
+            // Do some action
+            if(typeof data.action !== 'undefined'){
+                var fn = window[data.action];
+                if(typeof fn === 'function') {
+                    fn(data);
+                }
+            }
+        });
+    });
 
     // Mask phone
     $('.js-phone').mask("+7 000 000 00 000", {placeholder: "+7 ___ ___ __ __"});
@@ -848,7 +872,15 @@ $(function(){
         }
     });
 
-
+    // Product gallery thumbs switch
+    $body.on('click', '.js-gallery-thumb', function(e) {
+        var $this = $(this),
+            images = $('.js-gallery-big');
+        $('.js-gallery-thumb').removeClass('active');
+        $this.addClass('active');
+        images.removeClass('active');
+        images.eq($this.index()).addClass('active');
+    });
 
 });
 
@@ -1175,31 +1207,41 @@ $(function(){
         });
         return false;
     });
-    //get more reviews
-    $('#product-reviews .btn_more').click(function(e) {
-        var btn = $(this);
-        var data = {'product_id' : btn.data('product-id'), 'count':20};
-        $.get('/get/comments', data, function(response) {
-            if(response) {
-                $('.product-review').remove();
-                $('#product-reviews').prepend(response);
-            }
-        })
-    });
-    //get all reviews
-    $('#product-reviews .btn_show-all').click(function(e) {
-        var btn = $(this);
-        var data = {'product_id' : btn.data('product-id')};
-        $.get('/get/comments', data, function(response) {
-            if(response) {
-                $('.product-review').remove();
-                $('#product-reviews').prepend(response);
-            }
-        })
-    });
+    function recalcProductReviews(currentCount, totalCount) {
+        if(!totalCount)
+            totalCount = $('#product-reviews').data('count');
+        if(!currentCount)
+            currentCount = $('.product-review').length;
+        var moreCount = totalCount - currentCount;
+        if(moreCount > 20)
+            moreCount = 20;
+        if(moreCount > 0) {
+            var s = '(' + (moreCount) + ')';
+            $('#product-reviews .btn_more .count').text(s);
+        }else {
+            $('.product-reviews-navigation:first').hide();
+        }
 
+    }
 });
-
+function appendComments(data) {
+    var navigation = $('#product-reviews-navigation');
+    var btn_more = $('#product-reviews .btn_more:first');
+    var per_page = 5;
+    if(data['clear']) {
+        $('.product-review').remove();
+    }
+    if(data['count'] > 0) {
+        btn_more.data('page', data['next_page']);
+        if(data['count'] > per_page) {
+            data['count'] = per_page;
+        }
+        btn_more.find('.count').text('(' + data['count'] + ')');
+    }else {
+        navigation.hide();
+    }
+    navigation.before(data['html']);
+}
 
 
 

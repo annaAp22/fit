@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\ProductComment;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
@@ -359,10 +359,8 @@ class CatalogController extends Controller
             'attributes',
             'kits.products.attributes',
             'related.attributes',
-            'comments' => function($query) {
-                $query->published();
-            },
         ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
+        $comments = $product->comments()->paginate(5);
         $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
 
         //добавляем товар в просмотренные
@@ -376,7 +374,8 @@ class CatalogController extends Controller
 
         return view('catalog.products.details', [
             'product' => $product,
-            'analogues' => $analogues
+            'analogues' => $analogues,
+            'comments' => $comments,
         ]);
     }
 

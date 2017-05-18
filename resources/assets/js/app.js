@@ -241,35 +241,24 @@ $(function(){
         }
 
     }
-    recalcProductReviews();
-    //get more reviews
-    $('#product-reviews .btn_more').click(function(e) {
-        var btn = $(this);
-        var totalCount = $('#product-reviews').data('count');
-        var currenCount = $('.product-review').length;
-        var data = {'product_id' : btn.data('product-id'), 'count':20, 'skip':currenCount};
-        $.get('/get/comments', data, function(response) {
-            if(response) {
-                //$('.product-review').last().insertAfter(response);
-                $('.product-reviews-navigation').before(response);
-                recalcProductReviews(null, totalCount);
-            }
-        })
-    });
-    //get all reviews
-    $('#product-reviews .btn_show-all').click(function(e) {
-        var btn = $(this);
-        var data = {'product_id' : btn.data('product-id')};
-        $.get('/get/comments', data, function(response) {
-            if(response) {
-                $('.product-review').remove();
-                $('#product-reviews').prepend(response);
-                $('.product-reviews-navigation:first').hide();
-            }
-        })
-    });
-
 });
-
+function appendComments(data) {
+    var navigation = $('#product-reviews-navigation');
+    var btn_more = $('#product-reviews .btn_more:first');
+    var per_page = 5;
+    if(data['clear']) {
+        $('.product-review').remove();
+    }
+    if(data['count'] > 0) {
+        btn_more.data('page', data['next_page']);
+        if(data['count'] > per_page) {
+            data['count'] = per_page;
+        }
+        btn_more.find('.count').text('(' + data['count'] + ')');
+    }else {
+        navigation.hide();
+    }
+    navigation.before(data['html']);
+}
 
 
