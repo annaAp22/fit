@@ -84,13 +84,13 @@ elixir(function(mix) {
         // 'size-selector.js',
         // 'contacts.js',
         'map.js',
-        'app.js',
+        'app.js'
     ], 'public/js/app.js');
 
     mix.version([
         'css/app.css',
         'js/vendor.js',
         'js/lib.js',
-        'js/app.js',
+        'js/app.js'
     ]);
 });

@@ -1,1 +1,0 @@
-$(function(){window.loader=$("#loader"),$(document).ajaxStart(function(){window.loader.hasClass("hidden")&&$(window.loader).removeClass("hidden")}),$(document).ajaxStop(function(){window.loader.hasClass("hidden")||$(window.loader).addClass("hidden")})});

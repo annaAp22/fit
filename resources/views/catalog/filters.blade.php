@@ -94,7 +94,7 @@
     @endif
 
     <!-- Apply filter-->
-    <button class="btn btn_yellow btn_w100p" name="apply">Применить
+    <button class="btn btn_yellow btn_w100p js-close-filters" name="apply">Применить
     </button>
     <button class="btn btn_reset btn_w100p js-filters-reset" name="reset"><i class="sprite_main sprite_main-listing__filter_reset_red"></i><span>Сбросить фильтры</span>
     </button>

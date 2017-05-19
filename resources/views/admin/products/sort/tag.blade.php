@@ -51,7 +51,7 @@
                                             <li class="dd-item" data-id="{{$product->id}}">
                                                 <div class="dd-handle">
                                                     @if($product->img)
-                                                        <img src="/{{$product->getImgPreviewPath().$product->img}}" width="40px" />
+                                                        <img src="{{$product->uploads->img->preview->url()}}" width="40px" />
                                                     @endif
                                                     {{$product->name}}
 

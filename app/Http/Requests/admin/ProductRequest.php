@@ -48,7 +48,8 @@ class ProductRequest extends Request
             'discount' => 'numeric',
             'sku' => 'required|unique:products,sku,'.$id,
             'img' => 'image',
-            'brand_id' => 'exists:brands,id'
+            'text' => 'required',
+//            'brand_id' => 'exists:brands,id'
         ];
     }
 }

@@ -148,6 +148,10 @@ $(function() {
     $(".js-filters-reset").on('click', function(e) {
         e.preventDefault();
         resetFilters();
+        $('.js-toggle-sidebar.active').trigger('click');
         return false;
+    });
+    $(".js-close-filters").on('click', function(){
+        $('.js-toggle-sidebar.active').trigger('click');
     });
 });

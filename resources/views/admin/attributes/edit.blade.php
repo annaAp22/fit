@@ -53,21 +53,21 @@
                         <div class="col-sm-9">
                             <select name="type" class="col-sm-5 show-hidden-option" id="form-field-1"  data-class="div-type-data">
                                 <option value="">--Не выбран--</option>
-                                @foreach(\App\Models\Attribute::$types as $type => $name)
-                                    <option value="{{$type}}" @if((old() && old('type')==$type) || (!old() && $attribute->type==$type) ) selected="selected"@endif  data-id="div-{{$type}}">{{$name}}</option>
+                                @foreach($types as $type => $name)
+                                    <option value="{{$type}}" @if((old() && old('type')==$type) || (!old() && $attribute->type==$name) ) selected="selected"@endif  data-id="div-{{$type}}">{{$name}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group div-type-data" id="div-integer" @if((old() && old('type') != 'integer') || (!old() && $attribute->type!='integer')) style="display:none" @endif>
+                    <div class="form-group div-type-data" id="div-integer" @if((old() && old('type') != 'integer') || (!old() && $attribute->type!='Числовой')) style="display:none" @endif>
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Ед. измерения </label>
                         <div class="col-sm-9">
                             <input type="text" id="form-field-2" name="unit" placeholder="Ед. измерения" value="{{ old('unit', $attribute->unit) }}" class="col-sm-4">
                         </div>
                     </div>
 
-                    <div class="form-group div-type-data" id="div-list" @if((old() && old('type') != 'list') || (!old() && $attribute->type!='list')) style="display:none" @endif>
+                    <div class="form-group div-type-data" id="div-list" @if((old() && old('type') != 'list') || (!old() && !in_array($attribute->type, ['Список', 'Список чекбоксов']) )) style="display:none" @endif>
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-3"> Значения </label>
                         <div class="col-sm-9">
                             <div class="dynamic-input">

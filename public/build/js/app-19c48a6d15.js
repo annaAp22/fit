@@ -148,7 +148,11 @@ $(function() {
     $(".js-filters-reset").on('click', function(e) {
         e.preventDefault();
         resetFilters();
+        $('.js-toggle-sidebar.active').trigger('click');
         return false;
+    });
+    $(".js-close-filters").on('click', function(){
+        $('.js-toggle-sidebar.active').trigger('click');
     });
 });
 var mapDiv = document.getElementById('map');
@@ -618,7 +622,9 @@ $(function(){
         $('.js-sidebar-open').removeClass('active');
         $('.js-nav-visible').removeClass('active');
         $('.js-filter-visible').removeClass('active');
-        $('.js-toggle-sidebar').removeClass('active');
+        setTimeout(function() {
+            $('.js-toggle-sidebar').removeClass('active');
+        }, 300);
         sidebarOpened = false;
     }
     function openSidebar($this, target) {
