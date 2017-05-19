@@ -55,6 +55,7 @@ Route::get('/products/category/{id}/sort', ['as' => 'products.category.sort', 'u
 Route::post('/products/category/{id}/sort/save', ['as' => 'products.category.sort.save', 'uses' => 'ProductController@sortCategorySave'])->where(['id' => '[0-9]+']);
 Route::get('/products/tag/{id}/sort', ['as' => 'products.tag.sort', 'uses' => 'ProductController@sortTag'])->where(['id' => '[0-9]+']);
 Route::post('/products/tag/{id}/sort/save', ['as' => 'products.tag.sort.save', 'uses' => 'ProductController@sortTagSave'])->where(['id' => '[0-9]+']);
+Route::post('/products/remove/{id}', 'ProductController@remove')->where(['id' => '[0-9]+'])->name('products.remove');
 
 Route::resource('reviews', 'ReviewController', ['except' => ['show']]);
 

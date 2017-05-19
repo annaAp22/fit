@@ -281,6 +281,20 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->withMessage('Товар удален');
     }
 
+    /**
+     * @param $id - product id
+     * @return \Illuminate\Http\Response
+     */
+    public function remove($id)
+    {
+       $product = Product::onlyTrashed()
+                       ->where('id', $id)
+                       ->first();
+        // Force deleting a single model instance...
+        $product->forceDelete();
+
+        return redirect()->route('admin.products.index')->withMessage('Товар удален');
+    }
 
     /**
      * Востановление мягко удаленного товара

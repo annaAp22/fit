@@ -245,6 +245,13 @@
                                                         <i class="ace-icon fa fa-undo bigger-120"></i>
                                                     </button>
                                                 </form>
+
+                                                    <form action="{{ route('admin.products.remove', ['id' => $item->id]) }}" method="post" style="float: right" title="Безвозвратно удалить">
+                                                        <input name="_token" type="hidden" value="{{csrf_token()}}">
+                                                        <button class="btn btn-xs btn-danger action-delete" type="button" style="border-width: 1px;">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        </button>
+                                                    </form>
                                                 @else
                                                 <a class="btn btn-xs btn-info" href="{{route('admin.products.edit', $item->id)}}">
                                                     <i class="ace-icon fa fa-pencil bigger-120"></i>
