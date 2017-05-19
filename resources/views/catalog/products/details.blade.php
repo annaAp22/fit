@@ -225,9 +225,9 @@
                                 </div>
                                 <div class="product-delivery__cost"><span>Стоимость:</span><span>Курьером: от 300 руб.<br/>При заказе от 6 000 руб<br/>Бесплатно</span>
                                 </div>
-                                <div class="product-delivery__link"><a href="#">Подробнее о доставке</a>
+                                <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке</a>
                                 </div>
-                                <div class="product-delivery__store"><i class="sprite_main sprite_main-header__city_point"></i><span>Магазин в Москве</span>
+                                <div class="product-delivery__store"><i class="sprite_main sprite_main-header__city_point"></i><a href="{{ route('contacts') }}">Магазин в Москве</a>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +238,7 @@
 
             @include('catalog.products.tabs.kits')
 
-            @include('catalog.products.tabs.reviews', ['product' => $product])
+            @include('catalog.products.tabs.reviews')
 
         </section>
 

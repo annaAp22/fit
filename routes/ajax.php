@@ -30,6 +30,9 @@ Route::group([ 'prefix' => 'product' ], function() {
         'as'   => 'product.comment',
         'uses' => 'FrontApiController@comment'
     ])->where(['id' => '[0-9]+']);
+
+
+    Route::get('/comments', 'FrontApiController@comments')->name('product.comments');
 });
 
 Route::group(['prefix' => 'cart'], function() {

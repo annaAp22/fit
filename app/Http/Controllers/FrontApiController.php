@@ -341,65 +341,66 @@ class FrontApiController extends Controller
     public function comments(Request $request) {
         $product_id = $request->input('product_id');
         $perPage = $request->input('per_page', 1) == 'all' ? 1000 : 5;
+
         $comments = ProductComment::published();
         if($product_id) {
-            $comments->whereHas('product', function($query) use($product_id) {
-                $query->where('id', $product_id);
-            });
+            $comments->where('product_id', $product_id);
         }
         $comments = $comments->paginate($perPage);
         $next_page = $comments->lastPage() > $comments->currentPage() ? ($comments->currentPage() + 1) : null; // номер следующей страницы
         $count = $next_page ? $comments->total() - ($comments->currentPage() * $comments->perPage()) : 0; // количество оставшихся комментариев
-        $response = '';
-        foreach ($comments as $comment)
-            $response.= view('reviews.review', ['review' => $comment])->render();
+
+
+        $html = view('catalog.products.comments', compact('comments'))->render();
+
         return [
             'clear' => $request->input('per_page', 1) == 'all', // если true заменяем комментарии на странице, false добавляем в конецclear' => $page == 'all', // если true заменяем комментарии на странице, false добавляем в конец
-            'html' => $response,
+            'html' => $html,
             'action' => 'appendComments',
             'total' => $comments->total(),
             'currentPage' => $comments->currentPage(),
             'next_page' => $next_page,
             'count' => $count,
-            // ... другие необходимые параметры пагинации можно посмотреть в документация к методу paginate()
         ];
     }
+
     /**
      * Добавление коментария к товару
-     * @param $id
      * @param Request $request
-     * @return string|\Illuminate\Http\JsonResponse
+     * @param $product_id
+     * @return \Illuminate\Http\JsonResponse|string
+     * @internal param $id
      */
-    public function comment(Request $request) {
+    public function comment(Request $request, $product_id) {
+
         $data = $request->input();
+
         //Статус - На модерации
         $data['status'] = 0;
         $data['message'] = $data['text'];
-        $validatorOptions = $data['product_id'] == 0 ?
-            [
-                'name' => 'required',
-                'email' => 'required|email',
-                'message' => 'required',
-            ] : [
-                'product_id' => 'required|exists:products,id',
+        $data['product_id'] = $product_id;
+
+        $validatorOptions = [
                 'name' => 'required',
                 'text' => 'required',
             ];
         $validator = Validator::make($data, $validatorOptions);
 
         if ($validator->fails()) {
-            return response()->json(['message' => 'При добавлении комментария произошла ошибка. Попробуйте снова.']);
+            return ['message' => 'При добавлении комментария произошла ошибка. Попробуйте снова.'];
         }
 
-        if($data['product_id'] == 0)
-            \App\Models\Review::create($data);
-        else {
-            $data['rating'] = floatval($request->rating);
-            \App\Models\Review::create($data);
-            \App\Models\ProductComment::create($data);
-        }
 
-        return response()->json(['result' => 'ok']);
+        $data['rating'] = floatval($request->rating);
+
+        ProductComment::create($data);
+
+        $html = view('catalog.products.comment_success', ['name' => $data['name']])->render();
+
+        return [
+            'html' => $html,
+            'action' => 'commentSuccess',
+        ];
     }
 
     /**

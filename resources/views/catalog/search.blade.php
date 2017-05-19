@@ -8,14 +8,9 @@
     <main>
 
         <div class="container">
-            <aside class="sidebar">
 
-                {{-- Catalog navigation --}}
-                @widget('ListingCatalog')
-
-                @widget('TagsWidget')
-                @widget('BannerLeftWidget')
-            </aside>
+            {{-- SideBar --}}
+            @include('content.aside')
 
             <section class="content">
                 <div class="container-in">

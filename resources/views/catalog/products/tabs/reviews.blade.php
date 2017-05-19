@@ -13,9 +13,9 @@
     <!-- Reviews-->
     <div id="product-reviews" class="product-reviews container-in active js-reviews" data-count="{{$comments->count()}}">
         <!-- Reviews items-->
-        @forelse($comments as $review)
-            @include('reviews.review', ['review' => $review])
-        @empty
+        @if($comments->count())
+            @include('catalog.products.comments')
+        @else
             <!-- Empty reviews-->
             <div class="reviews-empty"><i class="sprite_main sprite_main-empty-reviews-arrow-gray"></i>
                 <div class="reviews-empty__title">Отзывов пока что нет
@@ -39,9 +39,9 @@
         <!-- Reviews navigation-->
         @if($comments->lastPage() > $comments->currentPage())
             <div id="product-reviews-navigation" class="product-reviews-navigation">
-                <button class="btn btn_more js-get" data-action="{{route('get.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_more js-get" data-action="{{route('ajax.product.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
-                <button class="btn btn_show-all js-get" data-action="{{route('get.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_show-all js-get" data-action="{{route('ajax.product.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
             </div>
         @endif
@@ -51,20 +51,13 @@
     </div>
 </div>
 
-<form class="product-review-form" method="post" action="/comment">
+<form class="product-review-form js-form-ajax" method="post" action="{{ route('ajax.product.comment', ['id' => $product->id ]) }}">
     <div class="product-review-form__title">Оставить свой отзыв
     </div>
     <!-- Form body-->
-    <div class="product-review-form__body">
-        <!-- Form success-->
-        <div class="form-success" style="display:none;"><i class="sprite_main sprite_main-form-succsess-smile-gray"></i>
-            <div class="form-success__title">Спасибо, Маргарита!
-            </div>
-            <div class="form-success__text">Ваш отзыв внесёт ценный вклад в развитие сервиса
-            </div>
-        </div>
+    <div class="product-review-form__body js-comment-success">
+
         <!-- Form fields-->
-        <input type="hidden" name="product_id" value="{{$product->id}}"/>
         <div class="product-review-form__label">Представьтесь
         </div><input class="input input_text" type="text" name="name" placeholder="Ваше имя"/>
         <div class="product-review-form__label product-review-form__label_mt">Оцените товар по 5-ти бальной шкале

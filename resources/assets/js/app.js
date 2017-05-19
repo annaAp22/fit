@@ -598,23 +598,6 @@ function number_format( number, decimals, dec_point, thousands_sep ) {	// Format
 
     return km + kw + kd;
 }
-//good review
-$('.product-review-form').on('submit', function(e) {
-    e.preventDefault();
-    var form = $(this);
-    $.post(form.attr('action'), form.serialize(), function(data) {
-        if(data.result === 'ok') {
-            var title = form.find('.form-success__title');
-            var body = form.find('.product-review-form__body');
-            body.children().css('display', 'none');
-            title.text('Спасибо, '+ form.get(0)['name'].value +'!');
-            body.find('.form-success').css('display', 'block');
-        } else {
-
-        }
-    });
-    return false;
-});
 
 function appendComments(data) {
     var navigation = $('#product-reviews-navigation');
@@ -651,4 +634,10 @@ function appendGoods(data) {
     $goods_block.append(data['html']);
 }
 
+// Show success on product comment submit
+function commentSuccess(data) {
+    if(typeof data.html !== 'undefined') {
+        $(".js-comment-success").html(data.html);
+    }
+}
 

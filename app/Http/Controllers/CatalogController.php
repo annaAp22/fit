@@ -366,7 +366,7 @@ class CatalogController extends Controller
             'kits.products.attributes',
             'related.attributes',
         ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
-        $comments = $product->comments()->paginate(5);
+        $comments = $product->comments()->published()->paginate(5);
         $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
 
         //добавляем товар в просмотренные
