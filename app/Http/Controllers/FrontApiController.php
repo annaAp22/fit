@@ -582,5 +582,16 @@ class FrontApiController extends Controller
 
         return redirect()->route('order');
     }
+    /*
+    * return modal view
+     */
+    public function modal(Request $request) {
+        $modal = $request->input('modal');
+        $response = [
+            'action' => 'openModal',
+            'modal' => view('modals.'.$modal)->render(),
+        ];
+        return $response;
+    }
 
 }

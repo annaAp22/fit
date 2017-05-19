@@ -28,10 +28,6 @@ gulp.task('postcss', function() {
 gulp.task('watch1', function() {
     gulp.watch('./resources/assets/sass/*.sass', ['postcss']);
 })
-gulp.task('watch2', function() {
-    gulp.watch('./resources/assets/sass/*.sass');
-})
-
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -54,7 +50,6 @@ elixir(function(mix) {
 
     // Customer area
     mix.task('postcss');
-    mix.task('watch1');
     mix.scripts([
         'vendor/jquery-3.2.1.min.js',
         'vendor/jquery.carousel.js',

@@ -103,7 +103,7 @@
                         {{-- How to choose size modal --}}
                         <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size">
                             <i class="sprite_main sprite_main-icon__popup_info"></i>
-                            <span>Как подобрать размер?</span>
+                            <span class="js-action-link" data-action="{{route('modal')}}" data-modal="sizes">Как подобрать размер?</span>
                         </a>
 
                         @if(isset($sizes) && $sizes)

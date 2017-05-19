@@ -386,6 +386,13 @@ function init() {
 $(function(){
     var $body = $('body');
 
+    $body.on('click', '.js-close', function(e) {
+        $(this).hide();
+    })
+    $body.on('click', '.js-close-modal', function(e) {
+        $(this).closest('.modal').hide();
+    })
+
     // Toggle active class
     $body.on("click", ".js-toggle-active", function(e){
         var $this = $(this),
@@ -830,23 +837,6 @@ $(function(){
     $body.on('click', '.js-action-link', function(e) {
         e.preventDefault();
         var url = $(this).data('action');
-        $.get(url, null, function(data) {
-            // Exception
-            if(typeof data.error !== 'undefined'){
-                console.log(data.message);
-            }
-            // Do some action
-            if(typeof data.action !== 'undefined'){
-                var fn = window[data.action];
-                if(typeof fn === 'function') {
-                    fn(data);
-                }
-            }
-        });
-    });
-    $body.on('click', '.js-get', function(e) {
-        e.preventDefault();
-        var url = $(this).data('action');
         var post_data = $(this).data();
         delete post_data['action'];
         $.get(url, post_data, function(data) {
@@ -863,7 +853,6 @@ $(function(){
             }
         });
     });
-
     // Mask phone
     $('.js-phone').mask("+7 000 000 00 000", {placeholder: "+7 ___ ___ __ __"});
 
@@ -1000,7 +989,6 @@ $('.product-review-form').on('submit', function(e) {
     });
     return false;
 });
-
 function appendComments(data) {
     var navigation = $('#product-reviews-navigation');
     var btn_more = $('#product-reviews .btn_more:first');

@@ -39,9 +39,9 @@
         <!-- Reviews navigation-->
         @if($comments->lastPage() > $comments->currentPage())
             <div id="product-reviews-navigation" class="product-reviews-navigation">
-                <button class="btn btn_more js-get" data-action="{{route('get.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_more js-action-link" data-action="{{route('get.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
-                <button class="btn btn_show-all js-get" data-action="{{route('get.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_show-all js-action-link" data-action="{{route('get.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
             </div>
         @endif
