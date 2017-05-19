@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Kit;
 use App\Http\Requests\admin\KitRequest;
+use App\Models\Product;
 
 class KitController extends Controller
 {
@@ -16,6 +17,7 @@ class KitController extends Controller
     {
         $this->authorize('index', new Kit);
         $kits = Kit::with('products')->paginate();
+
         return view('admin.kits.index', compact('kits'));
     }
 
@@ -28,7 +30,8 @@ class KitController extends Controller
     {
         $this->authorize('index', new Kit);
         $kit = new Kit;
-        return view('admin.kits.create', compact('kit'));
+        $products = Product::published()->get();
+        return view('admin.kits.create', compact('kit','products'));
     }
 
     /**
@@ -55,7 +58,8 @@ class KitController extends Controller
     public function edit(Kit $kit)
     {
         $this->authorize('index', new Kit);
-        return view('admin.kits.edit', compact('kit'));
+        $products = Product::published()->get();
+        return view('admin.kits.edit', compact('kit', 'products'));
     }
 
     /**

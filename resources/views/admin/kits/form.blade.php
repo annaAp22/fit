@@ -10,9 +10,14 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label no-padding-right" for="form-field-77">Товары в комплекте</label>
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-20"> Товары в комплекте </label>
         <div class="col-sm-9">
-            <dynamic-products :initial-products="{{ json_encode(old('products', $kit->products)) }}"></dynamic-products>
+            <select multiple="" name="products[]" class="chosen-select form-control tag-input-style" id="form-field-20" data-placeholder="Выберите товары...">
+                <option value="">--Не выбраны--</option>
+                @foreach($products as $product)
+                    <option value="{{$product->id}}" @if(old() && old('products') && in_array($product->id, old('products')) || (!old() && !empty($kit) && $kit->products->count() && $kit->products->find($product->id)))selected="selected"@endif>{{$product->name}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 
