@@ -23,7 +23,8 @@ class BannerLeftWidget extends AbstractWidget
         $banners = Banner::where('type', 'left')->where('status', 1)->get();
 
         return view("widgets.banner_left_widget", [
-            'config' => $this->config, 'banners' => $banners
+            'config' => $this->config,
+            'banners' => $banners,
         ]);
     }
 }

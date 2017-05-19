@@ -47,7 +47,7 @@
                 @endif
 
                 @widget('TagsWidget')
-                @include('catalog.sidebar_banners')
+                @widget('BannerLeftWidget')
             </aside>
             <section class="content">
                 <div class="container-in">

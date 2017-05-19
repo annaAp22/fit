@@ -86,15 +86,13 @@
     <!-- Video and Quality banner-->
     <div class="video-and-quality container-in">
       <!-- YouTube video-->
-        <a class="youtube-video" href="#">
+        <a data-fancybox class="youtube-video" href="//www.youtube.com/embed/LVDh_iL8YdM?autoplay=1">
             <span class="youtube-video__play"></span>
             <img class="youtube-video__image" src="/img/main-video-min.jpg" alt="" role="presentation"/>
             <span class="youtube-video__title youtube-video__title_top-left-white">Всё, что нужно занать о нашей спортивной одежде</span>
-            <iframe width="640" height="480" data-src="//www.youtube.com/embed/LVDh_iL8YdM?autoplay=1" src="" frameborder="0" allowfullscreen>
-            </iframe>
         </a>
 
-      <!-- Quality--><a class="main-quality" href="{{ route('article', ['sysname' => 'super_kachestvo']) }}"><img class="main-quality__image" src="/img/main-made-super-quality-min.jpg" alt="" role="presentation"/><span class="main-quality__caption"><span class="main-quality__title">Супер Качество</span><span class="main-quality__text">Ткань имеет свойства растягиваться в обоих направлениях. Выводит пот через ткань наружу, оставляя кожу сухой и теплой. Устойчив к зацепкам и закатыванию.</span>
+      <!-- Quality--><a class="main-quality" href="{{ route('article', ['sysname' => 'iz_chego_shem']) }}"><img class="main-quality__image" src="/img/main-made-super-quality-min.jpg" alt="" role="presentation"/><span class="main-quality__caption"><span class="main-quality__title">Супер Качество</span><span class="main-quality__text">Ткань имеет свойства растягиваться в обоих направлениях. Выводит пот через ткань наружу, оставляя кожу сухой и теплой. Устойчив к зацепкам и закатыванию.</span>
       <button class="btn btn_white">Подробнее<i class="sprite_main sprite_main-button-arrow-right-black"></i>
       </button></span></a>
     </div>

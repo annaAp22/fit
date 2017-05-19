@@ -1459,6 +1459,7 @@ button {
   display: inline-block;
   position: relative;
   text-decoration: none;
+  outline: none;
 }
 
 .youtube-video__play {
@@ -4718,8 +4719,8 @@ footer .line {
   flex-grow: 1;
 }
 
-.description-scroll__color-wrap>:last-child {
-  margin-left: 15px;
+.description-scroll__color-wrap>:first-child {
+  margin-right: 15px;
 }
 
 .description-scroll__color {
