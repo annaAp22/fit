@@ -61,7 +61,8 @@ class AttributeController extends Controller
     public function edit($id)
     {
         $attribute = Attribute::findOrFail($id);
-        return view('admin.attributes.edit', ['attribute' => $attribute]);
+        $types = Attribute::$types;
+        return view('admin.attributes.edit', compact('attribute','types'));
     }
 
     /**

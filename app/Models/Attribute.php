@@ -48,7 +48,7 @@ class Attribute extends Model
      * @return mixed|null
      */
     public function getLists() {
-        if($this->type=='list' && $this->list) {
+        if(in_array($this->type, ['Список', 'Список чекбоксов']) && $this->list) {
             return json_decode($this->list, true);
         }
         return [];
