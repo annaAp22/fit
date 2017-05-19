@@ -7635,6 +7635,22 @@ li.fancybox-thumbs-loading {
   max-width: 90%;
 }
 
+.modal-sizes {
+  font-size: 16px;
+  width: 90%;
+  max-width: 1156px;
+}
+
+.modal-sizes .caption {
+  font-size: 1em;
+  background-color: #f3f3f3;
+  padding: 2.07612% 4.15225%;
+}
+
+.modal-sizes table {
+  width: 100%;
+}
+
 @media screen and (min-width:576px) {
   .header__logo {
     -webkit-box-sizing: border-box;

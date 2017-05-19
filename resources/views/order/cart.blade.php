@@ -51,22 +51,22 @@
                 </div>
                 <div class="product-cart-table__body">
                     @forelse($products as $product)
-                    <div class="product-cart-table__product product-cart-table__row container-in js-product" data-id="{{ $product->id }}">
+                    <div class="product-cart-table__product product-cart-table__row container-in js-product" data-id="{{ $product->id }}-{{ $product->size }}">
                         <div class="product-cart-table__col product-cart-table__col_photo">
                             <a class="product-cart-table__image" href="{{ route('product', $product->sysname) }}"><img src="{{ $product->uploads->img->cart->url() }}" alt="{{ $product->name }}"></a>
                         </div>
                         <div class="product-cart-table__col product-cart-table__col_name">
                             <a class="product-cart-table__name" href="{{ route('product', $product->sysname) }}">{{ $product->name }}<span class="product-cart-table__art"> {{ $product->sku }}</span></a>
-                            @isset($product->extra_params['size'])
-                                <div class="product-cart-table__size">Размер:<span>{{ $product->extra_params['size'] }}</span></div>
-                            @endisset
+                            @if($product->size)
+                                <div class="product-cart-table__size">Размер:<span>{{ $product->size }}</span></div>
+                            @endif
                         </div>
                         <div class="product-cart-table__separator">
                         </div>
                         <div class="product-cart-table__col product-cart-table__col_quantity">
                             <div class="quantity">
                                 <div class="quantity__handle quantity__handle_minus icon-fade js-quantity" data-num="-1"><i class="sprite_main sprite_main-icon-arrow-gray-left normal"></i><i class="sprite_main sprite_main-icon-arrow-green-left_active active"></i>
-                                </div><input class="quantity__input js-quantity-input" name="products[{{ $product->id }}]" value="{{ $product->count }}" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                                </div><input class="quantity__input js-quantity-input" name="products[{{ $product->id }}][{{ $product->size }}]" value="{{ $product->count }}" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
                                 <div class="quantity__handle quantity__handle_plus icon-fade js-quantity" data-num="1"><i class="sprite_main sprite_main-icon-arrow-gray-left normal"></i><i class="sprite_main sprite_main-icon-arrow-green-left_active active"></i>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             <div class="product-cart-table__price-sum js-amount" data-amount="{{ $product->amount }}">{{ number_format($product->amount, 0, '.', ' ') }} ₽
                             </div>
                         </div>
-                        <div class="product-cart-table__col product-cart-table__col_remove"><a class="product-cart-table__remove icon-fade js-action-link" data-action="{{ route('ajax.cart.remove', ['id' => $product->id]) }}"><i class="sprite_main sprite_main-icon-x-gray normal"></i><i class="sprite_main sprite_main-icon-x-red_active active"></i></a>
+                        <div class="product-cart-table__col product-cart-table__col_remove"><a class="product-cart-table__remove icon-fade js-action-link" data-action="{{ route('ajax.cart.remove', ['id' => $product->id, 'size' => $product->size]) }}"><i class="sprite_main sprite_main-icon-x-gray normal"></i><i class="sprite_main sprite_main-icon-x-red_active active"></i></a>
                         </div>
                     </div>
                     @empty

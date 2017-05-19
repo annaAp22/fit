@@ -2,6 +2,7 @@
     <form action="{{ route('ajax.cart.update.quantity', ['id' => $product->id]) }}" method="POST" class="js-form-ajax">
         {{ csrf_field() }}
         <input type="hidden" name="id" value="{{ $product->id }}">
+        <input type="hidden" name="size" value="{{ $size }}">
 
         <div class="cart-modal_top">
             <div class="form-modal_title">ТОВАР ДОБАВЛЕН В КОРЗИНУ!</div>
@@ -11,6 +12,7 @@
             <div class="cart-modal_top_name">
                 <a href="{{ route('product', $product->sysname) }}">{{ $product->name }}</a>
                 <div>Артикул: <span>{{ $product->sku }}</span></div>
+                <div><strong>Размер: <span>{{ $size }}</span></strong></div>
             </div>
             <div class="cart-modal_top_counter">
                 <div class="quantity">

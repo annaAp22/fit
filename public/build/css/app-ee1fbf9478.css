@@ -7454,20 +7454,20 @@ li.fancybox-thumbs-loading {
   max-width: 100%;
 }
 
-.cart-modal_top_name a {
+.cart-modal_top_name>a {
   outline: none;
   text-decoration: none;
   font-size: 14px;
   display: block;
   color: #000;
-  margin-bottom: 15px;
 }
 
-.cart-modal_top_name div {
+.cart-modal_top_name>div {
+  margin-top: 20px;
   font-size: 14px;
 }
 
-.cart-modal_top_name div span {
+.cart-modal_top_name>div span {
   font-weight: 300;
   color: #a6a6a6;
 }
@@ -7633,14 +7633,6 @@ li.fancybox-thumbs-loading {
 
 #order-success {
   max-width: 90%;
-}
-
-.modal-sizes {
-  max-width: 1120px;
-}
-
-.modal-sizes table {
-  width: 100%;
 }
 
 @media screen and (min-width:576px) {
@@ -11036,10 +11028,6 @@ li.fancybox-thumbs-loading {
 
   .quick-order_col {
     display: none;
-  }
-
-  .modal-sizes {
-    width: 90%;
   }
 }
 

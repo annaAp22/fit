@@ -38,7 +38,7 @@ Route::group(['prefix' => 'cart'], function() {
         'uses' => 'FrontApiController@addToCart'
     ])->where(['id' => '[0-9]+', 'cnt' => '[0-9]+']);
 
-    Route::get('/cart/remove/{id}', [
+    Route::get('/cart/remove/{id}/{size}', [
         'as'   => 'cart.remove',
         'uses' => 'FrontApiController@removeFromCart'
     ])->where('id', '[0-9]+');

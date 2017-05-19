@@ -40,7 +40,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title smaller">
                             <i class="ace-icon fa fa-quote-left smaller-80"></i>
-                            Данные по заказу
+                            Данные по заказу № {{ $order->id }}
                         </h4>
                     </div>
 
@@ -191,13 +191,13 @@
                                     <tbody>
                                         @foreach($order->products as $product)
                                         <tr class="product">
-                                            <td class="">
+                                            <td class="" style="display: flex">
                                             @if($product->img && $product->uploads)
-                                                <a class="img-wr a-l-c">
-                                                    <img src="{{$product->uploads->img->preview->path()}}" width="29px" />
+                                                <a target="_blank" href="{{ route('product', ['sysname' => $product->sysname]) }}" class="img-wr a-l-c">
+                                                    <img src="{{$product->uploads->img->preview->url()}}" width="29px" />
                                                 </a>
                                             @endif
-                                            {{$product->name}}
+                                                <a target="_blank"  href="{{ route('product', ['sysname' => $product->sysname]) }}">{{$product->name}}</a>
                                             </td>
                                             <td>
                                                 @php $extras = json_decode($product->pivot->extra_params); @endphp
@@ -212,7 +212,7 @@
                                             <td colspan="4" style="text-align: right">
                                                 Сумма:
                                             </td>
-                                            <td class="text-success amount">{{$order->products->sum('pivot.cnt') * $order->products->sum('pivot.price')}}</td>
+                                            <td class="text-success amount">{{$order->amount}}</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right">

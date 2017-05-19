@@ -122,6 +122,7 @@
                             <table id="simple-table" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
+                                    <th>№</th>
                                     <th>ФИО</th>
                                     <th>Дата</th>
                                     <th>Сумма</th>
@@ -133,6 +134,7 @@
                                 <tbody class="ace-thumbnails clearfix">
                                 @forelse($orders as $item)
                                     <tr @if($item->trashed())style="background-color: #F6CECE"@endif>
+                                        <td>{{ $item->id }}</td>
                                         <td>
                                             <a href="{{route('admin.orders.edit', $item->id)}}">{{$item->name}}</a>
                                         </td>
