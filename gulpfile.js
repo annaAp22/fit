@@ -48,9 +48,7 @@ elixir(function(mix) {
 
     // Customer area
     mix.task('postcss');
-
     mix.webpack('application/application.js');
-
     mix.scripts([
         'vendor/jquery-3.2.1.min.js',
         'vendor/jquery.carousel.js',
@@ -80,8 +78,7 @@ elixir(function(mix) {
         // 'size-selector.js',
         // 'contacts.js',
         'map.js',
-        'common.js',
-        'app.js'
+        'app.js',
     ], 'public/js/app.js');
 
     mix.version([

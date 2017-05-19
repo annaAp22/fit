@@ -1,3 +1,384 @@
+$(function() {
+    var $filters = $('#js-filters'),
+        $sorters = $('.js-sort'),
+        $page = $filters.find('input[name=page]'),
+        $productsCount = $('.js-goods-count'),
+        $items = $('#js-goods'),
+        $paginator = $('.js-pagination'),
+        dontTouchThis = [
+            'page',
+            '_token',
+            'category_id',
+            'brand_id',
+            'tag_id',
+            'price_from',
+            'price_to'
+        ],
+        dontTouchSelector = '',
+        resetPagination = function(submit) {
+            if(typeof submit === 'undefined')
+                submit = false;
+            //console.log('reset pagination');
+            $page.val(1);
+            if(submit) {
+                $filters.trigger('submit');
+            }
+        },
+        // Reset filters values
+        resetFilters = function() {
+            $filters.find('input[type=checkbox]', 'input[type=radio]').attr('checked', false);
+            $filters.find('input[name^=attribute]').attr('disabled', true);
+            $('.js-square').removeClass('active');
+            rangeSlider.noUiSlider.set([rRange[0], rRange[1]]);
+
+            resetPagination(true);
+        };
+
+    for(var index in dontTouchThis)
+        dontTouchSelector += '[name!=' + dontTouchThis[index] + ']';
+
+    if($page.val() == '') $paginator.hide();
+
+    // Price range slider init
+    var rangeSlider = document.getElementById('js-range-slider');
+    if( rangeSlider ) {
+        var $this = $(rangeSlider);
+        rStart = $this.data('start'),
+            rRange = $this.data('range');
+
+        noUiSlider.create(rangeSlider, {
+            start: [ rStart[0], rStart[1] ],
+            connect: true,
+            range: {
+                'min': rRange[0],
+                'max': rRange[1]
+            }
+        });
+
+        var priceMin = document.getElementById('js-price-min'),
+            priceMax = document.getElementById('js-price-max');
+
+        rangeSlider.noUiSlider.on('update', function( values, handle ) {
+
+            var value = values[handle];
+
+            if ( handle ) {
+                priceMax.value = Math.round(value);
+            } else {
+                priceMin.value = Math.round(value);
+            }
+        });
+
+        rangeSlider.noUiSlider.on('set', function(){
+            resetPagination();
+        });
+
+        priceMin.addEventListener('change', function(){
+            rangeSlider.noUiSlider.set([this.value, null]);
+        });
+        priceMax.addEventListener('change', function(){
+            rangeSlider.noUiSlider.set([null, this.value]);
+        });
+    }
+
+    $filters.find('input[name^=attribute],select[name^=attribute]').on('change', function(e) {
+        e.preventDefault();
+        resetPagination();
+    });
+    $filters.find('.js-square').on('click', function(e) {
+        resetPagination();
+    });
+
+    $filters.on('submit', function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.post($(this).attr('action'), formData, function(data) {
+            if(data.clear) {
+                $page.val(2);
+                $items.html($(data.items));
+            } else {
+                if($page.val() == 'all') {
+                    $items.html($(data.items));
+                }
+                else {
+                    $items.append($(data.items));
+                }
+            }
+
+            if(data.next_page === null) {
+                $paginator.hide();
+            }
+            else {
+                $paginator.show();
+                $page.val(data.next_page);
+            }
+            $productsCount.html(data.count);
+        });
+    });
+    $sorters.on('click', function(e) {
+        e.preventDefault();
+        var sort = $(this).data('sort');
+        $filters.find("input[name=sort]").val(sort);
+
+        if($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            //$filters.find('input[type=hidden]' + dontTouchSelector).val('');
+        } else {
+            $sorters.removeClass('active');
+            $(this).addClass('active');
+
+            //$filters.find('input[type=hidden]' + dontTouchSelector).val('');
+            //$filters.find('input[type=hidden][name=' + $(this).attr('name') + ']').val($(this).val());
+        }
+
+        resetPagination(true);
+    });
+
+    $paginator.on('click', function(e) {
+        e.preventDefault();
+        var showAll = $(this).data('all');
+        if(typeof showAll !== 'undefined' && showAll) {
+            $page.val('all');
+        }
+        console.log('get next page');
+        $filters.trigger('submit');
+    });
+
+    $(".js-filters-reset").on('click', function(e) {
+        e.preventDefault();
+        resetFilters();
+        return false;
+    });
+});
+var mapDiv = document.getElementById('map');
+var mapLoad = function(e) {
+    mapDiv.removeEventListener('click', mapLoad);
+    $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIc5obn1ArfkEzXhkgZiMyyHPRQmjNx5M", function() {
+        init();
+    });
+};
+mapDiv.addEventListener('click', mapLoad);
+
+
+// When the window has finished loading create our google map below
+//google.maps.event.addDomListener(window, 'load', init);
+
+function init() {
+    // Basic options for a simple Google Map
+    // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+    var mapOptions = {
+        // How zoomed in you want the map to start at (always required)
+        zoom: 15,
+
+        // The latitude and longitude to center the map (always required)
+        center: new google.maps.LatLng(55.711354, 37.654629), /* Moscow*/
+
+        // Do not change zoom on mouse scroll
+        scrollwheel: false,
+
+        // How you would like to style the map.
+        // This is where you would paste any style found on Snazzy Maps.
+        styles: [
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#e9e9e9"
+                    },
+                    {
+                        "lightness": 17
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f5f5f5"
+                    },
+                    {
+                        "lightness": 20
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 17
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 29
+                    },
+                    {
+                        "weight": 0.2
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 18
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 16
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f5f5f5"
+                    },
+                    {
+                        "lightness": 21
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#dedede"
+                    },
+                    {
+                        "lightness": 21
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 16
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "saturation": 36
+                    },
+                    {
+                        "color": "#333333"
+                    },
+                    {
+                        "lightness": 40
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f2f2f2"
+                    },
+                    {
+                        "lightness": 19
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#fefefe"
+                    },
+                    {
+                        "lightness": 20
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#fefefe"
+                    },
+                    {
+                        "lightness": 17
+                    },
+                    {
+                        "weight": 1.2
+                    }
+                ]
+            }
+        ]
+    };
+
+    // Get the HTML DOM element that will contain your map
+    // We are using a div with id="map" seen below in the <body>
+    var mapElement = document.getElementById('map');
+
+    // Create the Google Map using our element and options defined above
+    var map = new google.maps.Map(mapElement, mapOptions);
+
+    // Let's also add a marker while we're at it
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(55.710074, 37.654759),
+        map: map,
+        title: 'Магазин',
+        icon: "/img/map_point-min.png"
+    });
+
+    // center map on window resize
+    google.maps.event.addDomListener(window, "resize", function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+    });
+}
 $(function(){
     var $body = $('body');
 
@@ -596,5 +977,59 @@ function number_format( number, decimals, dec_point, thousands_sep ) {	// Format
 
     return km + kw + kd;
 }
+//good review
+$('.product-review-form').on('submit', function(e) {
+    e.preventDefault();
+    var form = $(this);
+    $.post(form.attr('action'), form.serialize(), function(data) {
+        if(data.result === 'ok') {
+            var title = form.find('.form-success__title');
+            var body = form.find('.product-review-form__body');
+            body.children().css('display', 'none');
+            title.text('Спасибо, '+ form.get(0)['name'].value +'!');
+            body.find('.form-success').css('display', 'block');
+        } else {
+
+        }
+    });
+    return false;
+});
+
+function appendComments(data) {
+    var navigation = $('#product-reviews-navigation');
+    var btn_more = $('#product-reviews .btn_more:first');
+    var per_page = 5;
+    if(data['clear']) {
+        $('.product-review').remove();
+    }
+    if(data['count'] > 0) {
+        btn_more.data('page', data['next_page']);
+        if(data['count'] > per_page) {
+            data['count'] = per_page;
+        }
+        btn_more.find('.count').text('(' + data['count'] + ')');
+    }else {
+        navigation.hide();
+    }
+    navigation.before(data['html']);
+}
+
+function appendGoods(data) {
+    var $goods_block = $('#js-goods');
+    var $navigation = $('.page-navigation');
+    var $btn_more = $navigation.find('.btn_more');
+    if(data['nextPage']) {
+        $btn_more.data('page', data['nextPage']);
+        $btn_more.find('.count').text('(' + data['count'] + ')');
+    } else {
+        $navigation.remove();
+    }
+    if(data['clear']) {
+        $goods_block.text('');
+    }
+    $goods_block.append(data['html']);
+}
 
 
+
+//# sourceMappingURL=app.js.map
