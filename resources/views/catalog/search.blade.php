@@ -14,7 +14,7 @@
                 @widget('ListingCatalog')
 
                 @widget('TagsWidget')
-                @include('catalog.sidebar_banners')
+                @widget('BannerLeftWidget')
             </aside>
 
             <section class="content">
