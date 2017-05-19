@@ -3722,7 +3722,6 @@ header .line_lg {
 .product__name {
   font-size: 14px;
   color: #272727;
-  height: 60px;
   margin-bottom: 20px;
   display: block;
   text-decoration: none;
@@ -3730,7 +3729,6 @@ header .line_lg {
 
 .product__price {
   position: relative;
-  padding-bottom: 20px;
   z-index: 1;
   background-color: #fff;
 }
@@ -3769,9 +3767,7 @@ header .line_lg {
 
 .product__description {
   position: relative;
-  height: 180px;
   padding-top: 25px;
-  padding-bottom: 65px;
 }
 
 .product__hidden {
@@ -8748,6 +8744,14 @@ li.fancybox-thumbs-loading {
     border-left: none;
   }
 
+  .product__name {
+    height: 60px;
+  }
+
+  .product__price {
+    padding-bottom: 20px;
+  }
+
   .product__price .old-price {
     top: -11px;
     left: 50%;
@@ -9858,6 +9862,40 @@ li.fancybox-thumbs-loading {
     width: calc(100% + 24px);
   }
 
+  .product {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .product__price {
+    margin-top: auto;
+  }
+
+  .product__description {
+    height: auto;
+    padding-bottom: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
   .product__hidden {
     display: none;
   }
@@ -10521,6 +10559,15 @@ li.fancybox-thumbs-loading {
     display: none;
   }
 
+  .product__name {
+    height: auto;
+  }
+
+  .product__price .old-price {
+    position: static;
+    display: block;
+  }
+
   .product:focus,
   .product:hover {
     z-index: 3;
@@ -11106,6 +11153,17 @@ li.fancybox-thumbs-loading {
     display: none;
   }
 
+  .ribbons {
+    top: -5px;
+    left: -5px;
+  }
+
+  .ribbons__ribbon {
+    -webkit-transform: scale(.7);
+    -ms-transform: scale(.7);
+    transform: scale(.7);
+  }
+
   .product-detailed__column>.product-rating {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -11616,6 +11674,10 @@ li.fancybox-thumbs-loading {
 
   .subscription__title {
     font-size: 30px;
+  }
+
+  .product__price {
+    margin-bottom: 40px;
   }
 
   .navigation-footer__column:last-child {

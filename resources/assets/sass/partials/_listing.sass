@@ -356,6 +356,9 @@
   background-color: #fff
   position: relative
   transition: box-shadow .3s ease
+  +media-md(down)
+    display: flex
+    flex-direction: column
   &__image
     position: relative
     border: 1px solid #ebebeb
@@ -373,13 +376,21 @@
     color: #272727
     +media-sm(up)
       padding: 0 10%
-    height: 60px
+    +media-lg(up)
+      height: 60px
+    +media-sm(down)
+      height: auto
     margin-bottom: 20px
     display: block
     text-decoration: none
   &__price
     position: relative
-    padding-bottom: 20px
+    +media-md(down)
+      margin-top: auto
+    +media-md()
+      margin-bottom: 40px
+    +media-lg(up)
+      padding-bottom: 20px
     z-index: 1
     background-color: #ffffff
     .current
@@ -387,6 +398,9 @@
       font-size: 20px
       font-weight: 700
     .old-price
+      +media-sm(down)
+        position: static
+        display: block
       padding-right: 24px
       font-size: 13px
       position: absolute
@@ -413,12 +427,19 @@
         
   &__description
     position: relative
-    height: 180px
+    padding-top: 25px
+
+    +media-md(down)
+      height: auto
+      padding-bottom: 0
+      flex-grow: 1
+      display: flex
+      flex-direction: column
+
     +media-lg(up)
       height: 145px
       padding-bottom: 46px
-    padding-top: 25px
-    padding-bottom: 65px
+
   &__hidden
     +hidden-md(down)
     position: absolute
@@ -475,6 +496,9 @@
   position: absolute
   top: 10px
   left: 10px
+  +media-xs()
+    top: -5px
+    left: -5px
   &__ribbon
     display: block
     width: 51px
@@ -487,6 +511,8 @@
     color: #ffffff
     text-align: center
     margin-bottom: 10px
+    +media-xs()
+      transform: scale(0.7)
     &_hit
       background-color: #ff7b41
     &_new
