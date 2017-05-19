@@ -17,6 +17,7 @@ class VerifyCsrfToken extends BaseVerifier
         'order/details',
         'admin/products/search',
         'comment',
-        'get/comments'
+        'get/comments',
+        'admin/editor/upload'
     ];
 }
