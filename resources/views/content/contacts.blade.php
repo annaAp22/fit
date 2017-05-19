@@ -8,7 +8,7 @@
 	<main class="container">
 	<div class="page-single">
 		<h1 class="page-single_title">Контакты</h1>
-		
+
 		{!! $page->content !!}
 
 	</div>

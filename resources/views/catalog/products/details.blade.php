@@ -176,10 +176,12 @@
                                     @endif
                                 </div>
                                 <!-- Brand-->
-                                <div class="description-scroll__param-title description-scroll__param-title_strong description-scroll__mt">
-                                    <span>Торговая марка:</span>
-                                    <span class="description-scroll__param-value">{{ $product->brand->name }}</span>
-                                </div>
+                                @isset($product->brand)
+                                    <div class="description-scroll__param-title description-scroll__param-title_strong description-scroll__mt">
+                                        <span>Торговая марка:</span>
+                                        <span class="description-scroll__param-value">{{ $product->brand->name }}</span>
+                                    </div>
+                                @endisset
                                 <!-- Country of origin-->
                                 @if($country_of_origin)
                                 <div class="description-scroll__param-title description-scroll__mt"><span>Страна производства:</span><span class="description-scroll__param-value">{{$country_of_origin->pivot->value}}</span>
