@@ -35,12 +35,12 @@
                     {{-- Pagination --}}
                     @if($products->currentPage() < $products->lastPage())
                         <div class="page-navigation">
-                            <button class="btn btn_more js-get" data-text="{{$text}}" data-action="{{route('search')}}" data-page="{{$products->currentPage() + 1}}">
+                            <button class="btn btn_more js-action-link" data-text="{{$text}}" data-url="{{route('search')}}" data-page="{{$products->currentPage() + 1}}">
                                 <span class="text">Показать больше</span>
                                 <span class="count js-goods-count">({{ $products->total() - ($products->currentPage() * $products->perPage()) }})</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                             </button>
-                            <button class="btn btn_show-all js-get" data-per_page="all"  data-text="{{$text}}" data-action="{{route('search')}}">
+                            <button class="btn btn_show-all js-action-link" data-per_page="all"  data-text="{{$text}}" data-url="{{route('search')}}">
                                 <span>Показать все товары</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                             </button>

@@ -1,19 +1,10 @@
-{{--
-[16:48:31] Higoglhf1: для кнопок есть отдельный файл стилей
-[16:49:03] Higoglhf1: можешь взять .btn .btn_green + добавить свои стили
-[16:49:39] Higoglhf1: Я думаю слово обхват спрячешь на xs и всё войдёт как есть
-[16:50:03] Higoglhf1: добавь стили для этого модальника в файл _modals.sass
-[16:50:26] Higoglhf1: чтобы спрятать используй примесь +hidden-xs()
-[16:51:40] Higoglhf1: вместо медиа квери +media-lg() +media-md() и тд, например для всего, что меньше md надо так +media-sm(down)
-[16:52:06] Higoglhf1: ну и можешь использовать flex, тут весь сайт на нём
-[16:53:22] Programmer Free: а что тут исползуется - media-lg, это самописная часть или что-то типа bootstrap?
-[16:53:24] Higoglhf1: для открытия модальника передай из контроллера в ответе 'modal' => view( ... )->render()
-[16:53:45] Higoglhf1: сейчас скину на документацию ссылку
-[16:54:16] Higoglhf1: https://gmdjs.github.io/
---}}
-<div class="modal-sizes">
-    <div class="caption">Таблица размеров</div>
-    <div class="subcaption"></div>
+<div id="modal-sizes" class="modal-sizes modal">
+    <div class="modal-sizes_caption">
+        <div class="sprite_main sprite_main-product_ruller"></div>
+        <span class="text">Таблица размеров</span>
+        <div class="sprite_main-close sprite_main" data-fancybox-close></div>
+    </div>
+    <div class="modal-sizes_subcaption">Женская одежда</div>
     <table>
         <tr>
             <th>Размер</th>
@@ -22,38 +13,72 @@
             <th>Обхват бедер</th>
         <tr>
             <td>40</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>80-86</td>
+            <td>60-65</td>
+            <td>85-90</td>
         </tr>
         <tr>
             <td>42</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>86-90</td>
+            <td>65-70</td>
+            <td>90-94</td>
         </tr>
         <tr>
             <td>44</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>92-96</td>
+            <td>70-75</td>
+            <td>94-98</td>
         </tr>
         <tr>
             <td>46</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>96-100</td>
+            <td>75-80</td>
+            <td>98-102</td>
         </tr>
         <tr>
             <td>48</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>100-105</td>
+            <td>80-85</td>
+            <td>102-106</td>
         </tr>
     </table>
-    <div class="banner">
-        <div class="left"></div>
-        <img class="middle" src="" alt="">
-        <div class="right"></div>
-    </div>
+    <div class="modal-sizes_subcaption">Мужская одежда</div>
+    <table>
+        <tr>
+            <th>Размер</th>
+            <th>Обхват груди</th>
+            <th>Обхват талии</th>
+            <th>Обхват бедер</th>
+        <tr>
+            <td>48</td>
+            <td>94-97</td>
+            <td>79-84</td>
+            <td>99-102</td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td>98-101</td>
+            <td>85-90</td>
+            <td>103-106</td>
+        </tr>
+        <tr>
+            <td>52</td>
+            <td>102-105</td>
+            <td>91-96</td>
+            <td>107-109</td>
+        </tr>
+        <tr>
+            <td>54</td>
+            <td>110-113</td>
+            <td>103-108</td>
+            <td>114-117</td>
+        </tr>
+        <tr>
+            <td>58</td>
+            <td>114-117</td>
+            <td>109-113</td>
+            <td>118-121</td>
+        </tr>
+    </table>
+    <div class="btn btn_green">Помогите подобрать размер</div>
 </div>

@@ -1,5 +1,7 @@
 <?php
 
+Route::get('modal', 'FrontApiController@modal')->name('modal');
+
 Route::post('/subscribe', [
     'as' => 'subscribe',
     'uses' => 'FrontApiController@subscribe'

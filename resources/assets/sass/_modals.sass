@@ -48,16 +48,16 @@
   +media-md(up)
     width: 150px
     margin-right: 50px
-  & > a
+  a
     outline: none
     text-decoration: none
     font-size: 14px
     display: block
     color: #000
-  & > div
-    margin-top: 20px
+    margin-bottom: 15px 
+  div 
     font-size: 14px
-    span
+    span 
       font-weight: 300
       color: #a6a6a6
 
@@ -179,3 +179,108 @@
 
 #order-success
   max-width: 90%
+.modal-sizes
+  +media-sm(down)
+  //@include fixed-center
+  overflow: auto
+  font-size: 16px
+  width: 90%
+  max-width: 1156px
+  padding-bottom: per_calc(50, 1156)
+  .sprite_main-close
+    cursor: pointer
+    position: absolute
+    top: 30%
+    right: per_calc(36, 1156)
+  .btn
+    width: 340px
+    max-width: 80%
+    margin: per_calc(45, 1156) auto
+    display: block
+  .girl
+    @include absolute-center
+    height: 100%
+  &_logo
+    font-size: 408px
+    font-weight: 900
+    opacity: 0.1
+    @include absolute-center-bottom
+  .left
+    margin-left: per_calc(145, 1156)
+    float: left
+  .right
+    margin-right: per_calc(120, 1156)
+    float: right
+  &_caption
+    font-size: 1em
+    background-color: #f3f3f3
+    position: relative
+    padding: per_calc(24, 1156) per_calc(48, 1156)
+    .sprite_main-product_ruller, .text
+      display: inline-block
+      vertical-align: middle
+    .sprite_main
+      margin-right: 15px
+  &_subcaption
+    color: #34aa53
+    font-size: 1.25em
+    font-weight: 700
+    padding: per_calc(24, 1156) per_calc(48, 1156)
+  table
+    width: 100%
+    border-collapse: collapse
+    tr
+      &:nth-child(2n+2)
+        background-color: #f3f3f3
+    td, th
+      padding: 15px per_calc(48, 1156)
+      border: 1px solid #e4e4e4
+      font-size: 14px
+      font-weight: 500
+      min-width: 60px
+      &:nth-child(n+2)
+        paddinig-left: per_calc(120, 1156)
+        paddinig-right: 5px
+      &:first-child
+        border-left: none
+      &:last-child
+        border-right: none
+    th
+      font-weight: 700
+      color: #34aa53
+      border-right-width: 0
+      text-align: left
+  &__banner
+    background-color: #f8c1da
+    background-image: linear-gradient(to top right, #f8c1da, #a27eb2)
+    padding: per_calc(32, 1156) 0 per_calc(48, 1156)
+    color: #fff
+    min-height: 200px
+    &_caption
+      font-weight: 900
+      fotn-size: 1.5em
+      .icon, .text
+        display: inline-block
+        bertical-align: middle
+      .text
+        width: 200px
+    &_item
+      width: per_calc(300, 1156)
+      .caption
+        font-size: 1.1em
+        font-weight: 900
+        margin-bottom: 1.5em
+      .text
+        font-size: 14px
+        font-weight: 500
+@media (max-width: 640px)
+  .modal-sizes
+    font-size: 14px
+    table
+      th, td
+        text-align: center
+        padding-left: 8px
+        padding-right: 8px
+      th
+        font-size: 1em
+        font-weight: 400

@@ -54,7 +54,7 @@
                     @include('catalog.products.labels')
 
                     <!-- Add to wishlist-->
-                    <span class="wishlist js-hover-notice js-toggle-active js-action-link" data-action="{{ route('ajax.product.defer', ['id' => $product->id]) }}"><span class="icon-fade"><i class="sprite_main sprite_main-product__wishlist normal"></i><i class="sprite_main sprite_main-product__wishlist_active active"></i></span><i class="sprite_main sprite_main-product__wishlist_done done"></i>
+                    <span class="wishlist js-hover-notice js-toggle-active js-action-link" data-url="{{ route('ajax.product.defer', ['id' => $product->id]) }}"><span class="icon-fade"><i class="sprite_main sprite_main-product__wishlist normal"></i><i class="sprite_main sprite_main-product__wishlist_active active"></i></span><i class="sprite_main sprite_main-product__wishlist_done done"></i>
                         <!-- Popup-->
                         <span class="popup-notice popup-notice_wishlist">
                             <span class="popup-notice__triangle">▼</span>
@@ -103,7 +103,7 @@
                         {{-- How to choose size modal --}}
                         <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size">
                             <i class="sprite_main sprite_main-icon__popup_info"></i>
-                            <span>Как подобрать размер?</span>
+                            <span class="js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes">Как подобрать размер?</span>
                         </a>
 
                         @if(isset($sizes) && $sizes)

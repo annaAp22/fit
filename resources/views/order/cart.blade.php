@@ -83,7 +83,7 @@
                             <div class="product-cart-table__price-sum js-amount" data-amount="{{ $product->amount }}">{{ number_format($product->amount, 0, '.', ' ') }} ₽
                             </div>
                         </div>
-                        <div class="product-cart-table__col product-cart-table__col_remove"><a class="product-cart-table__remove icon-fade js-action-link" data-action="{{ route('ajax.cart.remove', ['id' => $product->id, 'size' => $product->size]) }}"><i class="sprite_main sprite_main-icon-x-gray normal"></i><i class="sprite_main sprite_main-icon-x-red_active active"></i></a>
+                        <div class="product-cart-table__col product-cart-table__col_remove"><a class="product-cart-table__remove icon-fade js-action-link" data-url="{{ route('ajax.cart.remove', ['id' => $product->id, 'size' => $product->size]) }}"><i class="sprite_main sprite_main-icon-x-gray normal"></i><i class="sprite_main sprite_main-icon-x-red_active active"></i></a>
                         </div>
                     </div>
                     @empty

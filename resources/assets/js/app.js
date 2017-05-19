@@ -444,27 +444,11 @@ $(function(){
     // Do some action by ajax
     $body.on('click', '.js-action-link', function(e) {
         e.preventDefault();
-        var url = $(this).data('action');
-        $.get(url, null, function(data) {
-            // Exception
-            if(typeof data.error !== 'undefined'){
-                console.log(data.message);
-            }
-            // Do some action
-            if(typeof data.action !== 'undefined'){
-                var fn = window[data.action];
-                if(typeof fn === 'function') {
-                    fn(data);
-                }
-            }
-        });
-    });
-    $body.on('click', '.js-get', function(e) {
-        e.preventDefault();
-        var url = $(this).data('action');
-        var post_data = $(this).data();
-        delete post_data['action'];
-        $.get(url, post_data, function(data) {
+        var $this = $(this),
+            url = $this.data('url'),
+             postData = $this.data();
+            delete postData.url;
+        $.get(url, postData, function(data) {
             // Exception
             if(typeof data.error !== 'undefined'){
                 console.log(data.message);

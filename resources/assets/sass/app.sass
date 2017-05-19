@@ -1,3 +1,30 @@
+@function per_calc($size, $parent_size)
+  @return $size/$parent_size*100%
+
+@mixin fixed-center
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  margin: auto
+
+@mixin absolute-center
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  margin: auto
+@mixin absolute-center-bottom
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  margin: 0 auto
+.clearfxi
+  width: 100%
+  clear: both
 @import "normalize"
 @import "gmdjs"
 //@import "styles/grid"

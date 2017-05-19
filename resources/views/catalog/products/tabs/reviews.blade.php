@@ -39,9 +39,9 @@
         <!-- Reviews navigation-->
         @if($comments->lastPage() > $comments->currentPage())
             <div id="product-reviews-navigation" class="product-reviews-navigation">
-                <button class="btn btn_more js-get" data-action="{{route('ajax.product.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_more js-action-link" data-url="{{route('ajax.product.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
-                <button class="btn btn_show-all js-get" data-action="{{route('ajax.product.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_show-all js-action-link" data-url="{{route('ajax.product.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
             </div>
         @endif
@@ -59,7 +59,7 @@
 
         <!-- Form fields-->
         <div class="product-review-form__label">Представьтесь
-        </div><input class="input input_text" type="text" name="name" placeholder="Ваше имя"/>
+        </div><input class="input input_text js-required-fields" type="text" name="name" placeholder="Ваше имя"/>
         <div class="product-review-form__label product-review-form__label_mt">Оцените товар по 5-ти бальной шкале
         </div>
         <div class="rating-inputs">
@@ -76,7 +76,7 @@
                 <input type="radio" name="rating" value="4"/><span class="fake-input"><span></span></span><span class="label">4</span>
             </label>
             <label class="radio radio_square">
-                <input type="radio" name="rating" value="5"/><span class="fake-input"><span></span></span><span class="label">5</span>
+                <input type="radio" name="rating" value="5" checked/><span class="fake-input"><span></span></span><span class="label">5</span>
             </label>
         </div>
         <div class="product-review-form__label product-review-form__label_mt">Текст Вашего отзыва</div>
