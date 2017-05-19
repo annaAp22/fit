@@ -47,7 +47,7 @@
                             <select name="type" class="col-sm-5" id="form-field-0">
                                 <option value="">--Не выбран--</option>
                                 @foreach(\App\Models\Banner::$types as $type => $name)
-                                <option value="{{$type}}" @if((old() && old('type')==$type) || (!old() && $banner->type==$type) ) selected="selected"@endif>{{$name}}</option>
+                                <option value="{{$type}}" @if((old() && old('type')==$type) || (!old() && $banner->type==$name) ) selected="selected"@endif>{{$name}}</option>
                                 @endforeach
                             </select>
                         </div>
