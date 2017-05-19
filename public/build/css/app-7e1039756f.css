@@ -1442,6 +1442,7 @@ button {
   display: inline-block;
   position: relative;
   text-decoration: none;
+  outline: none;
 }
 
 .youtube-video__play {
