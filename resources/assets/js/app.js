@@ -237,7 +237,9 @@ $(function(){
         $('.js-sidebar-open').removeClass('active');
         $('.js-nav-visible').removeClass('active');
         $('.js-filter-visible').removeClass('active');
-        $('.js-toggle-sidebar').removeClass('active');
+        setTimeout(function() {
+            $('.js-toggle-sidebar').removeClass('active');
+        }, 300);
         sidebarOpened = false;
     }
     function openSidebar($this, target) {
