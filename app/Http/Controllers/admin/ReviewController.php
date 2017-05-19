@@ -43,7 +43,6 @@ class ReviewController extends Controller {
 		$review = new Review();
 
 		$review->name = $request->input("name");
-        $review->email = $request->input("email");
         $review->message = $request->input("message");
         $review->status = $request->input("status");
 
@@ -90,7 +89,6 @@ class ReviewController extends Controller {
 		$review = Review::findOrFail($id);
 
 		$review->name = $request->input("name");
-        $review->email = $request->input("email");
         $review->message = $request->input("message");
         $review->status = $request->input("status");
 

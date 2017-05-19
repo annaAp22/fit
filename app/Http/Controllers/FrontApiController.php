@@ -364,21 +364,6 @@ class FrontApiController extends Controller
             // ... другие необходимые параметры пагинации можно посмотреть в документация к методу paginate()
         ];
     }
-    /***/
-    public function getComments(Request $request) {
-        $data = $request->input();
-        $product = Product::find($data['product_id']);
-        if(!$product)
-            return null;
-        if(isset($data['count'])) {
-            $reviews = $product->getComments($data['count']);
-        }else
-            $reviews = $product->comments;
-        $response = '';
-        foreach ($reviews as $review)
-            $response.= view('reviews.review', ['review' => $review])->render();
-        echo $response;
-    }
     /**
      * Добавление коментария к товару
      * @param $id

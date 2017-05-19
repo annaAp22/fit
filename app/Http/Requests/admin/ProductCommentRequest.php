@@ -27,7 +27,6 @@ class ProductCommentRequest extends Request
             'product_id' => 'required|exists:products,id',
             'name' => 'required',
             'date' => 'required|date',
-            'email' => 'email',
             'text' => 'required',
         ];
     }
