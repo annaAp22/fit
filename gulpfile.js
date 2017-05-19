@@ -9,7 +9,7 @@ var elixir = require('laravel-elixir'),
     media = require('gulp-group-css-media-queries'),
     sourcemaps = require('gulp-sourcemaps');
 
-require('laravel-elixir-vue-2');
+//require('laravel-elixir-vue-2');
 
 gulp.task('postcss', function() {
     const processor = ([
@@ -25,6 +25,12 @@ gulp.task('postcss', function() {
         //.pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));
 });
+gulp.task('watch1', function() {
+    gulp.watch('./resources/assets/sass/*.sass', ['postcss']);
+})
+gulp.task('watch2', function() {
+    gulp.watch('./resources/assets/sass/*.sass');
+})
 
 /*
  |--------------------------------------------------------------------------
@@ -41,14 +47,14 @@ elixir(function(mix) {
     console.log('Compiling in', elixir.config.production ? 'PRODUCTION' : 'DEVELOPMENT', 'mode.' );
 
     // Admin area
-    mix.webpack('admin/app.js', 'public/js/admin/app.js');
+    //mix.webpack('admin/app.js', 'public/js/admin/app.js');
     mix.version([
         'js/admin/app.js'
     ]);
 
     // Customer area
     mix.task('postcss');
-    mix.webpack('application/application.js');
+    mix.task('watch1');
     mix.scripts([
         'vendor/jquery-3.2.1.min.js',
         'vendor/jquery.carousel.js',
