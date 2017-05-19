@@ -2,7 +2,7 @@
 <div class="product-reviews-and-comments">
     <div class="product-reviews-and-comments__tabs">
         <div class="product-reviews-and-comments__tab active js-toggle-active-target" data-target=".js-reviews" data-switch="2">
-            Отзывы -<span> {{ $product->reviews ? $product->reviews->count() : 0 }}</span>
+            Отзывы -<span> {{ $comments->total() }}</span>
         </div>
         <div class="product-reviews-and-comments__separator"></div>
         <div class="product-reviews-and-comments__tab js-toggle-active-target js-vk-comments-widget" data-target=".js-reviews" data-switch="2">
