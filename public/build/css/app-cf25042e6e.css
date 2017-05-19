@@ -4702,8 +4702,8 @@ footer .line {
   flex-grow: 1;
 }
 
-.description-scroll__color-wrap>:last-child {
-  margin-left: 15px;
+.description-scroll__color-wrap>:first-child {
+  margin-right: 15px;
 }
 
 .description-scroll__color {
