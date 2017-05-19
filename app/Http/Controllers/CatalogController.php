@@ -291,7 +291,7 @@ class CatalogController extends Controller
      */
     public function search(Request $request) {
         //TODO: переделать на полнотекстовой через эластиксеарч
-        $per_page = $request->input('per_page', 1) == 'all'?400:3;
+        $per_page = $request->input('per_page', 20) == 'all'?400:20;
         if($request->has('text') && $request->input('text') !='') {
             $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')->where('status', 1)->orderBy('name')->paginate($per_page);
         }
