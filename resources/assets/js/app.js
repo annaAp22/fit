@@ -24,7 +24,8 @@ $(function(){
     // Square check filter (size, color)
     var squareCheckFilter = $('.js-square-check-filter');
     if( squareCheckFilter ) {
-        $body.on("click", ".js-square", function(){
+        $body.on("click", ".js-square", function(e){
+            e.preventDefault();
             var square = $(this),
                 parent = square.parent(),
                 single = false;
@@ -137,11 +138,12 @@ $(function(){
     $body.on("click", ".js-add-to-cart", function(e) {
         e.preventDefault();
         var $this = $(this);
-        if( !$(this).hasClass('active') ) {
+        //if( !$(this).hasClass('active') ) {
             var form = $this.closest('form'),
                 data = form.serializeFormJSON();
             if(typeof data.size === "undefined") {
                 var size = form.find(".js-popup-size");
+                scrollToEl(size);
                 size.addClass('active');
                 setTimeout(function(){
                     size.removeClass('active');
@@ -151,10 +153,10 @@ $(function(){
                 form.submit();
                 $this.addClass('active');
             }
-        }
-        else {
-            window.location = $this.find('a').attr('href');
-        }
+        //}
+        //else {
+        //    window.location = $this.find('a').attr('href');
+        //}
     });
 
     // Form serialize as json
@@ -256,11 +258,11 @@ $(function(){
         vertical : true,
         margin: 0,
         responsive: {
-            xl: {items: 5, options: {margin: 0, vertical: true}},
-            lg: {items: 5, options: {margin: 0, vertical: true}},
-            md: {items: 5, options: {margin: 0, vertical: true}},
-            sm: {items: 5, options: {margin: 0, vertical: false}},
-            xs: {items: 3, options: {margin: 0, vertical: false}}
+            1492: {items: 5, options: {margin: 0, vertical: true}},
+            1203: {items: 5, options: {margin: 0, vertical: true}},
+            840: {items: 5, options: {margin: 0, vertical: true}},
+            576: {items: 5, options: {margin: 0, vertical: false}},
+            320: {items: 3, options: {margin: 0, vertical: false}}
         }
     });
 
@@ -275,11 +277,11 @@ $(function(){
         margin: 0,
         pagination: true,
         responsive: {
-            xl: 1,
-            lg: 1,
-            md: 1,
-            sm: 1,
-            xs: 1
+            1492: 1,
+            1203: 1,
+            840: 1,
+            576: 1,
+            320: 1
         }
     });
 
@@ -486,6 +488,17 @@ $(function(){
         images.removeClass('active');
         images.eq($this.index()).addClass('active');
     });
+
+    // scroll to element
+    function scrollToEl($el) {
+        var top = $el.offset().top - 100;
+        if($(document).scrollTop() > top) {
+            $('html, body').animate({
+                scrollTop: top
+            }, 300);
+        }
+    }
+
 
 });
 

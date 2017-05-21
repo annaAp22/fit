@@ -2,7 +2,7 @@
     <div class="modal-sizes_caption">
         <div class="sprite_main sprite_main-product_ruller"></div>
         <span class="text">Таблица размеров</span>
-        <div class="sprite_main-close sprite_main" data-fancybox-close></div>
+        <button data-fancybox-close  class="modal-close">&#10006;</button>
     </div>
     <div class="modal-sizes_subcaption">Женская одежда</div>
     <table>
@@ -80,5 +80,5 @@
             <td>118-121</td>
         </tr>
     </table>
-    <div class="btn btn_green">Помогите подобрать размер</div>
+    {{--<div class="btn btn_green">Помогите подобрать размер</div>--}}
 </div>

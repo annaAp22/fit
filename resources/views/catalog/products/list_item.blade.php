@@ -45,20 +45,22 @@
             @if($sizeAttr = $product->attributes->where('name', 'Размеры')->first())
                 @php $sizes = json_decode($sizeAttr->pivot->value); @endphp
                 @include('catalog.products.sizes', ['class' => ' product__size'])
+            @else
+                <div class="product__size-hidden">
+                    <input type="hidden" name="size" value="0">
+                </div>
             @endif
 
             <!-- Button buy-->
-            @if(isset($sizes) && $sizes)
-                <button class="btn btn_green product__buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}">
-                        <span class="put"><i class="sprite_main sprite_main-product__basket"></i>
-                            <span>В корзину</span>
-                        </span>
-                        <a class="done" href="{{ route('cart') }}">
-                            <i class="sprite_main sprite_main-product__basket_done"></i>
-                            <span>Добавлено</span>
-                        </a>
-                </button>
-            @endif
+            <button class="btn btn_green product__buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}">
+                    <span class="put"><i class="sprite_main sprite_main-product__basket"></i>
+                        <span>В корзину</span>
+                    </span>
+                    <a class="done" href="{{ route('cart') }}">
+                        <i class="sprite_main sprite_main-product__basket_done"></i>
+                        <span>Добавлено</span>
+                    </a>
+            </button>
         </div>
     </form>
 </div>

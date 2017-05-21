@@ -10,11 +10,11 @@
             vertical : false, // vertical or horizontal carousel
             margin : 12, // item margin left and right value in px
             responsive : {
-                xl : {items: 5}, // or just xl : 5
-                lg : {items: 4},
-                md : {items: 3},
-                sm : {items: 2},
-                xs : {items: 2}
+                1492 : {items: 5}, // or just xl : 5
+                1203 : {items: 4},
+                840 : {items: 3},
+                576 : {items: 2},
+                320 : {items: 2}
             }, // carousel responsive items visible
             pagination: false
         };
@@ -57,11 +57,15 @@
                     'width' : ""
                 });
                 // Set track height
+                var tr = 'translateY';
                 self.track.css( {
                     'width' : "",
                     'height': t + "%",
                     'margin-top': -m,
-                    'margin-bottom': -m
+                    'margin-bottom': -m,
+                    '-webkit-transform': tr + '(0)',
+                    '-ms-transform': tr + '(0)',
+                    'transform': tr + '(0)'
                 });
             }
             else {
@@ -73,11 +77,15 @@
                     'height' : ""
                 });
                 // Set track css
+                var tr = 'translateX';
                 self.track.css( {
                     'height' : "",
                     'width': t + "%",
                     'margin-left': -m,
-                    'margin-right': -m
+                    'margin-right': -m,
+                    '-webkit-transform': tr + '(0)',
+                    '-ms-transform': tr + '(0)',
+                    'transform': tr + '(0)'
                 });
             }
             self.items.attr('draggable', false);
@@ -148,26 +156,45 @@
         };
 
         // Responsive
+        this.findLayout = function() {
+            // Detect layout by window width
+            var w = window.innerWidth,
+                breakpoints = Object.keys(self._options.responsive).sort(function(a, b) {
+                    return b - a;
+                }),
+                layout = breakpoints[0];
+            breakpoints.some(function(el) {
+                if(w >= el) {
+                    layout = el;
+                    return true;
+                }
+            });
+
+            return layout;
+        };
+
         this.responsive = function() {
+
+            this.layout = this.findLayout();
 
             this.responsiveItems();
 
-            // Update css on media breakpoint
-            $('header').on("webkitTransitionEnd transitionend oTransitionEnd", function (event) {
-
-                if (event.originalEvent.propertyName == "min-height") {
-
+            $( window ).resize(function() {
+                var layout = self.findLayout();
+                if(self.layout != layout) {
+                    self.layout = layout;
                     self.responsiveItems();
                     self.bindTouch();
+                    self.checkButtons();
                     self.updateCss();
                 }
+
             });
         };
 
         this.responsiveItems = function() {
-            var media = window.getComputedStyle(
-                document.querySelector('header'), '::after'
-            ).getPropertyValue('content').replace(/"/g, '').replace(/'/g, "");
+            var media = self.layout;
+
             // change items visible count
             if(typeof media !== 'undefined' && typeof self._options.responsive[media] !== 'undefined') {
 
@@ -247,6 +274,18 @@
             $(self.pages[-1 * self.position]).addClass('active');
         };
 
+        // Disable buttons if count < items
+        this.checkButtons = function() {
+            var items = self._options.responsive ? self._options.responsive[self.layout].items : self.items;
+            if(self.count <= items) {
+                // Disable buttons if no overflow items
+                self.buttons.attr('disabled', true);
+            }
+            else {
+                self.buttons.attr('disabled', false);
+            }
+        };
+
         // Init carousel
         var self = this;
         self.wrapper = $el.find("> div");
@@ -265,30 +304,28 @@
 
             self.updateCss();
 
-            if(self.count > self._options.items) {
+            // Disable buttons if count < items
+            self.checkButtons();
 
-                // Bind control buttons events
-                $(self.buttons[0]).click(self.prev);
-                $(self.buttons[1]).click(self.next);
+            // Bind control buttons events
+            $(self.buttons[0]).click(self.prev);
+            $(self.buttons[1]).click(self.next);
 
-                // Bind touch events
-                self.bindTouch();
+            // Bind touch events
+            self.bindTouch();
 
-                // Prevent link click event on drag end
-                $('body').on('click', '.js-dragged a', function(e){
-                    e.preventDefault();
-                    return false;
-                });
+            // Prevent link click event on drag end
+            $('body').on('click', '.js-dragged a', function(e){
+                e.preventDefault();
+                return false;
+            });
 
-                // Add pagination
-                if(self._options.pagination) {
-                    self.paginate();
-                }
+            // Add pagination
+            if(self._options.pagination) {
+                self.paginate();
             }
-            else {
-                // Disable buttons if no overflow items
-                self.buttons.attr('disabled', true);
-            }
+
+
         }
     };
 

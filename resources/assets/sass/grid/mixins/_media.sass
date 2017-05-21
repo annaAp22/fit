@@ -3,40 +3,40 @@
     @media screen and (min-width: $xl)
       @content
   @else if ($direction == down)
-    @media screen and (max-width: $xl)
+    @media screen and (max-width: $xl - 1)
       @content
 
 =media-lg($direction: only)
   @if ($direction == only)
-    @media screen and (min-width: $lg) and (max-width: $xl)
+    @media screen and (min-width: $lg) and (max-width: $xl - 1)
       @content
   @else if ($direction == up)
     @media screen and (min-width: $lg)
       @content
   @else if ($direction == down)
-    @media screen and (max-width: $xl)
+    @media screen and (max-width: $xl - 1)
       @content
 
 =media-md($direction: only)
   @if ($direction == only)
-    @media screen and (min-width: $md) and (max-width: $lg)
+    @media screen and (min-width: $md) and (max-width: $lg - 1)
       @content
   @else if ($direction == up)
     @media screen and (min-width: $md)
       @content
   @else if ($direction == down)
-    @media screen and (max-width: $lg)
+    @media screen and (max-width: $lg - 1)
       @content
 
 =media-sm($direction: only)
   @if ($direction == only)
-    @media screen and (min-width: $sm) and (max-width: $md)
+    @media screen and (min-width: $sm) and (max-width: $md - 1)
       @content
   @else if ($direction == up)
     @media screen and (min-width: $sm)
       @content
   @else if ($direction == down)
-    @media screen and (max-width: $md)
+    @media screen and (max-width: $md - 1)
       @content
 
 =media-xs($direction: only)
@@ -44,5 +44,5 @@
     @media screen and (min-width: $xs)
       @content
   @else if ($direction == down or $direction == only)
-    @media screen and (max-width: $xs)
+    @media screen and (max-width: $xs - 1)
       @content

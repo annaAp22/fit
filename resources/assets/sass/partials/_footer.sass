@@ -33,8 +33,10 @@ footer
     &:hover, &:focus
       color: #f6c339
   &__column
-    +col(24)
-    +col-lg(4)
+    +media-md(down)
+      +col(24)
+    +media-lg(up)
+      +col(4)
     &:last-child
       +media-sm(down)
         text-align: center

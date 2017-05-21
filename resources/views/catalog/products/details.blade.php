@@ -92,37 +92,40 @@
 
                         @include('catalog.products.rating')
 
-                        <!-- Size-->
-                        <div class="product-detailed__subtitle product-detailed__subtitle_size">Выберите свой размер:</div>
+
 
                         @if($sizeAttr = $product->attributes->where('name', 'Размеры')->first())
+                            <!-- Size-->
+                            <div class="product-detailed__subtitle product-detailed__subtitle_size">Выберите свой размер:</div>
                             @php $sizes = json_decode($sizeAttr->pivot->value); @endphp
                             @include('catalog.products.sizes', ['class' => ' product-detailed__size'])
+                        @else
+                                <input type="hidden" name="size" value="0">
                         @endif
 
-                        {{-- How to choose size modal --}}
-                        <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size">
-                            <i class="sprite_main sprite_main-icon__popup_info"></i>
-                            <span class="js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes">Как подобрать размер?</span>
-                        </a>
-
-                        @if(isset($sizes) && $sizes)
-                            <!-- Buy-->
-                            <button class="btn btn_green product__buy product-detailed__btn product-detailed__btn product-detailed__btn_buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}">
-                                <span class="put">
-                                    <i class="sprite_main sprite_main-product__basket"></i>
-                                    <span>В корзину</span>
-                                </span>
-                                <a class="done" href="{{ route('cart') }}">
-                                    <i class="sprite_main sprite_main-product__basket_done"></i>
-                                    <span>Добавлено</span>
-                                </a>
-                            </button>
-
-                            <!-- Quick buy-->
-                            <button name="is_fast" value="1" class="btn btn_yellow product-detailed__btn product-detailed__btn product-detailed__btn_quick js-add-to-cart" onclick="document.getElementById('is_fast').value = 1;">Купить сейчас</button>
-                            <input id="is_fast" type="hidden" name="is_fast" value="0">
+                        @if($sizeAttr)
+                            {{-- How to choose size modal --}}
+                            <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes">
+                                <i class="sprite_main sprite_main-icon__popup_info"></i>
+                                <span>Как подобрать размер?</span>
+                            </a>
                         @endif
+
+                        <!-- Buy-->
+                        <button class="btn btn_green product__buy product-detailed__btn product-detailed__btn product-detailed__btn_buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}">
+                            <span class="put">
+                                <i class="sprite_main sprite_main-product__basket"></i>
+                                <span>В корзину</span>
+                            </span>
+                            <a class="done" href="{{ route('cart') }}">
+                                <i class="sprite_main sprite_main-product__basket_done"></i>
+                                <span>Добавлено</span>
+                            </a>
+                        </button>
+
+                        <!-- Quick buy-->
+                        <button name="is_fast" value="1" class="btn btn_yellow product-detailed__btn product-detailed__btn product-detailed__btn_quick js-add-to-cart" onclick="document.getElementById('is_fast').value = 1;">Купить сейчас</button>
+                        <input id="is_fast" type="hidden" name="is_fast" value="0">
 
                         <!-- Share-->
                         <div class="share product-detailed__share">

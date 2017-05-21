@@ -353,7 +353,7 @@
         padding-bottom: 20px
     & > i
       margin-right: 20px
-      min-width: 34px
+      min-width: 26px
   &__title
     font-size: 13px
     font-weight: 700
@@ -585,14 +585,16 @@
   text-align: center
   display: flex
   flex-direction: column
+  position: relative
   &__image
     position: relative
     border: 1px solid #ebebeb
     //height: 180px
     display: block
+    overflow: hidden
     & > img
       //+image-center()
-      max-width: 100%
+      width: 100%
       display: block
   &__name
     max-width: 100%
@@ -603,7 +605,7 @@
     margin-top: 30px
     text-decoration: none
   &__price
-    margin-top: 30px
+    margin-top: 10px
     &.product__price
       & > span
         display: block
@@ -625,13 +627,32 @@
     flex-direction: column
     align-items: center
     flex-grow: 1
+    position: relative
     & > .btn
       margin-top: auto
   &__size
     width: 100%
+    margin-left: 0
+    position: absolute
+    bottom: 0
+    left: 0
+    background-color: rgba(255, 255, 255, .75)
+    transform: translateY(100%)
+    transition: transform .3s ease .3s
+    & > .size-filter__size
+      background-color: #fff
+      text-decoration: none
+      color: #272727
+      &.active
+        background-color: #fcd82f
     & > .popup-notice_size
       width: 100%
       left: 0
+  &:focus, &:hover
+    .product-set-item__size
+      transition: transform .3s ease
+      transform: translateY(0)
+
 
 // Reviews and vk comments
 .product-reviews-and-comments
