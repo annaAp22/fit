@@ -54,7 +54,13 @@
                     @include('catalog.products.labels')
 
                     <!-- Add to wishlist-->
-                    <span class="wishlist js-hover-notice js-toggle-active js-action-link" data-url="{{ route('ajax.product.defer', ['id' => $product->id]) }}"><span class="icon-fade"><i class="sprite_main sprite_main-product__wishlist normal"></i><i class="sprite_main sprite_main-product__wishlist_active active"></i></span><i class="sprite_main sprite_main-product__wishlist_done done"></i>
+                    <span class="wishlist js-hover-notice js-toggle-active js-action-link{{ in_array($product->id, $defer) ? ' active' : '' }}"
+                          data-url="{{ route('ajax.product.defer', ['id' => $product->id]) }}">
+                        <span class="icon-fade">
+                            <i class="sprite_main sprite_main-product__wishlist normal"></i>
+                            <i class="sprite_main sprite_main-product__wishlist_active active"></i>
+                        </span>
+                        <i class="sprite_main sprite_main-product__wishlist_done done"></i>
                         <!-- Popup-->
                         <span class="popup-notice popup-notice_wishlist">
                             <span class="popup-notice__triangle">▼</span>

@@ -339,8 +339,18 @@ class FrontApiController extends Controller
         }
 
         $defer = session()->get('products.defer');
-        return ['count' => count($defer)];
+        return [
+            'count' => count($defer),
+            'selector' => '.js-wishlist-quantity',
+            'action' => 'updateCounter',
+        ];
     }
+
+
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function comments(Request $request) {
         $product_id = $request->input('product_id');
         $perPage = $request->input('per_page', 1) == 'all' ? 1000 : 5;

@@ -88,9 +88,9 @@ Breadcrumbs::register('product', function($breadcrumbs, $product) {
     $breadcrumbs->push($product->name, route('product', $product));
 });
 
-Breadcrumbs::register('views', function($breadcrumbs) {
+Breadcrumbs::register('seen', function($breadcrumbs) {
     $breadcrumbs->parent('catalogRoot');
-    $breadcrumbs->push('Просмотренные товары', route('views'));
+    $breadcrumbs->push('Просмотренные товары', route('seen'));
 });
 
 Breadcrumbs::register('bookmarks', function($breadcrumbs) {

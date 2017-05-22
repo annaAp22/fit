@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    {!!  Breadcrumbs::render('bookmarks') !!}
+    {!!  Breadcrumbs::render('seen') !!}
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
                 <div class="container-in">
                     <!-- Header -->
                     <div class="header-listing">
-                        <h1>Отложенные товары</h1>
+                        <h1>Просмотренные товары</h1>
                         <div class="goods-count">
                             <span>Товаров в категории</span>
                             <i class="sprite_main sprite_main-icon__goods_count">{{ $products->count() }}</i>
