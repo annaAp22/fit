@@ -18,3 +18,5 @@ Homestead.yaml
 # SypexGeo driver JSON response
 /app/Location/Drivers/test.json
 /public/assets/uploads/
+/app/Http/Controllers/TestController.php
+/resources/views/layouts/test.blade.php

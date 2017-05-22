@@ -36,8 +36,11 @@ class FrontApiController extends Controller
             'act' => $request->has('act') && $request->input('act') ? 
                 $request->input('act') : 1
         ]);
-
-        return response()->json(['result' => 'ok']);
+        return response()->json([
+            'result' => 'ok',
+            'action' => 'appendSubscribe',
+            'modal' => view('modals.subscribe_success')->render(),
+        ]);
     }
 
     /**
