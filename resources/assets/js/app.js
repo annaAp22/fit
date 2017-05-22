@@ -638,3 +638,10 @@ function commentSuccess(data) {
     }
 }
 
+// Update some counter by selector
+function updateCounter(data) {
+    if(typeof data.selector !== 'undefined' && typeof data.count !== 'undefined') {
+        $(data.selector).text(data.count);
+    }
+}
+

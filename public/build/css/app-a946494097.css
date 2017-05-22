@@ -2032,6 +2032,16 @@ header .line_lg {
   left: 0;
 }
 
+.header__basket .count_wishlist {
+  top: -3px;
+  left: -15px;
+}
+
+.header__basket .count_seen {
+  top: -5px;
+  left: -15px;
+}
+
 .header__navigation {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3863,7 +3873,7 @@ header .line_lg {
 
 .ribbons {
   position: absolute;
-  top: 10px;
+  top: 40px;
   left: 10px;
 }
 
@@ -11382,7 +11392,7 @@ li.fancybox-thumbs-loading {
   }
 
   .ribbons {
-    top: -5px;
+    top: 15px;
     left: -5px;
   }
 

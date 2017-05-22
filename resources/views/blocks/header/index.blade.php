@@ -49,6 +49,12 @@
                 {{-- WishList--}}
                 <a href="{{ route('bookmarks') }}" class="js-hover-notice">
 
+                    @if($countD = count($defer))
+                    <div class="count count_wishlist">
+                        <span class="js-wishlist-quantity">{{ $countD }}</span>
+                    </div>
+                    @endif
+
                     {{-- Icon--}}
                     <span class="icon-fade header-wishlist">
                         <i class="sprite_main sprite_main-header__basket_wishlist normal"></i>
@@ -63,7 +69,13 @@
                 </a>
 
                 {{-- Seen products --}}
-                <a href="{{ route('views') }}" class="js-hover-notice">
+                <a href="{{ route('seen') }}" class="js-hover-notice">
+
+                    @if($countS = count($seen))
+                    <div class="count count_seen">
+                        <span class="js-seen-quantity">{{ $countS }}</span>
+                    </div>
+                    @endif
 
                     {{-- Icon--}}
                     <span class="icon-fade seen">

@@ -198,6 +198,9 @@ return [
         // DebugBar
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        // Composers
+        App\Providers\ComposerServiceProvider::class,
+
     ],
 
     /*

@@ -323,6 +323,7 @@ class CatalogController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bookmarks() {
+        $products = collect();
         if(session()->has('products.defer') && $defers = session()->get('products.defer')) {
             //выводим последние 48 товара
             arsort($defers);
@@ -330,15 +331,15 @@ class CatalogController extends Controller
             $products = Product::whereIn('id', $defers)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->take(48)->get();
         }
         $this->setMetaTags();
-        return view('catalog.bookmarks', ['products' => !empty($products) ? $products : null]);
+        return view('catalog.bookmarks', compact('products'));
     }
 
     /**
      * Страница просмотренных товаров
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function views() {
-
+    public function seen() {
+        $products = collect();
         if(session()->has('products.view')) {
             //выводим последние 48 товара
             $views = session()->get('products.view');
@@ -348,7 +349,7 @@ class CatalogController extends Controller
         }
 
         $this->setMetaTags();
-        return view('catalog.views', ['products' => !empty($products) ? $products : null]);
+        return view('catalog.seen', compact('products'));
     }
 
 
