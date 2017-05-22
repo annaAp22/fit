@@ -637,6 +637,14 @@ function commentSuccess(data) {
         $(".js-comment-success").html(data.html);
     }
 }
+function appendSubscribe(data) {
+    if(data['result'] == 'ok') {
+        openModal(data);
+    }else {
+        alert('непредвиденная ошибка');
+    }
+}
+
 
 // Update some counter by selector
 function updateCounter(data) {

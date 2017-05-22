@@ -197,6 +197,12 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $data = $request->all();
+        $checkboxes = array('hit', 'new');
+        foreach ($checkboxes as $ch) {
+            if(!isset($data[$ch])) {
+                $data[$ch] = 0;
+            }
+        }
         $data['brand_id'] = ($data['brand_id'] ?: null);
 
         $product->update($data);

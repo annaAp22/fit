@@ -1,7 +1,7 @@
 <!-- Subscription-->
 <div class="subscription">
     <div class="subscription__image"><img src="/img/subscription_girl-min.png"/></div>
-    <form class="subscription__form" action="{{route('ajax.subscribe')}}" method="post" enctype="application/x-www-form-urlencoded">
+    <form class="subscription__form js-form-ajax" action="{{route('ajax.subscribe')}}" method="post" enctype="application/x-www-form-urlencoded">
         {{ csrf_field() }}
         <div class="subscription__header">
             <div class="subscription__percent-icon">%</div>
