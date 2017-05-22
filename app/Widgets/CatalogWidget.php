@@ -16,6 +16,9 @@ class CatalogWidget extends AbstractWidget
         'marker_down' => false
     ];
 
+    // Cache
+    public $cacheTime = 60;
+
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.

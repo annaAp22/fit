@@ -6,7 +6,7 @@
 
 @section('content')
     <main>
-        <div class="container">
+        <section class="container">
             {{-- SideBar --}}
             @include('content.aside')
 
@@ -30,6 +30,9 @@
                         @endif
                     </div>
                 </div>
+            </section>
+            <section class="content-full-width">
+                @widget('SubscribeWidget')
             </section>
         </div>
     </main>

@@ -2,12 +2,24 @@
   <div class="container">
     <div class="footer">
       <div class="navigation-footer">
+
         <div class="navigation-footer__column navigation-footer__column_dropdown">
           <div class="navigation-footer__title js-toggle-active">Для женщин<i class="sprite_main sprite_main-icon__arrow_green_down"></i>
           </div>
-          <ul><li><a href="#">Лосины и леггинсы</a></li><li><a href="#">Топики</a></li><li><a href="#">Майки и кофты</a></li><li><a href="#">Комбинезоны</a></li><li><a href="#">Брюки</a></li><li><a href="#">Шорты</a></li><li><a href="#">Купальники и боди</a></li><li><a href="#">Сумки</a></li><li><a href="#">Аксессуары</a></li><li><a href="#">Юбки и платья</a></li>
+          <ul>
+            <li><a href="#">Лосины и леггинсы</a></li>
+            <li><a href="#">Топики</a></li>
+            <li><a href="#">Майки и кофты</a></li>
+            <li><a href="#">Комбинезоны</a></li>
+            <li><a href="#">Брюки</a></li>
+            <li><a href="#">Шорты</a></li>
+            <li><a href="#">Купальники и боди</a></li>
+            <li><a href="#">Сумки</a></li>
+            <li><a href="#">Аксессуары</a></li>
+            <li><a href="#">Юбки и платья</a></li>
           </ul>
         </div>
+
         <div class="navigation-footer__column navigation-footer__column_dropdown">
           <div class="navigation-footer__title js-toggle-active">Для мужчин<i class="sprite_main sprite_main-icon__arrow_green_down"></i>
           </div>
@@ -32,11 +44,11 @@
             </div>
             <ul>
               <li class="navigation-footer__phone"><i class="sprite_main sprite_main-footer__phone"></i>
-                <div class="item"><a href="tel:88003334535">8&nbsp;(800)&nbsp;333-45-35</a><br/><span>Бесплатно по России</span>
+                <div class="item">{!! $global_settings['phone_number']->value['free'] !!}<br/><span>Бесплатно по России</span>
                 </div>
               </li>
               <li class="navigation-footer__phone"><i class="sprite_main sprite_main-footer__phone"></i>
-                <div class="item"><a href="tel:+79689650388">+7&nbsp;(968)&nbsp;965-03-88</a><br/><span>с 11 до 20 без выходных</span>
+                <div class="item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с 11 до 20 без выходных</span>
                 </div>
               </li>
             </ul>
