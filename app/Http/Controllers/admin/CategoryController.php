@@ -103,6 +103,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $data = $request->all();
+        $checkboxes = array('hit', 'new', 'act');
+        foreach ($checkboxes as $ch) {
+            if(!isset($data[$ch])) {
+                $data[$ch] = 0;
+            }
+        }
         $category->uploads->upload();
         $category->update($data);
 

@@ -150,10 +150,12 @@
                                 <input name="new" value="1" type="checkbox" @if (old('new')) checked="checked" @endif class="ace input-lg">
                                 <span class="lbl bigger-120"> Новинка</span>
                             </label>
+                            {{--
                             <label class="block">
                                 <input name="act" value="1" type="checkbox" @if (old('act')) checked="checked" @endif class="ace input-lg">
                                 <span class="lbl bigger-120"> Акция</span>
                             </label>
+                            --}}
                             <label class="block">
                                 <input name="hit" value="1" type="checkbox" @if (old('hit')) checked="checked" @endif class="ace input-lg">
                                 <span class="lbl bigger-120"> Хит</span>
