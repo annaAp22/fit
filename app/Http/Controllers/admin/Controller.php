@@ -14,9 +14,6 @@ use Meta;
 class Controller extends BaseController
 {
     public function getFormFilter($input = [], $perpage = 10) {
-        if(!empty($input['page'])) {
-            $input['f']['page'] = $input['page'];
-        }
         if(!empty($input['f'])) {
             if(empty($input['f']['perpage'])) {
                 $input['f']['perpage'] = $perpage;
@@ -30,6 +27,9 @@ class Controller extends BaseController
             $sess = session()->get(Route::currentRouteName().'.filters');
             if(empty($sess) || empty($sess['perpage'])) {
                 $sess['perpage'] = $perpage;
+                if(!empty($input['page'])) {
+                    $sess['page'] = $input['page'];
+                }
             }
             return $sess;
         }
