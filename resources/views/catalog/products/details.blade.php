@@ -29,6 +29,12 @@
                             <div class="product-gallery__thumb active js-gallery-thumb">
                                 <img src="{{ $product->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </div>
+                            @if($product->video_url)
+                                <div class="product-gallery__thumb product-gallery__thumb_video js-gallery-thumb"
+                                     style="background: url('https://img.youtube.com/vi/{{ $product->video_code }}/1.jpg') no-repeat center">
+                                    <div class="product-gallery__thumb_video__play"></div>
+                                </div>
+                            @endif
                             @foreach($product->photos as $i => $photo)
                                 <div class="product-gallery__thumb js-gallery-thumb">
                                     <img src="{{ $photo->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
@@ -44,6 +50,13 @@
                     <a class="product-gallery__image-link active js-gallery-big" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
                         <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
                     </a>
+
+                    @if($product->video_url)
+                        <a class="product-gallery__image-link js-gallery-big js-gallery-thumb" data-fancybox="group" href="{{ $product->video_url }}">
+                            <img class="product-gallery__video" src="https://img.youtube.com/vi/{{ $product->video_code }}/maxresdefault.jpg" alt="">
+                            <div class="product-gallery__thumb_video__play"></div>
+                        </a>
+                    @endif
 
                     @foreach($product->photos as $i => $photo)
                         <a class="product-gallery__image-link js-gallery-big" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
