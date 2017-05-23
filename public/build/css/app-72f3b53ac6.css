@@ -2243,6 +2243,10 @@ header .line_lg {
   color: #b0b0b0;
 }
 
+.breadcrumbs__item_first>i {
+  margin-right: 10px;
+}
+
 .catalog-dropdown {
   -webkit-box-shadow: 0 10px 24px 0 rgba(0,0,2,.09);
   box-shadow: 0 10px 24px 0 rgba(0,0,2,.09);
@@ -10742,6 +10746,14 @@ li.fancybox-thumbs-loading {
     display: none;
   }
 
+  .breadcrumbs__item_current {
+    display: none;
+  }
+
+  .breadcrumbs__item_first>span {
+    display: none;
+  }
+
   .related-header {
     display: none;
   }
@@ -11447,6 +11459,14 @@ li.fancybox-thumbs-loading {
   }
 
   .header__basket .seen {
+    display: none;
+  }
+
+  .header__basket .count_wishlist {
+    display: none;
+  }
+
+  .header__basket .count_seen {
     display: none;
   }
 
