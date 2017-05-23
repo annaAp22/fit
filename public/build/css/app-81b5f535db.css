@@ -4281,6 +4281,12 @@ footer .line {
   width: 100%;
 }
 
+.footer__address a {
+  font-size: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
 .footer__info {
   padding-top: 50px;
   font-size: 14px;

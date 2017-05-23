@@ -22,6 +22,15 @@ class Page extends Model
                                     ->where('value', 'info');
                         });
     }
+    // pages with type
+    public function scopeType($query, $type)
+    {
+        return $query->with('vars')
+            ->whereHas('vars', function($query) use($type) {
+                $query->where('var', 'type')
+                    ->where('value', $type);
+            });
+    }
 
     // Info pages
     public function scopeHelp($query)
