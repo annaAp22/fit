@@ -4609,6 +4609,8 @@ footer .line {
   position: relative;
   -webkit-background-size: cover;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 
 .product-gallery__thumb_video__play {

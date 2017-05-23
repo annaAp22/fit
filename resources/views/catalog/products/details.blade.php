@@ -31,7 +31,7 @@
                             </div>
                             @if($product->video_url)
                                 <div class="product-gallery__thumb product-gallery__thumb_video js-gallery-thumb"
-                                     style="background: url('https://img.youtube.com/vi/{{ $product->video_code }}/1.jpg') no-repeat center">
+                                     style="background-image: url('https://img.youtube.com/vi/{{ $product->video_code }}/1.jpg')">
                                     <div class="product-gallery__thumb_video__play"></div>
                                 </div>
                             @endif
