@@ -2243,6 +2243,10 @@ header .line_lg {
   color: #b0b0b0;
 }
 
+.breadcrumbs__item_first {
+  padding-left: 0;
+}
+
 .breadcrumbs__item_first>i {
   margin-right: 10px;
 }
