@@ -238,9 +238,11 @@ header
       &_wishlist
         top: -3px
         left: -15px
+        +hidden-xs()
       &_seen
         top: -5px
         left: -15px
+        +hidden-xs()
 
   &__navigation
     +hidden-md(down)
@@ -363,7 +365,14 @@ header
         right: 0
         top: 12px
     &_current
+      +hidden-sm(down)
       color: #b0b0b0
+    &_first
+      padding-left: 0
+      & > i
+        margin-right: 10px
+      & > span
+        +hidden-sm(down)
 
 // Dropdown catalog
 .catalog-dropdown

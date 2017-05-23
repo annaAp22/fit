@@ -1,4 +1,4 @@
-/*! Carousel.JS - v0.2.0 - 2017-04-28
+/*! Carousel.JS - v0.3.0 - 2017-05-23
  *
  * Copyright (c) 2017 Alexander Kamyshnyi;
  * Licensed under the MIT license */
@@ -220,20 +220,25 @@
             if(typeof self.touch !== 'undefined') {
                 self.touch.destroy();
             }
-            self.touch = new Hammer(self.track[0]);
 
-            if(self._options.vertical) {
-                // Pan (drag)
-                self.touch.get('pan').set({ direction: Hammer.DIRECTION_VERTICAL });
-                self.touch.on("panup pandown panend panstart", function(ev) {
-                    self.pan(ev);
-                });
-            }
-            else {
-                self.touch.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
-                self.touch.on("panleft panright panend panstart", function(ev) {
-                    self.pan(ev);
-                });
+            var items = self._options.responsive ? self._options.responsive[self.layout].items : self.items;
+
+            if(self.count > items) {
+                self.touch = new Hammer(self.track[0]);
+
+                if (self._options.vertical) {
+                    // Pan (drag)
+                    self.touch.get('pan').set({direction: Hammer.DIRECTION_VERTICAL});
+                    self.touch.on("panup pandown panend panstart", function (ev) {
+                        self.pan(ev);
+                    });
+                }
+                else {
+                    self.touch.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL});
+                    self.touch.on("panleft panright panend panstart", function (ev) {
+                        self.pan(ev);
+                    });
+                }
             }
         };
 
@@ -280,9 +285,15 @@
             if(self.count <= items) {
                 // Disable buttons if no overflow items
                 self.buttons.attr('disabled', true);
+                // Bind control buttons events
+                $(self.buttons[0]).unbind('click');
+                $(self.buttons[1]).unbind('click');
             }
             else {
                 self.buttons.attr('disabled', false);
+                // Bind control buttons events
+                $(self.buttons[0]).click(self.prev);
+                $(self.buttons[1]).click(self.next);
             }
         };
 
@@ -306,10 +317,6 @@
 
             // Disable buttons if count < items
             self.checkButtons();
-
-            // Bind control buttons events
-            $(self.buttons[0]).click(self.prev);
-            $(self.buttons[1]).click(self.next);
 
             // Bind touch events
             self.bindTouch();

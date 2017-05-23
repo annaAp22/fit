@@ -29,6 +29,12 @@
                             <div class="product-gallery__thumb active js-gallery-thumb">
                                 <img src="{{ $product->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </div>
+                            @if($product->video_url)
+                                <div class="product-gallery__thumb product-gallery__thumb_video js-gallery-thumb"
+                                     style="background-image: url('https://img.youtube.com/vi/{{ $product->video_code }}/1.jpg')">
+                                    <div class="product-gallery__thumb_video__play"></div>
+                                </div>
+                            @endif
                             @foreach($product->photos as $i => $photo)
                                 <div class="product-gallery__thumb js-gallery-thumb">
                                     <img src="{{ $photo->uploads->img->modal->url() }}" alt="{{ $product->name }}" role="presentation"/>
@@ -44,6 +50,13 @@
                     <a class="product-gallery__image-link active js-gallery-big" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
                         <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
                     </a>
+
+                    @if($product->video_url)
+                        <a class="product-gallery__image-link js-gallery-big js-gallery-thumb" data-fancybox="group" href="{{ $product->video_url }}">
+                            <img class="product-gallery__video" src="https://img.youtube.com/vi/{{ $product->video_code }}/maxresdefault.jpg" alt="">
+                            <div class="product-gallery__thumb_video__play"></div>
+                        </a>
+                    @endif
 
                     @foreach($product->photos as $i => $photo)
                         <a class="product-gallery__image-link js-gallery-big" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
@@ -204,7 +217,8 @@
                         </div>
                         <!-- Warranty-->
                         <div class="product-warranty product-detailed__warranty">
-                            <div class="product-warranty__item"><i class="sprite_main sprite_main-product_warranty-thumb-up"></i>
+                            <div class="product-warranty__item">
+                                <i class="sprite_main sprite_main-product_warranty-thumb-up"></i>
                                 <div class="product-warranty__text">
                                     <div class="product-warranty__title">Гарантия качетва на 1000 тренеровок
                                     </div>
@@ -212,7 +226,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-warranty__item"><i class="sprite_main sprite_main-product_ruller"></i>
+                            <div class="product-warranty__item">
+                                <i class="sprite_main sprite_main-product_ruller"></i>
                                 <div class="product-warranty__text">
                                     <div class="product-warranty__title">Подбор размера по Вашим сантиметрам
                                     </div>
@@ -252,7 +267,8 @@
         </section>
 
         <section class="content-full-width">
-            <!-- Seo text-->
+
+            {{--<!-- Seo text-->
             <div class="page-text">
                 <div class="page-text__title page-text__title_h2 page-text__title_700">Плавные линии в сочетании с уверенными и яркими формами
                 </div>
@@ -263,7 +279,7 @@
                 </div>
                 <p class="page-text__text">Каждый веб-разработчик знает, что такое текст-«рыба». Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.
                 </p><a class="youtube-video" href="#"><span class="youtube-video__play"></span><img class="youtube-video__image" src="/img/product-video2-min.jpg" alt="" role="presentation"/><span class="youtube-video__title youtube-video__title_top-left-white">Всё, что нужно занать о нашей спортивной одежде</span></a>
-            </div>
+            </div>--}}
 
             @widget('ViewProductsWidget')
 

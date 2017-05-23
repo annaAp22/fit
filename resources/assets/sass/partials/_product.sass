@@ -205,7 +205,7 @@
     +media-sm(down)
       width: 100%
     +media-md(up)
-      height: 480px
+      height: 509px
   &__track
     display: flex
     +media-md(up)
@@ -252,6 +252,41 @@
       transition: background-color .3s ease, width .3s ease
       z-index: 1
 
+    &_video
+      position: relative
+      background-size: cover
+      background-repeat: no-repeat
+      background-position: center
+      &__play
+        position: absolute
+        padding: 10px
+        background-color: #292929
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+
+        &:before
+          content: ""
+          display: block
+          width: 0
+          height: 0
+          border-style: solid
+          border-width: 14.5px 0 14.5px 30px
+          +media-lg(up)
+            border-width: 10px 0 10px 20px
+          border-color: transparent transparent transparent #ffffff
+          transform: rotate(360deg)
+          transition: border-color .3s ease
+      &:hover
+        .product-gallery__thumb_video__play
+          &:before
+            border-color: transparent transparent transparent #fcd82f
+  &__video
+    +image-center()
+    &:hover
+      & + .product-gallery__thumb_video__play
+        &:before
+          border-color: transparent transparent transparent #fcd82f
   &__image-wrap
     position: relative
     display: block
@@ -352,8 +387,11 @@
         border-bottom: 1px solid #dddddd
         padding-bottom: 20px
     & > i
-      margin-right: 20px
+      margin-right: 28px
       min-width: 26px
+      &.sprite_main-product_warranty-thumb-up
+        margin-right: 20px
+        min-width: 34px
   &__title
     font-size: 13px
     font-weight: 700

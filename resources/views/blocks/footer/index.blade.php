@@ -29,9 +29,9 @@
         </div>
       </div>
       <div class="footer__info">
-        <div class="footer__requisites">Интернет-магазин «Fit2U». Одежда для фитнеса и танцев "Profit" . ООО "Твой Фитнес имидж". ОГРН: 1127747190350, Юр.адрес: 115682, Москва г, Шипиловская ул, дом 64, корпус 1, офис 147.
+        <div class="footer__requisites">{!! $global_settings['site_info']->value !!}
         </div>
-        <div class="footer__address">{!! $global_settings['address']->var !!} Телефон: {!! $global_settings['phone_number']->value['free'] !!} 2011–@php echo date('Y')@endphp.
+        <div class="footer__address">{!! $global_settings['address']->value !!} Телефон: {!! $global_settings['phone_number']->value['free'] !!} 2011–@php echo date('Y')@endphp.
         </div>
         <div class="footer__copyright">©Копирование материалов сайта разрешено только при наличии письменного согласия администрации fit2u.ru.
         </div>

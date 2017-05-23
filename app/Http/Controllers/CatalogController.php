@@ -358,7 +358,8 @@ class CatalogController extends Controller
      * @param $sysname
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product($sysname) {
+    public function product($sysname)
+    {
         $product = Product::with([
             'brand',
             'categories',
@@ -369,6 +370,20 @@ class CatalogController extends Controller
         ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
         $comments = $product->comments()->published()->paginate(5);
         $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
+
+        // Get youtube images
+        if ($product->video_url)
+        {
+            $temp = null;
+            if (strpos($product->video_url, '?v=')) {
+                $temp = explode('?v=', $product->video_url);
+            }
+            else
+            {
+                $temp = explode('/', $product->video_url);
+            }
+            $product->video_code = $temp ? end($temp) : null;
+        }
 
         //добавляем товар в просмотренные
         if(!session()->has('products.view.'.$product->id)) {

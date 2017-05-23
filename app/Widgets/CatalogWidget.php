@@ -16,8 +16,8 @@ class CatalogWidget extends AbstractWidget
         'marker_down' => false,
         'type' => null,
     ];
-    /**
-    */
+    // Cache
+    public $cacheTime = 60;
     protected $categories;
     protected function init() {
         $this->categories = Category::with([
