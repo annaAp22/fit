@@ -6,6 +6,10 @@
 
 
 // Related articles header
+.related-articles
+  &_content
+    +col(24)
+
 .related-header
   +hidden-sm(down)
   margin-bottom: 40px
@@ -52,12 +56,26 @@
 
 // Related articles list
 .articles
-  +hidden-sm(down)
   +grid-in()
-  +align(between)
+  &_related
+    +hidden-sm(down)
+    +align(between)
+  &_news
+
+
 .article-preview
-  +col-md(6)
-  +col-lg(5)
+  &_related
+    +col-md(6)
+    +col-lg(5)
+  &_news
+    +media-xl()
+      +col(6)
+    +media-lg()
+      +col(8)
+    +media-md()
+      +col(8)
+    +media-sm(down)
+      +col(12)
   text-align: center
   display: flex
   flex-direction: column

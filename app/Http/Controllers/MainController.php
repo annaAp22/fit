@@ -208,8 +208,8 @@ class MainController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function news(Request $request) {
-        $news = News::published()->recent()->paginate(14);
-        return view('news.list', compact('news'));
+        $news = News::published()->recent()->paginate(6);
+        return view('news.index', compact('news'));
     }
 
     /**
@@ -221,6 +221,6 @@ class MainController extends Controller
         $newsRecord = News::published()->bySysname($sysname)->first();
         if(!$newsRecord) abort(404);
         $newsCount = News::published()->count();
-        return view('news.details', compact('newsRecord', 'newsCount'));
+        return view('news.detailed', compact('newsRecord', 'newsCount'));
     }
 }

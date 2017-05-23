@@ -22,9 +22,6 @@
                     </div>
                 </div>
                 <!-- Back to shopping link-->
-                <script>
-
-                </script>
                 <a class="btn btn_back-link" href="#" onclick="location.href = document.referrer;">
                     <span class="icon-fade">
                         <i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i>

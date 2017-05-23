@@ -24,7 +24,7 @@ function inflectByCount($count, $forms) {
 }
 
 function russianDate($dt) {
-    $carbonDate = Carbon::createFromTimestamp($dt->timestamp)->format('jS F Y года');
+    $carbonDate = Carbon::createFromTimestamp($dt->timestamp)->format('jS F Y г.');
     $replacements = [
         '/(\d+)st/' => '\1',
         '/(\d+)nd/' => '\1',

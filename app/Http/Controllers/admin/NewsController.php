@@ -42,6 +42,7 @@ class NewsController extends Controller {
 
 		$news->name = $request->input("name");
         $news->sysname = $request->input("sysname");
+        $news->date = $request->input("date");
         $news->body = $request->input("body");
         $news->status = $request->input("status");
         $news->title = $request->input("title");
@@ -94,6 +95,7 @@ class NewsController extends Controller {
 
 		$news->name = $request->input("name");
         $news->sysname = $request->input("sysname");
+        $news->date = $request->input("date");
         $news->body = $request->input("body");
         $news->status = $request->input("status");
         $news->title = $request->input("title");

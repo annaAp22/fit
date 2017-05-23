@@ -46,6 +46,19 @@
                             <span class="help-block">{{ $errors->first("sysname") }}</span>
                         @endif
                     </div>
+
+                    <div class="form-group@if($errors->has('date')) has-error @endif">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Дата</label>
+                        <div class="col-sm-9">
+                            <div class="input-group col-sm-4">
+                                <input class=" form-control date-picker" name="date" value="{{old('date', date('d.m.Y'))}}" id="form-field-1" type="text" data-date-format="yyyy-mm-dd" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar bigger-110"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group @if($errors->has('body')) has-error @endif">
                         <label class="col-sm-3 control-label no-padding-right" for="body-field">Текст</label>
                         <div class="col-sm-9">
