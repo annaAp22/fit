@@ -4607,6 +4607,8 @@ footer .line {
 
 .product-gallery__thumb_video {
   position: relative;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
 
 .product-gallery__thumb_video__play {
