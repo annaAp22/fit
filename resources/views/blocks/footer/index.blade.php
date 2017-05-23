@@ -2,42 +2,9 @@
   <div class="container">
     <div class="footer">
       <div class="navigation-footer">
-
-        <div class="navigation-footer__column navigation-footer__column_dropdown">
-          <div class="navigation-footer__title js-toggle-active">Для женщин<i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-          </div>
-          <ul>
-            <li><a href="#">Лосины и леггинсы</a></li>
-            <li><a href="#">Топики</a></li>
-            <li><a href="#">Майки и кофты</a></li>
-            <li><a href="#">Комбинезоны</a></li>
-            <li><a href="#">Брюки</a></li>
-            <li><a href="#">Шорты</a></li>
-            <li><a href="#">Купальники и боди</a></li>
-            <li><a href="#">Сумки</a></li>
-            <li><a href="#">Аксессуары</a></li>
-            <li><a href="#">Юбки и платья</a></li>
-          </ul>
-        </div>
-
-        <div class="navigation-footer__column navigation-footer__column_dropdown">
-          <div class="navigation-footer__title js-toggle-active">Для мужчин<i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-          </div>
-          <ul><li><a href="#">Майки и футболки</a></li><li><a href="#">Шорты мужские</a></li><li><a href="#">Штаны мужские</a></li><li><a href="#">Лосины мужские</a></li><li><a href="#">Рашгарды</a></li>
-          </ul>
-        </div>
-        <div class="navigation-footer__column navigation-footer__column_dropdown">
-          <div class="navigation-footer__title js-toggle-active">Для клиентов<i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-          </div>
-          <ul><li><a href="#">Как сделать заказ</a></li><li><a href="#">Обмен и возврат</a></li><li><a href="#">Оплата и доставка</a></li><li><a href="#">Если не подошло</a></li><li><a href="#">Рецепты ПП</a></li><li><a href="#">Контакты</a></li>
-          </ul>
-        </div>
-        <div class="navigation-footer__column navigation-footer__column_dropdown">
-          <div class="navigation-footer__title js-toggle-active">Инфо<i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-          </div>
-          <ul><li><a href="#">Отзывы клиентов</a></li><li><a href="#">Фото клиентов</a></li><li><a href="#">Подарочный сертификат</a></li><li><a href="#">Из чего шьём</a></li><li><a href="#">Спонсорство</a></li><li><a href="#">Наши клиенты</a></li><li><a href="#">Наши представители</a></li><li><a href="#">Магазин в Москве</a></li><li><a href="#">Карта сайта</a></li>
-          </ul>
-        </div>
+        @widget('CatalogWidget', ['type' => 'footerMenu'])
+        @widget('FooterList', ['page_title' => 'Для клиентов', 'type' => 'clients'])
+        @widget('FooterList', ['page_title' => 'Инфо'])
         <div class="navigation-footer__column">
           <div class="navigation-footer__contacts">
             <div class="navigation-footer__title">Контакты
@@ -48,7 +15,7 @@
                 </div>
               </li>
               <li class="navigation-footer__phone"><i class="sprite_main sprite_main-footer__phone"></i>
-                <div class="item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с 11 до 20 без выходных</span>
+                <div class="item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
                 </div>
               </li>
             </ul>
@@ -62,9 +29,9 @@
         </div>
       </div>
       <div class="footer__info">
-        <div class="footer__requisites">Интернет-магазин «Fit2U». Одежда для фитнеса и танцев "Profit" . ООО "Твой Фитнес имидж". ОГРН: 1127747190350, Юр.адрес: 115682, Москва г, Шипиловская ул, дом 64, корпус 1, офис 147.
+        <div class="footer__requisites">{!! $global_settings['site_info']->value !!}
         </div>
-        <div class="footer__address">Адрес магазина: Москва, Ленинская слобода 26, БЦ "Омега-2", корпус А, оф.408. ежедневно с 10 до 20 без выходных. Телефон: +7(800)333-45-35 2011–2016.
+        <div class="footer__address">{!! $global_settings['address']->value !!} Телефон: {!! $global_settings['phone_number']->value['free'] !!} 2011–@php echo date('Y')@endphp.
         </div>
         <div class="footer__copyright">©Копирование материалов сайта разрешено только при наличии письменного согласия администрации fit2u.ru.
         </div>
