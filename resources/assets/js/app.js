@@ -596,60 +596,47 @@ function number_format( number, decimals, dec_point, thousands_sep ) {	// Format
     return km + kw + kd;
 }
 
-function appendComments(data) {
-    var navigation = $('#product-reviews-navigation');
-    var btn_more = $('#product-reviews .btn_more:first');
-    var per_page = 5;
-    if(data['clear']) {
-        $('.product-review').remove();
-    }
-    if(data['count'] > 0) {
-        btn_more.data('page', data['next_page']);
-        if(data['count'] > per_page) {
-            data['count'] = per_page;
-        }
-        btn_more.find('.count').text('(' + data['count'] + ')');
-    }else {
-        navigation.hide();
-    }
-    navigation.before(data['html']);
-}
-
-function appendGoods(data) {
-    var $goods_block = $('#js-goods');
-    var $navigation = $('.page-navigation');
-    var $btn_more = $navigation.find('.btn_more');
-    if(data['nextPage']) {
-        $btn_more.data('page', data['nextPage']);
-        $btn_more.find('.count').text('(' + data['count'] + ')');
-    } else {
-        $navigation.remove();
-    }
-    if(data['clear']) {
-        $goods_block.text('');
-    }
-    $goods_block.append(data['html']);
-}
-
 // Show success on product comment submit
 function commentSuccess(data) {
     if(typeof data.html !== 'undefined') {
         $(".js-comment-success").html(data.html);
     }
 }
-function appendSubscribe(data) {
-    if(data['result'] == 'ok') {
-        openModal(data);
-    }else {
-        alert('непредвиденная ошибка');
-    }
-}
-
 
 // Update some counter by selector
 function updateCounter(data) {
     if(typeof data.selector !== 'undefined' && typeof data.count !== 'undefined') {
         $(data.selector).text(data.count);
+    }
+}
+
+// Pagination replace content
+function paginationReplace(data) {
+    if(typeof data.html !== 'undefined' && typeof data.model !== 'undefined') {
+        // Replace container data with new
+        $('.js-container-' + data.model).html(data.html);
+        // Hide pagination buttons
+        $('.js-pagination-' + data.model).addClass('hidden');
+    }
+}
+
+// Pagination append content
+function paginationAppend(data) {
+    if(typeof data.html !== 'undefined' && typeof data.model !== 'undefined') {
+        var pag = $('.js-pagination-' + data.model),
+            button = pag.find('button:first-child');
+        // Append items to container
+        $('.js-container-' + data.model).append(data.html);
+        // Update pagination button data
+        if(typeof data.count !== 'undefined' && data.count > 0) {
+            button.data('page', data.nextPage);
+            button.find('.js-items-count').text('(' + data.count + ')');
+        }
+        else {
+            // Hide pagination buttons if no more items
+            pag.addClass('hidden');
+        }
+
     }
 }
 

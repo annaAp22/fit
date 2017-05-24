@@ -141,7 +141,7 @@ $(function() {
         if(typeof showAll !== 'undefined' && showAll) {
             $page.val('all');
         }
-        console.log('get next page');
+        //console.log('get next page');
         $filters.trigger('submit');
     });
 

@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Tag;
 use App\Models\Order;
+use App\Models\News;
 
 use Lang;
 
@@ -29,18 +30,20 @@ class FrontApiController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => 'При оформлении подписки произошла ошибка. Попробуйте снова.']);
+            return [
+                'error' => 1,
+                'message' => 'При оформлении подписки произошла ошибка. Попробуйте снова.',
+            ];
 
         $subscribe = \App\Models\Subscriber::firstOrCreate([
             'email' => $request->input('email'),
             'act' => $request->has('act') && $request->input('act') ? 
                 $request->input('act') : 1
         ]);
-        return response()->json([
-            'result' => 'ok',
-            'action' => 'appendSubscribe',
+        return [
+            'action' => 'openModal',
             'modal' => view('modals.subscribe_success')->render(),
-        ]);
+        ];
     }
 
     /**
@@ -353,7 +356,8 @@ class FrontApiController extends Controller
      */
     public function comments(Request $request) {
         $product_id = $request->input('product_id');
-        $perPage = $request->input('per_page', 1) == 'all' ? 1000 : 5;
+        $page = $request->input('page', 1);
+        $perPage = $page == 1 ? 400 : 5; // if page = 1 then show all comments
 
         $comments = ProductComment::published();
         if($product_id) {
@@ -367,9 +371,9 @@ class FrontApiController extends Controller
         $html = view('catalog.products.comments', compact('comments'))->render();
 
         return [
-            'clear' => $request->input('per_page', 1) == 'all', // если true заменяем комментарии на странице, false добавляем в конецclear' => $page == 'all', // если true заменяем комментарии на странице, false добавляем в конец
             'html' => $html,
-            'action' => 'appendComments',
+            'action' => $page == 1 ? 'paginationReplace' : 'paginationAppend',
+            'model' => 'comments',
             'total' => $comments->total(),
             'currentPage' => $comments->currentPage(),
             'next_page' => $next_page,
@@ -606,6 +610,29 @@ class FrontApiController extends Controller
             'modal' => view('modals.'.$modal)->render(),
         ];
         return $response;
+    }
+
+    /**
+     * News pagination
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function news(Request $request) {
+        $perPage = $request->page == 1 ? 400 : 12; // page = 1 means show all items on one page
+        $news = News::published()->recent()->paginate($perPage);
+
+        $next_page = $news->lastPage() > $news->currentPage() ? ($news->currentPage() + 1) : null; // номер следующей страницы
+        $count = $next_page ? $news->total() - ($news->currentPage() * $news->perPage()) : 0; // количество оставшихся новостей
+
+        return [
+            'html' => view('news.list', compact('news'))->render(),
+            'action' => $request->page == 1 ? 'paginationReplace' : 'paginationAppend',
+            'model' => 'news',
+            'total' => $news->total(),
+            'currentPage' => $news->currentPage(),
+            'nextPage' => $next_page,
+            'count' => $count,
+        ];
     }
 
 }

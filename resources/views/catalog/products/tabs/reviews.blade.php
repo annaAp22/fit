@@ -14,7 +14,9 @@
     <div id="product-reviews" class="product-reviews container-in active js-reviews" data-count="{{$comments->count()}}">
         <!-- Reviews items-->
         @if($comments->count())
-            @include('catalog.products.comments')
+            <div class="js-container-comments">
+                @include('catalog.products.comments')
+            </div>
         @else
             <!-- Empty reviews-->
             <div class="reviews-empty"><i class="sprite_main sprite_main-empty-reviews-arrow-gray"></i>
@@ -38,10 +40,19 @@
         @endif
         <!-- Reviews navigation-->
         @if($comments->lastPage() > $comments->currentPage())
-            <div id="product-reviews-navigation" class="product-reviews-navigation">
-                <button class="btn btn_more js-action-link" data-url="{{route('ajax.product.comments')}}?product_id={{$product->id}}" data-page="{{$comments->currentPage() + 1}}"><span class="text">Показать еще</span><span class="count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+            <div class="product-reviews-navigation js-pagination-comments">
+                <button class="btn btn_more js-action-link"
+                        data-url="{{route('ajax.product.comments')}}"
+                        data-product_id="{{$product->id}}"
+                        data-page="{{$comments->currentPage() + 1}}">
+                    <span class="text">Показать еще</span>
+                    <span class="count js-items-count">({{min($comments->total() - ($comments->currentPage() * $comments->perPage()), $comments->perPage())}})</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
-                <button class="btn btn_show-all js-action-link" data-url="{{route('ajax.product.comments')}}?product_id={{$product->id}}&per_page=all"><span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                <button class="btn btn_show-all js-action-link"
+                        data-url="{{route('ajax.product.comments')}}"
+                        data-product_id="{{$product->id}}"
+                        data-page="1">
+                    <span>Показать все</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                 </button>
             </div>
         @endif

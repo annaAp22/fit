@@ -62,3 +62,6 @@ Route::group(['prefix' => 'order'], function() {
         'uses' => 'FrontApiController@fast'
     ]);
 });
+
+// News pagination
+Route::get('news', 'FrontApiController@news')->name('news');

@@ -24,7 +24,7 @@
                     </div>
 
                     <!-- Goods listing-->
-                    <div class="goods-listing js-view" id="js-goods">
+                    <div class="goods-listing js-container-search">
                         @if($products->count())
                             @include('catalog.products.list')
                         @else
@@ -34,19 +34,28 @@
 
                     {{-- Pagination --}}
                     @if($products->currentPage() < $products->lastPage())
-                        <div class="page-navigation">
-                            <button class="btn btn_more js-action-link" data-text="{{$text}}" data-url="{{route('search')}}" data-page="{{$products->currentPage() + 1}}">
+                        <div class="page-navigation js-pagination-search">
+                            <button class="btn btn_more js-action-link"
+                                    data-text="{{$text}}"
+                                    data-url="{{route('search')}}"
+                                    data-page="{{$products->currentPage() + 1}}">
                                 <span class="text">Показать больше</span>
-                                <span class="count js-goods-count">({{ $products->total() - ($products->currentPage() * $products->perPage()) }})</span>
+                                <span class="count js-items-count">({{ $products->total() - ($products->currentPage() * $products->perPage()) }})</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                             </button>
-                            <button class="btn btn_show-all js-action-link" data-per_page="all"  data-text="{{$text}}" data-url="{{route('search')}}">
+                            <button class="btn btn_show-all js-action-link"
+                                    data-text="{{$text}}"
+                                    data-url="{{route('search')}}"
+                                    data-page="1">
                                 <span>Показать все товары</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                             </button>
                         </div>
                     @endif
                 </div>
+            </section>
+            <section class="content-full-width">
+                @widget('SubscribeWidget')
             </section>
 
         </div>

@@ -12,7 +12,9 @@
             <div class="cart-modal_top_name">
                 <a href="{{ route('product', $product->sysname) }}">{{ $product->name }}</a>
                 <div>Артикул: <span>{{ $product->sku }}</span></div>
-                <div><strong>Размер: <span>{{ $size }}</span></strong></div>
+                @if($size)
+                    <div><strong>Размер: <span>{{ $size }}</span></strong></div>
+                @endif
             </div>
             <div class="cart-modal_top_counter">
                 <div class="quantity">

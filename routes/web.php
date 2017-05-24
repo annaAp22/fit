@@ -26,7 +26,7 @@ Route::group([
         Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
 
         // Поиск
-        Route::match(['get', 'post'], '/search.html', ['as' => 'search', 'uses' => 'CatalogController@search']);
+        Route::match(['get', 'post'], '/search', ['as' => 'search', 'uses' => 'CatalogController@search']);
 
         // Каталог
         Route::get('/catalog.html', ['as' => 'catalog.root', 'uses' => 'CatalogController@catalogRoot'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
