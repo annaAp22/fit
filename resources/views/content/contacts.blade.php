@@ -128,6 +128,10 @@
                         </div>
                     </div>
                     @endif
+                    <!-- Map -->
+                    <div class="contacts__map">
+                        <img src="{{ asset('assets/uploads/contacts-img-map-min.jpg') }}" alt="">
+                    </div>
 				</div>
 			</section>
 
