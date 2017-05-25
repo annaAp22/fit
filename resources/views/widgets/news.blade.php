@@ -1,4 +1,4 @@
-@if($news->count)
+@if($news->count())
 <div class="container">
     <!-- Related articles-->
     <div class="related-articles main-news">
