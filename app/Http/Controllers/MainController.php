@@ -117,7 +117,7 @@ class MainController extends Controller
     public function delivery() {
         $page = Page::where('sysname', 'delivery')->with('vars')->firstOrFail();
         $this->setMetaTags();
-        return view('content.content', ['page' => $page]);
+        return view('content.delivery', ['page' => $page]);
     }
 
     /**
