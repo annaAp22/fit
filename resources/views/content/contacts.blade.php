@@ -94,19 +94,17 @@
                         </div>
                     </div>
                     <!-- How to get scheme -->
+                    @if(isset($page->photos) && $page->photos->count())
                     <div class="contacts__gallery" id="#scheme">
                         <div class="container-in">
-                            <a href="{{ asset('assets/uploads/contacts-img-where-1-big-min.jpg') }}" data-fancybox="group-0">
-                                <img class="page-text__image" src="{{ asset('assets/uploads/contacts-img-where-1-min.jpg') }}" alt="">
-                            </a>
-                            <a href="{{ asset('assets/uploads/contacts-img-where-2-big-min.jpg') }}" data-fancybox="group-0">
-                                <img class="page-text__image" src="{{ asset('assets/uploads/contacts-img-where-2-min.jpg') }}" alt="">
-                            </a>
-                            <a href="{{ asset('assets/uploads/contacts-img-where-3-big-min.jpg') }}" data-fancybox="group-0">
-                                <img class="page-text__image" src="{{ asset('assets/uploads/contacts-img-where-3-min.jpg') }}" alt="">
-                            </a>
+                            @foreach($page->photos->where('name', 'scheme') as $photo)
+                                <a href="{{ $photo->uploads->img->url() }}" data-fancybox="group-0">
+                                    <img class="page-text__image" src="{{ $photo->uploads->img->preview->url() }}" alt="">
+                                </a>
+                            @endforeach
                         </div>
                     </div>
+                    @endif
                     <!-- Distributors -->
                     <div class="contacts__get-by contacts__distributors">
                         <div>
@@ -120,7 +118,9 @@
                     @if(isset($page->photos) && $page->photos->count())
                     <div class="contacts__gallery">
                         <div class="container-in">
-                            @foreach($page->photos as $photo)
+                            @foreach($page->photos->filter(function ($item) {
+                                            return $item['name'] != 'scheme';
+                                        }) as $photo)
                                 <a href="{{ $photo->uploads->img->url() }}" data-fancybox="group-1">
                                     <img class="page-text__image" src="{{ $photo->uploads->img->preview->url() }}" alt="">
                                 </a>
