@@ -133,41 +133,9 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <!-- Related articles-->
-    <div class="related-articles main-news">
-      <div class="related-header related-articles__header">
-        <div class="related-header__title">Свежие<span>\ новости</span>
-        </div><a class="related-header__listing-link" href="#">Читать все новости<i class="sprite_main sprite_main-icon__arrow_black_to_right"></i></a>
-      </div>
-      <div class="articles related-articles__articles">
-        <div class="article-preview articles__article"><a class="article-preview__image" href="#"><img src="/img/listing_article_thumb-1-min.jpg"/></a>
-          <div class="article-preview__title">Новые поступления
-          </div>
-          <div class="article-preview__preview-text">12 февраля 2017г.
-          </div><a class="btn btn_read-full" href="#">Смотреть</a>
-        </div>
-        <div class="article-preview articles__article"><a class="article-preview__image" href="#"><img src="/img/listing_article_thumb-2-min.jpg"/></a>
-          <div class="article-preview__title">Неприличные скидки на мужскую спорт-одежду!
-          </div>
-          <div class="article-preview__preview-text">12 февраля 2017г.
-          </div><a class="btn btn_read-full" href="#">Смотреть</a>
-        </div>
-        <div class="article-preview articles__article"><a class="article-preview__image" href="#"><img src="/img/listing_article_thumb-3-min.jpg"/></a>
-          <div class="article-preview__title">Новые поступления
-          </div>
-          <div class="article-preview__preview-text">12 февраля 2017г.
-          </div><a class="btn btn_read-full" href="#">Смотреть</a>
-        </div>
-        <div class="article-preview articles__article"><a class="article-preview__image" href="#"><img src="/img/listing_article_thumb-4-min.jpg"/></a>
-          <div class="article-preview__title">Новые поступления
-          </div>
-          <div class="article-preview__preview-text">12 февраля 2017г.
-          </div><a class="btn btn_read-full" href="#">Смотреть</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
+  @widget('news')
+
   <div class="container">
     <!-- Main recipes-->
     <div class="main-recipes">

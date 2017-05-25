@@ -26,7 +26,7 @@ class MainController extends Controller
         //банер в тексте
         $banner_content = \App\Models\Banner::where('type', 'content')->where('status', 1)->first();
         //бренды
-        $brands = \App\Models\Brand::where('status', 1)->get();
+//        $brands = \App\Models\Brand::where('status', 1)->get();
         //статьи
 
         //товары - выбор покупателей
@@ -48,9 +48,9 @@ class MainController extends Controller
         $banners = \App\Models\Banner::where('type', 'main')->where('status', 1)->get();
 
         // Товары
-        $hit_products = Product::with('attributes')->published()->hit()->recentlyAdded()->take(10)->get();
-        $new_products = Product::with('attributes')->published()->new()->recentlyAdded()->take(10)->get();
-        $act_products = Product::with('attributes')->published()->act()->recentlyAdded()->take(10)->get();
+//        $hit_products = Product::with('attributes')->published()->hit()->recentlyAdded()->take(10)->get();
+//        $new_products = Product::with('attributes')->published()->new()->recentlyAdded()->take(10)->get();
+//        $act_products = Product::with('attributes')->published()->act()->recentlyAdded()->take(10)->get();
 
         //родительские категории
         $categories = \App\Models\Category::with(['children.products', 'products'])
@@ -62,7 +62,7 @@ class MainController extends Controller
             ->orderBy('sort')
             ->get();
 
-        $reviews = \App\Models\Review::where('status', 1)->orderBy('created_at', 'desc')->take(10)->get();
+//        $reviews = \App\Models\Review::where('status', 1)->orderBy('created_at', 'desc')->take(10)->get();
 
 
         $this->setMetaTags();
@@ -72,15 +72,15 @@ class MainController extends Controller
 
             'banners' => $banners,
 
-            'hit_products' => $hit_products,
-            'new_products' => $new_products,
-            'act_products' => $act_products,
+//            'hit_products' => $hit_products,
+//            'new_products' => $new_products,
+//            'act_products' => $act_products,
 
             'categories' => $categories,
 
-            'reviews' => $reviews,
+//            'reviews' => $reviews,
 
-            'brands' => $brands,
+//            'brands' => $brands,
 //            'product_week' => !empty($product_week) ? $product_week : null
         ]);
     }

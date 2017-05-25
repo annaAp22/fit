@@ -3327,6 +3327,7 @@ header .line_lg {
 
 .article-preview__image>img {
   max-width: 100%;
+  min-width: 100%;
   -webkit-transition: -webkit-transform .6s ease;
   transition: -webkit-transform .6s ease;
   -o-transition: transform .6s ease;
@@ -3512,13 +3513,13 @@ header .line_lg {
   margin: 30px 0;
 }
 
-.header-listing span {
+.header-listing .goods-count>span {
   font-size: 14px;
   color: #999898;
   margin-right: 20px;
 }
 
-.header-listing i {
+.header-listing .goods-count>i {
   font-size: 12px;
   color: #303030;
   text-align: center;
@@ -10927,7 +10928,7 @@ li.fancybox-thumbs-loading {
     margin-bottom: 20px;
   }
 
-  .header-listing span {
+  .header-listing .goods-count>span {
     display: none;
   }
 

@@ -11,7 +11,9 @@ class News extends AbstractWidget
      *
      * @var array
      */
-    protected $config = [];
+    protected $config = [
+        'limit' => 4
+    ];
 
     /**
      * Treat this method as a controller action.
@@ -19,7 +21,7 @@ class News extends AbstractWidget
      */
     public function run()
     {
-        $news = \App\Models\News::published()->recent()->take(6)->get();
+        $news = \App\Models\News::published()->recent()->take($this->config['limit'])->get();
 
         return view("widgets.news", [
             'config' => $this->config,

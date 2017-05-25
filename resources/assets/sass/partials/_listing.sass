@@ -88,6 +88,7 @@
     width: 100%
     & > img
       max-width: 100%
+      min-width: 100%
       transition: transform .6s ease
       +media-md(down)
         width: 100%
@@ -208,20 +209,22 @@
     font-weight: 700
     color: #272727
     margin: 30px 0
-  span
-    font-size: 14px
-    color: #999898
-    margin-right: 20px
-    +hidden-sm(down)
-  i
-    font-size: 12px
-    color: #303030
-    text-align: center
-    line-height: 22px
-    font-weight: 700
-    font-style: normal
-    position: relative
-    top: -15px
+
+  .goods-count
+    & > span
+      font-size: 14px
+      color: #999898
+      margin-right: 20px
+      +hidden-sm(down)
+    & > i
+      font-size: 12px
+      color: #303030
+      text-align: center
+      line-height: 22px
+      font-weight: 700
+      font-style: normal
+      position: relative
+      top: -15px
 // Look banner
 .banner-look
   +hidden-md(down)
