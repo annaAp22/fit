@@ -145,7 +145,7 @@ class MainController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function contacts() {
-        $page = Page::where('sysname', 'contacts')->with('vars')->firstOrFail();
+        $page = Page::where('sysname', 'contacts')->with('vars', 'photos')->firstOrFail();
         $this->setMetaTags();
         return view('content.contacts', ['page' => $page]);
     }

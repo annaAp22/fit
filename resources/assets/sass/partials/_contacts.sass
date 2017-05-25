@@ -1,0 +1,87 @@
+.contacts
+  h1
+    margin-bottom: 0
+  &__mt
+    margin-top: 30px
+  &__phones
+    margin-top: 30px
+    +media-sm(down)
+      +col(24)
+    +media-md()
+      +col(17)
+    +media-lg()
+      +col(17)
+    +media-xl()
+      +col(10)
+  &__time
+    margin-top: 30px
+    +media-sm(down)
+      +col(24)
+    +media-md(up)
+      +col(7)
+  &__address
+    margin-top: 30px
+    +media-sm(down)
+      +col(24)
+    +media-lg(down)
+      +col(24)
+    +media-xl()
+      +col(7)
+  &__text
+    margin-top: 30px
+    line-height: 24px
+    font-size: 14px
+    & > strong
+      font-weight: 700
+      font-size: 16px
+    &_phones
+      & > *
+        vertical-align: middle
+        +media-sm(up)
+          margin-left: 20px
+        +media-xs()
+          &img
+            margin-left: 5px
+      & > br
+        +hidden-sm(up)
+      & > strong > a
+        text-decoration: none
+        color: #272727
+  &__note-1
+    +media-sm(down)
+      +col(24)
+    +media-md(up)
+      +col(17)
+  &__note-2
+    +media-sm(down)
+      +col(24)
+    +media-md(up)
+      +col(7)
+  &__get-by
+    margin-top: 30px
+    +col(24)
+    +media-sm(up)
+      display: flex
+    & > div
+      &:first-child
+        min-width: 96px
+        +hidden-xs()
+  &__gallery
+    margin-top: 30px
+    +col(24)
+    & > div > *
+      margin-top: 12px
+      margin-bottom: 12px
+      +media-xs()
+        +col(24)
+      +media-sm()
+        +col(12)
+      +media-md(up)
+        +col(6)
+      & > img
+        min-width: 100%
+        max-width: 100%
+  &__distributors
+    & > div
+      margin-top: 0
+    +align(start,center)

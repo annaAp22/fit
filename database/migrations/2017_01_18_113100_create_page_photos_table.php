@@ -16,7 +16,7 @@ class CreatePagePhotosTable extends Migration
             $table->increments('id');
             $table->integer('page_id')->unsigned();
 
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('img')->nullable();
 
             $table->timestamps();

@@ -18,7 +18,7 @@ class PagePhoto extends Model
     protected $uploads = [
         'img' => [
             'extensions' => 'jpg,jpeg,png',
-            'preview'    => '253x175@100',
+            'preview'    => '508x400@100',
         ],
     ];
 }
