@@ -12265,6 +12265,10 @@ li.fancybox-thumbs-loading {
     -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
     flex-basis: calc(100% / 24 * 24 - 24px);
   }
+
+  .contacts__map {
+    display: none;
+  }
 }
 
 @media screen and (max-width:574px) and (max-width:574px) {
