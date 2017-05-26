@@ -90,6 +90,8 @@
             }
             self.items.attr('draggable', false);
             self.items.find('*').attr('draggable', false);
+            self.position = 0;
+            self.delta = 0;
         };
 
         // Next slide
@@ -187,6 +189,7 @@
                     self.bindTouch();
                     self.checkButtons();
                     self.updateCss();
+                    self.pageActive();
                 }
 
             });
@@ -221,7 +224,15 @@
                 self.touch.destroy();
             }
 
-            var items = self._options.responsive ? self._options.responsive[self.layout].items : self.items;
+            var items = self.items;
+            if(self._options.responsive && typeof self._options.responsive[self.layout] !== 'undefined') {
+                if(typeof self._options.responsive[self.layout].items !== 'undefined') {
+                    items = self._options.responsive[self.layout].items;
+                }
+                else {
+                    items = self._options.responsive[self.layout];
+                }
+            }
 
             if(self.count > items) {
                 self.touch = new Hammer(self.track[0]);
@@ -281,13 +292,22 @@
 
         // Disable buttons if count < items
         this.checkButtons = function() {
-            var items = self._options.responsive ? self._options.responsive[self.layout].items : self.items;
+            var items = self.items;
+            if(self._options.responsive && typeof self._options.responsive[self.layout] !== 'undefined') {
+                if(typeof self._options.responsive[self.layout].items !== 'undefined') {
+                    items = self._options.responsive[self.layout].items;
+                }
+                else {
+                    items = self._options.responsive[self.layout];
+                }
+            }
+            // UnBind control buttons events
+            $(self.buttons[0]).unbind('click');
+            $(self.buttons[1]).unbind('click');
+
             if(self.count <= items) {
                 // Disable buttons if no overflow items
                 self.buttons.attr('disabled', true);
-                // Bind control buttons events
-                $(self.buttons[0]).unbind('click');
-                $(self.buttons[1]).unbind('click');
             }
             else {
                 self.buttons.attr('disabled', false);

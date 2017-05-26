@@ -14,7 +14,7 @@
             <section class="content">
 
                     {!! $page->content !!}
-                
+
 
             </section>
 
