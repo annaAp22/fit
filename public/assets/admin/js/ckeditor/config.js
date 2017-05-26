@@ -27,6 +27,6 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.filebrowserUploadUrl = '/admin/editor/upload';
 
-    config.extraAllowedContent = 'span;ul;li;table;td;style;*[id];*(*);*{*}';
+    config.extraAllowedContent = 'span;ul;li;table;td;style;i;*[id];*(*);*{*}';
 
 };
