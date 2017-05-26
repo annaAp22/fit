@@ -29,4 +29,6 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.extraAllowedContent = 'span;ul;li;table;td;style;i;button;*[id];*(*);*{*}';
 
+    config.protectedSource.push(/<i[^>]*><\/i>/g);
+
 };
