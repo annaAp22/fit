@@ -92,10 +92,10 @@ class MainController extends Controller
      */
     public function page(Request $request, $sysname) {
 //        $sysname = substr($request->path(), 0, (strpos($request->path(), '.') ?: 1000));
-        $page = Page::where('sysname', $sysname)->with('vars')->firstOrFail();
+        $page = Page::where('sysname', $sysname)->with(['vars', 'photos'])->firstOrFail();
         $this->setMetaTags();
 
-        return view('content.content', ['page' => $page]);
+        return view('content.with_sidebar', ['page' => $page]);
     }
 
     /**

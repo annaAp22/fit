@@ -1,0 +1,184 @@
+// Wysiwyg editor and before footer text
+h1
+  +media-sm(down)
+    font-size: 22px
+  +media-md(up)
+    font-size: 28px
+h2
+  margin-top: 30px
+  font-size: 24px
+h3
+  margin-top: 30px
+  font-size: 20px
+.page-text
+  &__title
+    &_900
+      font-weight: 900
+    &_700
+      font-weight: 700
+    &_green-line
+      position: relative
+      border-left: 5px solid #36b057
+      padding-left: 10px
+      line-height: 0.8
+    &_h1
+      margin-bottom: 30px
+      +media-sm(down)
+        font-size: 22px
+      +media-md(up)
+        font-size: 28px
+    &_h2
+      margin-top: 30px
+      font-size: 24px
+    &_h3
+      font-size: 20px
+      margin-bottom: 30px
+  &__text
+    font-size: 14px
+    margin: 30px 0 0
+    line-height: 24px
+    &_light-gray
+      color: #7a7a7a
+  &__image
+    max-width: 100%
+  &__pull-right
+    +media-md(down)
+      //width: 100%
+      margin-bottom: 30px
+    +media-lg(up)
+      float: right
+      margin: 0 0 60px 60px
+  &__image
+    max-width: 100%
+  &__pull-left
+    +media-md(down)
+      //width: 100%
+      margin-bottom: 30px
+    +media-lg(up)
+      float: left
+      margin: 0 60px 60px 0
+  &__back-link
+    +media-sm(down)
+      display: block
+  &__header
+    display: flex
+    flex-wrap: wrap
+    +align(start, center)
+    & > h1
+      +media-sm(down)
+        +col(24)
+      +media-md(up)
+        +col(18)
+    & > a
+      +media-sm(down)
+        +col(24)
+      +media-md(up)
+        +col(6)
+  &__col-24
+    +col(24)
+
+// Black circle with white number
+.circle-black-white
+  margin-top: 30px
+  color: #ffffff
+  display: inline-block
+  background-color: #000000
+  text-align: center
+  line-height: 38px
+  width: 38px
+  min-width: 38px
+  padding-left: 3px
+  border-radius: 50%
+  margin-right: 20px
+  font-size: 18px
+
+// Из чего шьём
+.materials
+  &__brands
+    +col(24)
+    +align(start, center)
+    text-align: center
+    & > div
+      margin-top: 30px
+      +media-sm(down)
+        +col(8)
+      +media-md(up)
+        +col(4.8)
+      & > img
+        max-width: 100%
+  &__properties
+    margin-top: 30px
+    +media-md(up)
+      +col(8)
+    & > div
+      display: flex
+      +align(start,center)
+      & > span
+        margin-top: 0
+  &__properties-image
+    margin-top: 30px
+    +media-md(up)
+      +col(16)
+    & > img
+      max-width: 100%
+  &__benefit
+    +media-sm(down)
+      +col(24)
+    +media-md(up)
+      +col(12)
+    display: flex
+    +align(start, center)
+    & > div
+      &:first-child
+        margin-top: 30px
+        margin-right: 20px
+        min-width: 52px
+  &__other
+    +col(24)
+    display: flex
+    +align(start, top)
+    & > div
+      &:first-child
+        margin-top: 30px
+        margin-right: 20px
+        +media-sm(down)
+          min-width: 52px
+        +media-md(up)
+          min-width: 113px
+        & > img
+          max-width: 100%
+      &:last-child
+        & > strong
+          font-size: 18px
+    +media-md(up)
+      &:last-child
+        +align(start,center)
+
+// Slider
+.materials-slider
+  +col(24)
+  margin-top: 30px
+  position: relative
+  &__wrap
+    width: 100%
+    overflow: hidden
+  &__track
+    display: flex
+    &:not(.js-dragged)
+      transition: transform .3s ease
+  &__banner
+    max-width: 100%
+    display: block
+  & > .btn
+    position: absolute
+    z-index: 1
+    top: 50%
+    width: 48px
+    height: 79px
+    padding: 0
+    transform: translateY(-50%)
+    &.left
+      left: 0
+    &.right
+      right: 0
+      transform: translateY(-50%)

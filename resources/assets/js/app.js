@@ -273,7 +273,7 @@ $(function(){
     $(".js-product-carousel").carousel();
 
     // Main page banners slider
-    $("#js-main-banner").carousel({
+    $(".js-single-banner").carousel({
         margin: 0,
         pagination: true,
         responsive: {

@@ -135,48 +135,6 @@ input, textarea
       &.active
         opacity: 1
 
-// Wysiwyg editor and before footer text
-.page-text
-  &__title, h1, h2, h3
-    font-weight: 900
-    &_700
-      font-weight: 700
-    &_green-line
-      position: relative
-      border-left: 5px solid #36b057
-      padding-left: 10px
-      line-height: 0.8
-    &_h1, h1
-      font-size: 28px
-      margin-bottom: 30px
-    &_h2, h2
-      margin-top: 30px
-      font-size: 24px
-    &_h3, h3
-      font-size: 20px
-      margin-bottom: 30px
-  &__text
-    font-size: 14px
-    margin: 30px 0
-    line-height: 24px
-  &__image
-    max-width: 100%
-  &__pull-right
-    +media-md(down)
-      //width: 100%
-      margin-bottom: 30px
-    +media-lg(up)
-      float: right
-      margin: 0 0 60px 60px
-  &__image
-    max-width: 100%
-  &__pull-left
-    +media-md(down)
-      //width: 100%
-      margin-bottom: 30px
-    +media-lg(up)
-      float: left
-      margin: 0 60px 60px 0
 .youtube-video
   display: inline-block
   position: relative
@@ -300,3 +258,4 @@ input, textarea
 @import "partials/article"
 @import "partials/contacts"
 @import "partials/delivery"
+@import "partials/page"

@@ -7,7 +7,7 @@
 <main role="main">
   <!-- Main slider-->
     @if($banners->count())
-        <div class="main-slider" id="js-main-banner">
+        <div class="main-slider js-single-banner">
             <div class="main-slider__wrap">
                 <div class="main-slider__track">
                     @foreach($banners as $banner)
