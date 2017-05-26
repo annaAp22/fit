@@ -12894,6 +12894,10 @@ h3 {
   .delivery>div>.btn_back-link {
     display: none;
   }
+
+  .materials-slider {
+    display: none;
+  }
 }
 
 @media screen and (max-width:574px) and (max-width:574px) {
