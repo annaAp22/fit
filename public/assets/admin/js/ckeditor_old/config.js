@@ -59,4 +59,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserUploadUrl = '/admin/editor/upload';
 
     config.extraPlugins = 'iframedialog';
+
+	config.extraAllowedContent = '*(*);*{*}';
 };
