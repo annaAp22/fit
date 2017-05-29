@@ -489,18 +489,18 @@ $(function(){
         images.eq($this.index()).addClass('active');
     });
 
-    // scroll to element
-    function scrollToEl($el) {
-        var top = $el.offset().top - 100;
-        if($(document).scrollTop() > top) {
-            $('html, body').animate({
-                scrollTop: top
-            }, 300);
-        }
-    }
-
 
 });
+
+// scroll to element
+function scrollToEl($el) {
+    var top = $el.offset().top - 100;
+    if($(document).scrollTop() > top) {
+        $('html, body').animate({
+            scrollTop: top
+        }, 300);
+    }
+}
 
 // Update cart widget
 function updateCart(data){
