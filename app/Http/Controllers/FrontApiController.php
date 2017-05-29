@@ -69,10 +69,44 @@ class FrontApiController extends Controller
                 $message->from($request->input('email'), $request->input('name'));
                 $message->to(\App\Models\Setting::getVar('email_support'))->subject('Вопрос с сайта '.$request->root());
             });
-
-        return response()->json(['result' => 'ok']);
+        $action = $request->input('action');
+        return response()->json([
+            'result' => 'ok',
+            'name' => $request->input('name'),
+            'action' => $action,
+            'action' => 'openModal',
+            'modal' => view('modals.letter_success')->render(),
+        ]);
     }
+    /**
+     * Отправка письма вопросов и предложений администратору
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function questions(Request $request) {
+        $validator = Validator::make($request->input(), [
+            'phone' => 'required',
+            'email' => 'required|email',
+            'text' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json(['message' => 'При отправке письма произошла ошибка. Попробуйте снова.']);
+        }
+
+        Mail::send('emails.support.question',
+            ['name' => $request->input('name'),
+                'text' => $request->input('text'),
+                'email' => $request->input('email')], function ($message) use ($request){
+                $message->from($request->input('email'), $request->input('name'));
+                $message->to(\App\Models\Setting::getVar('email_support'))->subject('Вопрос с сайта '.$request->root());
+            });
+        return response()->json([
+            'result' => 'ok',
+            'action' => 'openModal',
+            'modal' => view('modals.letter_success')->render(),
+        ]);
+    }
     /**
      * Заказ обратного звонка
      * @param Request $request

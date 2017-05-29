@@ -149,6 +149,16 @@ class MainController extends Controller
         $this->setMetaTags();
         return view('content.contacts', ['page' => $page]);
     }
+    /**
+     * Страница спонсорства
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function sponsorstvo() {
+        $page = Page::where('sysname', 'sponsorstvo')->firstOrFail();
+        $page->content = view('content.sponsorstvo')->render();
+        $this->setMetaTags();
+        return view('content.with_sidebar', ['page' => $page]);
+    }
 
     /**
      * Страница Полезно знать
