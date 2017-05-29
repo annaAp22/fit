@@ -1566,7 +1566,7 @@ button {
   width: 26px;
   position: absolute;
   color: #fcd82f;
-  font-size: 24px;
+  font-size: 28px;
   bottom: -21px;
   right: 25px;
   text-shadow: 0 5px 24px rgba(0,0,2,.09);
@@ -2155,7 +2155,6 @@ header .line_lg {
 .breadcrumbs__item {
   text-decoration: none;
   color: #272727;
-  padding: 10px 20px;
   font-size: 14px;
   position: relative;
 }
@@ -2168,7 +2167,6 @@ header .line_lg {
   height: 14px;
   background-color: #272727;
   right: 0;
-  top: 12px;
 }
 
 .breadcrumbs__item_current {
@@ -7726,10 +7724,6 @@ li.fancybox-thumbs-loading {
   font-weight: 700;
 }
 
-#order-success {
-  max-width: 90%;
-}
-
 .modal-sizes {
   overflow: auto;
   font-size: 16px;
@@ -8733,6 +8727,14 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 6 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 6 - 24px);
     flex-basis: calc(100% / 24 * 6 - 24px);
+  }
+
+  .breadcrumbs__item {
+    padding: 10px 20px;
+  }
+
+  .breadcrumbs__item:not(:last-child):after {
+    top: 12px;
   }
 
   .related-header__title {
@@ -11565,6 +11567,14 @@ h3 {
 
   .header__enter {
     display: none;
+  }
+
+  .breadcrumbs__item {
+    padding: 5px 10px;
+  }
+
+  .breadcrumbs__item:not(:last-child):after {
+    top: 6px;
   }
 
   .breadcrumbs__item_current {

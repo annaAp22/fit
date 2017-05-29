@@ -535,6 +535,7 @@ function orderSuccess(data) {
     // Show next step
     $('#order-success').append(data.html);
     nextStep(3);
+    scrollToEl($("#js-order-success"));
 }
 
 function openModal(data) {

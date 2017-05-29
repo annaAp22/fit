@@ -352,7 +352,10 @@ header
   &__item
     text-decoration: none
     color: #272727
-    padding: 10px 20px
+    +media-sm(down)
+      padding: 5px 10px
+    +media-md(up)
+      padding: 10px 20px
     font-size: 14px
     position: relative
     &:not(:last-child)
@@ -364,7 +367,10 @@ header
         height: 14px
         background-color: #272727
         right: 0
-        top: 12px
+        +media-sm(down)
+          top: 6px
+        +media-md(up)
+          top: 12px
     &_current
       +hidden-sm(down)
       color: #b0b0b0
