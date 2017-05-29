@@ -178,8 +178,14 @@ class MainController extends Controller
      */
     public function articles() {
         $articles = \App\Models\Article::where('status', 1)->orderBy('date', 'desc')->paginate(10);
+        $page = Page::where('sysname', 'articles')->first();
+        if(!$page) {
+            $page = new Page();
+            $page->name = 'Рецепты';
+            $page->content = '';
+        }
         $this->setMetaTags();
-        return view('articles.index', ['articles' => $articles]);
+        return view('articles.index', ['articles' => $articles, 'page' => $page]);
     }
 
     /**

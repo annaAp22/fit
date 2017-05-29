@@ -603,3 +603,54 @@
   &__preview-text
     margin-top: 20px
     font-size: 16px
+//recipe items
+.recipe-items
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  margin-left: -12px
+  margin-right: -12px
+.recipe-item
+  color: #000
+  text-decoration: none
+  height: 440px
+  //width: 272px
+  +col-xl(6)
+  +col-md(8)
+  +media-sm(down)
+    +col-sm(12)
+  &:hover
+    .img
+      transform: rotate(-2deg) scale(1.05)
+  &_full
+    width: 100%
+    padding-right: 40px
+    display: flex
+    .img
+      float: left
+      margin-right: 40px
+    .caption
+      padding-top: 0
+  .img-wrapper
+    width: 100%
+    height: 272px
+    overflow: hidden
+  &__wrapper
+    float: right
+    .caption
+      padding-top: 0
+  .caption
+    font-weight: 900
+    font-size: 18px
+    line-height: 48px
+    padding: 24px 0 4px
+  .text
+    font-size: 14px
+    font-weight: 500
+    p
+      font-weight: 500
+      padding: 0
+  .img
+    mix-height: 100%
+    min-width: 100%
+    transition: transform 0.3s ease 0.3s
