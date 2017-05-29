@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Models\Page;
 use \App\Models\Product;
 use Validator;
+use App\Helpers;
 use Carbon\Carbon;
 use DB;
 use Mail;
@@ -94,7 +95,18 @@ class MainController extends Controller
 //        $sysname = substr($request->path(), 0, (strpos($request->path(), '.') ?: 1000));
         $page = Page::where('sysname', $sysname)->with(['vars', 'photos'])->firstOrFail();
         $this->setMetaTags();
+// Replace <!--{{block_name}}--> with rendered value
+        $vars = [];
+        $template_vars = $page->vars->where('var', 'template_vars')->first();
+        if($template_vars)
+        {
+            foreach(explode(',', $template_vars['value']) as $template)
+            {
+                $vars[$template] = view($template)->render();
+            }
 
+            $page->content = Helpers\process_vars($page->content, $vars);
+        }
         return view('content.with_sidebar', ['page' => $page]);
     }
 

@@ -13,8 +13,6 @@ Route::group([
         Route::get('/delivery', ['as' => 'delivery', 'uses' => 'MainController@delivery']);
 //        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
-        Route::get('/page/sponsorstvo', 'MainController@sponsorstvo')->name('sponsorstvo');
-
         // All other pages
         Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
