@@ -17,7 +17,7 @@ class ProductRequest extends Request
 
     protected function prepareForValidation() {
         if(empty($this->request->get('sysname'))) {
-            $this->request->set('sysname', Slug::make($this->request->get('name'), '_'));
+            $this->request->set('sysname', Slug::make($this->request->get('name'), '-'));
         }
     }
 
