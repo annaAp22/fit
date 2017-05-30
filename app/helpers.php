@@ -49,3 +49,25 @@ function russianDate($dt) {
 function russianShortDate($dt) {
     return Carbon::createFromTimestamp($dt->timestamp)->format('j.m.Y');
 }
+/**
+ * Replace all content block variables with rendered values
+ *
+ * @param $array array ["block_name" => "rendered_value"]
+ * @param $string string with variables: <!--{{block_name}}-->
+ * @return string
+ */
+function process_vars($string, $array = null)
+{
+    // Return content if nothing to replace
+    if( !$array )
+        return $string;
+
+    $n = $c = array();
+
+    foreach ($array as $k => $v) {
+        $n[] = '<!--{{'.$k.'}}-->';
+        $c[] = $v;
+    }
+
+    return str_replace($n, $c, $string);
+}

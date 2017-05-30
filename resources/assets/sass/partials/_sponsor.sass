@@ -1,0 +1,55 @@
+.sponsor
+	position: relative
+	+media-xl(down)
+		font-size: 14px
+	.btn
+		width: 208px
+		display: block
+	&__text
+		margin: 30px 0
+	&__block-1
+		background-color: #f6f6f6
+		position: relative
+		+media-md(up)
+			background: #f6f6f6 url(/img/sponsor-img-1-min.jpg) no-repeat right top
+			background-size: auto 100%
+		padding: per-calc(25, 1155) 10px per_calc(80, 1155) per_calc(100, 1155)
+		.wrapper
+			padding-top: 40px
+			+media-md(up)
+				+col(14)
+	&__block-2
+		position: relative
+		background-color: #bfdce5
+		padding: per_calc(50, 1155) per_calc(100, 1155) per_calc(100, 1155)
+		+media-md(up)
+			background: #bfdce5 url(/img/sponsor-img-2-min.jpg) no-repeat left top
+			background-size: auto 100%
+		.wrapper
+			padding-top: 40px
+			+media-md(up)
+				+col(12)
+				float: right
+				margin-right: per_calc(144, 1155)
+	&__block-3
+		position: relative
+		background-color: #f6f6f6
+		+media-md(up)
+			background: #f6f6f6 url(/img/sponsor-img-3-min.jpg) no-repeat right top
+			background-size: auto 100%
+		padding: per-calc(25, 1155) 10px per_calc(80, 1155) per_calc(100, 1155)
+		.wrapper
+			padding-top: 40px
+			+media-md(up)
+				+col(14)
+	&__block-4
+		> div
+			display: inline-block
+			&:not(:last-child)
+				margin-right: per_calc(20, 1155)
+			&:nth-child(n+2)
+				font-size: 1em
+				font-weight: 500
+				+media-md(down)
+					line-height: 20px
+					width: 100%

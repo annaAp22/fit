@@ -182,3 +182,38 @@ h3
     &.right
       right: 0
       transform: translateY(-50%)
+.spec-caption-1
+  font-size: 1.5em
+  line-height: 0.8em
+  color: #36b057
+  font-weight: 700
+  position: relative
+  &:before
+    content: ""
+    width: 4px
+    background-color: #36b057
+    position: absolute
+    left: -20px
+    height: 18px
+.spec-num
+  font-size: 1.1em
+  line-height: 38px
+  width: 38px
+  text-align: center
+  background-color: #fff
+  position: absolute
+  z-index: 1
+  left: 0
+  top: 0
+.spec-title
+  color: #fff
+  padding: 16px 24px
+  width: 240px
+  font-weight: 700
+.spec-title
+  &-green
+    @extend .spec-title
+    background-color: #36b057
+  &-red
+    @extend .spec-title
+    background-color: #e74949

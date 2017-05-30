@@ -13,7 +13,6 @@ Route::group([
         Route::get('/delivery', ['as' => 'delivery', 'uses' => 'MainController@delivery']);
 //        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
-
         // All other pages
         Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
@@ -57,7 +56,8 @@ Route::group([
 
     // Каталог (совместимость со старым ЧПУ)
     Route::get('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
-
+    //test page
+    //Route::get('/test.html', 'TestController@index')->name('test');
 
     // Product comments
 //    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);

@@ -1,0 +1,59 @@
+.field-caption-1
+	font-size: 14px
+	font-weight: 500
+	color: #717171
+	margin-bottom: 16px
+	&:before
+		content: ""
+		background-color: #e74949
+		width: 6px
+		height: 6px
+		display: inline-block
+		vertical-align: top
+		margin-right: 10px
+.field-wrapper-1
+	position: relative
+	margin-bottom: 16px
+	.icon
+		@include absolute-vertical-center
+		left: 20px
+		&-top
+			position: absolute
+			left: 20px
+			top: 10px
+.questions-and-offers
+	margin-top: 60px
+	fieldset
+		padding: per_calc(70, 1155) per_calc(80, 1155)
+		border: 3px solid #e1e1e1
+	input[type=text]
+		height: 40px
+		width: 100%
+	input[type=text], textarea
+		border: 1px solid #c9c9c9
+		padding-left: 40px
+		font-size: 14px
+		&.error
+			border-color: red
+	textarea
+		height: 134px
+		width: 100%
+		padding-top: 10px
+	.left-side, .right-side
+		+media-md(up)
+			width: per_calc(480, 980)
+	.left-side
+		+media-md(up)
+			float: left
+	.right-side
+		+media-md(up)
+			float: right
+	.btn
+		+media-sm(up)
+			width: 50%
+		+media-sm(down)
+			width: 100%
+	legend
+		font-size: 1.5em
+		font-weight: 700
+		padding: 0 per_calc(30, 1155)
