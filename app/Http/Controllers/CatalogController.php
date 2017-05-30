@@ -52,9 +52,9 @@ class CatalogController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function catalog($sysname) {
-        Cache::flush();
+//        Cache::flush();
         $hash = md5($sysname);
-        $category = Cache::remember('category' . $hash, 5, function() use($sysname)
+        $category = Cache::remember('category' . $hash, 1440, function() use($sysname)
         {
             return Category::with([
                 'parent',
@@ -97,7 +97,7 @@ class CatalogController extends Controller
 
             // Получение товаров дочерних категорий
             $category_ids = $category->children_ids($category, collect([]));
-            $products = Cache::remember('category.'.$hash.'.products', 5, function() use($category_ids, $perPage)
+            $products = Cache::remember('category.'.$hash.'.products', 60, function() use($category_ids, $perPage)
             {
                 return Product::with(['attributes', 'comments' => function($query){
                     $query->average();
@@ -110,7 +110,7 @@ class CatalogController extends Controller
                     ->paginate($perPage);
             });
 
-            $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 5, function() use($category_ids)
+            $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category_ids)
             {
                 return Product::whereHas('categories',
                     function($query) use($category_ids) {
@@ -120,7 +120,7 @@ class CatalogController extends Controller
                     ->min('price');
             });
 
-            $products->max_price = $products->min_price = Cache::remember('category.'.$hash.'.products.max_price', 5, function() use($category_ids)
+            $products->max_price = $products->min_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category_ids)
             {
                 return Product::whereHas('categories',
                     function($query) use($category_ids) {
@@ -148,11 +148,11 @@ class CatalogController extends Controller
 
         } else {
 
-            $banners = Cache::remember('category.'.$hash.'.banners', 5, function()
+            $banners = Cache::remember('category.'.$hash.'.banners', 60, function()
             {
                 return Banner::where('type', 'content')->where('status', 1)->get();
             });
-            $products = Cache::remember('category.'.$hash.'.products', 5, function() use($category, $perPage)
+            $products = Cache::remember('category.'.$hash.'.products', 60, function() use($category, $perPage)
             {
                 return $category
                     ->products()
@@ -163,11 +163,11 @@ class CatalogController extends Controller
                     ->paginate($perPage);
             });
 
-            $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 5, function() use($category)
+            $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category)
             {
                 return $category->products->where('status', 1)->min('price');
             });
-            $products->max_price = Cache::remember('category.'.$hash.'.products.max_price', 5, function() use($category)
+            $products->max_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category)
             {
                 return $category->products->where('status', 1)->max('price');
             });
