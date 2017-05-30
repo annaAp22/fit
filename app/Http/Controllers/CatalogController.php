@@ -402,7 +402,10 @@ class CatalogController extends Controller
                 'photos',
                 'attributes',
                 'kits.products.attributes',
-                'related.attributes'
+                'related.attributes',
+                'comments' => function($query){
+                    $query->average();
+                }
             ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
         });
         $comments = Cache::remember('product.'.$hash.'.comments', 60, function() use($product){
