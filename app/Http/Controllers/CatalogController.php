@@ -394,15 +394,20 @@ class CatalogController extends Controller
      */
     public function product($sysname)
     {
-        $product = Product::with([
-            'brand',
-            'categories',
-            'photos',
-            'attributes',
-            'kits.products.attributes',
-            'related.attributes',
-        ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
-        $comments = $product->comments()->published()->paginate(5);
+        $hash = md5($sysname);
+        $product = Cache::remember('product.'.$hash, 60, function() use($sysname) {
+            return Product::with([
+                'brand',
+                'categories',
+                'photos',
+                'attributes',
+                'kits.products.attributes',
+                'related.attributes'
+            ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
+        });
+        $comments = Cache::remember('product.'.$hash.'.comments', 60, function() use($product){
+            return $product->comments()->published()->paginate(5);
+        });
         $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
 
         // Get youtube images
@@ -424,9 +429,11 @@ class CatalogController extends Controller
             session()->put('products.view.' . $product->id, 1);
         }
         //аналоги
-        $analogues = Product::where('id', '!=', $product->id)->whereHas('categories', function ($query) use ($product) {
-            $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
-        })->inRandomOrder()->take(10)->get();
+        $analogues = Cache::remember('product.'.$hash.'.analogues', 60, function() use($product){
+            return Product::where('id', '!=', $product->id)->whereHas('categories', function ($query) use ($product) {
+                $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
+            })->inRandomOrder()->take(10)->get();
+        });
 
         return view('catalog.products.details', [
             'product' => $product,
