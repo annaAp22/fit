@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\News;
 use Illuminate\Http\Request;
 
@@ -161,31 +162,34 @@ class MainController extends Controller
         $this->setMetaTags();
         return view('content.contacts', ['page' => $page]);
     }
-    /**
-     * Страница спонсорства
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sponsorstvo() {
-        $page = Page::where('sysname', 'sponsorstvo')->firstOrFail();
-        $page->content = view('content.sponsorstvo')->render();
-        $this->setMetaTags();
-        return view('content.with_sidebar', ['page' => $page]);
-    }
 
     /**
      * Страница Полезно знать
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function articles() {
-        $articles = \App\Models\Article::where('status', 1)->orderBy('date', 'desc')->paginate(10);
         $page = Page::where('sysname', 'articles')->first();
         if(!$page) {
             $page = new Page();
             $page->name = 'Рецепты';
             $page->content = '';
         }
+        $articles = Article::where('status', 1)->orderBy('date', 'desc')->paginate(12);
         $this->setMetaTags();
-        return view('articles.index', ['articles' => $articles, 'page' => $page]);
+        return view('articles.index', ['page' => $page, 'articles' => $articles]);
+    }
+    /**
+     * Рецепт
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function articlesSingle(Request $request, $sysname) {
+        $page = Article::published()->bySysname($sysname)->first();
+        if(!$page)
+            abort(404);
+        $articles = Article::where('status', 1)->where('id', '<>', $page->id)->orderBy('date', 'desc')->paginate(12);
+        $this->setMetaTags();
+        return view('articles.details', ['page' => $page, 'articles' => $articles]);
     }
 
     /**

@@ -1,46 +1,29 @@
-@extends('layouts.main')
-
-@section('breadcrumbs')
-    {!!  Breadcrumbs::render('articles', $articles) !!}
+@extends('content.with_sidebar')
+@section('page_name')
+    <h1>{{$page->name}}</h1>
 @endsection
-
-@section('content')
-    <main class="container">
-        <div class="page-single">
-            <h1 class="page-single_title">{{$page->name}}</h1>
-            {!! $page->content !!}
-
+@section('other_content')
+    <div id="recipes">
+        <div class="recipe-items js-container-article">
+            @include('articles.list')
         </div>
-        <div class="recipe-item_full">
-            <img class="img" src="/img/main-recipe-2-min.jpg" alt="">
-            <div class="wrapper">
-                <div class="caption">Ингредиенты</div>
-                <div class="text">
-                    <p>500 г сливочного сыра маскарпоне,</p>
-                    <p>4 яйца,</p>
-                    <p>сахарная пудра 5 ст. л.,</p>
-                    <p>300 мл холодного крепкого эспрессо,</p>
-                    <p>1 стакан сладкого вина Marsala (или коньяк, или ром, или Амаретто - только уже не на стаканы, а
-                        несколько ложек)</p>
-                    <p>200 г готовых савоярди (или "Дамские пальчики" у нас называются). Можно испечь самостоятельно, но
-                        не пытайтесь заменить каким-либо другим печеньем. Горький какао-порошок для посыпания или
-                        горький чёрный шоколад.</p>
-                </div>
+        {{-- Pagination --}}
+        @if($articles->currentPage() < $articles->lastPage())
+            <div class="page-navigation js-pagination-article">
+                <button class="btn btn_more js-action-link"
+                        data-url="{{route('ajax.articles')}}"
+                        data-page="{{$articles->currentPage() + 1}}">
+                    <span class="text">Показать больше</span>
+                    <span class="count js-items-count">({{ $articles->total() - ($articles->currentPage() * $articles->perPage()) }})</span>
+                    <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                </button>
+                <button class="btn btn_show-all js-action-link"
+                        data-url="{{route('ajax.articles')}}"
+                        data-page="1">
+                    <span>Показать все рецепты</span>
+                    <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                </button>
             </div>
-        </div>
-        <div class="recipe-items">
-            @for($i = 0; $i < 20; $i++)
-                <a href="" class="recipe-item">
-                    <div class="img-wrapper">
-                        <img class="img" src="/img/main-recipe-2-min.jpg" alt="">
-                    </div>
-                    <div class="caption">Тирамису</div>
-                    <div class="text">Идеально подойдет для завтрака или перекуса!</div>
-                </a>
-            @endfor
-        </div>
-        <section class="content-full-width">
-            @widget('SubscribeWidget')
-        </section>
-    </main>
+        @endif
+    </div>
 @endsection

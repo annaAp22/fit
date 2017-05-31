@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -664,6 +665,28 @@ class FrontApiController extends Controller
             'model' => 'news',
             'total' => $news->total(),
             'currentPage' => $news->currentPage(),
+            'nextPage' => $next_page,
+            'count' => $count,
+        ];
+    }
+    /**
+     * News pagination
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function articles(Request $request) {
+        $perPage = $request->page == 1 ? 400 : 12; // page = 1 means show all items on one page
+        $articles = Article::published()->recent()->paginate($perPage);
+
+        $next_page = $articles->lastPage() > $articles->currentPage() ? ($articles->currentPage() + 1) : null; // номер следующей страницы
+        $count = $next_page ? $articles->total() - ($articles->currentPage() * $articles->perPage()) : 0; // количество оставшихся новостей
+
+        return [
+            'html' => view('articles.list', compact('articles'))->render(),
+            'action' => $request->page == 1 ? 'paginationReplace' : 'paginationAppend',
+            'model' => 'article',
+            'total' => $articles->total(),
+            'currentPage' => $articles->currentPage(),
             'nextPage' => $next_page,
             'count' => $count,
         ];

@@ -17,11 +17,9 @@ class Article extends Model
     protected $fillable = [
         'sysname',
         'date',
-
         'name',
         'descr',
         'text',
-
 
         'title',
         'description',
@@ -32,8 +30,11 @@ class Article extends Model
 
     protected $uploads = [
         'img' => [
-            'extensions' => 'jpg,jpeg,png',
+            'extensions' => 'jpg',
             'preview' => '360x239',
+            'full' => '1155x755',
+            'middle' => '755x755',
+            'small' => '385x385',
         ],
     ];
 
@@ -71,4 +72,8 @@ class Article extends Model
     public function datePicker() {
         return (new Date($this->date))->format('d.m.Y');
     }
+    public function scopePublished($query) { $query->where('status', 1); }
+    public function scopeRecent($query) { $query->orderBy('date', 'desc'); }
+    public function scopeBySysname($query, $sysname) { $query->where('sysname', $sysname); }
+
 }

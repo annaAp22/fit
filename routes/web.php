@@ -13,6 +13,11 @@ Route::group([
         Route::get('/delivery', ['as' => 'delivery', 'uses' => 'MainController@delivery']);
 //        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
+        // Статьи
+        Route::get('/page/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
+        Route::get('/page/articles/{sysname}', ['as' => 'articles.record', 'uses' => 'MainController@articlesSingle']);
+        Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
+
         // All other pages
         Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
@@ -20,9 +25,6 @@ Route::group([
 //        Route::get('/sertificates.html', ['as' => 'sertificates', 'uses' => 'MainController@sertificates']); // not used
 //        Route::get('/samovyvoz.html', ['as' => 'pickup', 'uses' => 'MainController@pickup']); // not used
 
-        // Статьи
-        Route::get('/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
-        Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
 
         // Поиск
         Route::match(['get', 'post'], '/search', ['as' => 'search', 'uses' => 'CatalogController@search']);

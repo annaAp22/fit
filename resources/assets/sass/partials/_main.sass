@@ -605,36 +605,45 @@
     font-size: 16px
 //recipe items
 .recipe-items
-  display: flex
-  justify-content: space-between
-  flex-wrap: wrap
-  margin-left: -12px
-  margin-right: -12px
+  +grid(fluid)
+  margin: 30px -12px
 .recipe-item
   color: #000
   text-decoration: none
-  height: 440px
-  //width: 272px
+  width: 272px
+  padding-bottom: 20px
   +col-xl(6)
+  +col-lg(6)
   +col-md(8)
-  +media-sm(down)
-    +col-sm(12)
+  +col-sm(12)
+  +col-xs(12)
   &:hover
     .img
       transform: rotate(-2deg) scale(1.05)
   &_full
     width: 100%
     padding-right: 40px
-    display: flex
+    padding-bottom: 40px
+    +grid(fluid)
+    +align()
+    .img-wrapper
+      margin-right: 30px
+      margin-bottom: 40px
+    .wrapper
+      +media-lg(up)
+        +col-xl(17)
+        +col-lg(15)
+      +col-md(13)
+      +col-sm(24)
     .img
-      float: left
-      margin-right: 40px
+      width: 280px
     .caption
       padding-top: 0
-  .img-wrapper
-    width: 100%
-    height: 272px
-    overflow: hidden
+      font-weight: 700
+      font-size: 18px
+      line-height: 20px
+      height: 40px
+
   &__wrapper
     float: right
     .caption
@@ -642,15 +651,34 @@
   .caption
     font-weight: 900
     font-size: 18px
-    line-height: 48px
-    padding: 24px 0 4px
+    line-height: 20px
+    height: 40px
+    margin: 24px 0 4px
+  .img-wrapper
+    position: relative
+    padding-left: 100%
+    padding-top: 100%
+    overflow: hidden
+  .img
+    @include absolute-center
+    background: no-repeat center center
+    background-size: cover
+    transition: transform 0.3s ease 0.3s
   .text
     font-size: 14px
+    line-height: 18px
+    height: 72px
     font-weight: 500
     p
       font-weight: 500
       padding: 0
-  .img
-    mix-height: 100%
-    min-width: 100%
-    transition: transform 0.3s ease 0.3s
+      margin: 0
+.recipe-item_text
+  font-size: 14px
+  line-height: 24px
+  font-weight: 500
+  p
+    font-weight: 500
+    padding: 0
+    margin: 0
+
