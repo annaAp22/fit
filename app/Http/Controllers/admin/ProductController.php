@@ -197,7 +197,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $data = $request->all();
-        $checkboxes = array('hit', 'new');
+        $checkboxes = array('hit', 'new', 'ya_market', 'merchant');
         foreach ($checkboxes as $ch) {
             if(!isset($data[$ch])) {
                 $data[$ch] = 0;
