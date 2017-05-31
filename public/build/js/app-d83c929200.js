@@ -733,7 +733,7 @@ $(function(){
             },'json');
         }
     }
-    $body.on('submit', ".js-form-ajax", function(e) {
+    $body.on('submit', ".js-form-ajax", function(e){
         e.preventDefault();
         formSubmit($(this));
     });
@@ -873,17 +873,19 @@ $(function(){
         images.removeClass('active');
         images.eq($this.index()).addClass('active');
     });
-    // scroll to element
-    function scrollToEl($el) {
-        var top = $el.offset().top - 100;
-        if($(document).scrollTop() > top) {
-            $('html, body').animate({
-                scrollTop: top
-            }, 300);
-        }
-    }
+
 
 });
+
+// scroll to element
+function scrollToEl($el) {
+    var top = $el.offset().top - 100;
+    if($(document).scrollTop() > top) {
+        $('html, body').animate({
+            scrollTop: top
+        }, 300);
+    }
+}
 
 // Update cart widget
 function updateCart(data){
@@ -918,6 +920,7 @@ function orderSuccess(data) {
     // Show next step
     $('#order-success').append(data.html);
     nextStep(3);
+    scrollToEl($("#js-order-success"));
 }
 
 function openModal(data) {

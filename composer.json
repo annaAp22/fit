@@ -14,6 +14,7 @@
         "jenssegers/date": "^3.2",
         "kodicms/laravel-assets": "^0.3.5",
         "laravel/framework": "5.4.*",
+        "predis/predis": "^1.1",
         "stevebauman/location": "^2.0"
     },
     "require-dev": {

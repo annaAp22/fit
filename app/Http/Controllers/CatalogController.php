@@ -14,6 +14,7 @@ use App\Models\Setting;
 use Validator;
 use DB;
 use Lang;
+use Illuminate\Support\Facades\Cache;
 
 class CatalogController extends Controller
 {
@@ -51,17 +52,21 @@ class CatalogController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function catalog($sysname) {
-
-        $category = Category::with([
+//        Cache::flush();
+        $hash = md5($sysname);
+        $category = Cache::remember('category' . $hash, 1440, function() use($sysname)
+        {
+            return Category::with([
                 'parent',
                 'children_rec',
-                'products.attributes' => function($query) {
-                        $query->where('attributes.is_filter', 1);
+                'products.attributes' => function ($query) {
+                    $query->where('attributes.is_filter', 1);
                 }
             ])
-            ->sysname($sysname)
-            ->published()
-            ->firstOrFail();
+                ->sysname($sysname)
+                ->published()
+                ->firstOrFail();
+        });
 
         $this->setMetaTags(null, $category->title, $category->description, $category->keywords);
 
@@ -92,53 +97,80 @@ class CatalogController extends Controller
 
             // Получение товаров дочерних категорий
             $category_ids = $category->children_ids($category, collect([]));
-            $products = Product::with('attributes')
-                                    ->whereHas('categories',
-                                        function($query) use($category_ids) {
-                                            $query->whereIn('categories.id', $category_ids);
-                                        })
-                                    ->published()
-                                    ->paginate($perPage);
-
-            $products->min_price = Product::whereHas('categories',
-                function($query) use($category_ids) {
-                    $query->whereIn('categories.id', $category_ids);
-                })
-                ->published()
-                ->min('price');
-
-            $products->max_price = Product::whereHas('categories',
-                function($query) use($category_ids) {
-                    $query->whereIn('categories.id', $category_ids);
-                })
-                ->published()
-                ->max('price');
-
-            // All category products with attributes
-            $category->products = Product::with(['attributes' => function($query) {
-                    $query->where('attributes.is_filter', 1)->withPivot('value')->select('attributes.*', 'attribute_product.value');
+            $products = Cache::remember('category.'.$hash.'.products', 60, function() use($category_ids, $perPage)
+            {
+                return Product::with(['attributes', 'comments' => function($query){
+                    $query->average();
                 }])
-                ->whereHas('categories',
+                    ->whereHas('categories',
+                        function($query) use($category_ids) {
+                            $query->whereIn('categories.id', $category_ids);
+                        })
+                    ->published()
+                    ->paginate($perPage);
+            });
+
+            $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category_ids)
+            {
+                return Product::whereHas('categories',
                     function($query) use($category_ids) {
                         $query->whereIn('categories.id', $category_ids);
                     })
-                ->select('id')
-                ->published()
-                ->get();
+                    ->published()
+                    ->min('price');
+            });
+
+            $products->max_price = $products->min_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category_ids)
+            {
+                return Product::whereHas('categories',
+                    function($query) use($category_ids) {
+                        $query->whereIn('categories.id', $category_ids);
+                    })
+                    ->published()
+                    ->max('price');
+            });
+
+            // 2017.05.30 TODO: проверить нужен ли запрос ниже
+            // All category products with attributes
+//            $category->products = Product::with(['attributes' => function($query) {
+//                    $query->where('attributes.is_filter', 1)->withPivot('value')->select('attributes.*', 'attribute_product.value');
+//                }])
+//                ->whereHas('categories',
+//                    function($query) use($category_ids) {
+//                        $query->whereIn('categories.id', $category_ids);
+//                    })
+//                ->select('id')
+//                ->published()
+//                ->get();
 
             return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id'));
 
 
         } else {
-            $banners = Banner::where('type', 'content')->where('status', 1)->get();
-            $products = $category
-                ->products()
-                ->with('attributes')
-                ->published()
-                ->paginate($perPage);
 
-            $products->min_price = $category->products->where('status', 1)->min('price');
-            $products->max_price = $category->products->where('status', 1)->max('price');
+            $banners = Cache::remember('category.'.$hash.'.banners', 60, function()
+            {
+                return Banner::where('type', 'content')->where('status', 1)->get();
+            });
+            $products = Cache::remember('category.'.$hash.'.products', 60, function() use($category, $perPage)
+            {
+                return $category
+                    ->products()
+                    ->with(['attributes', 'comments' => function($query){
+                        $query->average();
+                    }])
+                    ->published()
+                    ->paginate($perPage);
+            });
+
+            $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category)
+            {
+                return $category->products->where('status', 1)->min('price');
+            });
+            $products->max_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category)
+            {
+                return $category->products->where('status', 1)->max('price');
+            });
 
             return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id'));
         }
@@ -362,15 +394,23 @@ class CatalogController extends Controller
      */
     public function product($sysname)
     {
-        $product = Product::with([
-            'brand',
-            'categories',
-            'photos',
-            'attributes',
-            'kits.products.attributes',
-            'related.attributes',
-        ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
-        $comments = $product->comments()->published()->paginate(5);
+        $hash = md5($sysname);
+        $product = Cache::remember('product.'.$hash, 60, function() use($sysname) {
+            return Product::with([
+                'brand',
+                'categories',
+                'photos',
+                'attributes',
+                'kits.products.attributes',
+                'related.attributes',
+                'comments' => function($query){
+                    $query->average();
+                }
+            ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
+        });
+        $comments = Cache::remember('product.'.$hash.'.comments', 60, function() use($product){
+            return $product->comments()->published()->paginate(5);
+        });
         $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
 
         // Get youtube images
@@ -392,9 +432,11 @@ class CatalogController extends Controller
             session()->put('products.view.' . $product->id, 1);
         }
         //аналоги
-        $analogues = Product::where('id', '!=', $product->id)->whereHas('categories', function ($query) use ($product) {
-            $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
-        })->inRandomOrder()->take(10)->get();
+        $analogues = Cache::remember('product.'.$hash.'.analogues', 60, function() use($product){
+            return Product::where('id', '!=', $product->id)->whereHas('categories', function ($query) use ($product) {
+                $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
+            })->inRandomOrder()->take(10)->get();
+        });
 
         return view('catalog.products.details', [
             'product' => $product,
