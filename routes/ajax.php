@@ -66,3 +66,5 @@ Route::group(['prefix' => 'order'], function() {
 
 // News pagination
 Route::get('news', 'FrontApiController@news')->name('news');
+// Articles pagination
+Route::get('articles', 'FrontApiController@articles')->name('articles');

@@ -28,7 +28,23 @@ class ArticleRequest extends Request
     {
         return true;
     }
-
+    /**
+    * Get the error messages for the defined validation rules.
+    *
+    * @return array
+    */
+    public function messages() {
+        $translate = array(
+            'descr' => 'Описание',
+            'name' => 'Название',
+            'sysname' => 'ЧПУ',
+        );
+        $result = array();
+        foreach ($translate as $key => $val) {
+            $result[$key.'.required'] = $val.' является обязательным';
+        }
+        return $result;
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -41,7 +57,8 @@ class ArticleRequest extends Request
             'date' => 'required|date',
             'sysname' => 'required|sysname|unique:articles,sysname,'.$this->route('article'),
             'img' => 'image',
-            'categories' => 'required'
+            'categories' => 'required',
+            'descr' => 'required'
         ];
     }
 }
