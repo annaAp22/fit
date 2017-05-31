@@ -310,6 +310,20 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> Выгрузка в сторонние сервисы </label>
+                        <div class="col-sm-9">
+                            <label class="block">
+                                <input name="ya_market" type="checkbox" class="ace input-lg" value="1" @if ((old() && old('ya_market')) || (!old() && $product->ya_market)) checked="checked" @endif>
+                                <span class="lbl"> Yandex Market</span>
+                            </label>
+                            <label class="block">
+                                <input name="merchant" type="checkbox" class="ace input-lg" value="1" @if ((old() && old('merchant')) || (!old() && $product->merchant)) checked="checked" @endif>
+                                <span class="lbl"> Google Merchant Center</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> Наличие </label>
                         <div class="col-sm-9">
                             <label>

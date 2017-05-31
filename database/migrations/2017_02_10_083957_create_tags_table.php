@@ -23,7 +23,7 @@ class CreateTagsTable extends Migration
             $table->text('description');
             $table->text('keywords');
 
-            $table->integer('views');
+            $table->integer('views')->default(0);
             $table->boolean('status');
 
             $table->timestamps();

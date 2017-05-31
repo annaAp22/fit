@@ -164,13 +164,27 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> Наличие </label>
+                        <label class="col-sm-3 control-label no-padding-right"> Выгрузка в сторонние сервисы </label>
                         <div class="col-sm-9">
                             <label>
+                                <input name="ya_market" type="checkbox" class="ace input-lg" value="1" @if (old() && old('ya_market') == 1) checked="checked" @endif>
+                                <span class="lbl"> Yandex Market</span>
+                            </label>&nbsp;
+                            <label>
+                                <input name="merchant" type="checkbox" class="ace input-lg" value="1" @if (old() && old('merchant') == 1) checked="checked" @endif>
+                                <span class="lbl"> Google Merchant Center</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> Наличие </label>
+                        <div class="col-sm-9">
+                            <label class="block">
                                 <input name="stock" type="radio" class="ace" value="1" @if (old('stock') == 1 || !old()) checked="checked" @endif>
                                 <span class="lbl"> В наличии</span>
                             </label>&nbsp;
-                            <label>
+                            <label class="block">
                                 <input name="stock" type="radio" class="ace" value="0" @if (old() && old('stock') == 0) checked="checked" @endif>
                                 <span class="lbl"> Под заказ</span>
                             </label>

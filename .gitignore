@@ -20,3 +20,4 @@ Homestead.yaml
 /public/assets/uploads/
 /app/Http/Controllers/TestController.php
 /resources/views/layouts/test.blade.php
+/public/custom/

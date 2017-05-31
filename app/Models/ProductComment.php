@@ -26,6 +26,12 @@ class ProductComment extends Model
         return $query->where('status', 1);
     }
 
+    public function scopeAverage($query) {
+        return $query->selectRaw('avg(rating) as avg, count(rating) as count, product_id')
+                    ->published()
+                    ->groupBy('product_id');
+    }
+
 
 
     public function product() {

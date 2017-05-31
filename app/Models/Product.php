@@ -37,6 +37,9 @@ class Product extends Model
         'new',
         'act',
         'hit',
+
+        'ya_market',
+        'merchant',
         
         'stock',
         'status',

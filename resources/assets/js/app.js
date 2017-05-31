@@ -640,4 +640,3 @@ function paginationAppend(data) {
 
     }
 }
-
