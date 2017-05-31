@@ -48,10 +48,18 @@
         text-decoration: none
         color: #272727
   &__note-1
+    text-align: center
+    div
+      margin: 30px auto
+      display: inline-block
+      +media-sm(down)
+        +col(24)
+      +media-md(up)
+        +col(12)
     +media-sm(down)
       +col(24)
     +media-md(up)
-      +col(17)
+      +col(24)
   &__note-2
     +media-sm(down)
       +col(24)

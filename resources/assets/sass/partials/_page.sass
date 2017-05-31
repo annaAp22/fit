@@ -219,3 +219,35 @@ h3
   &-red
     @extend .spec-title
     background-color: #e74949
+.page-order-step
+  .circle-black-white
+    float: left
+    margin-top: 0px
+  +media-md(up)
+    .page-text__text
+      height: 60px
+  img
+    max-width: 100%
+.page-order-step__step-one, .page-order-step__step-two
+  +media-sm(down)
+    +col(24)
+  +media-md(up)
+    +col(12)
+.page-order-step__step-three
+  +media-sm(down)
+    +col(24)
+    display: flex
+    flex-wrap: wrap
+    .page-text__text__four
+      order: 1
+    .page-order-step__three__img
+      height: 200px
+  +media-md(up)
+    +col(24)
+  .page-text__text
+    +media-sm(down)
+      width: 100%
+    +media-md(up)
+      display: inline-block
+      width: 49%
+      vertical-align: top
