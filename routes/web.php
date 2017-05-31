@@ -65,6 +65,11 @@ Route::group([
 //    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
 //    Route::get('/comments', ['as' => 'comments', 'uses' => 'FrontApiController@comments']);
 
+    // Yandex Market
+    Route::get('/export/yandex-market', 'ExportController@yandexMarket')->name('yandex_market');
+    // Google Merchant Center
+    Route::get('/export/google-merchant', 'ExportController@googleMerchant')->name('google_merchant');
+
 });
 
 //Route::get('/offer.html', ['as' => 'offer', function(){
