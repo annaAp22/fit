@@ -33,11 +33,11 @@
                         <g:size>{{ $offer->size }}</g:size>
                         <g:size_system>RU</g:size_system>
                     @endisset
-                    @if($color = $offer->attributes->where('name', 'Цвет'))
+                    @if($color = $offer->attributes->where('name', 'Цвет')->first())
                         <g:color>{{ $color->pivot->value }}</g:color>
                     @endif
                     <g:age_group>Adult</g:age_group>
-                    @if($gender = $offer->attributes->where('name', 'Пол'))
+                    @if($gender = $offer->attributes->where('name', 'Пол')->first())
                         <g:gender>{{ $gender->pivot->value == 'Женский' ? 'Female' : 'male' }}</g:gender>
                     @endif
                     @if($offer->categories->count())
