@@ -1,51 +1,53 @@
 <?php
-    echo '<?xml version="1.0" encoding="utf-8"?>'. "\n" . '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">';
+    echo '<?xml version="1.0" encoding="utf-8"?>';
 ?>
-
-<yml_catalog date="{{ date('Y-m-d H:i') }}">
-    <shop>
-        <name>Одежда для фитнеса, танцев и бодибилдинга</name>
-        <company>Одежда для фитнеса, танцев и бодибилдинга</company>
-        <url>{{ route('index') }}</url>
-        <currencies><currency id="RUB" rate="1" /></currencies>
-        <categories>
-            @foreach($categories as $category)
-                <category id="{{ $category->id }}" @if($category->parent_id)parentId="{{ $category->parent_id }}"@endif>{{ $category->name }}</category>
-            @endforeach
-        </categories>
-
-        <delivery-options>
-            <option cost="300" days="1" order-before="18"/>
-        </delivery-options>
-
-
-        <offers>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+    <channel>
+        <title>Одежда для фитнеса, танцев и бодибилдинга</title>
+        <description>Одежда для фитнеса, танцев и бодибилдинга</description>
+        <link>{{ route('index') }}</link>
             @foreach($offers as $offer)
-                <offer id="{{ $offer->offer_id }}" group_id="{{ $offer->id }}" type="vendor.model" available="{{ $offer->stock ? 'true' : 'false' }}">
-                    <url>{{ route('product', ['sysname' => $offer->sysname]) }}{{--?utm_source=yandex_market&amp;utm_medium=cpc&amp;utm_campaign=topiki&amp;utm_content=sportivniy_topik_s_poddergkoy&amp;utm_term=156220001--}}</url>
-                    <price>{{ $offer->price }}</price>
+                <item available="">
+                    <g:id>{{ $offer->offer_id }}</g:id>
+                    <g:title>{{ $offer->name }}</g:title>
+                    <g:item_group_id>{{ $offer->id }}</g:item_group_id>
+                    <g:availability>{{ $offer->stock ? 'in stock' : 'out of stock' }}</g:availability>
+                    <g:description>{{ $offer->descr }}</g:description>
+                    <g:link>{{ route('product', ['sysname' => $offer->sysname]) }}</g:link>
+                    <g:image_link>{{ url($offer->uploads->img->detail->url()) }}</g:image_link>
+                    <g:condition>new</g:condition>
                     @if($offer->originalPrice)
-                        <oldprice>{{ $offer->originalPrice }}</oldprice>
+                        <g:price>{{ $offer->originalPrice }} RUB</g:price>
+                        <g:sale_price>{{ $offer->price }} RUB</g:sale_price>
+                    @else
+                        <g:price>{{ $offer->price }} RUB</g:price>
                     @endif
-                    <currencyId>RUB</currencyId>
-                    @if($offer->categories->count())
-                        <categoryId>{{ $offer->categories[0]->id }}</categoryId>
-                    @endif
-                    <picture>{{ url($offer->uploads->img->detail->url()) }}</picture>
-                    <typePrefix>{{ $offer->name }}</typePrefix>
+                    <g:shipping>
+                        <g:country>RU</g:country>
+                        <g:price>300.00 RUB</g:price>
+                    </g:shipping>
                     @if($offer->brand)
-                        <vendor>{{ $offer->brand->name }}</vendor>
+                        <g:brand>{{ $offer->brand->name }}</g:brand>
                     @endif
-                    <model>{{ $offer->sku }}</model>
-                    <description>{{ $offer->descr }}</description>
                     @isset($offer->size)
-                        <param name="Размер" unit="RU">{{ $offer->size }}</param>
+                        <g:size>{{ $offer->size }}</g:size>
+                        <g:size_system>RU</g:size_system>
                     @endisset
-                    @foreach($offer->attributes->where('name', '!=', 'Размеры') as $param)
-                        <param name="{{ $param->name }}">{{ $param->pivot->value }}</param>
-                    @endforeach
-                </offer>
+                    @if($color = $offer->attributes->where('name', 'Цвет'))
+                        <g:color>{{ $color->pivot->value }}</g:color>
+                    @endif
+                    <g:age_group>Adult</g:age_group>
+                    @if($gender = $offer->attributes->where('name', 'Пол'))
+                        <g:gender>{{ $gender->pivot->value == 'Женский' ? 'Female' : 'male' }}</g:gender>
+                    @endif
+                    @if($offer->categories->count())
+                        @if($offer->categories->where('name', 'Сумки')->first() )
+                            <g:google_product_category>6551</g:google_product_category>
+                        @else
+                            <g:google_product_category>5322</g:google_product_category>
+                        @endif
+                    @endif
+                </item>
             @endforeach
-        </offers>
-    </shop>
-</yml_catalog>
+    </channel>
+</rss>

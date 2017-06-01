@@ -62,14 +62,9 @@ class ExportController extends Controller
     // Export goods to google merchant center .yml
     public function googleMerchant()
     {
-        // Get all categories
-        $categories = Category::published()
-            ->sorted()
-            ->get();
-
         // Get all products which has ya_market == 1
         $products = Product::with(['categories' => function($query) {
-            $query->select('categories.id')->take(1);
+            $query->select(['categories.id', 'categories.name']);
         }, 'attributes' => function($query) {
             $query->whereIn('name', ['Размеры', 'Цвет', 'Пол', 'Материал']);
         }, 'brand'])
@@ -82,9 +77,6 @@ class ExportController extends Controller
         $offers = collect();
         foreach($products as $product)
         {
-            $nameArr = explode(' ', $product->name);
-            array_pop($nameArr);
-            $product->name = implode(' ', $nameArr);
             // Make offer foreach size
             if( $sizeAttr = $product->attributes->where('name', 'Размеры')->first() )
             {
