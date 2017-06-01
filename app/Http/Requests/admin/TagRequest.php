@@ -7,7 +7,7 @@ use Slug;
 
 class TagRequest extends Request
 {
-
+    private $fields = array('sysname' => 'ЧПУ');
     public function validate() {
         $this->prepareForValidation();
         parent::validate();
@@ -29,7 +29,18 @@ class TagRequest extends Request
     {
         return true;
     }
-
+  /**
+   * Get the error messages for the defined validation rules.
+   *
+   * @return array
+   */
+//  public function messages()
+//  {
+//    foreach ($this->fields as $key => $val) {
+//      $result[$key.'.required'] = $val;
+//    }
+//    return $result;
+//  }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -39,7 +50,11 @@ class TagRequest extends Request
     {
         return [
             'name' => 'required',
-            'sysname' => 'required|sysname|unique:tags,sysname,'.$this->route('tag')
+            'sysname' => 'required|sysname|unique:tags,sysname,'.$this->route('tag'),
+            'text' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'keywords' => 'required',
         ];
     }
 }
