@@ -7,7 +7,7 @@
         <description>Одежда для фитнеса, танцев и бодибилдинга</description>
         <link>{{ route('index') }}</link>
             @foreach($offers as $offer)
-                <item available="">
+                <item>
                     <g:id>{{ $offer->offer_id }}</g:id>
                     <g:title>{{ $offer->name }}</g:title>
                     <g:item_group_id>{{ $offer->id }}</g:item_group_id>
