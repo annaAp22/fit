@@ -165,11 +165,11 @@ class CatalogController extends Controller
 
             $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category)
             {
-                return $category->products->where('status', 1)->min('price');
+                return $category->products()->published()->min('price');
             });
             $products->max_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category)
             {
-                return $category->products->where('status', 1)->max('price');
+                return $category->products()->published()->max('price');
             });
 
             return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id'));
@@ -181,14 +181,34 @@ class CatalogController extends Controller
      * @param $sysname
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tags($sysname) {
-        $tag = Tag::where('sysname', $sysname)->where('status', 1)->firstOrFail();
-        $products = $tag->products()->where('status', 1)->paginate(3);//Setting::getVar('perpage') ?: $this->perpage);
-        $products->min_price = $tag->products->where('status', 1)->min('price');
-        $products->max_price = $tag->products->where('status', 1)->max('price');
+    public function tags($sysname)
+    {
+        $tag = Tag::where('sysname', $sysname)
+            ->published()
+            ->firstOrFail();
 
-        $this->setMetaTags(null, $tag->title, $tag->description, $tag->keywords);
-        return view('catalog.catalog', ['tag' => $tag, 'products' => $products]);
+//        with(['products' => function($query) {
+//            $query->paginate(20); // 20 per page
+//        }, 'articles' => function($query) {
+//            $query->published()->paginate(20); // 20 per page
+//        }])
+
+        // if has products then render catalog, else articles
+        // TODO: create pagination function for products and articles
+        $products = $tag->products()->published()->paginate(20);
+        if($products->count())
+        {
+            $products->min_price = $tag->products()->published()->min('price');
+            $products->max_price = $tag->products()->published()->max('price');
+
+            $this->setMetaTags(null, $tag->title, $tag->description, $tag->keywords);
+            return view('catalog.catalog', comact('tag', 'products'));
+        }
+        else
+        {
+            $articles = $tag->articles()->published()->paginate(12);
+            return view('articles.index', compact('tag', 'articles'));
+        }
     }
 
     /**

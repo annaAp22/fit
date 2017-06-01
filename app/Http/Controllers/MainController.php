@@ -241,6 +241,7 @@ class MainController extends Controller
      */
     public function news(Request $request) {
         $news = News::published()->recent()->paginate(12);
+        $this->setMetaTags();
         return view('news.index', compact('news'));
     }
 
@@ -251,6 +252,7 @@ class MainController extends Controller
      */
     public function newsSingle(Request $request, $sysname) {
         $page = News::published()->bySysname($sysname)->first();
+        $this->setMetaTags();
         if(!$page)
             abort(404);
 

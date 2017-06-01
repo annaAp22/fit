@@ -25,7 +25,10 @@ class Tag extends Model
         'status',
     ];
 
-
+    public function articles()
+    {
+        return $this->belongsToMany('App\Models\Article', 'article_tag', 'tag_id', 'article_id');
+    }
 
     public function products() {
         return $this
@@ -64,5 +67,10 @@ class Tag extends Model
                 }
 
         return collect($filters);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 1);
     }
 }
