@@ -6118,10 +6118,11 @@ footer .line {
 
 .main-news {
   margin-top: 50px;
+  min-width: 100%;
 }
 
-.main-news,
 .main-recipes {
+  margin-top: 30px;
   min-width: 100%;
 }
 
