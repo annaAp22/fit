@@ -1,0 +1,34 @@
+.change-and-return
+  .subtitle
+    font-size: 24px
+    font-weight: 700
+    margin-bottom: 16px
+  &__banner
+    padding: per_calc(64, 1155) per-calc(180, 1155)
+    background: #fdd82e no-repeat right top
+    background-size: cover
+    position: relative
+    margin: 40px 0
+    +media-lg(down)
+      font-size: 14px
+    +media-sm(down)
+      background-position: left top
+      background-size: auto
+      padding-right: 0
+    .wrapper
+      width: 96%
+      padding-right: 40px
+    .decor
+      position: absolute
+      left: 0
+      width: per_calc(130, 1155)
+    .title
+      font-size: 2.2em
+      line-height: 100%
+      font-weight: 900
+      margin-bottom: 32px
+      +media-md(down)
+        font-size: 1.5em
+    .text
+      font-size: 14px
+      width: 80%
