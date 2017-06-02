@@ -603,56 +603,5 @@
   &__preview-text
     margin-top: 20px
     font-size: 16px
-//recipe items
-.recipe-item
-  color: #000
-  text-decoration: none
-  width: 272px
-  padding-bottom: 20px
-  +media-lg(up)
-    +col(6)
-  +media-md()
-    +col(8)
-  +media-sm(down)
-    +col(12)
-  &:hover
-    .img
-      transform: rotate(-2deg) scale(1.05)
 
-  &__wrapper
-    float: right
-    .caption
-      padding-top: 0
-  .caption
-    font-weight: 900
-    font-size: 18px
-    line-height: 20px
-    margin: 24px 0 4px
-  .img-wrapper
-    position: relative
-    padding-left: 100%
-    padding-top: 100%
-    overflow: hidden
-  .img
-    @include absolute-center
-    background: no-repeat center center
-    background-size: cover
-    transition: transform 0.3s ease 0.3s
-  .text
-    margin-top: 20px
-    font-size: 14px
-    line-height: 18px
-    font-weight: 500
-    p
-      font-weight: 500
-      padding: 0
-      margin: 0
-.recipe-item_text
-  font-size: 14px
-  line-height: 24px
-  font-weight: 500
-  p
-    font-weight: 500
-    padding: 0
-    margin: 0
 
