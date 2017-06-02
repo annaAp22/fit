@@ -40,8 +40,13 @@ class LoginController extends Controller
     }
 
     protected function redirectTo() {
-        if(array_search(Auth::user()->group->name, ['admin', 'moderator', 'manager', 'content-manager']) !== false)
+        $group_name = Auth::user()->group->name;
+        if(array_search($group_name, ['admin', 'moderator', 'manager', 'content-manager']) !== false)
             return route('admin.main');
+        elseif($group_name == 'exchange')
+        {
+            return route('exchange');
+        }
         else
             return route('customer.dashboard');
     }

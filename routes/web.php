@@ -84,8 +84,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/me',                  [ 'as' => 'customer.dashboard', 'uses' => 'CustomerAccountController@me']);
     Route::get('/my_order/{order_id}', [ 'as' => 'customer.order',     'uses' => 'CustomerAccountController@order']);
 
+    // Exchange
+    Route::get('/export/exchange', 'ExportController@exchange')->name('exchange');
     // CommerceML exchange
-    Route::get('/export/commerceML', 'ExportController@commerceMLExchange')->name('commerceML');
+    Route::get('/export/commerce-ml', 'ExportController@commerceMLExchange')->name('commerceML');
 });
 
 //Route::match(['get', 'head'], '/login', ['middleware' => 'guest', 'uses' => 'Auth\AuthController@showLoginForm']);

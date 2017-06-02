@@ -103,6 +103,21 @@ class ExportController extends Controller
         return  response()->view('export.google_merchant', compact('categories', 'offers'))->header('Content-Type', 'text/xml');
     }
 
+    // Exchange router
+    public function exchange()
+    {
+        $user = Auth::user();
+        switch($user->name)
+        {
+            case 'moysklad':
+                return route('commerceML');
+                break;
+            default:
+                abort(404);
+                break;
+        }
+    }
+
     // CommerceML exchange
     public function commerceMLExchange()
     {
