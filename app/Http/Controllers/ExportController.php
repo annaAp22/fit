@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ExportController extends Controller
 {
@@ -100,5 +101,12 @@ class ExportController extends Controller
             }
         }
         return  response()->view('export.google_merchant', compact('categories', 'offers'))->header('Content-Type', 'text/xml');
+    }
+
+    // CommerceML exchange
+    public function commerceMLExchange()
+    {
+        $user = Auth::user();
+        dd($user);
     }
 }
