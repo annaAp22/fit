@@ -8388,6 +8388,11 @@ h1 {
   margin-top: 30px;
 }
 
+h1 span {
+  font-size: 16px;
+  color: #36b057;
+}
+
 h2 {
   font-size: 24px;
 }
@@ -8747,6 +8752,10 @@ h3 {
   text-decoration: none;
 }
 
+.green-text {
+  color: #36b057;
+}
+
 .sponsor {
   position: relative;
 }
@@ -8801,6 +8810,44 @@ h3 {
 .sponsor__block-4>div:nth-child(n+2) {
   font-size: 1em;
   font-weight: 500;
+}
+
+.change-and-return .subtitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.change-and-return__banner {
+  padding: 5.54113% 15.58442%;
+  background: #fdd82e no-repeat 100% 0;
+  -webkit-background-size: cover;
+  background-size: cover;
+  position: relative;
+  margin: 40px 0;
+}
+
+.change-and-return__banner .wrapper {
+  width: 96%;
+  padding-right: 40px;
+}
+
+.change-and-return__banner .decor {
+  position: absolute;
+  left: 0;
+  width: 11.25541%;
+}
+
+.change-and-return__banner .title {
+  font-size: 2.2em;
+  line-height: 100%;
+  font-weight: 900;
+  margin-bottom: 32px;
+}
+
+.change-and-return__banner .text {
+  font-size: 14px;
+  width: 80%;
 }
 
 @media screen and (min-width:576px) {
@@ -11531,6 +11578,10 @@ h3 {
   .sponsor {
     font-size: 14px;
   }
+
+  .change-and-return__banner {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width:1202px) {
@@ -12220,6 +12271,10 @@ h3 {
   .sponsor__block-4>div:nth-child(n+2) {
     line-height: 20px;
     width: 100%;
+  }
+
+  .change-and-return__banner .title {
+    font-size: 1.5em;
   }
 }
 
@@ -13188,6 +13243,13 @@ h3 {
 
   .page-order-step__step-three .page-text__text {
     width: 100%;
+  }
+
+  .change-and-return__banner {
+    background-position: 0 0;
+    -webkit-background-size: auto auto;
+    background-size: auto;
+    padding-right: 0;
   }
 }
 
