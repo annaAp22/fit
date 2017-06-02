@@ -12,9 +12,7 @@
                 @widget('BannerLeftWidget')
             </aside>
             <section class="content">
-                    @yield('page_name')
                     {!! $page->content !!}
-                    @yield('other_content')
             </section>
 
             <section class="content-full-width">

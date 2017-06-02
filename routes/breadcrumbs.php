@@ -122,3 +122,12 @@ Breadcrumbs::register('customer.order', function($breadcrumbs, $order) {
     $breadcrumbs->parent('customer.dashboard');
     $breadcrumbs->push('Заказ №'.$order->id, route('customer.order', $order->id));
 });
+
+Breadcrumbs::register('articles.tag', function($breadcrumbs, $tag) {
+    $breadcrumbs->parent('articles');
+    $breadcrumbs->push($tag->name, route('tags', ['sysname' => $tag->sysname]));
+});
+Breadcrumbs::register('articles.tag.article', function($breadcrumbs, $tag, $article) {
+    $breadcrumbs->parent('articles.tag', $tag);
+    $breadcrumbs->push($article->name, route('tag.article', ['tag_sysname' => $tag->sysname, 'sysname' => $article->sysname]));
+});

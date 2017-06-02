@@ -1,7 +1,11 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    {!!  Breadcrumbs::render('articles') !!}
+    @if( isset($tag) )
+        {!!  Breadcrumbs::render('articles.tag', $tag) !!}
+    @else
+        {!!  Breadcrumbs::render('articles') !!}
+    @endif
 @endsection
 
 @section('content')

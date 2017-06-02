@@ -14,10 +14,11 @@ Route::group([
 //        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
         // Статьи
-        Route::get('/page/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
-        Route::get('/page/articles/{sysname}', ['as' => 'articles.record', 'uses' => 'MainController@articlesSingle']);
+//        Route::get('/page/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
+//        Route::get('/page/articles/{sysname}', ['as' => 'articles.record', 'uses' => 'MainController@articlesSingle']);
+        Route::get('/articles', 'MainController@articles')->name('articles');
         Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
-
+        Route::get('articles/{tag_sysname}/{sysname}', 'MainController@tagArticle')->name('tag.article');
         // All other pages
         Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
