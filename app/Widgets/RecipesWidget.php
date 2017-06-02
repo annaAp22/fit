@@ -13,6 +13,7 @@ class RecipesWidget extends AbstractWidget
      * @var array
      */
     protected $config = [];
+    public $cacheTime = 60;
 
     /**
      * Treat this method as a controller action.
