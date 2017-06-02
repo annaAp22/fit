@@ -55,6 +55,8 @@ Route::group([
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
     Route::get('/order.html', ['as' => 'order', 'uses' => 'OrderController@order']);
     Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
+    Route::get('/agencies.html', 'AgencyController@index')->name('agencies');
+    Route::post('/agencies/{sysname}', 'AgencyController@details')->name('agencies.details');
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Каталог (совместимость со старым ЧПУ)
