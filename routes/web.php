@@ -14,10 +14,11 @@ Route::group([
 //        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
         // Статьи
-        Route::get('/page/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
-        Route::get('/page/articles/{sysname}', ['as' => 'articles.record', 'uses' => 'MainController@articlesSingle']);
+//        Route::get('/page/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
+//        Route::get('/page/articles/{sysname}', ['as' => 'articles.record', 'uses' => 'MainController@articlesSingle']);
+        Route::get('/articles', 'MainController@articles')->name('articles');
         Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
-
+        Route::get('articles/{tag_sysname}/{sysname}', 'MainController@tagArticle')->name('tag.article');
         // All other pages
         Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
@@ -33,7 +34,7 @@ Route::group([
         Route::get('/catalog.html', ['as' => 'catalog.root', 'uses' => 'CatalogController@catalogRoot'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
 //        Route::get('/catalog/{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
         Route::get('/brand/{sysname}.html', ['as' => 'brands', 'uses' => 'CatalogController@brands'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
-        Route::get('/tag/{sysname}.html', ['as' => 'tags', 'uses' => 'CatalogController@tags'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
+        Route::get('/tag/{sysname}', ['as' => 'tags', 'uses' => 'CatalogController@tags'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
         Route::get('/seen', ['as' => 'seen', 'uses' => 'CatalogController@seen']);
         Route::get('/bookmarks', ['as' => 'bookmarks', 'uses' => 'CatalogController@bookmarks']);
 

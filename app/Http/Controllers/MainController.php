@@ -15,6 +15,7 @@ use App\Helpers;
 use Carbon\Carbon;
 use DB;
 use Mail;
+use App\Models\Tag;
 
 class MainController extends Controller
 {
@@ -178,19 +179,6 @@ class MainController extends Controller
         $this->setMetaTags();
         return view('articles.index', ['page' => $page, 'articles' => $articles]);
     }
-    /**
-     * Рецепт
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function articlesSingle(Request $request, $sysname) {
-        $page = Article::published()->bySysname($sysname)->first();
-        if(!$page)
-            abort(404);
-        $articles = Article::where('status', 1)->where('id', '<>', $page->id)->orderBy('date', 'desc')->paginate(12);
-        $this->setMetaTags();
-        return view('articles.details', ['page' => $page, 'articles' => $articles]);
-    }
 
     /**
      * Страница Статьи
@@ -198,16 +186,16 @@ class MainController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function article($sysname) {
-        $article = \App\Models\Article::where('sysname', $sysname)->where('status', 1)->firstOrFail();
+        $article = Article::where('sysname', $sysname)
+            ->with('tags')
+            ->published()
+            ->firstOrFail();
         $this->setMetaTags(null, $article->title, $article->description, $article->keywords);
 
-        //товары по теме, исходя из тэгов статьи
-        if($article->tags()->count()) {
-            // REALLY NEED THIS?????????????????????
-            //$products = \App\Models\Product::whereHas('tags', function ($query) use ($article) {
-            //    $query->whereIn('tag_id', [$article->tags->implode('id', ', ')]);
-            //})->where('status', 1)->orderBy('id', 'desc')->take(100)->get();
-            $relatedArticles = \App\Models\Article::whereHas('tags', function($query) use ($article) {
+
+        if($article->tags->count()) {
+
+            $relatedArticles = Article::whereHas('tags', function($query) use ($article) {
                 $query->whereIn('tag_id', [$article->tags->implode('id', ', ')]);
             })
                 ->where('status', 1)
@@ -216,11 +204,32 @@ class MainController extends Controller
                 ->paginate(3);
         }
 
-        return view('articles.inner', [
-            'article'         => $article,
-            'relatedArticles' => isset($relatedArticles) ? $relatedArticles : null,
+        return view('articles.details', [
+            'page'         => $article,
+            'articles' => isset($relatedArticles) ? $relatedArticles : null,
             //'products' => !empty($products) ? $products : null
         ]);
+    }
+
+    public function tagArticle($tag_sysname, $sysname)
+    {
+        $page = Article::published()
+                    ->where('sysname', $sysname)
+                    ->firstOrFail();
+        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
+
+        $tag = Tag::published()
+                ->where('sysname', $tag_sysname)
+                ->with(['articles' => function($query) use($page) {
+                    $query->published()
+                        ->recent()
+                        ->where('articles.id', '!=', $page->id)
+                        ->take(8);
+
+                }])
+                ->firstOrFail();
+        $articles = $tag->articles;
+        return view('articles.details', compact('page', 'articles', 'tag'));
     }
 
     /**
@@ -241,6 +250,7 @@ class MainController extends Controller
      */
     public function news(Request $request) {
         $news = News::published()->recent()->paginate(12);
+        $this->setMetaTags();
         return view('news.index', compact('news'));
     }
 
@@ -251,6 +261,7 @@ class MainController extends Controller
      */
     public function newsSingle(Request $request, $sysname) {
         $page = News::published()->bySysname($sysname)->first();
+        $this->setMetaTags();
         if(!$page)
             abort(404);
 
