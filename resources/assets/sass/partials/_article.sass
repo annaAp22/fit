@@ -1,12 +1,21 @@
 // News, articles
 .article-detailed
-  +col(24)
+  display: flex
+  flex-wrap: wrap
+  &__image
+    +media-sm(down)
+      +col(24)
+    +media-md(up)
+      +col(8)
+
   &__text
+    +media-sm(down)
+      +col(24)
+    +media-md(up)
+      +col(16)
     & > p
       &:first-child
         margin-top: 0
-    ul
-      padding-left: 20px
   &__share
     margin-top: 20px
 

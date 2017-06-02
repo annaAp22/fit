@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="page-text article-detailed">
-                        <div class="page-text__pull-left article-detailed__image">
+                        <div class="article-detailed__image">
                             <img class="page-text__image" src="{{ $page->uploads->img->preview->url() }}" alt="{{ $page->name }}">
 
                             <!-- Share-->
