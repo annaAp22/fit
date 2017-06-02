@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="article-detailed__text">
-                            {!! $page->body !!}
+                            {!! $page->text !!}
                         </div>
                     </div>
 
