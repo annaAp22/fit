@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use DB;
 use Mail;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Cache;
 
 class MainController extends Controller
 {
@@ -213,12 +214,19 @@ class MainController extends Controller
 
     public function tagArticle($tag_sysname, $sysname)
     {
-        $page = Article::published()
-                    ->where('sysname', $sysname)
-                    ->firstOrFail();
+        $hash = md5($sysname);
+        $page = Cache::remember('article.'.$hash, 60, function() use($sysname) {
+            return Article::published()
+                ->where('sysname', $sysname)
+                ->firstOrFail();
+        });
+
+
         $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
 
-        $tag = Tag::published()
+        $hash = md5($tag_sysname);
+        $tag = Cache::remember('article.related.'.$hash, 60, function() use($tag_sysname, $page) {
+            return Tag::published()
                 ->where('sysname', $tag_sysname)
                 ->with(['articles' => function($query) use($page) {
                     $query->published()
@@ -228,6 +236,7 @@ class MainController extends Controller
 
                 }])
                 ->firstOrFail();
+        });
         $articles = $tag->articles;
         return view('articles.details', compact('page', 'articles', 'tag'));
     }

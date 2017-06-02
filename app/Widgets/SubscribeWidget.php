@@ -16,8 +16,10 @@ class SubscribeWidget extends AbstractWidget
         'form_index' => '-2',
         'caption_class' => 'caption-3',
         'total_class' => 'total-c-9',
-        'total_icon_right' => false
+        'total_icon_right' => false,
     ];
+
+    public $cacheTime = 60;
 
     /**
      * Treat this method as a controller action.

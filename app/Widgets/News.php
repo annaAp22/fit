@@ -15,6 +15,8 @@ class News extends AbstractWidget
         'limit' => 4
     ];
 
+    public $cacheTime = 60;
+
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.

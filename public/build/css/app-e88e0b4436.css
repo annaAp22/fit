@@ -6130,10 +6130,11 @@ footer .line {
 
 .main-news {
   margin-top: 50px;
+  min-width: 100%;
 }
 
-.main-news,
 .main-recipes {
+  margin-top: 30px;
   min-width: 100%;
 }
 
@@ -8034,27 +8035,17 @@ li.fancybox-thumbs-loading {
 }
 
 .article-detailed {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  margin-left: 12px;
-  margin-right: 12px;
-  max-width: -webkit-calc(100%/24 * 24 - 24px);
-  max-width: calc(100% / 24 * 24 - 24px);
-  -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
-  -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
-  flex-basis: calc(100% / 24 * 24 - 24px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .article-detailed__text>p:first-child {
   margin-top: 0;
-}
-
-.article-detailed__text ul {
-  padding-left: 20px;
 }
 
 .article-detailed__share {
@@ -9667,6 +9658,38 @@ h3 {
 
   .questions-and-offers .right-side {
     float: right;
+  }
+
+  .article-detailed__image {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 8 - 24px);
+    max-width: calc(100% / 24 * 8 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
+    flex-basis: calc(100% / 24 * 8 - 24px);
+  }
+
+  .article-detailed__text {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 16 - 24px);
+    max-width: calc(100% / 24 * 16 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 16 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 16 - 24px);
+    flex-basis: calc(100% / 24 * 16 - 24px);
   }
 
   .contacts__time {
@@ -12882,6 +12905,38 @@ h3 {
 
   .questions-and-offers .btn {
     width: 100%;
+  }
+
+  .article-detailed__image {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 24 - 24px);
+    max-width: calc(100% / 24 * 24 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
+    flex-basis: calc(100% / 24 * 24 - 24px);
+  }
+
+  .article-detailed__text {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 24 - 24px);
+    max-width: calc(100% / 24 * 24 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
+    flex-basis: calc(100% / 24 * 24 - 24px);
   }
 
   .recipe-item {
