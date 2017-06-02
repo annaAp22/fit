@@ -1,12 +1,16 @@
 var mapDiv = document.getElementById('map');
+var map2Div = document.getElementById('agencies-map');
 var mapLoad = function(e) {
     mapDiv.removeEventListener('click', mapLoad);
+    if(map2Div)
+        map2Div.removeEventListener('click', mapLoad);
     $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIc5obn1ArfkEzXhkgZiMyyHPRQmjNx5M", function() {
         init();
     });
 };
 mapDiv.addEventListener('click', mapLoad);
-
+if(map2Div)
+    map2Div.addEventListener('click', mapLoad);
 
 // When the window has finished loading create our google map below
 //google.maps.event.addDomListener(window, 'load', init);
@@ -207,7 +211,6 @@ function init() {
     // Get the HTML DOM element that will contain your map
     // We are using a div with id="map" seen below in the <body>
     var mapElement = document.getElementById('map');
-
     // Create the Google Map using our element and options defined above
     var map = new google.maps.Map(mapElement, mapOptions);
 
@@ -215,6 +218,18 @@ function init() {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(55.710074, 37.654759),
         map: map,
+        title: 'Магазин',
+        icon: "/img/map_point-min.png"
+    });
+
+    mapElement2 = document.getElementById('agencies-map');
+    // Create the Google Map using our element and options defined above
+    var map2 = new google.maps.Map(mapElement2, mapOptions);
+
+    // Let's also add a marker while we're at it
+    var marker2 = new google.maps.Marker({
+        position: new google.maps.LatLng(55.710074, 37.654759),
+        map: map2,
         title: 'Магазин',
         icon: "/img/map_point-min.png"
     });
