@@ -247,6 +247,13 @@ function init() {
             long = shops.long.eq(0).val();
         mapOptions.center = new google.maps.LatLng(lat, long);
         var map2 = new google.maps.Map(mapElement2, mapOptions);
+        var markerImage = new google.maps.MarkerImage(
+            '/img/map-point-small-min.png',
+            new google.maps.Size(52,51),
+            new google.maps.Point(0,0),
+            new google.maps.Point(47,42)
+        );
+
         for(var i = 0; i < shops.lat.length; i++) {
             address = shops['address'].eq(i).val();
             if(!address) {
@@ -256,7 +263,7 @@ function init() {
                 position: new google.maps.LatLng(shops.lat.eq(i).val(), shops.long.eq(i).val()),
                 map: map2,
                 title: address,
-                icon: "/img/map_point-min.png"
+                icon: markerImage
             });
         }
     }
