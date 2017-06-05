@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Requests\Admin\ShopRequest;
+use App\Http\Requests\admin\ShopRequest;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Shop;
