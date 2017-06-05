@@ -38,5 +38,10 @@ class CityController extends Controller
     City::findOrFail($id)->update($request->all());
     return redirect()->route('admin.cities.index')->withMessage('Город изменен');
   }
+  public function destroy($id)
+  {
+    City::destroy($id);
+    return redirect()->route('admin.cities.index')->withMessage('Город удален');
+  }
 
 }

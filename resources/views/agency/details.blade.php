@@ -14,15 +14,17 @@
                         <input class="js-long" type="hidden" value="{{$item->long}}">
                         <div class="page-text__title_700 page-text__title_h2">{{$item->title}}</div>
                         <p class="js-address">Адрес: {{$item->address}}</p>
-                        <p>Телефон: {{$item->phone}}</p>
+                        <p>Телефоны: {{$item->phone}}</p>
                         <p>Email: <a href="mailto:{{$item->email}}">{{$item->email}}</a></p>
                         <p>Ссылки на магазин:</p>
                         @foreach($item->links() as $link)
-                            <a href="{{$item->link}}">{{$item->link}}</a>
+                            <a href="{{$link}}">{{$link}}</a>
                         @endforeach
                     @endforeach
                     <!-- Map -->
-                    <div id="agencies-map" class="agencies-map" data-zoom="{{$city->zoom}}"></div>
+                    @if(count($city->shops))
+                        <div id="agencies-map" class="agencies-map" data-zoom="{{$city->zoom}}"></div>
+                    @endif
                     <div class="agencies__cities">
                     </div>
                 </div>

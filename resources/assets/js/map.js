@@ -224,35 +224,42 @@ function init() {
 
     mapElement2 = document.getElementById('agencies-map');
     // Create the Google Map using our element and options defined above
-    var zoom = $(map2Div).data('zoom');
-    if(zoom) {
-        mapOptions.zoom = zoom; 
-    }
     var $agencies = $('.js-agencies');
     var shops = {
         lat:$agencies.find('.js-lat'),
         long:$agencies.find('.js-long'),
         address:$agencies.find('.js-address'),
     }
-    // Let's also add a marker while we're at it
-    var marker2;
-    var address;
-    if(shops.lat.length != 0)
-        mapOptions.center = new google.maps.LatLng(shops.lat.eq(0).val(), shops.long.eq(0).val());
-    var map2 = new google.maps.Map(mapElement2, mapOptions);
-    for(var i = 0; i < shops['lat'].length; i++) {
-        address = shops['address'].eq(i).val();
-        if(!address) {
-            address = shops['address'].eq(i).text()
+    //if shop markers is apsend then create map and place markers
+    if(shops.lat.length) {
+        var zoom = $(map2Div).data('zoom');
+        var lat = $(map2Div).data('lat');
+        var long = $(map2Div).data('long');
+        if(zoom) {
+            mapOptions.zoom = zoom;
         }
-        marker2 = new google.maps.Marker({
-            position: new google.maps.LatLng(shops.lat.eq(i).val(), shops.long.eq(i).val()),
-            map: map2,
-            title: address,
-            icon: "/img/map_point-min.png"
-        });
+        // Let's also add a marker while we're at it
+        var marker2;
+        var address;
+        if(!lat)
+            lat = shops.lat.eq(0).val();
+        if(!long)
+            long = shops.long.eq(0).val();
+        mapOptions.center = new google.maps.LatLng(lat, long);
+        var map2 = new google.maps.Map(mapElement2, mapOptions);
+        for(var i = 0; i < shops.lat.length; i++) {
+            address = shops['address'].eq(i).val();
+            if(!address) {
+                address = shops['address'].eq(i).text()
+            }
+            marker2 = new google.maps.Marker({
+                position: new google.maps.LatLng(shops.lat.eq(i).val(), shops.long.eq(i).val()),
+                map: map2,
+                title: address,
+                icon: "/img/map_point-min.png"
+            });
+        }
     }
-
     // center map on window resize
     google.maps.event.addDomListener(window, "resize", function() {
         var center = map.getCenter();

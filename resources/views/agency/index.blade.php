@@ -12,7 +12,7 @@
                     <p>Ищете одежду для фитнеса Profit в вашем городе? Смотрите список наших представителей и выбирайте ближайшее.</p>
                     <div class="subtitle">Наша одежда в твоем городе:</div>
                     <!-- Map -->
-                    <div id="agencies-map" class="agencies-map" data-zoom="15"></div>
+                    <div id="agencies-map" class="agencies-map" data-lat="55.748517" data-long="37.0720816" data-zoom="2"></div>
                     <div class="agencies__cities">
                         @foreach($cities as $item)
                             <a href="{{route('agencies.details', ['sysname' => $item->sysname])}}">{{$item->title}}</a>

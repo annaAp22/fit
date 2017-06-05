@@ -41,5 +41,10 @@ class ShopController extends Controller
     Shop::findOrFail($id)->update($request->all());
     return redirect()->route('admin.shops.index')->withMessage('Магазин изменен');
   }
+  public function destroy($id)
+  {
+    Shop::destroy($id);
+    return redirect()->route('admin.shops.index')->withMessage('Магазин удален');
+  }
 
 }
