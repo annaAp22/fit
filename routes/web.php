@@ -13,13 +13,15 @@ Route::group([
         Route::get('/delivery', ['as' => 'delivery', 'uses' => 'MainController@delivery']);
 //        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
-        // Статьи
-//        Route::get('/page/articles', ['as' => 'articles', 'uses' => 'MainController@articles']);
-//        Route::get('/page/articles/{sysname}', ['as' => 'articles.record', 'uses' => 'MainController@articlesSingle']);
         Route::get('/articles', 'MainController@articles')->name('articles');
         Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
         Route::get('articles/{tag_sysname}/{sysname}', 'MainController@tagArticle')->name('tag.article');
         // All other pages
+        Route::get('/agencies', 'CityController@index')->name('agencies');
+        Route::get('/agencies/{sysname}', 'CityController@details')->name('agencies.details');
+//        Route::get('/page/agencies', function() {
+//            return redirect()->route('agencies');
+//        })->name('agencies.redirect');
         Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
 
         // Нет в верстке
@@ -55,8 +57,6 @@ Route::group([
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
     Route::get('/order.html', ['as' => 'order', 'uses' => 'OrderController@order']);
     Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
-    Route::get('/agencies.html', 'AgencyController@index')->name('agencies');
-    Route::post('/agencies/{sysname}', 'AgencyController@details')->name('agencies.details');
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Каталог (совместимость со старым ЧПУ)

@@ -25,7 +25,8 @@ Route::get('/categories/{id}/products', ['as' => 'categories.products', 'uses' =
 Route::post('/categories/{id}/products', ['as' => 'categories.products.sync', 'uses' => 'CategoryController@productsSync']);
 
 Route::resource('certificates', 'CertificateController', ['except' => ['show', 'edit', 'update']]);
-
+Route::resource('cities', 'CityController');
+Route::resource('shops', 'ShopController');
 Route::resource('comments', 'ProductCommentController', ['except' => ['show']]);
 
 Route::resource('deliveries', 'DeliveryController', ['except' => ['show']]);
@@ -44,7 +45,6 @@ Route::put('/orders/restore/{id}', ['as' => 'orders.restore', 'uses' => 'OrderCo
 Route::resource('pages', 'PageController', ['except' => ['show']]);
 Route::get('/pages/{sysname}/edit_sysname', ['as' => 'pages.edit_sysname', 'uses' => 'PageController@editSysname'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
 Route::put('/pages/{sysname}/content', ['as' => 'pages.update_content', 'uses' => 'PageController@updateContent'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
-
 Route::resource('payments', 'PaymentController', ['except' => ['show']]);
 Route::put('/payments/restore/{id}', ['as' => 'payments.restore', 'uses' => 'PaymentController@restore'])->where(['id' => '[0-9]+']);
 
