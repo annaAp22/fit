@@ -2,15 +2,13 @@ var mapDiv = document.getElementById('map');
 var map2Div = document.getElementById('agencies-map');
 var mapLoad = function(e) {
     mapDiv.removeEventListener('click', mapLoad);
-    if(map2Div)
-        map2Div.removeEventListener('click', mapLoad);
     $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIc5obn1ArfkEzXhkgZiMyyHPRQmjNx5M", function() {
         init();
     });
 };
 mapDiv.addEventListener('click', mapLoad);
 if(map2Div)
-    map2Div.addEventListener('click', mapLoad);
+    mapLoad();
 
 // When the window has finished loading create our google map below
 //google.maps.event.addDomListener(window, 'load', init);
