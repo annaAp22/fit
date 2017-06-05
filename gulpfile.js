@@ -44,9 +44,9 @@ elixir(function(mix) {
 
     // Admin area
     //mix.webpack('admin/app.js', 'public/js/admin/app.js');
-    mix.version([
-        'js/admin/app.js'
-    ]);
+    //mix.version([
+    //    'js/admin/app.js'
+    //]);
 
     // Customer area
     mix.task('postcss');
