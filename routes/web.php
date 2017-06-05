@@ -72,6 +72,8 @@ Route::group([
     Route::get('/export/yandex-market', 'ExportController@yandexMarket')->name('yandex_market');
     // Google Merchant Center
     Route::get('/export/google-merchant', 'ExportController@googleMerchant')->name('google_merchant');
+    // CommerceML
+    Route::any('/export/commerceml/{token}', 'ExportController@commerceMLExchange')->name('commerceML');
 
 });
 
@@ -85,11 +87,6 @@ Route::group([
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/me',                  [ 'as' => 'customer.dashboard', 'uses' => 'CustomerAccountController@me']);
     Route::get('/my_order/{order_id}', [ 'as' => 'customer.order',     'uses' => 'CustomerAccountController@order']);
-
-    // Exchange
-    Route::get('/export/exchange', 'ExportController@exchange')->name('exchange');
-    // CommerceML exchange
-    Route::get('/export/commerce-ml', 'ExportController@commerceMLExchange')->name('commerceML');
 });
 
 //Route::match(['get', 'head'], '/login', ['middleware' => 'guest', 'uses' => 'Auth\AuthController@showLoginForm']);

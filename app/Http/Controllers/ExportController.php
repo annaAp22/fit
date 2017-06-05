@@ -14,8 +14,8 @@ class ExportController extends Controller
     {
         // Get all categories
         $categories = Category::published()
-        ->sorted()
-        ->get();
+            ->sorted()
+            ->get();
 
         // Get all products which has ya_market == 1
         $products = Product::with(['categories' => function($query) {
@@ -23,10 +23,10 @@ class ExportController extends Controller
         }, 'attributes' => function($query) {
             $query->whereIn('name', ['Размеры', 'Цвет', 'Пол', 'Материал']);
         }, 'brand'])
-        ->published()
-        ->where('ya_market', 1)
-        ->orderBy('id')
-        ->get();
+            ->published()
+            ->where('ya_market', 1)
+            ->orderBy('id')
+            ->get();
 
 
         $offers = collect();
@@ -103,25 +103,56 @@ class ExportController extends Controller
         return  response()->view('export.google_merchant', compact('categories', 'offers'))->header('Content-Type', 'text/xml');
     }
 
-    // Exchange router
-    public function exchange()
-    {
-        $user = Auth::user();
-        switch($user->name)
-        {
-            case 'moysklad':
-                return route('commerceML');
-                break;
-            default:
-                abort(404);
-                break;
-        }
-    }
-
     // CommerceML exchange
-    public function commerceMLExchange()
+    public function commerceMLExchange(Request $request, $token)
     {
-        $user = Auth::user();
-        dd($user);
+//        ob_start();
+//        var_dump($request->all());
+//        $output = ob_get_clean();
+//        \Storage::disk('uploads')->put('file.txt', $output);
+
+        $password = "GS,*gw{7jB&:'HE@";
+        if($token == "cead3f77f6cda6ec00f57d76c9a6879f")
+        {
+            $type = $request->type;
+            $mode = $request->mode;
+
+            if ($mode == 'checkauth')
+            {
+                $cookie = sha1($password);
+
+                return "success\n_token\n" . $cookie;
+            }
+            // Catalog exchange
+            if($type == 'catalog')
+            {
+                if($mode == 'init')
+                {
+                    return "zip=yes\nfile_limit=10000";
+                }
+                elseif($mode == 'file')
+                {
+
+                }
+                elseif($mode == 'import')
+                {
+
+                }
+            }
+            // Orders exchange
+            elseif($type == 'sale')
+            {
+                if($mode == 'init')
+                {
+                    return "zip=no\nfile_limit=10000";
+                }
+                // Request for orders
+                elseif($mode == 'query')
+                {
+                    return response()->view('export.commerceML_orders')->header('Content-Type', 'text/xml');
+                }
+            }
+        }
+
     }
 }
