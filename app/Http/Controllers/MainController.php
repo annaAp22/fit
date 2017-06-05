@@ -96,6 +96,9 @@ class MainController extends Controller
      */
     public function page(Request $request, $sysname) {
 //        $sysname = substr($request->path(), 0, (strpos($request->path(), '.') ?: 1000));
+        if($sysname == 'agencies') {
+            return redirect()->route('agencies');
+        }
         $page = Page::where('sysname', $sysname)->with(['vars', 'photos'])->firstOrFail();
         $this->setMetaTags();
 // Replace <!--{{block_name}}--> with rendered value

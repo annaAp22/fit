@@ -150,6 +150,24 @@
             <b class="arrow"></b>
         </li>
         @endcan
+        @can('index', new App\Models\City())
+        <li  @if( str_is('admin.cities*', Route::currentRouteName())) class="active" @endif>
+            <a href="{{route('admin.cities.index')}}">
+                <i class="menu-icon glyphicon glyphicon-tree-deciduous"></i>
+                <span class="menu-text">Города</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        @endcan
+        @can('index', new App\Models\Shop())
+        <li  @if( str_is('admin.cities*', Route::currentRouteName())) class="active" @endif>
+            <a href="{{route('admin.shops.index')}}">
+                <i class="menu-icon glyphicon glyphicon-shopping-cart"></i>
+                <span class="menu-text">Магазины</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        @endcan
         @can('index', new App\Models\Banner())
         <li  @if( str_is('admin.banners*', Route::currentRouteName())) class="active" @endif>
             <a href="{{route('admin.banners.index')}}">

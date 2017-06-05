@@ -17,6 +17,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Banner::class         => \App\Policies\BannerPolicy::class,
         \App\Models\Brand::class          => \App\Policies\BrandPolicy::class,
         \App\Models\Category::class       => \App\Policies\CategoryPolicy::class,
+        \App\Models\City::class           => \App\Policies\CityPolicy::class,
+        \App\Models\Shop::class           => \App\Policies\ShopPolicy::class,
         \App\Models\Certificate::class    => \App\Policies\CertificatePolicy::class,
         \App\Models\Page::class           => \App\Policies\PagePolicy::class,
         \App\Models\Kit::class            => \App\Policies\KitPolicy::class,
