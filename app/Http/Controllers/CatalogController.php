@@ -165,7 +165,8 @@ class CatalogController extends Controller
 
             $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category)
             {
-                return $category->products()->published()->min('price');
+                $q = $category->products()->published()->min('price');
+                return $q;
             });
             $products->max_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category)
             {

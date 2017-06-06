@@ -250,7 +250,7 @@ header
     +col-xl(21)
     display: flex
   &__enter
-    visibility: hidden // temporary
+    z-index: 100
     +hidden-sm(down)
     +col-md(6)
     +col-lg(4)
@@ -258,6 +258,7 @@ header
     +media-md(down)
       order: 2
     text-align: center
+    position: relative
     text-decoration: none
     color: #272727
     font-size: 13px
@@ -265,9 +266,43 @@ header
     border-left: 1px solid #d1d1d1
     border-right: 1px solid #d1d1d1
     transition: background-color .3s ease
+    &:hover
+      .dropdown
+        display: block
+        max-height: none
+    .dropdown
+      width: 100%
+      margin-top: -1px
+      position: absolute
+      left: 0
+      top: 100%
+      background-color: #fff
+      display: none
+      max-height: 0
+      z-index: 100
+      transition: max-height 0.3s ease 0s
+      a
+        display: block
+        color: #000
+        padding: 24px 10px 24px per_calc(30, 190)
+        text-align: left
+        text-decoration: none
+        font-size: 14px
+        font-weight: 700
+        transition: color 0.3s ease 0s
+        &:before
+          @extend .sprite_main
+          @extend .sprite_main-green-arrow-right
+          vertical-align: middle
+          margin-right: 16px
+        &:hover
+          background-color: #ebebeb
+          &:before
+            content: ""
+
     & > *
       vertical-align: middle
-    &:hover, &:focus
+    &:hover
       background-color: #f3f3f3
 .nav-catalog
   display: flex
