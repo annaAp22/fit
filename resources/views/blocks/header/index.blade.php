@@ -107,14 +107,14 @@
 
             </div>
             <!-- Site login-->
-            <div class="header__enter" href="#">
-                <i class="sprite_main sprite_main-header__enter"></i>
-                <span>Войти / Вступить</span>
-                <div class="dropdown">
-                    <a href="">Войти в систему</a>
-                    <a href="">Создать кабинет</a>
-                </div>
-            </div>
+            {{--<div class="header__enter" href="#">--}}
+                {{--<i class="sprite_main sprite_main-header__enter"></i>--}}
+                {{--<span>Войти / Вступить</span>--}}
+                {{--<div class="dropdown">--}}
+                    {{--<a href="">Войти в систему</a>--}}
+                    {{--<a href="">Создать кабинет</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
 
