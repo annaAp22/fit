@@ -18,7 +18,7 @@
   <div class="range-slider sidebar-filter__item">
     <div class="range-slider__label price"><span>{{ number_format($minPrice, 0, '.', ' ') }} ₽</span><span>{{ number_format($maxPrice, 0, '.', ' ') }} ₽</span>
     </div>
-    <div class="range-slider__slider" id="js-range-slider" data-range="[{{ $minPrice }},{{ $maxPrice }}]" data-start="[{{ $minPrice }},{{ $maxPrice }}]">
+    <div class="range-slider__slider" id="js-range-slider" data-range="[{{ $minPrice }},{{ $maxPrice }}]" data-start="[{{ $startPrice }},{{ $endPrice }}]">
     </div>
     <div class="range-slider__label text"><span>От</span><span>До</span>
     </div>

@@ -140,7 +140,6 @@ class FrontApiController extends Controller
      * @throws \Throwable
      */
     public function getProducts(Request $request) {
-
         //фильтр категории - получаем связанные товары из категории
         if($request->has('category_id') && $request->input('category_id')) {
             $category = Category::with(['parent', 'children_rec'])->findOrFail($request->input('category_id'));
@@ -288,6 +287,16 @@ class FrontApiController extends Controller
         }
 
 //            \App\Helpers\inflectByCount($products->total(), ['one' => 'товар', 'many' => 'товара', 'others' => 'товаров']);
+      //save filters
+      $filters = array(
+          'startPrice' =>  $request->input('price_from'),
+          'endPrice' =>  $request->input('price_to'),
+      );
+      $id = $request->input('category_id');
+      if($id) {
+        session()->forget('filters.product.'.$id);
+        session()->put('filters.product.'.$id, $filters);
+      }
 
         return response()->json($response);
     }

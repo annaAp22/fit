@@ -18,15 +18,16 @@
     <main>
         <div class="container">
             <aside class="sidebar">
-
                 @php
                     $filtersParams = [
                         'paginator' => $products,
                         'category'  => isset($category) ? $category : null,
                         'brand'     => isset($brand) ? $brand : null,
                         'tag'       => isset($tag) ? $tag : null,
-                        'minPrice'  => $products->min_price ?: 0,
-                        'maxPrice'  => $products->max_price ?: 0,
+                        'minPrice'  => $filters['minPrice'],
+                        'maxPrice'  => $filters['maxPrice'],
+                        'startPrice' => $filters['startPrice'],
+                        'endPrice' => $filters['endPrice'],
                     ];
                     if(isset($category))
                         $filtersParams['filters'] = $category->filters;
