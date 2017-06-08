@@ -2,6 +2,7 @@
 <form action="{{ route('ajax.products.get') }}" method="post" class="sidebar-filter" id="js-filters">
     {{ csrf_field() }}
     {{-- Hidden inputs --}}
+    <input type="hidden" name="filter" value="1">
     <input type="hidden" name="page" value="{{ ($paginator->hasMorePages()) ? $paginator->currentPage() + 1 : '' }}">
     @if($category)
         <input type="hidden" name="category_id" value="{{ $category->id }}">
@@ -13,6 +14,7 @@
   <div class="sidebar-filter__title">Фильтры подбора:
   </div>
   <!-- Price filter-->
+    @if($maxPrice > $minPrice)
   <div class="sidebar-filter__subtitle">Цена товара:
   </div>
   <div class="range-slider sidebar-filter__item">
@@ -27,14 +29,14 @@
         <input class="input__text js-slider-input" type="text" name="price_to" id="js-price-max"/>
     </div>
   </div>
-
+    @endif
     @if(isset($filters) && $filtersCount = $filters->count())
         @if($sizes = $filters->where('name', 'Размеры')->first())
             <!-- Size filter-->
             <div class="sidebar-filter__subtitle">{{ $sizes->name }}:</div>
             <div class="size-filter sidebar-filter__item square-filter js-square-check-filter">
                 @foreach($sizes->values as $size)
-                    <div class="size-filter__size js-square"><span>{{ $size }}</span>
+                    <div class="size-filter__size js-square @if(isset($attributes[$sizes->id])and(in_array('"'.$size.'"', $attributes[$sizes->id]))) active @endif"><span>{{ $size }}</span>
                         <input type="hidden" name="attribute[{{ $sizes->id }}][]" value='"{{ $size }}"' disabled="disabled"/>
                     </div>
                 @endforeach
@@ -45,7 +47,7 @@
             <div class="sidebar-filter__subtitle">{{ $colors->name }}:</div>
             <div class="color-filter square-filter js-square-check-filter">
                 @foreach($colors->values as $color)
-                    <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square" style="background-color: {{ $color }};">
+                    <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};">
                         <input type="hidden" name="attribute[{{ $colors->id }}][]" value="{{ $color }}" disabled="disabled"/>
                         <i class="sprite_main sprite_main-listing__filter_color-checked"></i>
                     </div>
@@ -60,7 +62,7 @@
                 <div class="sidebar-filter__annotation">{{ $colors->name }}:</div>
                 <div class="color-filter square-filter sidebar-filter__item js-square-check-filter js-hidden">
                     @foreach($colors->values as $color)
-                        <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square" style="background-color: {{ $color }};">
+                        <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};">
                             <input type="hidden" name="attribute[{{ $colors->id }}][]" value="{{ $color }}" disabled="disabled"/>
                             <i class="sprite_main sprite_main-listing__filter_color-checked"></i>
                         </div>

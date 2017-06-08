@@ -23,7 +23,8 @@ class CatalogController extends Controller
    * @var int
    */
   private $perpage = 20;
-
+  //products count for current cutegory without filters
+  private $totalProductsCount;
   public function catalogRoot() {
     $categories = Category::with([
         'products' => function($query) {
@@ -45,45 +46,57 @@ class CatalogController extends Controller
         'products_count' => $count,
     ]);
   }
-  public function filteredProducts(Request $request) {
+  public function filteredProducts($category_id) {
+    $session = session()->get('filters.product.'.$category_id);
     //фильтр категории - получаем связанные товары из категории
-    if($request->input('category_id')) {
-      $category = Category::with(['parent', 'children_rec'])->findOrFail($request->input('category_id'));
+    if($category_id) {
+      $category = Category::with(['parent', 'children_rec'])->findOrFail($category_id);
       $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
 
       $products = Product::join('category_product','products.id','category_product.product_id')
           ->whereIn('category_product.category_id', collect($category_ids))
           ->published()
           ->with('attributes');
-
-      //фильтр по тегу - получаем связанные товары с тэгом
+      $this->totalProductsCount = Product::join('category_product','products.id','category_product.product_id')
+          ->whereIn('category_product.category_id', collect($category_ids))
+          ->published()->count();
+    }else if(isset($session['tag_id'])) {
+      $products = Tag::findOrFail($session['tag_id'])
+          ->productsWithoutSort()
+          ->published()
+          ->with('attributes');
+      $this->totalProductsCount = Tag::findOrFail($session['tag_id'])->published()->count();
+      //по умолчанию просто фильтруем товары
+    } else {
+      $products = Product::with('attributes')->published();
+      $this->totalProductsCount = Product::published()->count();
     }
     //фильтр по бренду
-    if($request->has('brand_id') && $request->input('brand_id')) {
-      $products->where('brand_id', intval($request->input('brand_id')));
+    if(isset($session['brand_id'])) {
+      $products->where('brand_id', intval($session['brand_id']));
     }
     //фильтр по акции
-    if($request->has('act') && $request->input('act')) {
+    if(isset($session['act'])) {
       $products->where('act', 1);
     }
     //фильтр по Новинкам
-    if($request->has('new') && $request->input('new')) {
+    if(isset($session['new'])) {
       $products->where('new', 1);
     }
     //фильтр по Хитам
-    if($request->has('hit') && $request->input('hit')) {
+    if(isset($session['hit'])) {
       $products->where('hit', 1);
     }
     //фильтр по ценам от - до
-    if($request->has('price_from') && $request->input('price_from')) {
-      $products->where('price', '>=', intval($request->input('price_from')));
+    if(isset($session['startPrice'])) {
+      $products->where('price', '>=', intval($session['startPrice']));
     }
-    if($request->has('price_to') && $request->input('price_to')) {
-      $products->where('price', '<=', intval($request->input('price_to')));
+    if(isset($session['endPrice'])) {
+      $products->where('price', '<=', intval($session['endPrice']));
     }
     //фильтры по атрибутам
-    if ($request->has('attribute')) {
-      foreach($request->input('attribute') as $attribute_id => $value) {
+    if (isset($session['attributes'])) {
+      foreach($session['attributes'] as $attribute_id => $value) {
         if($value) {
           $products->whereHas('attributes', function ($query) use ($value, $attribute_id) {
             if(is_array($value))
@@ -112,9 +125,8 @@ class CatalogController extends Controller
       }
     }
 
-    if($request->has('sort'))
-    {
-      switch($request->input('sort'))
+    if(isset($session['sort'])) {
+      switch($session['sort'])
       {
         // сначала дороже
         case 'expensive':
@@ -143,7 +155,7 @@ class CatalogController extends Controller
         // по ручной сортировке в категории или теге
         case 'sort':
         default:
-          if($request->has('tag_id'))
+          if(isset($session['tag_id']))
             $products->orderBy('product_tag.sort');
           else
             $products->orderBy('category_product.sort');
@@ -152,13 +164,13 @@ class CatalogController extends Controller
     else
     {
       // сортировка по умолчанию
-      if($request->has('tag_id'))
+      if(isset($session['tag_id']))
         $products->orderBy('product_tag.sort');
       else
         $products->orderBy('category_product.sort');
     }
 
-    if($request->input('page') == 'all') {
+    if($session['page'] == 'all') {
       $perPage = 1000;
     }
     else {
@@ -167,13 +179,26 @@ class CatalogController extends Controller
     $products = $products->paginate($perPage);
     return $products;
   }
-
+  public function getFilters($category, $products, $totalProductCount = null) {
+    $productsCount = $totalProductCount;
+    $filters = session()->get('filters.product.'.$category->id);
+    if(!$filters)
+      $filters = array();
+    $filters['minPrice'] = $products->min_price?:0;
+    $filters['maxPrice'] = $products->max_price?:0;
+    $filters['productsCount'] = $productsCount;
+    if(!isset($filters['startPrice']))
+      $filters['startPrice'] = $filters['minPrice'];
+    if(!isset($filters['endPrice']))
+      $filters['endPrice'] = $filters['maxPrice'];
+    return $filters;
+  }
   /**
    * Страница каталога - товары из каталога | категории из каталога
    * @param $sysname
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function catalog(Request $request, $sysname) {
+  public function catalog($sysname) {
 //        Cache::flush();
     $hash = md5($sysname);
     $category = Cache::remember('category' . $hash, 1440, function() use($sysname)
@@ -219,19 +244,26 @@ class CatalogController extends Controller
 
       // Получение товаров дочерних категорий
       $category_ids = $category->children_ids($category, collect([]));
-      $products = Cache::remember('category.'.$hash.'.products', 60, function() use($category_ids, $perPage)
-      {
-        return Product::with(['attributes', 'comments' => function($query){
-          $query->average();
-        }])
-            ->whereHas('categories',
-                function($query) use($category_ids) {
-                  $query->whereIn('categories.id', $category_ids);
-                })
-            ->published()
-            ->paginate($perPage);
-      });
-
+      if(!session()->has('filters.product.'.$category->id)) {
+        $products = Cache::remember('category.' . $hash . '.products', 60, function () use ($category_ids, $perPage) {
+          return Product::with(['attributes', 'comments' => function ($query) {
+            $query->average();
+          }])
+              ->whereHas('categories',
+                  function ($query) use ($category_ids) {
+                    $query->whereIn('categories.id', $category_ids);
+                  })
+              ->published()
+              ->paginate($perPage);
+        });
+        $this->totalProductsCount = Product::whereHas('categories',
+            function ($query) use ($category_ids) {
+              $query->whereIn('categories.id', $category_ids);
+            })
+            ->published()->count();
+      }else {
+        $products = $this->filteredProducts($category->id);
+      }
       $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category_ids)
       {
         return Product::whereHas('categories',
@@ -242,7 +274,7 @@ class CatalogController extends Controller
             ->min('price');
       });
 
-      $products->max_price = $products->min_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category_ids)
+      $products->max_price = Cache::remember('category.'.$hash.'.products.max_price', 60, function() use($category_ids)
       {
         return Product::whereHas('categories',
             function($query) use($category_ids) {
@@ -264,19 +296,15 @@ class CatalogController extends Controller
 //                ->select('id')
 //                ->published()
 //                ->get();
-      $filters = array();
-      $filters['minPrice'] = $filters['startPrice'] = $products->min_price?:0;
-      $filters['maxPrice'] = $filters['endPrice'] = $products->max_price?:0;
+      $filters = $this->getFilters($category, $products, $this->totalProductsCount);
       return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters'));
-
-
     } else {
 
       $banners = Cache::remember('category.'.$hash.'.banners', 60, function()
       {
         return Banner::where('type', 'content')->where('status', 1)->get();
       });
-      if(!$request->input('filter')) {
+      if(!session()->has('filters.product.'.$category->id)) {
         $products = Cache::remember('category.'.$hash.'.products', 60, function() use($category, $perPage)
         {
           return $category
@@ -290,7 +318,7 @@ class CatalogController extends Controller
 
 
       }else {
-        $products = $this->filteredProducts($request);
+        $products = $this->filteredProducts($category->id);
       }
       $products->min_price = Cache::remember('category.'.$hash.'.products.min_price', 60, function() use($category)
       {
@@ -301,19 +329,7 @@ class CatalogController extends Controller
       {
         return $category->products()->published()->max('price');
       });
-
-//      if(session()->has('filters.product.'.$category->id)) {
-//        $newFilters = session()->get('filters.product.'.$category->id);
-//      } else {
-//        $filters = array();
-//      }
-      $filters = array(
-          'startPrice' =>  $request->input('price_from')?:0,
-          'endPrice' =>  $request->input('price_to')?:0,
-      );
-      $filters['minPrice'] = $products->min_price?:0;
-      $filters['maxPrice'] = $products->max_price?:0;
-      //$filters = array_merge($filters, $newFilters);
+      $filters = $this->getFilters($category, $products, $category->products()->published()->count());
       return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters'));
     }
   }
