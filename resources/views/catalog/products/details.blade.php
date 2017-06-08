@@ -131,7 +131,7 @@
                         @endif
 
                         <!-- Buy-->
-                        <button class="btn btn_green product__buy product-detailed__btn product-detailed__btn product-detailed__btn_buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}">
+                        <button class="btn btn_green product__buy product-detailed__btn product-detailed__btn product-detailed__btn_buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}"  onclick="document.getElementById('is_fast').value = 0;">
                             <span class="put">
                                 <i class="sprite_main sprite_main-product__basket"></i>
                                 <span>В корзину</span>

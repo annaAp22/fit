@@ -18,25 +18,19 @@
     <main>
         <div class="container">
             <aside class="sidebar">
-
                 @php
-                    $filtersParams = [
-                        'paginator' => $products,
-                        'category'  => isset($category) ? $category : null,
-                        'brand'     => isset($brand) ? $brand : null,
-                        'tag'       => isset($tag) ? $tag : null,
-                        'minPrice'  => $products->min_price ?: 0,
-                        'maxPrice'  => $products->max_price ?: 0,
-                    ];
+                    $filters['paginator'] = $products;
+                    $filters['category'] = isset($category) ? $category : null;
+                    $filters['brand'] = isset($brand) ? $brand : null;
+                    $filters['tag'] = isset($tag) ? $tag : null;
                     if(isset($category))
-                        $filtersParams['filters'] = $category->filters;
+                        $filters['filters'] = $category->filters;
                     if(isset($tag))
-                        $filtersParams['filters'] = $tag->filters;
-
+                        $filters['filters'] = $tag->filters;
                 @endphp
 
-                @if($products->total() > 1)
-                    @include('catalog.filters', $filtersParams)
+                @if(isset($filters['productsCount']) and $filters['productsCount'] > 0)
+                    @include('catalog.filters', $filters)
                 @endif
 
                 {{-- Catalog navigation --}}
