@@ -52,6 +52,7 @@ class CatalogController extends Controller
     }
     $filters = array(
         'page' => $request->input('page'),
+        'pageCount' => $request->input('pageCount')
     );
     //фильтр по бренду
     if($request->has('brand_id') && $request->input('brand_id')) {
@@ -234,6 +235,9 @@ class CatalogController extends Controller
     }
     else {
       $perPage = Setting::getVar('perpage') ?: $this->perpage;
+    }
+    if($session['pageCount']) {
+      $perPage *= $session['pageCount'];
     }
     $products = $products->paginate($perPage);
     return $products;

@@ -344,7 +344,7 @@ template {
 
 .header__enter .dropdown a:before,
 .sprite_main {
-  background-image: url(/img/sprite-min.png?v=1);
+  background-image: url(/img/sprite-min.png);
   background-repeat: no-repeat;
   display: inline-block;
 }

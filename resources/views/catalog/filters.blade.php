@@ -1,10 +1,14 @@
 @if( isset($category) || isset($tag) )
-<form action="{{ route('catalog', ['sysname' => $category->sysname]) }}" method="post" class="sidebar-filter">
+<form action="{{ route('catalog', ['sysname' => $category->sysname]) }}" method="post" class="sidebar-filter" id="js-filters">
     {{ csrf_field() }}
     {{-- Hidden inputs --}}
     <input type="hidden" name="filter" value="1">
     {{--<input type="hidden" name="page" value="{{ ($paginator->hasMorePages()) ? $paginator->currentPage() + 1 : '' }}">--}}
     <input type="hidden" name="page" value="1">
+    @php
+        if(!isset($pageCount)) $pageCount = 1;
+    @endphp
+    <input type="hidden" name="pageCount" value="{{$pageCount}}">
     @if($category)
         <input type="hidden" name="category_id" value="{{ $category->id }}">
     @elseif($tag)
