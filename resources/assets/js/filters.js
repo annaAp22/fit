@@ -1,7 +1,8 @@
 $(function() {
     var $filters = $('#js-filters'),
         $sorters = $('.js-sort'),
-        $page = $filters.find('input[name=perPage]'),
+        $page = $filters.find('input[name=page]'),
+        $pageCount = $filters.find('input[name="pageCount"]'),
         $productsCount = $('.js-goods-count span'),
         $items = $('#js-goods'),
         $paginator = $('.js-pagination'),
@@ -20,6 +21,7 @@ $(function() {
                 submit = false;
             //console.log('reset pagination');
             $page.val(1);
+            $pageCount.val(1);
             if(submit) {
                 $filters.trigger('submit');
             }
@@ -142,7 +144,6 @@ $(function() {
     $paginator.on('click', function(e) {
         e.preventDefault();
         var showAll = $(this).data('all');
-        $pageCount = $filters.find('input[name="pageCount"]');
         if(typeof showAll !== 'undefined' && showAll) {
             $page.val('all');
             $pageCount.val(1);
