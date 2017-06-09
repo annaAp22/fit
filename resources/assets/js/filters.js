@@ -94,6 +94,10 @@ $(function() {
         var formData = $(this).serialize();
         console.log(formData);
         $.post($(this).attr('action'), formData, function(data) {
+            if(data['reload'] == 1) {
+                location.reload();
+                return true;
+            }
             if(data.clear) {
                 $page.val(2);
                 $items.html($(data.items));

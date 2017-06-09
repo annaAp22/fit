@@ -20,7 +20,8 @@ Route::post('/callback', [
 
 Route::post('/products/get', [
     'as' => 'products.get',
-    'uses' => 'FrontApiController@getProducts'
+    //'uses' => 'FrontApiController@getProducts'
+    'uses' => 'CatalogController@saveFilters'
 ]);
 
 Route::group([ 'prefix' => 'product' ], function() {

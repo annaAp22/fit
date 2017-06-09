@@ -46,6 +46,65 @@ class CatalogController extends Controller
         'products_count' => $count,
     ]);
   }
+  public function saveFilters(Request $request) {
+    if(!$request->has('filter')) {
+      return;
+    }
+    $filters = array(
+        'page' => $request->input('page'),
+    );
+    //фильтр по бренду
+    if($request->has('brand_id') && $request->input('brand_id')) {
+      $brand_id = intval($request->input('brand_id'));
+      $filters['brand_id'] = $brand_id;
+    }
+    //фильтр по акции
+    if($request->has('act') && $request->input('act')) {
+      $filters['act'] = 1;
+    }
+    //фильтр по Новинкам
+    if($request->has('new') && $request->input('new')) {
+      $filters['new'] = 1;
+    }
+    //фильтр по Хитам
+    if($request->has('hit') && $request->input('hit')) {
+      $filters['hit'] = 1;
+    }
+    //фильтр по ценам от - до
+    if($request->has('price_from') && $request->input('price_from')) {
+      $price_from = intval($request->input('price_from'));
+      $filters['startPrice'] = $price_from;
+    }
+    if($request->has('price_to') && $request->input('price_to')) {
+      $price_to = intval($request->input('price_to'));
+      $filters['endPrice'] = $price_to;
+    }
+    //фильтры по атрибутам
+    if ($request->has('attribute')) {
+      $filters['attributes'] = $request->input('attribute');
+    }
+    if($request->has('sort'))
+    {
+      $filters['sort'] = $request->input('sort');
+    }
+    else
+    {
+      // сортировка по умолчанию
+      if($request->has('tag_id')) {
+        $filters['tag_id'] = $request->input('tag_id');
+      }
+    }
+    $id = $request->input('category_id');
+    if($id) {
+      session()->forget('filters.product.'.$id);
+      session()->put('filters.product.'.$id, $filters);
+    }
+//    $response = array(
+//      'reload' => 1
+//    );
+    //return response()->json($response);
+  }
+
   public function filteredProducts($category_id) {
     $session = session()->get('filters.product.'.$category_id);
     //фильтр категории - получаем связанные товары из категории
@@ -198,8 +257,9 @@ class CatalogController extends Controller
    * @param $sysname
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function catalog($sysname) {
+  public function catalog(Request $request, $sysname) {
 //        Cache::flush();
+    $this->saveFilters($request);
     $hash = md5($sysname);
     $category = Cache::remember('category' . $hash, 1440, function() use($sysname)
     {
