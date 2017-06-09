@@ -424,7 +424,7 @@ class CatalogController extends Controller
       $products->max_price = $tag->products()->published()->max('price');
 
       $this->setMetaTags(null, $tag->title, $tag->description, $tag->keywords);
-      return view('catalog.catalog', comact('tag', 'products'));
+      return view('catalog.catalog', compact('tag', 'products'));
     }
     else
     {
