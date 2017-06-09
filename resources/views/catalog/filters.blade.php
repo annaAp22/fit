@@ -4,6 +4,7 @@
     {{-- Hidden inputs --}}
     <input type="hidden" name="filter" value="1">
     {{--<input type="hidden" name="page" value="{{ ($paginator->hasMorePages()) ? $paginator->currentPage() + 1 : '' }}">--}}
+    <input type="hidden" name="page" value="1">
     @if($category)
         <input type="hidden" name="category_id" value="{{ $category->id }}">
     @elseif($tag)
@@ -37,7 +38,7 @@
             <div class="size-filter sidebar-filter__item square-filter js-square-check-filter">
                 @foreach($sizes->values as $size)
                     <div class="size-filter__size js-square @if(isset($attributes[$sizes->id])and(in_array('"'.$size.'"', $attributes[$sizes->id]))) active @endif"><span>{{ $size }}</span>
-                        <input type="hidden" name="attribute[{{ $sizes->id }}][]" value='"{{ $size }}"' disabled="disabled"/>
+                        <input type="hidden" name="attribute[{{ $sizes->id }}][]" value='"{{ $size }}"' @if(!isset($attributes[$sizes->id])or(!in_array('"'.$size.'"', $attributes[$sizes->id]))) disabled="disabled" @endif/>
                     </div>
                 @endforeach
             </div>
@@ -48,7 +49,7 @@
             <div class="color-filter square-filter js-square-check-filter">
                 @foreach($colors->values as $color)
                     <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};">
-                        <input type="hidden" name="attribute[{{ $colors->id }}][]" value="{{ $color }}" disabled="disabled"/>
+                        <input type="hidden" name="attribute[{{ $colors->id }}][]" value="{{ $color }}" @if(!isset($attributes[$colors->id])or(!in_array($color, $attributes[$colors->id]))) disabled="disabled" @endif/>
                         <i class="sprite_main sprite_main-listing__filter_color-checked"></i>
                     </div>
                 @endforeach
