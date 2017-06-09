@@ -236,7 +236,7 @@ class CatalogController extends Controller
     else {
       $perPage = Setting::getVar('perpage') ?: $this->perpage;
     }
-    if($session['pageCount']) {
+    if(isset($session['pageCount'])) {
       $perPage *= $session['pageCount'];
     }
     $products = $products->paginate($perPage);
