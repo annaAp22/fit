@@ -25,9 +25,14 @@ gulp.task('postcss', function() {
         //.pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));
 });
-gulp.task('watch1', function() {
-    gulp.watch('./resources/assets/sass/*.sass', ['postcss']);
-})
+gulp.task('timeout', function() {
+    setTimeout(function(e) {
+    }, 1000);
+});
+
+gulp.task('sass-compile', ['sass', 'timeout', 'version']);
+gulp.task('sass-compile-release', ['postcss', 'timeout', 'version']);
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -38,17 +43,10 @@ gulp.task('watch1', function() {
  | file for our application, as well as publishing vendor resources.
  |
  */
-
 elixir(function(mix) {
     console.log('Compiling in', elixir.config.production ? 'PRODUCTION' : 'DEVELOPMENT', 'mode.' );
-
-    // Admin area
-    //mix.webpack('admin/app.js', 'public/js/admin/app.js');
-    //mix.version([
-    //    'js/admin/app.js'
-    //]);
-
     // Customer area
+    mix.sass('app.sass');
     mix.task('postcss');
     mix.scripts([
         'vendor/jquery-3.2.1.min.js',
@@ -61,31 +59,21 @@ elixir(function(mix) {
 
     mix.scripts([
         'libs/loader.js'
-        //'libs/inject_params.js',
-        //'libs/cart.js',
-        //'libs/defer.js',
-        //'libs/thank.js'
     ], 'public/js/lib.js');
 
     mix.scripts([
-         //'cart.js',
-        // 'defer.js',
-        // 'fastbuy.js',
-        // 'subscribe.js',
          'filters.js',
-        // 'home.filters.js',
-        // 'reviews.js',
-        // 'search.js',
-        // 'size-selector.js',
-        // 'contacts.js',
         'map.js',
         'app.js'
     ], 'public/js/app.js');
-
+    // mix.version(
+    //     'css/app.css'
+    // );
     mix.version([
         'css/app.css',
         'js/vendor.js',
         'js/lib.js',
         'js/app.js'
     ]);
+
 });
