@@ -14,7 +14,7 @@
     @elseif($tag)
         <input type="hidden" name="tag_id" value="{{ $tag->id }}">
     @endif
-    <input type="hidden" name="sort" value="sort">
+    <input type="hidden" name="sort" value="{{$sort}}">
 
   <div class="sidebar-filter__title">Фильтры подбора:
   </div>

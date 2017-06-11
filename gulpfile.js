@@ -29,7 +29,6 @@ gulp.task('timeout', function() {
     setTimeout(function(e) {
     }, 1000);
 });
-
 gulp.task('sass-compile', ['sass', 'timeout', 'version']);
 gulp.task('sass-compile-release', ['postcss', 'timeout', 'version']);
 

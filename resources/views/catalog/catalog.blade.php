@@ -67,14 +67,21 @@
                     <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры подбора товаров</button>
                     <!-- Sorting and view-->
                     <div class="goods-sorting"><i class="sprite_main sprite_main-listing__filter"></i><span>Сортировать товары:</span>
-                        <div class="sorting-select js-toggle-active js-select"><span class="js-selected">По умолчанию</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                        @php
+                            $sortNames = array(
+                                'sort' => 'По умолчанию',
+                                'expensive' => 'Сначала дороже',
+                                'cheaper' => 'Сначала дешевле',
+                                'hit' => 'По популярности',
+                                'act' => 'По акциям',
+                                'new' => 'По новинкам',
+                            )
+                        @endphp
+                        <div class="sorting-select js-toggle-active js-select"><span class="js-selected">{{$sortNames[$filters['sort']]}}</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                             <div class="sorting-select__dropdown">
-                                <div class="sorting-select__option js-option js-sort" data-sort="sort">По умолчанию</div>
-                                <div class="sorting-select__option js-option js-sort" data-sort="expensive">Сначала дороже</div>
-                                <div class="sorting-select__option js-option js-sort" data-sort="cheaper">Сначала дешевле</div>
-                                <div class="sorting-select__option js-option js-sort" data-sort="hit">По популярности</div>
-                                <div class="sorting-select__option js-option js-sort" data-sort="act">По акциям</div>
-                                <div class="sorting-select__option js-option js-sort" data-sort="new">По новинкам</div>
+                                @foreach($sortNames as $key => $value)
+                                    <div class="sorting-select__option js-option js-sort" data-sort="{{$key}}">{{$value}}</div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

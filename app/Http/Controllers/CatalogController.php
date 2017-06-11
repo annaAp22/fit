@@ -246,7 +246,9 @@ class CatalogController extends Controller
     $productsCount = $totalProductCount;
     $filters = session()->get('filters.product.'.$category->id);
     if(!$filters)
-      $filters = array();
+      $filters = array(
+        'sort' => 'sort'
+      );
     $filters['minPrice'] = $products->min_price?:0;
     $filters['maxPrice'] = $products->max_price?:0;
     $filters['productsCount'] = $productsCount;
