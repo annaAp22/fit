@@ -2,6 +2,8 @@
 /*
  * Страницы с sidebar'ом
  */
+Artisan::call('view:clear');
+Cache::flush();
 Route::group([
     'middleware' => ['location', 'settings']
     ], function() {
