@@ -38,7 +38,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Back to shopping link--><a class="btn btn_back-link" href="#"><span class="icon-fade"><i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i><i class="sprite_main sprite_main-icon-arrow-small-left-green_active active"></i><span>Назад к покупкам</span></span></a>
+            <!-- Back to shopping link-->
+            {{--<a class="btn btn_back-link" href="#"><span class="icon-fade"><i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i><i class="sprite_main sprite_main-icon-arrow-small-left-green_active active"></i><span>Назад к покупкам</span></span></a>--}}
         </div>
         <!-- Body-->
         <div class="checkout-body container-in">
