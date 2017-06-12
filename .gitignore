@@ -21,3 +21,4 @@ Homestead.yaml
 /app/Http/Controllers/TestController.php
 /resources/views/layouts/test.blade.php
 /public/custom/
+/composer.phar

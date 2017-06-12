@@ -7,6 +7,8 @@ use App\Library\MoySklad\Ms;
 use App\Models\MsProduct;
 use App\Models\MsCronCounter;
 use Carbon\Carbon;
+use App\Models\Product;
+use App\Models\Attribute;
 
 class MoySkladController extends Controller
 {
@@ -15,14 +17,174 @@ class MoySkladController extends Controller
     // Old name: cron.
     public function exportOrders()
     {
-
+        $orderData = '
+            {
+              "name": "000034",
+              "organization": {
+                "meta": {
+                  "href": "https://online.moysklad.ru/api/remap/1.1/entity/organization/850c8195-f504-11e5-8a84-bae50000015e",
+                  "type": "organization",
+                  "mediaType": "application/json"
+                }
+              },
+              "code": "1243521",
+              "moment": "2016-04-19 13:50:24",
+              "applicable": false,
+              "vatEnabled": false,
+              "agent": {
+                "meta": {
+                  "href": "https://online.moysklad.ru/api/remap/1.1/entity/counterparty/9794d400-f689-11e5-8a84-bae500000078",
+                  "type": "counterparty",
+                  "mediaType": "application/json"
+                }
+              },
+              "state": {
+                "meta": {
+                  "href": "https://online.moysklad.ru/api/remap/1.1/entity/customerorder/metadata/states/fb56c504-2e58-11e6-8a84-bae500000069",
+                  "type": "state",
+                  "mediaType": "application/json"
+                }
+              },
+              "positions": [
+                {
+                  "quantity": 10,
+                  "price": 100,
+                  "discount": 0,
+                  "vat": 0,
+                  "assortment": {
+                    "meta": {
+                      "href": "https://online.moysklad.ru/api/remap/1.1/entity/product/8b382799-f7d2-11e5-8a84-bae5000003a5",
+                      "type": "product",
+                      "mediaType": "application/json"
+                    }
+                  },
+                  "reserve": 10
+                },
+                {
+                  "quantity": 20,
+                  "price": 200,
+                  "discount": 0,
+                  "vat": 21,
+                  "assortment": {
+                    "meta": {
+                      "href": "https://online.moysklad.ru/api/remap/1.1/entity/product/be903062-f504-11e5-8a84-bae50000019a",
+                      "type": "product",
+                      "mediaType": "application/json"
+                    }
+                  },
+                  "reserve": 20
+                },
+                {
+                  "quantity": 30,
+                  "price": 300,
+                  "discount": 0,
+                  "vat": 7,
+                  "assortment": {
+                    "meta": {
+                      "href": "https://online.moysklad.ru/api/remap/1.1/entity/product/c02e3a5c-007e-11e6-9464-e4de00000006",
+                      "type": "product",
+                      "mediaType": "application/json"
+                    }
+                  },
+                  "reserve": 30
+                }
+              ]
+            }
+        ';
     }
 
     // Direction: moysklad -> site.
     // Updates prices and stock.
     // Old name: cron2.
-    public function updatePriceAndStock()
+    public function updatePriceAndStock(Ms $ms)
     {
+        $paramsString = http_build_query([
+            'offset' => 0,
+            'limit' => 100,
+        ]);
+        $rests = [];
+
+        if( $res = $ms->getStock($paramsString) )
+        {
+            $rests = array_merge($rests, $res->rows);
+            // If products total count > limit by one request,
+            // then do another request with offset
+            for( $offset = $res->meta->limit; $offset < $res->meta->size; $offset = $offset + $res->meta->limit )
+            {
+                $paramsString = http_build_query([
+                    'offset' => $offset,
+                    'limit'  => $res->meta->limit,
+                ]);
+                if( $res = $ms->getStock($paramsString) )
+                {
+                    $rests = array_merge($rests, $res->rows);
+                }
+
+            }
+        }
+
+        if($rests)
+        {
+            Product::where('stock', 1)
+                ->update(['stock' => 0]);
+        }
+
+        $products = [];
+        $msProducts = MsProduct::all();
+        $msProductsAr = [];
+        foreach ($msProducts as $msProduct)
+        {
+            $msProductsAr[$msProduct->ms_externalCode] = $msProduct;
+        }
+
+        $sizes = Attribute::where('name', "Размеры")->first();
+//        $sizesAr = explode(",", str_replace(["[", "]"], "", $sizes->value));
+        $sizesAr = json_decode($sizes->list);
+
+        foreach ($rests as $rest)
+        {
+            if( isset($msProductsAr[$rest->externalCode]) )
+            {
+                $product_id = $msProductsAr[$rest->externalCode]->product_id;
+                // Product
+                if($rest->meta->type == 'product')
+                {
+                        $products[$product_id]['salePrice'] = $rest->salePrice / 100;
+                        $products[$product_id]['quantity'] = $rest->quantity;
+                }
+                // Sizes
+                elseif( isset($rest->code) && strpos($rest->code, "-") )
+                {
+                    $products[$product_id]['salePrice'] = $rest->salePrice / 100;
+                    $products[$product_id]['quantity'] = $rest->quantity;
+                    $size = last(explode("-", $rest->code));
+                    // Skip all non predefined sizes
+                    if( in_array($size, $sizesAr))
+                        $products[$product_id]['sizes'][] = $size;
+                }
+            }
+        }
+
+        //Reset all size attributes
+        \DB::table('attribute_product')
+            ->where('attribute_id', $sizes->id)
+            ->delete();
+
+        foreach ($products as $id => $msProduct)
+        {
+            $product = Product::find($id);
+            $product->price = (100 - $product->discount)/100 * $msProduct['salePrice'];
+            $product->stock = 1;
+            if(isset($msProduct['sizes']))
+            {
+                $product->attributes()->attach($sizes->id, [
+                    'value' => json_encode($msProduct['sizes']),
+                ]);
+            }
+            $product->save();
+        }
+
+        return "Получено остатков: " . count($rests);
 
     }
 
@@ -34,11 +196,10 @@ class MoySkladController extends Controller
         // Current import start index and total count
         $counter = MsCronCounter::importProducts()->firstOrFail();
 
-        if( ($counter->total > $counter->start) || ($counter->start == 0 && $counter->total == 0) )
-        {
             $paramsString = http_build_query([
                 'offset' => $counter->offset,
                 'limit'  => $counter->limit,
+                'orderBy' => 'ProductFolder',
 //                'updatedFrom' => $counter->updated_at->toDateTimeString(),
             ]);
 
@@ -54,6 +215,7 @@ class MoySkladController extends Controller
                     $paramsString = http_build_query([
                         'offset' => $offset,
                         'limit'  => $counter->limit,
+                        'orderBy' => 'ProductFolder',
 //                        'updatedFrom' => $counter->updated_at->toDateTimeString(),
                     ]);
                     if( $res = $ms->importProducts($paramsString) )
@@ -68,18 +230,68 @@ class MoySkladController extends Controller
             $counter->updated_at = Carbon::now();
             $counter->save();
 
+        // Clear products sync table
+        MsProduct::truncate();
 
-            // Insert or update
-            dd($products);
-
-            //
-
-        }
-        else
+        // Get site products id and sku
+        $siteProducts = Product::select(['id', 'sku'])->get();
+        $temp = [];
+        foreach ($siteProducts as $product)
         {
-            // Set start and total = 0
-            $counter->resetImportProducts();
+            $temp[$product->sku] = $product->id;
         }
+        $siteProducts = $temp;
+
+        $syncProducts = [];
+        $salePrice = 0;
+        //Insert products to db
+        foreach( $products as $product )
+        {
+            if( isset($product->code) )
+            {
+                if( isset($siteProducts[$product->code]) )
+                {
+                    $salePrice = isset($product->salePrices) ?   $product->salePrices[0]->value / 100 : $salePrice;
+                    // Simple products and products of some color
+                    $syncProducts[] = [
+                        'product_id' => $siteProducts[$product->code],
+                        'ms_sku' => $product->code,
+                        'ms_uuid' => $product->id,
+                        'ms_type' => $product->meta->type,
+                        'ms_externalCode' => $product->externalCode,
+                        'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
+                        'ms_salePrice' => $salePrice,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                    ];
+                }
+                elseif( isset($product->characteristics) /*&& count($product->characteristics) > 1*/ ){
+                    //If modifications has color and size simultaneously
+                    $code = explode('-', $product->code)[0];
+                    if( isset($siteProducts[$code]) )
+                    {
+                        $syncProducts[] = [
+                            'product_id' => $siteProducts[$code],
+                            'ms_sku' => $product->code,
+                            'ms_uuid' => $product->id,
+                            'ms_type' => $product->meta->type,
+                            'ms_externalCode' => $product->externalCode,
+                            'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
+                            'ms_salePrice' => $salePrice,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        ];
+                    }
+                }
+            }
+        }
+
+        if($syncProducts)
+        {
+            MsProduct::insert($syncProducts);
+        }
+
+        return "Products synced count: " . count($syncProducts);
 
     }
 
