@@ -38,6 +38,9 @@
                         Бесплатный номер: <br><strong>{!! $global_settings['phone_number']->value['free'] !!}</strong>
                         <img src="{{ asset('assets/uploads/contacts-phones-2-min.jpg') }}" alt="">
                     </div>
+                    <div class="contacts__text contacts__text_phones">
+                        Наш email: <br><strong>{!! $global_settings['email_support']->value !!}</strong>
+                    </div>
                 </div>
                 <!-- Time -->
                 <div class="contacts__time">
