@@ -77,7 +77,8 @@ Route::group([
     Route::any('/export/commerceml/{token}', 'ExportController@commerceMLExchange')->name('commerceML');
 
     // Import goods from moysklad
-    Route::any('/moysklad/import/products', 'MoySkladController@importProducts')->name('import.products');
+    Route::get('/moysklad/import/products', 'MoySkladController@importProducts')->name('import.products');
+    Route::get('/moysklad/get/rests', 'MoySkladController@updatePriceAndStock')->name('get.rests');
 
 });
 

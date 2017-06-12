@@ -3,8 +3,10 @@ namespace App\Library\MoySklad;
 
 class Ms  {
 
-    const USER = 'admin@fi2u_test'; //'developer@fit2_u';
-    const PASS = '33553a82cc'; //'qw200386';
+    const USER = 'developer@fit2_u';
+    const PASS = 'qw200386';
+//    const USER = 'admin@fi2u_test';
+//    const PASS = '33553a82cc';
     const STORE = '8a58d846-4afa-11e7-7a6c-d2a900002236'; //'9bb42c33-1a46-4358-a7eb-0afe3ca07e04';  // Магазин (склад)   70cbdcd6-00f2-11e4-71a6-002590a28eca
     const TARGET = '8a578cc3-4afa-11e7-7a6c-d2a900002234'; //'4578c52c-dfdb-4ab1-85e8-d255d1337032'; //продавец.  70ca5412-00f2-11e4-3a70-002590a28eca
 
@@ -28,6 +30,11 @@ class Ms  {
         $result_ms = curl_exec($ch_ms);
         curl_close ($ch_ms);
         return $result_ms;
+    }
+
+    public function newOrder()
+    {
+
     }
 
     public function newAgent($name_ms,$address_ms='',$phone_ms='',$email_ms=''){
@@ -74,10 +81,17 @@ class Ms  {
     public function importProducts($paramsString)
     {
 //        $url = "https://online.moysklad.ru/api/remap/1.1/entity/variant?$paramsString";
-        $url = "https://online.moysklad.ru/api/remap/1.1/report/stock/all?$paramsString";
+//        $url = "https://online.moysklad.ru/api/remap/1.1/report/stock/all?$paramsString";
 //        $url = "https://online.moysklad.ru/api/remap/1.1/entity/product?$paramsString";
+        $url = "https://online.moysklad.ru/api/remap/1.1/entity/assortment?$paramsString";
         $res = $this->get_page($url, Ms::USER, Ms::PASS);
         return json_decode($res);
     }
 
+    public function getStock($paramsString)
+    {
+        $url = "https://online.moysklad.ru/api/remap/1.1/report/stock/all?$paramsString";
+        $res = $this->get_page($url, Ms::USER, Ms::PASS);
+        return json_decode($res);
+    }
 }
