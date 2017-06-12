@@ -2,7 +2,8 @@ $(function() {
     var $filters = $('#js-filters'),
         $sorters = $('.js-sort'),
         $page = $filters.find('input[name=page]'),
-        $productsCount = $('.js-goods-count'),
+        $pageCount = $filters.find('input[name="pageCount"]'),
+        $productsCount = $('.js-goods-count span'),
         $items = $('#js-goods'),
         $paginator = $('.js-pagination'),
         dontTouchThis = [
@@ -20,6 +21,7 @@ $(function() {
                 submit = false;
             //console.log('reset pagination');
             $page.val(1);
+            $pageCount.val(1);
             if(submit) {
                 $filters.trigger('submit');
             }
@@ -28,6 +30,7 @@ $(function() {
         resetFilters = function() {
             $filters.find('input[type=checkbox]', 'input[type=radio]').attr('checked', false);
             $filters.find('input[name^=attribute]').attr('disabled', true);
+            $filters.find('input[name=sort]').val('sort');
             $('.js-square').removeClass('active');
             rangeSlider.noUiSlider.set([rRange[0], rRange[1]]);
 
@@ -89,33 +92,37 @@ $(function() {
         resetPagination();
     });
 
-    $filters.on('submit', function(e) {
-        e.preventDefault();
-        var formData = $(this).serialize();
-        console.log(formData);
-        $.post($(this).attr('action'), formData, function(data) {
-            if(data.clear) {
-                $page.val(2);
-                $items.html($(data.items));
-            } else {
-                if($page.val() == 'all') {
-                    $items.html($(data.items));
-                }
-                else {
-                    $items.append($(data.items));
-                }
-            }
-
-            if(data.next_page === null) {
-                $paginator.hide();
-            }
-            else {
-                $paginator.show();
-                $page.val(data.next_page);
-            }
-            $productsCount.html(data.count);
-        });
-    });
+    // $filters.on('submit', function(e) {
+    //     e.preventDefault();
+    //     var formData = $(this).serialize();
+    //     console.log(formData);
+    //     $.post($(this).attr('action'), formData, function(data) {
+    //         if(data['reload'] == 1) {
+    //             location.reload();
+    //             return true;
+    //         }
+    //         if(data.clear) {
+    //             $page.val(2);
+    //             $items.html($(data.items));
+    //         } else {
+    //             if($page.val() == 'all') {
+    //                 $items.html($(data.items));
+    //             }
+    //             else {
+    //                 $items.append($(data.items));
+    //             }
+    //         }
+    //
+    //         if(data.next_page === null) {
+    //             $paginator.hide();
+    //         }
+    //         else {
+    //             $paginator.show();
+    //             $page.val(data.next_page);
+    //         }
+    //         $productsCount.html(data.count);
+    //     });
+    // });
     $sorters.on('click', function(e) {
         e.preventDefault();
         var sort = $(this).data('sort');
@@ -140,8 +147,12 @@ $(function() {
         var showAll = $(this).data('all');
         if(typeof showAll !== 'undefined' && showAll) {
             $page.val('all');
+            $pageCount.val(1);
+        }else {
+            $page.val(1);
+            $pageCount.val(parseInt($pageCount.val())+1);
         }
-        //console.log('get next page');
+        console.log('get next page');
         $filters.trigger('submit');
     });
 

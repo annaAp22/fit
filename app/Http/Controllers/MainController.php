@@ -25,6 +25,10 @@ class MainController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
+      //стираем куки фильтров, на случай непредвиденных глюков
+      if(session()->has('filters')) {
+        session()->forget('filters');
+      }
         //кол-во товаров на сайте
         $cnt_products = Product::count();
         //банер в тексте

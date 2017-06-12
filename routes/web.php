@@ -2,6 +2,8 @@
 /*
  * Страницы с sidebar'ом
  */
+Artisan::call('view:clear');
+Cache::flush();
 Route::group([
     'middleware' => ['location', 'settings']
     ], function() {
@@ -59,7 +61,7 @@ Route::group([
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Каталог (совместимость со старым ЧПУ)
-    Route::get('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
+    Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
     //test page
     //Route::get('/test.html', 'TestController@index')->name('test');
 
