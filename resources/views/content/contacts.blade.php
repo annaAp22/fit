@@ -55,6 +55,7 @@
                         {!! $page->content !!}
                     </div>
                 </div>
+                @include('buttons.callback')
                 <!-- Payment types -->
                 <div class="contacts__note-1 contacts__text">
                     <strong>* Для посещения магазина оформлять заказ не обязательно! Весь товар с сайта представлен

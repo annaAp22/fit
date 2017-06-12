@@ -1467,6 +1467,10 @@ button {
   color: #36b057;
 }
 
+.btn-callback {
+  max-width: 200px;
+}
+
 .icon-fade {
   position: relative;
   display: inline-block;
