@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Category;
@@ -125,11 +126,17 @@ class FrontApiController extends Controller
 
     Mail::send('emails.support.callback',
         ['name' => $request->input('name'),
-            'phone' => $request->input('phone')], function ($message) use ($request){
-          $message->to(\App\Models\Setting::getVar('email_support'))->subject('Запрос обратного звонка '.$request->root());
+            'phone' => $request->input('phone')], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Запрос обратного звонка '.$request->root();
+          $message->to($email)->subject($caption);
         });
 
-    return response()->json(['result' => 'ok']);
+    return response()->json([
+        'result' => 'ok',
+        'action' => 'openModal',
+        'modal' => view('modals.letter_success')->render()
+    ]);
   }
 
   /**
@@ -312,7 +319,6 @@ class FrontApiController extends Controller
 
     return response()->json($response);
   }
-
   /**
    * Быстрый заказ
    * @param Request $request
