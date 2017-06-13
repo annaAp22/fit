@@ -1908,6 +1908,11 @@ header .line_lg {
   color: #000!important;
   text-decoration: none;
   padding: 10px 0;
+  text-align: center;
+}
+
+.header__logo .wrapper {
+  display: table;
 }
 
 .header__logo img {
