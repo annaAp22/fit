@@ -244,12 +244,12 @@
                                 <div class="product-delivery__note">Уже завтра!
                                 </div><i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
                             </div>
-                            <div class="product-delivery__hidden js-prevent">
+                            <div class="product-delivery__hidden">
                                 <div class="product-delivery__city"><span>Ваш город:</span><span>г. Москва<i class="sprite_main sprite_main-icon__arrow_green_up"></i></span>
                                 </div>
                                 <div class="product-delivery__cost"><span>Стоимость:</span><span>Курьером: от 300 руб.<br/>При заказе от 6 000 руб<br/>Бесплатно</span>
                                 </div>
-                                <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке</a>
+                                <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке по России</a>
                                 </div>
                                 <div class="product-delivery__store"><i class="sprite_main sprite_main-header__city_point"></i><a href="{{ route('contacts') }}">Магазин в Москве</a>
                                 </div>

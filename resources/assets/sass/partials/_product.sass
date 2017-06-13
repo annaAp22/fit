@@ -94,6 +94,7 @@
           top: 9px
 
   &__size
+    padding-top: 0
     +media-sm(down)
       +col(24)
     +media-md(down)
@@ -452,6 +453,8 @@
       top: 82px
       border-left: 1px solid #dddddd
       position: absolute
+      top: 100%
+      margin-top: 1px
     +media-md(down)
       min-width: 100%
       margin-top: 20px
@@ -625,6 +628,9 @@
   flex-direction: column
   position: relative
   &__image
+    +media-sm(down)
+      .sprite_main-icon__popup_info
+        display: none
     position: relative
     border: 1px solid #ebebeb
     //height: 180px
