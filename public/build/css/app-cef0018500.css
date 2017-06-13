@@ -4638,6 +4638,10 @@ footer .line {
   padding-top: 0;
 }
 
+.product-detailed__size .popup-notice_size {
+  top: -132px;
+}
+
 .product-detailed__btn {
   width: 100%;
 }
