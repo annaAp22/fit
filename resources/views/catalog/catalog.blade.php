@@ -40,8 +40,9 @@
                 @else
                     @widget('ListingCatalog')
                 @endif
-
-                @widget('TagsWidget', ['category_id' => $category->id])
+                @if(isset($category))
+                    @widget('TagsWidget', ['category_id' => $category->id])
+                @endif
                 @widget('BannerLeftWidget')
             </aside>
             <section class="content">

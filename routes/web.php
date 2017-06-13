@@ -43,9 +43,9 @@ Route::group([
 
         // Товары
         Route::get('/product/{sysname}', ['as' => 'product', 'uses' => 'CatalogController@product'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
-        Route::get('/actions/{sysname?}', ['as' => 'actions', 'uses' => 'CatalogController@actions']); // Sale category
-        Route::get('/new/{sysname?}', ['as' => 'new', 'uses' => 'CatalogController@newproducts']);
-        Route::get('/hits/{sysname?}', ['as' => 'hits', 'uses' => 'CatalogController@hits']);
+        Route::any('/actions/{sysname?}', ['as' => 'actions', 'uses' => 'CatalogController@actions']); // Sale category
+        Route::any('/new/{sysname?}', ['as' => 'new', 'uses' => 'CatalogController@newproducts']);
+        Route::any('/hits/{sysname?}', ['as' => 'hits', 'uses' => 'CatalogController@hits']);
 
         // Отзывы
         Route::get('/reviews', ['as' => 'reviews', 'uses' => 'MainController@reviews']);

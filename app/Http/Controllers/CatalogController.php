@@ -46,7 +46,7 @@ class CatalogController extends Controller
         'products_count' => $count,
     ]);
   }
-  public function saveFilters(Request $request) {
+  public function saveFilters(Request $request, $postfix = '') {
     if(!$request->has('filter')) {
       return;
     }
@@ -97,8 +97,8 @@ class CatalogController extends Controller
     }
     $id = $request->input('category_id');
     if($id) {
-      session()->forget('filters.product.'.$id);
-      session()->put('filters.product.'.$id, $filters);
+      session()->forget('filters.product.'.$postfix.$id);
+      session()->put('filters.product.'.$postfix.$id, $filters);
     }
 //    $response = array(
 //      'reload' => 1
@@ -106,8 +106,8 @@ class CatalogController extends Controller
     //return response()->json($response);
   }
 
-  public function filteredProducts($category_id) {
-    $session = session()->get('filters.product.'.$category_id);
+  public function filteredProducts($category_id, $postfix = '') {
+    $session = session()->get('filters.product.'.$postfix.$category_id);
     //фильтр категории - получаем связанные товары из категории
     if($category_id) {
       $category = Category::with(['parent', 'children_rec'])->findOrFail($category_id);
@@ -239,12 +239,13 @@ class CatalogController extends Controller
     if(isset($session['pageCount'])) {
       $perPage *= $session['pageCount'];
     }
+    $this->totalProductsCount = $products->count();
     $products = $products->paginate($perPage);
     return $products;
   }
-  public function getFilters($category, $products, $totalProductCount = null) {
+  public function getFilters($category, $products, $totalProductCount = null, $postfix = '') {
     $productsCount = $totalProductCount;
-    $filters = session()->get('filters.product.'.$category->id);
+    $filters = session()->get('filters.product.'.$postfix.$category->id);
     if(!$filters)
       $filters = array(
         'sort' => 'sort'
@@ -455,25 +456,34 @@ class CatalogController extends Controller
    * @param $sysname - чпу родительской категории
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function actions($sysname = null) {
+  public function actions(Request $request, $sysname = null) {
     if($sysname)
     {
       $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
-      $category_ids = $category->children_ids($category, collect([]));
-      $products = Product::with('attributes')
-          ->whereHas('categories',
-              function($query) use($category_ids) {
-                $query->whereIn('categories.id', $category_ids);
-              })
-          ->where('act', 1)
-          ->published();
+      $request->request->add(['act' => '1', 'category_id' => $category->id]);
+      $postfix = 'act.';
+      $this->saveFilters($request, $postfix);
+      if(!session()->has('filters.product.'.$postfix.$category->id)) {
+        $category_ids = $category->children_ids($category, collect([]));
+        $products = Product::with('attributes')
+            ->whereHas('categories',
+                function ($query) use ($category_ids) {
+                  $query->whereIn('categories.id', $category_ids);
+                })
+            ->where('act', 1)
+            ->published();
+      }else {
+        $products = $this->filteredProducts($category->id, $postfix);
+      }
     }
     else
     {
       $products = Product::where('act', 1)->where('status', 1)->orderBy('name');
     }
-
-    $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    if(!session()->has('filters.product.'.$postfix.$category->id)) {
+      $this->totalProductsCount = $products->count();
+      $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    }
     $products->min_price = Product::where('act', 1)->where('status', 1)->min('price');
     $products->max_price = Product::where('act', 1)->where('status', 1)->max('price');
 
@@ -483,7 +493,8 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    return view('catalog.catalog', compact('products', 'page', 'category'));
+    $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
+    return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
   }
 
   /**
@@ -491,26 +502,34 @@ class CatalogController extends Controller
    * @param $sysname - ЧПУ родительской категории
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function newProducts($sysname = null) {
+  public function newProducts(Request $request, $sysname = null) {
     if($sysname)
     {
       $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
-      $category_ids = $category->children_ids($category, collect([]));
-      $products = Product::with('attributes')
-          ->whereHas('categories',
-              function($query) use($category_ids) {
-                $query->whereIn('categories.id', $category_ids);
-              })
-          ->where('new', 1)
-          ->published();
+      $request->request->add(['new' => '1', 'category_id' => $category->id]);
+      $postfix = 'new.';
+      $this->saveFilters($request, $postfix);
+      if(!session()->has('filters.product.'.$postfix.$category->id)) {
+        $category_ids = $category->children_ids($category, collect([]));
+        $products = Product::with('attributes')
+            ->whereHas('categories',
+                function($query) use($category_ids) {
+                  $query->whereIn('categories.id', $category_ids);
+                })
+            ->where('new', 1)
+            ->published();
+      } else {
+        $products = $this->filteredProducts($category->id, $postfix);
+      }
     }
     else
     {
       $products = Product::where('new', 1)->where('status', 1)->orderBy('name');
     }
-
-    $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
-
+    if(!session()->has('filters.product.'.$postfix.$category->id)) {
+      $this->totalProductsCount = $products->count();
+      $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    }
 
     $products->min_price = Product::where('new', 1)->where('status', 1)->min('price');
     $products->max_price = Product::where('new', 1)->where('status', 1)->max('price');
@@ -521,7 +540,9 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    return view('catalog.catalog', compact('products', 'page', 'category'));
+
+    $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
+    return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
   }
 
   /**
@@ -529,25 +550,34 @@ class CatalogController extends Controller
    * @param $sysname - ЧПУ родительской категории
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function hits($sysname = null) {
+  public function hits(Request $request, $sysname = null) {
     if($sysname)
     {
       $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
-      $category_ids = $category->children_ids($category, collect([]));
-      $products = Product::with('attributes')
-          ->whereHas('categories',
-              function($query) use($category_ids) {
-                $query->whereIn('categories.id', $category_ids);
-              })
-          ->where('hit', 1)
-          ->published();
+      $request->request->add(['hit' => '1', 'category_id' => $category->id]);
+      $postfix = 'hit.';
+      $this->saveFilters($request, $postfix);
+      if(!session()->has('filters.product.'.$postfix.$category->id)) {
+        $category_ids = $category->children_ids($category, collect([]));
+        $products = Product::with('attributes')
+            ->whereHas('categories',
+                function ($query) use ($category_ids) {
+                  $query->whereIn('categories.id', $category_ids);
+                })
+            ->where('hit', 1)
+            ->published();
+      }else {
+        $products = $this->filteredProducts($category->id, $postfix);
+      }
     }
     else
     {
       $products = Product::where('hit', 1)->where('status', 1)->orderBy('name');
     }
-
-    $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    if(!session()->has('filters.product.'.$postfix.$category->id)) {
+      $this->totalProductsCount = $products->count();
+      $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    }
     $products->min_price = Product::where('hit', 1)->where('status', 1)->min('price');
     $products->max_price = Product::where('hit', 1)->where('status', 1)->max('price');
 
@@ -557,7 +587,8 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    return view('catalog.catalog', compact('products', 'page', 'category'));
+    $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
+    return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
   }
 
   /**
