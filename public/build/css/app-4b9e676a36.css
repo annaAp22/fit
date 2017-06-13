@@ -344,7 +344,7 @@ template {
 
 .header__enter .dropdown a:before,
 .sprite_main {
-  background-image: url(/img/sprite-min.png);
+  background-image: url(/img/sprite-min.png?v=1);
   background-repeat: no-repeat;
   display: inline-block;
 }
@@ -1467,6 +1467,10 @@ button {
   color: #36b057;
 }
 
+.btn-callback {
+  max-width: 200px;
+}
+
 .icon-fade {
   position: relative;
   display: inline-block;
@@ -2407,13 +2411,15 @@ header .line_lg {
   display: flex;
 }
 
-.look-dropdown__text {
+.look-dropdown__text,
+.look-dropdown__text-gray {
   background-color: #fcd82f;
   width: 249px;
   position: relative;
   padding: 14px;
 }
 
+.look-dropdown__text-gray:before,
 .look-dropdown__text:before {
   content: "";
   display: block;
@@ -2427,7 +2433,16 @@ header .line_lg {
   height: calc(100% - 28px);
 }
 
-.look-dropdown__header {
+.look-dropdown__text-gray {
+  background-color: #292929;
+}
+
+.look-dropdown__text-gray:before {
+  content: none;
+}
+
+.look-dropdown__header,
+.look-dropdown__header-top {
   font-size: 32px;
   font-weight: 900;
   text-transform: uppercase;
@@ -2441,11 +2456,27 @@ header .line_lg {
   z-index: 1;
 }
 
+.look-dropdown__header-top {
+  display: block;
+  width: 170px;
+  color: #fcd82f;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.look-dropdown__header-top img {
+  display: block;
+  margin: 0 auto 24px;
+  padding-right: 10px;
+}
+
+.look-dropdown__header-top>*,
 .look-dropdown__header>* {
   vertical-align: top;
 }
 
-.look-dropdown__body {
+.look-dropdown__body,
+.look-dropdown__body-white {
   font-size: 14px;
   color: #d17109;
   margin: 0 30px;
@@ -2453,6 +2484,12 @@ header .line_lg {
   z-index: 1;
 }
 
+.look-dropdown__body-white {
+  color: #fff;
+  margin: 0 16px;
+}
+
+.look-dropdown__body-white span,
 .look-dropdown__body span {
   display: inline-block;
   margin-bottom: 40px;
@@ -8036,6 +8073,7 @@ li.fancybox-thumbs-loading {
   font-weight: 500;
 }
 
+#callback,
 #order {
   padding: 30px;
 }
