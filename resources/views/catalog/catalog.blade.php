@@ -35,7 +35,7 @@
                 @endif
 
                 {{-- Catalog navigation --}}
-                @if(isset($category))
+                @if(isset($category) && isset($parent_zero_id))
                     @widget('ListingCatalog', ['current' => $category, 'parent_id' => $parent_zero_id])
                 @else
                     @widget('ListingCatalog')

@@ -483,7 +483,7 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    return view('catalog.catalog', compact('products', 'page'));
+    return view('catalog.catalog', compact('products', 'page', 'category'));
   }
 
   /**
@@ -521,7 +521,7 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    return view('catalog.catalog', compact('products', 'page'));
+    return view('catalog.catalog', compact('products', 'page', 'category'));
   }
 
   /**
@@ -557,7 +557,7 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    return view('catalog.catalog', compact('products', 'page'));
+    return view('catalog.catalog', compact('products', 'page', 'category'));
   }
 
   /**
