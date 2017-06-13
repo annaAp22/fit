@@ -41,7 +41,7 @@
                     @widget('ListingCatalog')
                 @endif
 
-                @widget('TagsWidget')
+                @widget('TagsWidget', ['category_id' => $category->id])
                 @widget('BannerLeftWidget')
             </aside>
             <section class="content">
