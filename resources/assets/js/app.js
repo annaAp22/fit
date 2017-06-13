@@ -489,7 +489,7 @@ $(function(){
         images.eq($this.index()).addClass('active');
     });
 
-
+    $.fancybox.defaults.hash = false;
 });
 
 // scroll to element
