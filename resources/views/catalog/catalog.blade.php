@@ -27,6 +27,7 @@
                         $filters['filters'] = $category->filters;
                     if(isset($tag))
                         $filters['filters'] = $tag->filters;
+                    $filters['sort'] = isset($filters['sort'])?$filters['sort']:'sort';
                 @endphp
 
                 @if(isset($filters['productsCount']) and $filters['productsCount'] > 0)
