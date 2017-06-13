@@ -1753,7 +1753,7 @@ header:after {
 
 header .line {
   position: absolute;
-  top: 107px;
+  top: 130px;
   width: 100%;
   height: 1px;
   background-color: #e3e3e3;
@@ -1891,6 +1891,7 @@ header .line_lg {
 }
 
 .header__logo {
+  min-width: 130px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-box-flex: 0;
@@ -1904,10 +1905,13 @@ header .line_lg {
   -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
   -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
   flex-basis: calc(100% / 24 * 8 - 24px);
+  color: #000!important;
+  text-decoration: none;
   padding: 10px 0;
 }
 
 .header__logo img {
+  display: block;
   max-width: 100%;
 }
 
@@ -2390,9 +2394,11 @@ header .line_lg {
 
 .catalog-dropdown__title {
   font-size: 12px;
+  line-height: 14px;
+  height: 28px;
   text-transform: uppercase;
   font-weight: 900;
-  margin-bottom: 30px;
+  margin-bottom: 14px;
 }
 
 .catalog-dropdown .star {
@@ -9218,7 +9224,7 @@ h3 {
 
 @media screen and (min-width:840px) {
   header .line {
-    top: 115px;
+    top: 130px;
   }
 
   .hamburger {
@@ -11702,6 +11708,7 @@ h3 {
     -webkit-order: 1;
     -ms-flex-order: 1;
     order: 1;
+    margin-top: 10px;
   }
 
   .header__navigation {

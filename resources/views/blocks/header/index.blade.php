@@ -16,7 +16,9 @@
             </div>
 
             <!-- Site logo -->
-            <a class="header__logo" href="/"><img src="/img/header__logo-min.png" alt="fit2u"/></a>
+            <a class="header__logo" href="/">
+                <img src="/img/header__logo-min.png" alt="fit2u"/>фитнес одежда
+            </a>
 
             {{-- City choose --}}
             {{--<div class="header__city">
