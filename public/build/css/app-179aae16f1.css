@@ -2781,7 +2781,8 @@ header .line_lg {
   flex-wrap: wrap;
   margin-left: -7px;
   margin-right: -7px;
-  padding-bottom: 13px;
+  padding-bottom: 20%;
+  padding-top: 20%;
 }
 
 .size-filter {
