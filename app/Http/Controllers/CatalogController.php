@@ -478,9 +478,10 @@ class CatalogController extends Controller
     }
     else
     {
+      $postfix = '';
       $products = Product::where('act', 1)->where('status', 1)->orderBy('name');
     }
-    if(!session()->has('filters.product.'.$postfix.$category->id)) {
+    if(!isset($category) or !session()->has('filters.product.'.$postfix.$category->id)) {
       $this->totalProductsCount = $products->count();
       $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
     }
@@ -493,7 +494,9 @@ class CatalogController extends Controller
       $page->category = $category;
       $page->sysname = $category->sysname;
     }
-    $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
+    if(isset($category)) {
+      $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
+    }
     return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
   }
 
