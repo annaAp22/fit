@@ -17,9 +17,7 @@
 
             <!-- Site logo -->
             <a class="header__logo" href="/">
-                <div class="wrapper">
-                    <img src="/img/header__logo-min.png" alt="fit2u"/>Фитнес одежда
-                </div>
+                <img src="/img/header__logo-min.png" alt="fit2u"/>
             </a>
 
             {{-- City choose --}}
