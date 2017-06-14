@@ -5361,15 +5361,17 @@ footer .line {
 .product-set-item__name {
   max-width: 100%;
   display: block;
-  min-height: 40px;
+  min-height: 28px;
   font-size: 12px;
+  line-height: 14px;
   color: #272727;
-  margin-top: 30px;
+  margin-top: 10px;
   text-decoration: none;
 }
 
 .product-set-item__price {
   margin-top: 10px;
+  padding-bottom: 10px!important;
 }
 
 .product-set-item__price.product__price>span {
@@ -5379,6 +5381,8 @@ footer .line {
 .product-set-item__price.product__price .old-price {
   position: static;
   margin-left: 0;
+  margin-right: 0;
+  padding-right: 0;
 }
 
 .product-set-item__buy.active span:first-child,

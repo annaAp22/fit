@@ -39,7 +39,11 @@
             <!-- Search End -->
 
             {{-- Phones --}}
-            <div class="header__phones"><i class="sprite_main sprite_main-header__phones_whatsapp"></i><i class="sprite_main sprite_main-header__phones_viber"></i>
+            <div class="header__phones">
+                <div>
+                    <i class="sprite_main sprite_main-header__phones_whatsapp"></i>&nbsp;
+                    <i class="sprite_main sprite_main-header__phones_viber"></i>
+                </div>
                 <div class="header__item">{!! $global_settings['phone_number']->value['free'] !!}<br/><span>Бесплатно по России</span>
                 </div>
                 <div class="header__item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>

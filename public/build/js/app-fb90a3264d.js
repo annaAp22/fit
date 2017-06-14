@@ -931,12 +931,7 @@ $(function(){
         images.eq($this.index()).addClass('active');
     });
 
-    $.fancybox.defaults.hash = false;
-    //прокрутка до последнего просмотренного продукта
-    $scrollTarget = $('#scrollTarget');
-    if($scrollTarget.length) {
-        scrollToEl2($scrollTarget);
-    }
+
 });
 
 // scroll to element
@@ -947,12 +942,6 @@ function scrollToEl($el) {
             scrollTop: top
         }, 300);
     }
-}
-function scrollToEl2($el) {
-    var top = $el.offset().top - 100;
-    $('html, body').animate({
-        scrollTop: top
-    }, 300);
 }
 
 // Update cart widget
