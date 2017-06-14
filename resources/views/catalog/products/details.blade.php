@@ -143,7 +143,7 @@
                         </button>
 
                         <!-- Quick buy-->
-                        <button name="is_fast" value="1" class="btn btn_yellow product-detailed__btn product-detailed__btn product-detailed__btn_quick js-add-to-cart" onclick="document.getElementById('is_fast').value = 1;">Купить сейчас</button>
+                        <button name="is_fast" value="1" class="btn btn_yellow product-detailed__btn product-detailed__btn product-detailed__btn_quick js-add-to-cart" onclick="document.getElementById('is_fast').value = 1;">Купить в 1 клик</button>
                         <input id="is_fast" type="hidden" name="is_fast" value="0">
 
                         <!-- Share-->

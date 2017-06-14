@@ -630,9 +630,6 @@
   flex-direction: column
   position: relative
   &__image
-    +media-sm(down)
-      .sprite_main-icon__popup_info
-        display: none
     position: relative
     border: 1px solid #ebebeb
     //height: 180px
@@ -680,6 +677,8 @@
     width: 100%
     margin-left: 0
     position: absolute
+    height: 50%
+    padding-top: 24px
     bottom: 0
     left: 0
     background-color: rgba(255, 255, 255, .75)
@@ -692,6 +691,7 @@
       &.active
         background-color: #fcd82f
     & > .popup-notice_size
+      top: -100%
       width: 100%
       left: 0
   &:focus, &:hover

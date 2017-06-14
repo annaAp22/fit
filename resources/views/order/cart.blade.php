@@ -97,8 +97,7 @@
                     <button class="btn btn_green product-cart-footer__checkout js-cart-submit" data-is_fast="0">Оформить заказ
                     </button>
                     <!-- Quick buy-->
-                    <button class="btn btn_yellow product-cart-footer__quick-buy js-cart-submit" data-is_fast="1">Купить сейчас
-                    </button>
+                    <button class="btn btn_yellow product-cart-footer__quick-buy js-cart-submit" data-is_fast="1">Купить в 1 клик</button>
                     <!-- Back to shopping link-->
                 {{--<a class="btn btn_back-link product-cart-footer__back-link" href="#" onclick="location.href = document.referrer;"><span class="icon-fade"><i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i><i class="sprite_main sprite_main-icon-arrow-small-left-green_active active"></i><span>Назад к покупкам</span></span></a>--}}
                     <div class="product-cart-footer__cart-total">Итоговая стоимость:

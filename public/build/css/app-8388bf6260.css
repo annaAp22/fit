@@ -1714,7 +1714,7 @@ button {
   width: 80%;
   display: block;
   text-align: center;
-  top: -96px;
+  top: -132px;
   left: 10%;
 }
 
@@ -2792,8 +2792,6 @@ header .line_lg {
   flex-wrap: wrap;
   margin-left: -7px;
   margin-right: -7px;
-  padding-bottom: 13px;
-  padding-top: 30px;
 }
 
 .size-filter {
@@ -3917,8 +3915,9 @@ header .line_lg {
 
 .product__name {
   font-size: 14px;
+  line-height: 16px;
   color: #272727;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   display: block;
   text-decoration: none;
 }
@@ -3968,7 +3967,8 @@ header .line_lg {
 
 .product__hidden {
   position: absolute;
-  top: 165px;
+  top: 100%;
+  margin-top: -46px;
   left: -1px;
   width: -webkit-calc(100% + 2px);
   width: calc(100% + 2px);
@@ -3977,7 +3977,7 @@ header .line_lg {
   background-color: #fff;
   border: 1px solid #ebebeb;
   border-top: none;
-  padding-bottom: 45px;
+  padding-bottom: 30px;
   -webkit-transition: opacity .3s ease,-webkit-box-shadow .3s ease;
   transition: opacity .3s ease,-webkit-box-shadow .3s ease;
   -o-transition: box-shadow .3s ease,opacity .3s ease;
@@ -3986,7 +3986,7 @@ header .line_lg {
 }
 
 .product__size {
-  margin: 25px 9% 11px;
+  margin: 25px 9% 0;
 }
 
 .product__size-hidden {
@@ -5419,6 +5419,8 @@ footer .line {
   width: 100%;
   margin-left: 0;
   position: absolute;
+  height: 50%;
+  padding-top: 24px;
   bottom: 0;
   left: 0;
   background-color: hsla(0,0%,100%,.75);
@@ -5443,6 +5445,7 @@ footer .line {
 }
 
 .product-set-item__size>.popup-notice_size {
+  top: -100%;
   width: 100%;
   left: 0;
 }
@@ -9071,10 +9074,6 @@ h3 {
     padding: 0 10%;
   }
 
-  .product__hidden {
-    top: 148px;
-  }
-
   .product-detailed__gallery {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -10586,7 +10585,7 @@ h3 {
   }
 
   .product__name {
-    height: 60px;
+    height: 32px;
   }
 
   .product__price {
@@ -10600,7 +10599,6 @@ h3 {
   }
 
   .product__description {
-    height: 145px;
     padding-bottom: 46px;
   }
 
@@ -12794,10 +12792,6 @@ h3 {
 
   .products-carousel__wrap {
     width: 100%;
-  }
-
-  .product-set-item__image .sprite_main-icon__popup_info {
-    display: none;
   }
 
   .product-review__info>div>.product-rating {

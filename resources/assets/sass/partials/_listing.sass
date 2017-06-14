@@ -393,14 +393,15 @@
       //+image-center()
   &__name
     font-size: 14px
+    line-height: 16px
     color: #272727
     +media-sm(up)
       padding: 0 10%
     +media-lg(up)
-      height: 60px
+      height: 32px
     +media-sm(down)
       height: auto
-    margin-bottom: 20px
+    margin-bottom: 16px
     display: block
     text-decoration: none
   &__price
@@ -457,15 +458,13 @@
       flex-direction: column
 
     +media-lg(up)
-      height: 145px
       padding-bottom: 46px
 
   &__hidden
     +hidden-md(down)
     position: absolute
-    top: 165px
-    +media-sm(up)
-      top: 148px
+    top: 100%
+    margin-top: -46px
     left: -1px
     width: calc(100% + 2px)
     opacity: 0
@@ -473,10 +472,10 @@
     background-color: #ffffff
     border: 1px solid #EBEBEB
     border-top: none
-    padding-bottom: 45px
+    padding-bottom: 30px
     transition: box-shadow .3s ease, opacity .3s ease
   &__size
-    margin: 25px 9% 11px
+    margin: 25px 9% 0
   &__size-hidden
     margin-bottom: 20px
   &__buy
