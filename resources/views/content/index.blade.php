@@ -124,7 +124,8 @@
               <div class="main-find-size-white-block__title">Всё равно не подошла одежда?
               </div>
               <div class="main-find-size-white-block__text">Не растраивайтесь! Смело возвращайте товар назад. Примем без проблем
-              </div><a class="btn btn_green-border-900 js-action-link" href="#" data-url="{{route('ajax.modal')}}" data-modal="sizes">Подобрать одежду</a>
+              </div>
+              <a class="btn btn_green-border-900 js-action-link" href="#" data-url="{{route('ajax.modal')}}" data-modal="callback">Подобрать одежду</a>
             </div>
           </div>
         </div>
