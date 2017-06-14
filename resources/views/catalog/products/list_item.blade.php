@@ -3,7 +3,7 @@
     $bookmarked = $deferred ? array_key_exists($product->id, $deferred) : false;
 @endphp
 
-<div class="product">
+<div @if(isset($scrollTarget) && $scrollTarget) id="scrollTarget" @endif class="product">
     <a class="product__image" href="{{ route('product', $product->sysname) }}">
         <!-- Image-->
         <img src="{{ $product->uploads->img->listing->url() }}"/>

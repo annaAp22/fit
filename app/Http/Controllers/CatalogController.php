@@ -215,19 +215,24 @@ class CatalogController extends Controller
         // по ручной сортировке в категории или теге
         case 'sort':
         default:
-          if(isset($session['tag_id']))
+          if(isset($session['tag_id'])) {
             $products->orderBy('product_tag.sort');
-          else
-            $products->orderBy('category_product.sort');
+          }
+          else {
+            //$products->orderBy('category_product.sort', 'desc');
+            //$products->orderBy('id');
+          }
       }
     }
     else
     {
       // сортировка по умолчанию
-      if(isset($session['tag_id']))
+      if(isset($session['tag_id'])) {
         $products->orderBy('product_tag.sort');
-      else
-        $products->orderBy('category_product.sort');
+      }
+      else {
+        $products->orderBy('category_product.sort', 'desc');
+      }
     }
 
     if($session['page'] == 'all') {
