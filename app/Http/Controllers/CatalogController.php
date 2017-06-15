@@ -720,11 +720,16 @@ class CatalogController extends Controller
         $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
       })->inRandomOrder()->take(10)->get();
     });
-
+    $category = Category::where('id', $product->categories[0]->id)->firstOrFail();
+    while($category->parent_id > 0) {
+      $category = Category::where('id', $category->parent_id)->firstOrFail();
+    }
+    $its_women = $category->sysname == 'woman';
     return view('catalog.products.details', [
         'product' => $product,
         'analogues' => $analogues,
         'comments' => $comments,
+        'its_women' => $its_women,
     ]);
   }
 

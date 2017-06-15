@@ -124,7 +124,7 @@
 
                         @if($sizeAttr)
                             {{-- How to choose size modal --}}
-                            <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes">
+                            <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal=@if(isset($its_women)&& $its_women){{"sizes_women"}}@else{{"sizes_men"}}@endif>
                                 <i class="sprite_main sprite_main-icon__popup_info"></i>
                                 <span>Как подобрать размер?</span>
                             </a>
