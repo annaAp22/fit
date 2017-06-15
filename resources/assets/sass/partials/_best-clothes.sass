@@ -1,0 +1,36 @@
+.best-clothes
+  +media-md(up)
+    background: url("/img/cloth-min.jpg") no-repeat right top
+  padding: 64px 0
+  .wrapper
+    width: 580px
+    max-width: 100%
+  &__caption
+    color: #2a2a2a
+    font-size: 48px
+    font-weight: 900
+    position: relative
+    border-left: 15px solid #5fcad4
+    line-height: 60px
+    padding-left: 32px
+    margin-bottom: 64px
+    +media-md(down)
+      font-size: 32px
+      line-height: 48px
+  &__item
+    margin-bottom: 48px
+    display: table
+    width: 100%
+    > div
+      display: table-cell
+      vertical-align: middle
+  .text
+    font-size: 20px
+    font-weight: 500
+    padding-left: 48px
+    +media-md(down)
+      padding-left: 24px
+  &__ps
+    margin-top: 48px
+    font-weight: 300
+    color: #7d7d7d
