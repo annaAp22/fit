@@ -383,6 +383,14 @@ class FrontApiController extends Controller
           'extra_params' => $size ? json_encode(['size' => $size]) : '',
       ]);
     }
+    Mail::send('emails.fast_order',
+        [
+            'order' => $order,
+        ], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Быстрый заказ с '.$request->root();
+          $message->to($email)->subject($caption);
+        });
 
     $res['action'] = 'openModal';
     $res['modal'] = view('modals.order_success', ['user_name' => $data['name'], 'order_id' => $order->id])->render();
