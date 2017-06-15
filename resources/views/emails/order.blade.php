@@ -4,7 +4,12 @@
 <body>
 Здравствуйте!<br>
 <br>
-На сайте {{Request::root()}} произведен быстрый заказ:<br>
+@if(isset($quick_buy) && $quick_buy === 1)
+    На сайте {{Request::root()}} произведен быстрый заказ:
+@else
+    На сайте {{Request::root()}} произведен заказ:
+@endif
+    <br>
 Имя:{{$order->name}}<br>
 Email:{{$order->email}}<br>
 Телефон:{{$order->phone}}<br>
@@ -19,7 +24,7 @@ Email:{{$order->email}}<br>
     @foreach($order->products as $product)
         <tr>
             <td><img src="{{Request::root().$product->uploads->img->preview->url()}}" alt=""></td>
-            <td>{{$product->name}}</td>
+            <td><a href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a></td>
             <td>{{$product->price - $product->discount}} р.</td>
         </tr>
     @endforeach
