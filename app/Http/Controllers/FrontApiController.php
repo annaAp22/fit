@@ -389,14 +389,14 @@ class FrontApiController extends Controller
             'order' => $order,
         ], function ($message) use ($request) {
           $email = \App\Models\Setting::getVar('email_support');
-          $caption = 'Быстрый заказ с '.$request->root();
+          $caption = 'Быстрый заказ';
           $message->to($email)->subject($caption);
         });
     Mail::send('emails.order_for_user',
         [
             'order' => $order,
         ], function ($message) use ($request) {
-          $caption = 'Ваш заказ с сайта '.$request->root();
+          $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);
         });
 
