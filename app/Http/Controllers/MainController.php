@@ -109,7 +109,7 @@ class MainController extends Controller
           return redirect()->route($redirect[$sysname]);
         }
         $page = Page::where('sysname', $sysname)->with(['vars', 'photos'])->firstOrFail();
-        $this->setMetaTags();
+        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
 // Replace <!--{{block_name}}--> with rendered value
         $vars = [];
         $template_vars = $page->vars->where('var', 'template_vars')->first();
@@ -143,7 +143,7 @@ class MainController extends Controller
      */
     public function delivery() {
         $page = Page::where('sysname', 'delivery')->with('vars')->firstOrFail();
-        $this->setMetaTags();
+        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
         return view('content.with_sidebar', ['page' => $page]);
     }
 
@@ -173,7 +173,7 @@ class MainController extends Controller
      */
     public function contacts() {
         $page = Page::where('sysname', 'contacts')->with('vars', 'photos')->firstOrFail();
-        $this->setMetaTags();
+        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
         return view('content.contacts', ['page' => $page]);
     }
 

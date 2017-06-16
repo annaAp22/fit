@@ -8,9 +8,12 @@ class Page extends Model
 {
     protected $fillable = [
         'sysname',
-
         'name',
-        'content'
+        'content',
+        'title',
+        'description',
+        'keywords',
+
     ];
 
     // Info pages
