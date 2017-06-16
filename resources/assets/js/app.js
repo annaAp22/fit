@@ -495,6 +495,12 @@ $(function(){
     if($scrollTarget.length) {
         scrollToEl2($scrollTarget);
     }
+    $('#search').submit(function(e) {
+        if(!$(this).find('input[name=text]').val()) {
+            e.preventDefault();
+            return false;
+        }
+    });
 });
 
 // scroll to element

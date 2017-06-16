@@ -28,9 +28,9 @@
             </div>--}}
 
             <!-- Search Start -->
-            <form class="header__search" method="POST" action="{{ route('search') }}">
+            <form id="search" class="header__search" method="POST" action="{{ route('search') }}">
                 {{ csrf_field() }}
-                <button class="icon-fade">
+                <button class="icon-fade" type="submit">
                     <i class="sprite_main sprite_main-header__search_active normal"></i>
                     <i class="sprite_main sprite_main-header__search active"></i>
                 </button>
