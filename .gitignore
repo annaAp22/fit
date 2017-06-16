@@ -1,5 +1,6 @@
 /node_modules
 /vendor
+/public/robots.txt
 /public/storage
 /public/hot
 /public/uploads
@@ -22,3 +23,4 @@ Homestead.yaml
 /resources/views/layouts/test.blade.php
 /public/custom/
 /composer.phar
+/config/debugbar.php
