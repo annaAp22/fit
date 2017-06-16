@@ -59,8 +59,15 @@ class Product extends Model
         ],
     ];
 
-
-
+    /*
+     * wrap the article in a name by tag span
+     * **/
+    public function getWrapTagInName() {
+      if(!$this->sku)
+        return $this->name;
+      return str_replace($this->sku, '<span>'.$this->sku.'</span>', $this->name);
+    }
+    /**accessors*/
     public function getSlideClassAttribute() {
         $slideClass = '';
 

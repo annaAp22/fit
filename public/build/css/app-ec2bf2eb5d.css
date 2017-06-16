@@ -1793,7 +1793,7 @@ header:after {
 
 header .line {
   position: absolute;
-  top: 141px;
+  top: 140px;
   width: 100%;
   height: 1px;
   background-color: #e3e3e3;
@@ -3968,6 +3968,10 @@ header .line_lg {
   margin-bottom: 16px;
   display: block;
   text-decoration: none;
+}
+
+.product__name span {
+  color: #a9a9a9;
 }
 
 .product__price {
@@ -13586,10 +13590,6 @@ h3 {
 
   .header__time {
     display: none;
-  }
-
-  .header__search {
-    border-top: 1px solid #e3e3e3;
   }
 
   .header__phones {
