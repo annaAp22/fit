@@ -304,40 +304,45 @@ template {
 
 @font-face {
   font-family: museo_sans_cyrl;
-  src: url(/fonts/MuseoSansCyrl100.woff) format("woff2");
-  src: url(/fonts/MuseoSansCyrl100.woff2) format("woff");
+  src: url(/fonts/MuseoSansCyrl100.woff2) format("woff2");
+  src: url(/fonts/MuseoSansCyrl100.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl100.woff) format("woff");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: museo_sans_cyrl;
-  src: url(/fonts/MuseoSansCyrl300.woff) format("woff2");
-  src: url(/fonts/MuseoSansCyrl300.woff2) format("woff");
+  src: url(/fonts/MuseoSansCyrl300.woff2) format("woff2");
+  src: url(/fonts/MuseoSansCyrl300.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl300.woff) format("woff");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: museo_sans_cyrl;
-  src: url(/fonts/MuseoSansCyrl500.woff) format("woff2");
-  src: url(/fonts/MuseoSansCyrl500.woff2) format("woff");
+  src: url(/fonts/MuseoSansCyrl500.woff2) format("woff2");
+  src: url(/fonts/MuseoSansCyrl500.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl500.woff) format("woff");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: museo_sans_cyrl;
-  src: url(/fonts/MuseoSansCyrl700.woff) format("woff2");
-  src: url(/fonts/MuseoSansCyrl700.woff2) format("woff");
+  src: url(/fonts/MuseoSansCyrl700.woff2) format("woff2");
+  src: url(/fonts/MuseoSansCyrl700.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl700.woff) format("woff");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: museo_sans_cyrl;
-  src: url(/fonts/MuseoSansCyrl900.woff) format("woff2");
-  src: url(/fonts/MuseoSansCyrl900.woff2) format("woff");
+  src: url(/fonts/MuseoSansCyrl900.woff2) format("woff2");
+  src: url(/fonts/MuseoSansCyrl900.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl900.woff) format("woff");
   font-weight: 900;
   font-style: normal;
 }
@@ -2557,6 +2562,7 @@ header .line_lg {
 .look-dropdown__image {
   -webkit-background-size: cover;
   background-size: cover;
+  width: 220px;
 }
 
 .sidebar {
@@ -6288,6 +6294,7 @@ footer .line {
 }
 
 .main-find-size-white-block {
+  position: relative;
   background-color: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -6296,13 +6303,19 @@ footer .line {
   color: #42444e;
 }
 
-.main-find-size-white-block__image {
+.main-find-size-white-block__image-wrapper {
   max-width: 100%;
   width: 288px;
   min-width: 288px;
   max-height: 267px;
   display: block;
   margin-right: 24px;
+}
+
+.main-find-size-white-block__image-wrapper img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .main-find-size-white-block__title {
@@ -6314,6 +6327,11 @@ footer .line {
 .main-find-size-white-block__text {
   margin-top: 30px;
   font-size: 14px;
+}
+
+.main-find-size-white-block__caption {
+  width: 223px;
+  padding-bottom: 30px;
 }
 
 .main-find-size-white-block__caption>.btn {
@@ -12263,6 +12281,10 @@ h3 {
     align-items: stretch;
   }
 
+  .main-slider {
+    margin-top: 24px;
+  }
+
   .colored-bg_mt {
     margin-top: 12px;
   }
@@ -12976,7 +12998,7 @@ h3 {
     padding: 10px 10px 20px;
   }
 
-  .main-find-size-white-block__image {
+  .main-find-size-white-block__image-wrapper {
     display: none;
   }
 

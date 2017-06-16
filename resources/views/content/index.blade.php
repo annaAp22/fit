@@ -119,7 +119,11 @@
           <div class="main-find-size__title"><i class="sprite_main sprite_main-main-size-ruller"></i>
             <div><span>Подбор размера по вашим сантиметрам</span><span>Поможем подобрать Вам одежду. Посоветуем лучший вариант. Размер будет точно Вам впору!</span></div>
           </div>
-          <div class="main-find-size-white-block"><img class="main-find-size-white-block__image" src="/img/main-size-girl-opened-mouth-min.jpg" alt="" role="presentation"/>
+          <div class="main-find-size-white-block">
+            <div class="main-find-size-white-block__image-wrapper">
+              <img class="" src="/img/main-size-girl-opened-mouth-min.jpg" alt="" role="presentation"/>
+            </div>
+
             <div class="main-find-size-white-block__caption">
               <div class="main-find-size-white-block__title">Всё равно не подошла одежда?
               </div>
