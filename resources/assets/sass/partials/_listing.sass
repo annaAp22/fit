@@ -594,16 +594,14 @@
   display: flex
   width: 100%
   flex-wrap: wrap
+  justify-content: flex-end
   .btn_more
     +media-md(up)
       text-align: right
     +col(24)
     +col-md(9)
-    +offset-md(right, 7)
     +col-lg(8)
-    +offset-lg(right, 8)
     +col-xl(6)
-    +offset-xl(right, 9)
   .btn_show-all
     +col(24)
     +media-sm(down)
@@ -611,7 +609,7 @@
     +media-md(up)
       text-align: right
     +col-md(8)
-    +col-lg(6)
+    +col-lg(7)
     +offset-lg(right, 2)
   &.hidden
     display: none

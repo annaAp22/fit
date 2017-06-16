@@ -1726,6 +1726,7 @@ button {
 }
 
 .popup-notice_wishlist {
+  min-width: 180px;
   right: -10px;
   top: -95px;
 }
@@ -4193,6 +4194,10 @@ header .line_lg {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }
 
 .page-navigation .btn_more {
@@ -9598,8 +9603,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 9 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 9 - 24px);
     flex-basis: calc(100% / 24 * 9 - 24px);
-    margin-left: -webkit-calc(100%/24 * 7 + 24px/2)!important;
-    margin-left: calc(100% / 24 * 7 + 24px / 2)!important;
   }
 
   .page-navigation .btn_show-all {
@@ -10725,8 +10728,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
     flex-basis: calc(100% / 24 * 8 - 24px);
-    margin-left: -webkit-calc(100%/24 * 8 + 24px/2)!important;
-    margin-left: calc(100% / 24 * 8 + 24px / 2)!important;
   }
 
   .page-navigation .btn_show-all {
@@ -10738,11 +10739,11 @@ h3 {
     flex: 0 0 auto;
     margin-left: 12px;
     margin-right: 12px;
-    max-width: -webkit-calc(100%/24 * 6 - 24px);
-    max-width: calc(100% / 24 * 6 - 24px);
-    -webkit-flex-basis: -webkit-calc(100%/24 * 6 - 24px);
-    -ms-flex-preferred-size: calc(100% / 24 * 6 - 24px);
-    flex-basis: calc(100% / 24 * 6 - 24px);
+    max-width: -webkit-calc(100%/24 * 7 - 24px);
+    max-width: calc(100% / 24 * 7 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 7 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 7 - 24px);
+    flex-basis: calc(100% / 24 * 7 - 24px);
     margin-left: -webkit-calc(100%/24 * 2 + 24px/2)!important;
     margin-left: calc(100% / 24 * 2 + 24px / 2)!important;
   }
@@ -11545,8 +11546,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 6 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 6 - 24px);
     flex-basis: calc(100% / 24 * 6 - 24px);
-    margin-left: -webkit-calc(100%/24 * 9 + 24px/2)!important;
-    margin-left: calc(100% / 24 * 9 + 24px / 2)!important;
   }
 
   .product-set-banner {
