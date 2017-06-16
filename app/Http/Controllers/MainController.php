@@ -260,8 +260,6 @@ class MainController extends Controller
      */
     public function reviews(Request $request) {
         $reviews = \App\Models\Review::published()->recent()->paginate(10);
-        $page = Page::where('sysname', 'reviews')->firstOrFail();
-        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
         return view('reviews.list', compact('reviews'));
     }
 
