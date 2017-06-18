@@ -172,7 +172,7 @@ class OrderController extends Controller
                         "mediaType" => "application/json"
                     ]
                 ],
-                "reserve" => MsParam::reservation()->first(),
+                "reserve" => intval(MsParam::reservation()->first()->value),
             ];
         }
 
