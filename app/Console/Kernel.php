@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         // Export customers orders to MoySklad
         $schedule->call('App\Http\Controllers\MoySkladController@exportOrders')
             ->everyMinute()
+            ->name('exportOrders')
             ->withoutOverlapping();
 
         // Update stock rests
