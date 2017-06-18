@@ -163,8 +163,17 @@ class MoySkladController extends Controller
         $order["attributes"] = [
             [
                 // Source
-                "id" => "ed4889ec-f0ab-11e3-854e-002590a28eca",
-                "value" => "Сайт",
+                "id" => "d155f4f8-f0ab-11e3-cde8-002590a28eca",
+                "value" => [
+                    'meta' => [
+                        'href' => 'https://online.moysklad.ru/api/remap/1.1/entity/customentity/d155f4f8-f0ab-11e3-cde8-002590a28eca/114918af-f0ac-11e3-a4e8-002590a28eca',
+                        'metadataHref' => 'https://online.moysklad.ru/api/remap/1.1/entity/companysettings/metadata/customEntities/d155f4f8-f0ab-11e3-cde8-002590a28eca',
+                        'type' => 'customentity',
+                        'mediaType' => 'application/json',
+                        'uuidHref' => 'https://online.moysklad.ru/app/#custom_d155f4f8-f0ab-11e3-cde8-002590a28eca/edit?id=114918af-f0ac-11e3-a4e8-002590a28eca',
+                    ],
+                    'name' => 'Сайт',
+                ]
             ],
           ];
 
