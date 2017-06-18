@@ -26,6 +26,18 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // Export customers orders to MoySklad
+        $schedule->call('App\Http\Controllers\MoySkladController@exportOrders')
+            ->everyMinute()
+            ->withoutOverlapping();
+
+        // Update stock rests
+        $schedule->call('App\Http\Controllers\MoySkladController@updatePriceAndStock')
+            ->hourly();
+
+        // Truncate database and import products from MoySklad
+        $schedule->call()->dailyAt('4:00');
     }
 
     /**

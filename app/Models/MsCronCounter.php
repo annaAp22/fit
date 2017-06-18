@@ -23,6 +23,11 @@ class MsCronCounter extends Model
         return $query->where('action', 'import_products');
     }
 
+    public function scopeImportAgents($query)
+    {
+        return $query->where('action', 'import_agents');
+    }
+
     // Reset products import counters
     public function resetImportProducts()
     {

@@ -134,6 +134,10 @@ class Product extends Model
             ->withPivot('value');
     }
 
+    public function ms_products()
+    {
+        return $this->hasMany('App\Models\MsProduct');
+    }
 
 
     public function scopePublished($query) { return $query->where('status', 1); }

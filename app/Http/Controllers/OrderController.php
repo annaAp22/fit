@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Delivery;
+use App\Models\MsAgent;
+use App\Models\MsOrder;
+use App\Models\MsParam;
+use App\Models\MsProduct;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Product;
 use App\Models\Order;
+
 use Validator;
 
 class OrderController extends Controller
@@ -122,10 +127,15 @@ class OrderController extends Controller
         $order = Order::create($data);
         $amount = 0;
 
+        $sizes = [];
         foreach( session()->get('products.cart') as $product_id => $items )
         {
             foreach( $items as $size => $product )
             {
+                if(isset($product['extra']['_token']))
+                {
+                    unset($product['_token']);
+                }
                 $order->products()->attach($product_id, [
                     'cnt'          => $product['cnt'],
                     'price'        => $product['price'],
@@ -144,6 +154,54 @@ class OrderController extends Controller
 
         $res['html'] = view('order.partials.success', ['order_id' => $order->id])->render();
         $res['action'] = 'orderSuccess';
+
+        // Add new order to moySklad orders table
+        $msOrder = new MsOrder();
+        $msOrder->ms_description = json_encode([
+            'name' => $order->name,
+            'email' => $order->email,
+            'phone' => $order->phone,
+            'address' => $order->address,
+            'delivery' => $order->delivery->name,
+        ]);
+
+        $positions = [];
+        foreach ($order->products as $product)
+        {
+            $params = json_decode($product->pivot->extra_params);
+            $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
+            $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
+            $positions[] = [
+                "quantity" => $product->pivot->cnt,
+                "price" => $product->price,
+                "discount" => $product->discount,
+                "vat" => 0,
+                "assortment" => [
+                    "meta" => [
+                        "href" => "https://online.moysklad.ru/api/remap/1.1/entity/". $ms_product->ms_type ."/" . $ms_product->ms_uuid,
+                        "type" => $ms_product->ms_type,
+                        "mediaType" => "application/json"
+                    ]
+                ],
+                "reserve" => MsParam::reservation()->first(),
+            ];
+        }
+
+        // Search agent
+        $phoneVariants = [
+            $order->phone,
+            str_replace([' ', '+'], '', $order->phone),
+            str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
+        ];
+        if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
+        {
+            $msOrder->ms_agent_id = $agent->ms_uuid;
+        }
+
+
+        $msOrder->ms_positions = json_encode($positions);
+        $msOrder->save();
+
         return $res;
 
 //        return redirect()->route('order.confirm');
