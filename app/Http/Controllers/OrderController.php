@@ -161,9 +161,9 @@ class OrderController extends Controller
             $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
             $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
             $positions[] = [
-                "quantity" => $product->pivot->cnt,
-                "price" => $product->price,
-                "discount" => $product->discount,
+                "quantity" => intval($product->pivot->cnt),
+                "price" => floatval($product->price),
+                "discount" => intval($product->discount),
                 "vat" => 0,
                 "assortment" => [
                     "meta" => [
@@ -172,7 +172,7 @@ class OrderController extends Controller
                         "mediaType" => "application/json"
                     ]
                 ],
-                "reserve" => MsParam::reservation()->first(),
+                "reserve" => intval(MsParam::reservation()->first()->value),
             ];
         }
 
