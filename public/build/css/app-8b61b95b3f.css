@@ -347,6 +347,24 @@ template {
   font-style: normal;
 }
 
+@font-face {
+  font-family: PT Sans;
+  src: url(/fonts/ptsans.woff2) format("woff2");
+  src: url(/fonts/ptsans.ttf) format("truetype");
+  src: url(/fonts/ptsans.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PT Sans;
+  src: url(/fonts/ptsansbold.woff2) format("woff2");
+  src: url(/fonts/ptsansbold.ttf) format("truetype");
+  src: url(/fonts/ptsansbold.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
 .header__enter .dropdown a:before,
 .sprite_main {
   background-image: url(/img/sprite-min.png?v=1);
@@ -1032,7 +1050,7 @@ body {
   position: relative;
   min-width: 320px;
   background-color: #fff;
-  font-family: museo_sans_cyrl,sans-serif;
+  font-family: museo_sans_cyrl,PT Sans;
   font-weight: 500;
   margin: 0;
   color: #272727;
@@ -2792,16 +2810,10 @@ header .line_lg {
 }
 
 .range-slider .input {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
   margin-top: 10px;
   position: relative;
+  width: 100%;
+  display: table;
 }
 
 .range-slider .input:after,
@@ -2831,6 +2843,14 @@ header .line_lg {
   transition: border-color .3s ease;
   position: relative;
   text-align: right;
+}
+
+.range-slider .input__text:first-of-type {
+  float: left;
+}
+
+.range-slider .input__text:last-of-type {
+  float: right;
 }
 
 .range-slider .input__text:focus {
