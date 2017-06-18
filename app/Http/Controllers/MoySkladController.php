@@ -160,13 +160,13 @@ class MoySkladController extends Controller
                         "mediaType" => "application/json"
                     ]
                 ];
-//        $order["attributes"] = [
-//            [
-//                // Source
-//                "id" => "ed4889ec-f0ab-11e3-854e-002590a28eca",
-//                "value" => "Сайт",
-//            ],
-//          ];
+        $order["attributes"] = [
+            [
+                // Source
+                "id" => "ed4889ec-f0ab-11e3-854e-002590a28eca",
+                "value" => "Сайт",
+            ],
+          ];
 
                 $order["positions"] = json_decode($msOrder->ms_positions);
 
