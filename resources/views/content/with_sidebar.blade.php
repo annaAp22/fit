@@ -6,18 +6,16 @@
 
 @section('content')
     <main class="container">
-        <div class="container">
-            <aside class="sidebar">
-                @widget('TagsWidget')
-                @widget('BannerLeftWidget')
-            </aside>
-            <section class="content">
-                    {!! $page->content !!}
-            </section>
+        <aside class="sidebar">
+            @widget('TagsWidget')
+            @widget('BannerLeftWidget')
+        </aside>
+        <section class="content">
+            {!! $page->content !!}
+        </section>
 
-            <section class="content-full-width">
-                @widget('SubscribeWidget')
-            </section>
-        </div>
+        <section class="content-full-width">
+            @widget('SubscribeWidget')
+        </section>
     </main>
 @endsection

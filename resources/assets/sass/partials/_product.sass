@@ -49,7 +49,6 @@
   &__subtitle
     font-size: 14px
     color: #a9a9a9
-    margin-top: 35px
     margin-bottom: 15px
     &_size
       +media-md(down)
@@ -94,6 +93,9 @@
           top: 9px
 
   &__size
+    padding-top: 0
+    .popup-notice_size
+      top: -132px
     +media-sm(down)
       +col(24)
     +media-md(down)
@@ -452,6 +454,8 @@
       top: 82px
       border-left: 1px solid #dddddd
       position: absolute
+      top: 100%
+      margin-top: 1px
     +media-md(down)
       min-width: 100%
       margin-top: 20px
@@ -637,19 +641,23 @@
   &__name
     max-width: 100%
     display: block
-    min-height: 40px
+    min-height: 28px
     font-size: 12px
+    line-height: 14px
     color: #272727
-    margin-top: 30px
+    margin-top: 5px
     text-decoration: none
   &__price
-    margin-top: 10px
+    margin-top: 5px
+    padding-bottom: 5px !important
     &.product__price
       & > span
         display: block
       .old-price
         position: static
         margin-left: 0
+        margin-right: 0
+        padding-right: 0
   &__buy
     span
       &:last-child
@@ -661,6 +669,7 @@
         &:last-child
           display: inline-block
   &__description
+    padding-bottom: 1px
     display: flex
     flex-direction: column
     align-items: center
@@ -672,6 +681,8 @@
     width: 100%
     margin-left: 0
     position: absolute
+    height: 50%
+    padding-top: 24px
     bottom: 0
     left: 0
     background-color: rgba(255, 255, 255, .75)
@@ -684,6 +695,7 @@
       &.active
         background-color: #fcd82f
     & > .popup-notice_size
+      top: -100%
       width: 100%
       left: 0
   &:focus, &:hover

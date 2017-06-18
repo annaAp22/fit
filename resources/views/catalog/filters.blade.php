@@ -1,5 +1,5 @@
 @if( isset($category) || isset($tag) )
-<form action="{{ route('catalog', ['sysname' => $category->sysname]) }}" method="post" class="sidebar-filter" id="js-filters">
+<form action="{{ route(Route::current()->getName(), ['sysname' => $category->sysname]) }}" method="post" class="sidebar-filter" id="js-filters">
     {{ csrf_field() }}
     {{-- Hidden inputs --}}
     <input type="hidden" name="filter" value="1">

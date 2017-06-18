@@ -22,10 +22,10 @@
 
 		<!-- Price-->
 		<div class="product-set-item__price product__price">
-			@if($product->originalPrice)
-				<i class="sprite_main sprite_main-product__old-price old-price"><span>{{ number_format($product->originalPrice, 0, '.', ' ') }} ₽</span></i>
-			@endif
 			<span class="current">{{ number_format($product->price, 0, '.', ' ') }} ₽</span>
+            @if($product->originalPrice)
+                <i class="old-price"><span>{{ number_format($product->originalPrice, 0, '.', ' ') }} ₽</span></i>
+            @endif
 		</div>
 
 

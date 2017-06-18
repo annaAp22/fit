@@ -18,13 +18,13 @@
                 <div class="header-listing">
                     <h1>Контакты</h1>
                     <!-- Back to shopping link-->
-                    <a class="btn btn_back-link" href="#" onclick="location.href = document.referrer;">
-                            <span class="icon-fade">
-                                <i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i>
-                                <i class="sprite_main sprite_main-icon-arrow-small-left-green_active active"></i>
-                                <span>Назад к покупкам</span>
-                            </span>
-                    </a>
+                    {{--<a class="btn btn_back-link" href="#" onclick="location.href = document.referrer;">--}}
+                            {{--<span class="icon-fade">--}}
+                                {{--<i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i>--}}
+                                {{--<i class="sprite_main sprite_main-icon-arrow-small-left-green_active active"></i>--}}
+                                {{--<span>Назад к покупкам</span>--}}
+                            {{--</span>--}}
+                    {{--</a>--}}
                 </div>
 
                 <!-- Phones -->
@@ -37,6 +37,9 @@
                     <div class="contacts__text contacts__text_phones">
                         Бесплатный номер: <br><strong>{!! $global_settings['phone_number']->value['free'] !!}</strong>
                         <img src="{{ asset('assets/uploads/contacts-phones-2-min.jpg') }}" alt="">
+                    </div>
+                    <div class="contacts__text contacts__text_phones">
+                        Наш email: <br><strong>{!! $global_settings['email_support']->value !!}</strong>
                     </div>
                 </div>
                 <!-- Time -->
@@ -55,6 +58,7 @@
                         {!! $page->content !!}
                     </div>
                 </div>
+                @include('buttons.callback')
                 <!-- Payment types -->
                 <div class="contacts__note-1 contacts__text">
                     <strong>* Для посещения магазина оформлять заказ не обязательно! Весь товар с сайта представлен

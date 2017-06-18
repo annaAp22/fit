@@ -124,7 +124,7 @@
 
                         @if($sizeAttr)
                             {{-- How to choose size modal --}}
-                            <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes">
+                            <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal=@if(isset($its_women)&& $its_women){{"sizes_women"}}@else{{"sizes_men"}}@endif>
                                 <i class="sprite_main sprite_main-icon__popup_info"></i>
                                 <span>Как подобрать размер?</span>
                             </a>
@@ -143,7 +143,7 @@
                         </button>
 
                         <!-- Quick buy-->
-                        <button name="is_fast" value="1" class="btn btn_yellow product-detailed__btn product-detailed__btn product-detailed__btn_quick js-add-to-cart" onclick="document.getElementById('is_fast').value = 1;">Купить сейчас</button>
+                        <button name="is_fast" value="1" class="btn btn_orange-border product-detailed__btn product-detailed__btn product-detailed__btn_quick js-add-to-cart" onclick="document.getElementById('is_fast').value = 1;">Купить в 1 клик</button>
                         <input id="is_fast" type="hidden" name="is_fast" value="0">
 
                         <!-- Share-->
@@ -244,12 +244,12 @@
                                 <div class="product-delivery__note">Уже завтра!
                                 </div><i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
                             </div>
-                            <div class="product-delivery__hidden js-prevent">
+                            <div class="product-delivery__hidden">
                                 <div class="product-delivery__city"><span>Ваш город:</span><span>г. Москва<i class="sprite_main sprite_main-icon__arrow_green_up"></i></span>
                                 </div>
                                 <div class="product-delivery__cost"><span>Стоимость:</span><span>Курьером: от 300 руб.<br/>При заказе от 6 000 руб<br/>Бесплатно</span>
                                 </div>
-                                <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке</a>
+                                <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке по России</a>
                                 </div>
                                 <div class="product-delivery__store"><i class="sprite_main sprite_main-header__city_point"></i><a href="{{ route('contacts') }}">Магазин в Москве</a>
                                 </div>

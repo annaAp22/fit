@@ -27,6 +27,7 @@
                         $filters['filters'] = $category->filters;
                     if(isset($tag))
                         $filters['filters'] = $tag->filters;
+                    $filters['sort'] = isset($filters['sort'])?$filters['sort']:'sort';
                 @endphp
 
                 @if(isset($filters['productsCount']) and $filters['productsCount'] > 0)
@@ -34,13 +35,14 @@
                 @endif
 
                 {{-- Catalog navigation --}}
-                @if(isset($category))
+                @if(isset($category) && isset($parent_zero_id))
                     @widget('ListingCatalog', ['current' => $category, 'parent_id' => $parent_zero_id])
                 @else
                     @widget('ListingCatalog')
                 @endif
-
-                @widget('TagsWidget')
+                @if(isset($category))
+                    @widget('TagsWidget', ['category_id' => $category->id])
+                @endif
                 @widget('BannerLeftWidget')
             </aside>
             <section class="content">

@@ -10,6 +10,10 @@
                 <input class="js-required-fields input input_text" type="text" name="name" placeholder="Фамилия, имя, отчество *" >
             </div>
             <div class="form-modal_line">
+                <label>Ваш email: <span class="mod-col-or">*</span></label>
+                <input class="js-required-fields input input_text" type="text" name="email" placeholder="sample@example.com" >
+            </div>
+            <div class="form-modal_line">
                 <label>Ваш телефон: <span class="mod-col-or">*</span></label>
                 <input class="phone-input js-required-fields js-phone input input_text" type="text" name="phone" placeholder="+7 (xxx) xxx xx xx * " >
                 <script type="text/javascript">

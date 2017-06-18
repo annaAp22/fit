@@ -16,7 +16,9 @@
             </div>
 
             <!-- Site logo -->
-            <a class="header__logo" href="/"><img src="/img/header__logo-min.png" alt="fit2u"/></a>
+            <a class="header__logo" href="/">
+                <img src="/img/header__logo-min.png" alt="fit2u"/>
+            </a>
 
             {{-- City choose --}}
             {{--<div class="header__city">
@@ -26,9 +28,9 @@
             </div>--}}
 
             <!-- Search Start -->
-            <form class="header__search" method="POST" action="{{ route('search') }}">
+            <form id="search" class="header__search" method="POST" action="{{ route('search') }}">
                 {{ csrf_field() }}
-                <button class="icon-fade">
+                <button class="icon-fade" type="submit">
                     <i class="sprite_main sprite_main-header__search_active normal"></i>
                     <i class="sprite_main sprite_main-header__search active"></i>
                 </button>
@@ -37,7 +39,11 @@
             <!-- Search End -->
 
             {{-- Phones --}}
-            <div class="header__phones"><i class="sprite_main sprite_main-header__phones_whatsapp"></i><i class="sprite_main sprite_main-header__phones_viber"></i>
+            <div class="header__phones">
+                <div>
+                    <i class="sprite_main sprite_main-header__phones_whatsapp"></i>&nbsp;
+                    <i class="sprite_main sprite_main-header__phones_viber"></i>
+                </div>
                 <div class="header__item">{!! $global_settings['phone_number']->value['free'] !!}<br/><span>Бесплатно по России</span>
                 </div>
                 <div class="header__item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>

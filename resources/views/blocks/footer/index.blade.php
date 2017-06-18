@@ -18,6 +18,11 @@
                 <div class="item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
                 </div>
               </li>
+              <li class="navigation-footer__phone">
+                <i class="sprite_main sprite_main-form-input-letter-green"></i>
+                <div class="item">&nbsp;&nbsp;<a href="mailto:{{$global_settings['email_support']->value}}">{!! $global_settings['email_support']->value !!}</a></div>
+              </li>
+
             </ul>
           </div>
           <div class="navigation-footer__social-buttons">

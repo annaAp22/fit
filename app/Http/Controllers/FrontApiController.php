@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Category;
@@ -125,11 +126,17 @@ class FrontApiController extends Controller
 
     Mail::send('emails.support.callback',
         ['name' => $request->input('name'),
-            'phone' => $request->input('phone')], function ($message) use ($request){
-          $message->to(\App\Models\Setting::getVar('email_support'))->subject('Запрос обратного звонка '.$request->root());
+            'phone' => $request->input('phone')], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Запрос обратного звонка '.$request->root();
+          $message->to($email)->subject($caption);
         });
 
-    return response()->json(['result' => 'ok']);
+    return response()->json([
+        'result' => 'ok',
+        'action' => 'openModal',
+        'modal' => view('modals.letter_success')->render()
+    ]);
   }
 
   /**
@@ -312,7 +319,6 @@ class FrontApiController extends Controller
 
     return response()->json($response);
   }
-
   /**
    * Быстрый заказ
    * @param Request $request
@@ -377,6 +383,22 @@ class FrontApiController extends Controller
           'extra_params' => $size ? json_encode(['size' => $size]) : '',
       ]);
     }
+    Mail::send('emails.order',
+        [
+            'quick_buy' => 1,
+            'order' => $order,
+        ], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Быстрый заказ';
+          $message->to($email)->subject($caption);
+        });
+    Mail::send('emails.order_for_user',
+        [
+            'order' => $order,
+        ], function ($message) use ($request) {
+          $caption = 'Ваш заказ с сайта fit2u';
+          $message->to($request->input('email'))->subject($caption);
+        });
 
     $res['action'] = 'openModal';
     $res['modal'] = view('modals.order_success', ['user_name' => $data['name'], 'order_id' => $order->id])->render();

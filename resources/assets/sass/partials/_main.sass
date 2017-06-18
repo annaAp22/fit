@@ -1,6 +1,8 @@
 // Main slider
 .main-slider
   position: relative
+  +media-md(down)
+    margin-top: 24px
   +hidden-xs()
   &__wrap
     margin: 0 auto
@@ -460,6 +462,7 @@
     display: inline-block
     height: 100%
 .main-find-size-white-block
+  position: relative
   +media-md(up)
     margin-top: 90px
     padding: 30px 30px 0 0
@@ -469,7 +472,11 @@
   background-color: #ffffff
   display: flex
   color: #42444e
-  &__image
+  &__image-wrapper
+    img
+      position: absolute
+      bottom: 0
+      left: 0
     max-width: 100%
     width: 288px
     min-width: 288px
@@ -485,6 +492,8 @@
     margin-top: 30px
     font-size: 14px
   &__caption
+    width: 223px
+    padding-bottom: 30px
     +media-sm(down)
       margin: 0 auto
       text-align: center

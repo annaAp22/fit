@@ -2,158 +2,147 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Delivery;
 use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
-use App\Models\MsProduct;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Product;
 use App\Models\Order;
 
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class OrderController extends Controller
 {
-    /**
-     * Корзина
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function cart() {
-        $cart = [
-            'products' => collect()
-        ];
+  /**
+   * Корзина
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function cart() {
+    $cart = [
+        'products' => collect()
+    ];
 
-        // Clear session if needed
+    // Clear session if needed
 //        session()->flush();
-        if(session()->has('products.cart')) {
-            $cart = session()->get('products.cart');
-            //товары коллекции
-            $products = Product::whereIn('id', array_keys($cart))->published()->with(['related', 'related.attributes'])->get();
-            //с товарами покупают
-            $related = collect();
+    if(session()->has('products.cart')) {
+      $cart = session()->get('products.cart');
+      //товары коллекции
+      $products = Product::whereIn('id', array_keys($cart))->published()->with(['related', 'related.attributes'])->get();
+      //с товарами покупают
+      $related = collect();
 
-            $cart_products = collect();
-            foreach($cart as $product_id => $sizes)
-            {
-                foreach($sizes as $size => $item )
-                {
-                    $product = clone $products->where('id', $product_id)->first();
-                    $product->size = $size;
-                    $product->count = $item['cnt'];
-                    $product->amount = $item['cnt'] * $product->price;
-                    $product->extra_params = collect($item['extra']);
+      $cart_products = collect();
+      foreach($cart as $product_id => $sizes)
+      {
+        foreach($sizes as $size => $item )
+        {
+          $product = clone $products->where('id', $product_id)->first();
+          $product->size = $size;
+          $product->count = $item['cnt'];
+          $product->amount = $item['cnt'] * $product->price;
+          $product->extra_params = collect($item['extra']);
 
-                    $cart_products->push($product);
-                    $related = $related->merge($product->related);
-                }
-            }
-            $cart['products'] = $cart_products;
-            $cart['related'] = $related;
-
-            $cart['related'] = $cart['related']->unique('id')->reject(function ($item, $key) use ($cart) {
-                $id = $item->id;
-                return $cart['products']->search(function ($item2, $key2) use ($id) {
-                    return $item2->id == $id;
-                })!==false;
-            });
-            $cart['amount'] = $cart['products']->sum('amount');
+          $cart_products->push($product);
+          $related = $related->merge($product->related);
         }
+      }
+      $cart['products'] = $cart_products;
+      $cart['related'] = $related;
 
-        $this->setMetaTags();
-        return view('order.cart', $cart);
+      $cart['related'] = $cart['related']->unique('id')->reject(function ($item, $key) use ($cart) {
+        $id = $item->id;
+        return $cart['products']->search(function ($item2, $key2) use ($id) {
+              return $item2->id == $id;
+            })!==false;
+      });
+      $cart['amount'] = $cart['products']->sum('amount');
     }
 
-    /**
-     * Оформление заказа - выбор доставки и оплаты
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function order(Request $request) {
-        if(!session()->has('products.cart')) {
-            return redirect()->route('cart');
-        }
+    $this->setMetaTags();
+    return view('order.cart', $cart);
+  }
 
-        $cart = session()->get('products.cart');
-        $products = Product::whereIn('id', array_keys($cart))->published()->get();
-        $cart_products = collect();
-
-        foreach($cart as $product_id => $sizes)
-        {
-            foreach($sizes as $size => $item )
-            {
-                $product = clone $products->where('id', $product_id)->first();
-                $product->size = $size;
-                $product->count = $item['cnt'];
-                $product->amount = $item['cnt'] * $product->price;
-
-                $cart_products->push($product);
-            }
-        }
-        $cart['products'] = $cart_products;
-        $cart['amount'] = $cart['products']->sum('amount');
-
-
-
-        //способы доставки
-        $deliveries = \App\Models\Delivery::where('status', 1)->orderBy('id')->get();
-        //способы оплаты
-        $payments = \App\Models\Payment::where('status', 1)->orderBy('name')->get();
-
-        $this->setMetaTags();
-        return view('order.order', ['cart' => $cart, 'deliveries' => $deliveries, 'payments' => $payments]);
+  /**
+   * Оформление заказа - выбор доставки и оплаты
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function order(Request $request) {
+    if(!session()->has('products.cart')) {
+      return redirect()->route('cart');
     }
 
-    /**
-     * Сохранение заказа
-     * @param Requests\DeliveryRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function details(\App\Http\Requests\DeliveryRequest $request) {
-        if(!session()->has('products.cart')) {
-            return redirect()->route('cart');
-        }
+    $cart = session()->get('products.cart');
+    $products = Product::whereIn('id', array_keys($cart))->published()->get();
+    $cart_products = collect();
 
-        $data = $request->input();
+    foreach($cart as $product_id => $sizes)
+    {
+      foreach($sizes as $size => $item )
+      {
+        $product = clone $products->where('id', $product_id)->first();
+        $product->size = $size;
+        $product->count = $item['cnt'];
+        $product->amount = $item['cnt'] * $product->price;
 
-        $data['email'] = $data['email'] ?: 'no email';
+        $cart_products->push($product);
+      }
+    }
+    $cart['products'] = $cart_products;
+    $cart['amount'] = $cart['products']->sum('amount');
 
-        $data['datetime'] = date('Y-m-d H:i:s');
-        $data['status'] = 'wait';
 
-        //$data['payment_add'] = 'Почтовый индекс: '.$data['index'].'. Комментарий: '.$data['payment_add'];
 
-        $order = Order::create($data);
-        $amount = 0;
+    //способы доставки
+    $deliveries = \App\Models\Delivery::where('status', 1)->orderBy('id')->get();
+    //способы оплаты
+    $payments = \App\Models\Payment::where('status', 1)->orderBy('name')->get();
 
-        $sizes = [];
-        foreach( session()->get('products.cart') as $product_id => $items )
+    $this->setMetaTags();
+    return view('order.order', ['cart' => $cart, 'deliveries' => $deliveries, 'payments' => $payments]);
+  }
+
+  /**
+   * Сохранение заказа
+   * @param Requests\DeliveryRequest $request
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function details(\App\Http\Requests\DeliveryRequest $request) {
+    if(!session()->has('products.cart')) {
+      return redirect()->route('cart');
+    }
+
+    $data = $request->input();
+
+    $data['email'] = $data['email'] ?: 'no email';
+
+    $data['datetime'] = date('Y-m-d H:i:s');
+    $data['status'] = 'wait';
+
+    //$data['payment_add'] = 'Почтовый индекс: '.$data['index'].'. Комментарий: '.$data['payment_add'];
+    $order = Order::create($data);
+    $amount = 0;
+    foreach( session()->get('products.cart') as $product_id => $items )
+    {
+        foreach( $items as $size => $product )
         {
-            foreach( $items as $size => $product )
+            if(isset($product['extra']['_token']))
             {
-                if(isset($product['extra']['_token']))
-                {
-                    unset($product['_token']);
-                }
-                $order->products()->attach($product_id, [
-                    'cnt'          => $product['cnt'],
-                    'price'        => $product['price'],
-                    'extra_params' => isset($product['extra']) ? json_encode($product['extra']) : '',
-                ]);
-                $amount += $product['cnt']*$product['price'];
+                unset($product['_token']);
             }
+            $order->products()->attach($product_id, [
+                'cnt'          => $product['cnt'],
+                'price'        => $product['price'],
+                'extra_params' => isset($product['extra']) ? json_encode($product['extra']) : '',
+            ]);
+            $amount += $product['cnt']*$product['price'];
         }
+    }
 
         $order->update(['amount' => $amount]);
 
-        session()->forget('products.cart');
-
-        session()->flash('products.order.id', $order->id);
-        session()->flash('products.order.name', $order->name);
-
-        $res['html'] = view('order.partials.success', ['order_id' => $order->id])->render();
-        $res['action'] = 'orderSuccess';
 
         // Add new order to moySklad orders table
         $msOrder = new MsOrder();
@@ -202,24 +191,46 @@ class OrderController extends Controller
         $msOrder->ms_positions = json_encode($positions);
         $msOrder->save();
 
-        return $res;
+    session()->forget('products.cart');
+
+    session()->flash('products.order.id', $order->id);
+    session()->flash('products.order.name', $order->name);
+    Mail::send('emails.order',
+        [
+            'order' => $order,
+        ], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Заказ';
+          $message->to($email)->subject($caption);
+        });
+    Mail::send('emails.order_for_user',
+        [
+            'order' => $order,
+        ], function ($message) use ($request) {
+          $caption = 'Ваш заказ с сайта fit2u';
+          $message->to($request->input('email'))->subject($caption);
+        });
+
+    $res['html'] = view('order.partials.success', ['order_id' => $order->id])->render();
+    $res['action'] = 'orderSuccess';
+    return $res;
 
 //        return redirect()->route('order.confirm');
+  }
+
+  /**
+   * Страница благодарности за заказ
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+   */
+  public function confirm() {
+    if(!session()->has('products.order')) {
+      return redirect()->route('cart');
     }
 
-    /**
-     * Страница благодарности за заказ
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function confirm() {
-        if(!session()->has('products.order')) {
-            return redirect()->route('cart');
-        }
-
-        $this->setMetaTags();
-        return view('order.confirm', [
-            'order_id' => session()->get('products.order.id'),
-            'customer' => session()->get('products.order.name'),
-        ]);
-    }
+    $this->setMetaTags();
+    return view('order.confirm', [
+        'order_id' => session()->get('products.order.id'),
+        'customer' => session()->get('products.order.name'),
+    ]);
+  }
 }

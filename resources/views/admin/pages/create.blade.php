@@ -61,6 +61,26 @@
                             <textarea class="ck-editor" id="editor2" name="content">{{ old('content') }}</textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-6"> Title </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="form-field-6" name="title" placeholder="Title" value="{{ old('title') }}" class="col-sm-12">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-7"> Description </label>
+                        <div class="col-sm-9">
+                            <textarea id="form-field-7" name="description" placeholder="Description" class="col-sm-12">{{ old('description') }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-8"> Keywords </label>
+                        <div class="col-sm-9">
+                            <textarea id="form-field-8" name="keywords" placeholder="Keywords" class="col-sm-12">{{ old('keywords') }}</textarea>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-4"> Дополнительные данные </label>

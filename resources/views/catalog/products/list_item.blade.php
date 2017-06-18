@@ -3,7 +3,7 @@
     $bookmarked = $deferred ? array_key_exists($product->id, $deferred) : false;
 @endphp
 
-<div class="product">
+<div @if(isset($scrollTarget) && $scrollTarget) id="scrollTarget" @endif class="product">
     <a class="product__image" href="{{ route('product', $product->sysname) }}">
         <!-- Image-->
         <img src="{{ $product->uploads->img->listing->url() }}"/>
@@ -32,7 +32,7 @@
     <!-- Description-->
     <form class="product__description js-form-ajax" action="{{ route('ajax.cart.add', ['id' => $product->id, 'cnt' => 1]) }}" method="post">
         {{ csrf_field() }}
-        <a class="product__name" href="{{ route('product', $product->sysname) }}">{{ $product->name }}</a>
+        <a class="product__name" href="{{ route('product', $product->sysname) }}">{!! $product->getWrapTagInName() !!}</a>
         <div class="product__price">
             @if($product->originalPrice)
                 <i class="sprite_main sprite_main-product__old-price old-price"><span>{{ number_format($product->originalPrice, 0, '.', ' ') }} ₽</span></i>
