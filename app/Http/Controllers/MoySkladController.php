@@ -160,6 +160,17 @@ class MoySkladController extends Controller
                         "mediaType" => "application/json"
                     ]
                 ];
+
+                $order["owner"] = [
+                    'meta' =>
+                        [
+                            'href' => 'https://online.moysklad.ru/api/remap/1.1/entity/employee/c74ba39c-a8eb-11e3-62a4-002590a28eca',
+                            'metadataHref' => 'https://online.moysklad.ru/api/remap/1.1/entity/employee/metadata',
+                            'type' => 'employee',
+                            'mediaType' => 'application/json',
+                            'uuidHref' => 'https://online.moysklad.ru/app/#employee/edit?id=c74ba39c-a8eb-11e3-62a4-002590a28eca',
+                        ],
+                ];
         $order["attributes"] = [
             [
                 // Source
