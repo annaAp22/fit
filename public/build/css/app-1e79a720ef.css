@@ -305,7 +305,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl100.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl100.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl100.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl100.woff) format("woff");
   font-weight: 100;
   font-style: normal;
@@ -314,7 +314,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl300.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl300.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl300.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl300.woff) format("woff");
   font-weight: 300;
   font-style: normal;
@@ -323,7 +323,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl500.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl500.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl500.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl500.woff) format("woff");
   font-weight: 500;
   font-style: normal;
@@ -332,7 +332,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl700.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl700.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl700.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl700.woff) format("woff");
   font-weight: 700;
   font-style: normal;
@@ -341,7 +341,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl900.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl900.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl900.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl900.woff) format("woff");
   font-weight: 900;
   font-style: normal;
@@ -3692,7 +3692,7 @@ header .line_lg {
   font-size: 22px;
   font-weight: 700;
   color: #272727;
-  margin: 30px 0;
+  margin: 36px 0;
 }
 
 .header-listing .goods-count>span {
@@ -5409,6 +5409,7 @@ footer .line {
 }
 
 .product-set-item__image {
+  width: 100%;
   position: relative;
   border: 1px solid #ebebeb;
   display: block;
@@ -5432,6 +5433,7 @@ footer .line {
 }
 
 .product-set-item__price {
+  height: 54px;
   margin-top: 5px;
   padding-bottom: 5px!important;
 }
@@ -5476,10 +5478,6 @@ footer .line {
   -ms-flex-positive: 1;
   flex-grow: 1;
   position: relative;
-}
-
-.product-set-item__description>.btn {
-  margin-top: auto;
 }
 
 .product-set-item__size {
@@ -8475,6 +8473,18 @@ li.fancybox-thumbs-loading {
   max-width: 100%;
 }
 
+.delivery {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .delivery>div>h1>span {
   font-size: 16px;
   color: #36b057;
@@ -8552,7 +8562,7 @@ li.fancybox-thumbs-loading {
 }
 
 h1 {
-  margin-top: 30px;
+  margin-top: 36px;
 }
 
 h1 span {
@@ -8624,6 +8634,7 @@ h3 {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  width: 100%;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -10077,11 +10088,11 @@ h3 {
     flex: 0 0 auto;
     margin-left: 12px;
     margin-right: 12px;
-    max-width: -webkit-calc(100%/24 * 13 - 24px);
-    max-width: calc(100% / 24 * 13 - 24px);
-    -webkit-flex-basis: -webkit-calc(100%/24 * 13 - 24px);
-    -ms-flex-preferred-size: calc(100% / 24 * 13 - 24px);
-    flex-basis: calc(100% / 24 * 13 - 24px);
+    max-width: -webkit-calc(100%/24 * 12.5 - 24px);
+    max-width: calc(100% / 24 * 12.5 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 12.5 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 12.5 - 24px);
+    flex-basis: calc(100% / 24 * 12.5 - 24px);
   }
 
   .delivery__payment-methods>.images>div {
@@ -11757,6 +11768,10 @@ h3 {
     -ms-flex-preferred-size: calc(100% / 24 * 7 - 24px);
     flex-basis: calc(100% / 24 * 7 - 24px);
   }
+
+  .delivery {
+    max-width: 1444px;
+  }
 }
 
 @media screen and (max-width:1491px) {
@@ -11799,6 +11814,10 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
     flex-basis: calc(100% / 24 * 24 - 24px);
+  }
+
+  .delivery {
+    max-width: 1155px;
   }
 
   .sponsor {
@@ -12486,6 +12505,10 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
     flex-basis: calc(100% / 24 * 24 - 24px);
+  }
+
+  .delivery {
+    max-width: 792px;
   }
 
   .delivery__courier>div:first-child {
@@ -13338,6 +13361,10 @@ h3 {
     flex-basis: calc(100% / 24 * 24 - 24px);
   }
 
+  .delivery {
+    max-width: 528px;
+  }
+
   .delivery>div>h1>span {
     display: block;
   }
@@ -14019,6 +14046,10 @@ h3 {
 
   .contacts__map {
     display: none;
+  }
+
+  .delivery {
+    max-width: 100%;
   }
 
   .delivery>div>.btn_back-link {
