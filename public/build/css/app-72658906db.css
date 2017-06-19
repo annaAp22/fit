@@ -11387,6 +11387,10 @@ h3 {
     content: "xl";
   }
 
+  header .line {
+    top: 128px;
+  }
+
   header .line_lg {
     display: none;
   }
