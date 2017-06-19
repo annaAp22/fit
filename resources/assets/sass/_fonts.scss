@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'museo_sans_cyrl';
   src: url('/fonts/MuseoSansCyrl100.woff2') format('woff2');
-  src: url('/fonts/MuseoSansCyrl100.ttf') format('ttf');
+  src: url('/fonts/MuseoSansCyrl100.ttf') format('truetype');
   src: url('/fonts/MuseoSansCyrl100.woff') format('woff');
   font-weight: 100;
   font-style: normal;
@@ -11,7 +11,7 @@
 @font-face {
   font-family: 'museo_sans_cyrl';
   src: url('/fonts/MuseoSansCyrl300.woff2') format('woff2');
-  src: url('/fonts/MuseoSansCyrl300.ttf') format('ttf');
+  src: url('/fonts/MuseoSansCyrl300.ttf') format('truetype');
   src: url('/fonts/MuseoSansCyrl300.woff') format('woff');
   font-weight: 300;
   font-style: normal;
@@ -21,7 +21,7 @@
 @font-face {
   font-family: 'museo_sans_cyrl';
   src: url('/fonts/MuseoSansCyrl500.woff2') format('woff2');
-  src: url('/fonts/MuseoSansCyrl500.ttf') format('ttf');
+  src: url('/fonts/MuseoSansCyrl500.ttf') format('truetype');
   src: url('/fonts/MuseoSansCyrl500.woff') format('woff');
   font-weight: 500;
   font-style: normal;
@@ -31,18 +31,33 @@
 @font-face {
   font-family: 'museo_sans_cyrl';
   src: url('/fonts/MuseoSansCyrl700.woff2') format('woff2');
-  src: url('/fonts/MuseoSansCyrl700.ttf') format('ttf');
+  src: url('/fonts/MuseoSansCyrl700.ttf') format('truetype');
   src: url('/fonts/MuseoSansCyrl700.woff') format('woff');
   font-weight: 700;
   font-style: normal;
-
 }
 
 @font-face {
   font-family: 'museo_sans_cyrl';
   src: url('/fonts/MuseoSansCyrl900.woff2') format('woff2');
-  src: url('/fonts/MuseoSansCyrl900.ttf') format('ttf');
+  src: url('/fonts/MuseoSansCyrl900.ttf') format('truetype');
   src: url('/fonts/MuseoSansCyrl900.woff') format('woff');
   font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PT Sans';
+  src: url('/fonts/ptsans.woff2') format('woff2');
+  src: url('/fonts/ptsans.ttf') format('truetype');
+  src: url('/fonts/ptsans.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PT Sans';
+  src: url('/fonts/ptsansbold.woff2') format('woff2');
+  src: url('/fonts/ptsansbold.ttf') format('truetype');
+  src: url('/fonts/ptsansbold.woff') format('woff');
+  font-weight: 700;
   font-style: normal;
 }

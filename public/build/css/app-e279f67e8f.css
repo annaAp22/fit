@@ -305,7 +305,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl100.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl100.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl100.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl100.woff) format("woff");
   font-weight: 100;
   font-style: normal;
@@ -314,7 +314,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl300.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl300.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl300.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl300.woff) format("woff");
   font-weight: 300;
   font-style: normal;
@@ -323,7 +323,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl500.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl500.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl500.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl500.woff) format("woff");
   font-weight: 500;
   font-style: normal;
@@ -332,7 +332,7 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl700.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl700.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl700.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl700.woff) format("woff");
   font-weight: 700;
   font-style: normal;
@@ -341,9 +341,27 @@ template {
 @font-face {
   font-family: museo_sans_cyrl;
   src: url(/fonts/MuseoSansCyrl900.woff2) format("woff2");
-  src: url(/fonts/MuseoSansCyrl900.ttf) format("ttf");
+  src: url(/fonts/MuseoSansCyrl900.ttf) format("truetype");
   src: url(/fonts/MuseoSansCyrl900.woff) format("woff");
   font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PT Sans;
+  src: url(/fonts/ptsans.woff2) format("woff2");
+  src: url(/fonts/ptsans.ttf) format("truetype");
+  src: url(/fonts/ptsans.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PT Sans;
+  src: url(/fonts/ptsansbold.woff2) format("woff2");
+  src: url(/fonts/ptsansbold.ttf) format("truetype");
+  src: url(/fonts/ptsansbold.woff) format("woff");
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -1032,7 +1050,7 @@ body {
   position: relative;
   min-width: 320px;
   background-color: #fff;
-  font-family: museo_sans_cyrl,sans-serif;
+  font-family: museo_sans_cyrl,PT Sans;
   font-weight: 500;
   margin: 0;
   color: #272727;
@@ -1737,6 +1755,8 @@ button {
 }
 
 .popup-notice_wishlist-header {
+  display: block;
+  padding: 15px 20px;
   top: -58px;
   right: -10px;
 }
@@ -2792,16 +2812,10 @@ header .line_lg {
 }
 
 .range-slider .input {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
   margin-top: 10px;
   position: relative;
+  width: 100%;
+  display: table;
 }
 
 .range-slider .input:after,
@@ -2831,6 +2845,14 @@ header .line_lg {
   transition: border-color .3s ease;
   position: relative;
   text-align: right;
+}
+
+.range-slider .input__text:first-of-type {
+  float: left;
+}
+
+.range-slider .input__text:last-of-type {
+  float: right;
 }
 
 .range-slider .input__text:focus {
@@ -3692,7 +3714,7 @@ header .line_lg {
   font-size: 22px;
   font-weight: 700;
   color: #272727;
-  margin: 30px 0;
+  margin: 36px 0;
 }
 
 .header-listing .goods-count>span {
@@ -5396,19 +5418,11 @@ footer .line {
   width: 177px;
   margin: 0 12px;
   text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
   position: relative;
 }
 
 .product-set-item__image {
+  width: 100%;
   position: relative;
   border: 1px solid #ebebeb;
   display: block;
@@ -5432,6 +5446,7 @@ footer .line {
 }
 
 .product-set-item__price {
+  height: 54px;
   margin-top: 5px;
   padding-bottom: 5px!important;
 }
@@ -5476,10 +5491,6 @@ footer .line {
   -ms-flex-positive: 1;
   flex-grow: 1;
   position: relative;
-}
-
-.product-set-item__description>.btn {
-  margin-top: auto;
 }
 
 .product-set-item__size {
@@ -8258,6 +8269,7 @@ li.fancybox-thumbs-loading {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .article-detailed__text>p:first-child {
@@ -8475,6 +8487,18 @@ li.fancybox-thumbs-loading {
   max-width: 100%;
 }
 
+.delivery {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .delivery>div>h1>span {
   font-size: 16px;
   color: #36b057;
@@ -8552,7 +8576,7 @@ li.fancybox-thumbs-loading {
 }
 
 h1 {
-  margin-top: 30px;
+  margin-top: 36px;
 }
 
 h1 span {
@@ -8624,6 +8648,7 @@ h3 {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  width: 100%;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -8909,6 +8934,10 @@ h3 {
   max-width: 100%;
 }
 
+.page-single {
+  max-width: 100%;
+}
+
 .page-single p {
   font-size: 16px;
 }
@@ -9097,6 +9126,15 @@ h3 {
 }
 
 .best-clothes {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
   padding: 64px 0;
 }
 
@@ -9112,7 +9150,7 @@ h3 {
   position: relative;
   border-left: 15px solid #5fcad4;
   line-height: 60px;
-  padding-left: 32px;
+  padding: 10px 0 10px 32px;
   margin-bottom: 64px;
 }
 
@@ -10077,11 +10115,11 @@ h3 {
     flex: 0 0 auto;
     margin-left: 12px;
     margin-right: 12px;
-    max-width: -webkit-calc(100%/24 * 13 - 24px);
-    max-width: calc(100% / 24 * 13 - 24px);
-    -webkit-flex-basis: -webkit-calc(100%/24 * 13 - 24px);
-    -ms-flex-preferred-size: calc(100% / 24 * 13 - 24px);
-    flex-basis: calc(100% / 24 * 13 - 24px);
+    max-width: -webkit-calc(100%/24 * 12.5 - 24px);
+    max-width: calc(100% / 24 * 12.5 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 12.5 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 12.5 - 24px);
+    flex-basis: calc(100% / 24 * 12.5 - 24px);
   }
 
   .delivery__payment-methods>.images>div {
@@ -10374,10 +10412,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 11 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 11 - 24px);
     flex-basis: calc(100% / 24 * 11 - 24px);
-  }
-
-  .best-clothes {
-    background: url(/img/cloth-min.jpg) no-repeat 100% 0;
   }
 }
 
@@ -10937,10 +10971,6 @@ h3 {
     flex-basis: calc(100% / 24 * 6 - 24px);
   }
 
-  .colored-bg_mt {
-    margin-top: 48px;
-  }
-
   .main-benefits-banner {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -11335,6 +11365,10 @@ h3 {
   .page-text__pull-left {
     float: left;
     margin: 0 60px 60px 0;
+  }
+
+  .best-clothes {
+    background: url(/img/cloth-min.jpg) no-repeat right 76px;
   }
 }
 
@@ -11757,6 +11791,14 @@ h3 {
     -ms-flex-preferred-size: calc(100% / 24 * 7 - 24px);
     flex-basis: calc(100% / 24 * 7 - 24px);
   }
+
+  .delivery {
+    max-width: 1444px;
+  }
+
+  .best-clothes {
+    max-width: 1444px;
+  }
 }
 
 @media screen and (max-width:1491px) {
@@ -11801,12 +11843,20 @@ h3 {
     flex-basis: calc(100% / 24 * 24 - 24px);
   }
 
+  .delivery {
+    max-width: 1155px;
+  }
+
   .sponsor {
     font-size: 14px;
   }
 
   .change-and-return__banner {
     font-size: 14px;
+  }
+
+  .best-clothes {
+    max-width: 1155px;
   }
 }
 
@@ -12284,10 +12334,6 @@ h3 {
     margin-top: 24px;
   }
 
-  .colored-bg_mt {
-    margin-top: 12px;
-  }
-
   .main-benefits-banner:nth-child(3) {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -12488,6 +12534,10 @@ h3 {
     flex-basis: calc(100% / 24 * 24 - 24px);
   }
 
+  .delivery {
+    max-width: 792px;
+  }
+
   .delivery__courier>div:first-child {
     margin-top: 0;
   }
@@ -12509,13 +12559,21 @@ h3 {
     font-size: 1.5em;
   }
 
+  .best-clothes {
+    max-width: 792px;
+  }
+
   .best-clothes__caption {
     font-size: 32px;
-    line-height: 48px;
+    line-height: 36px;
   }
 
   .best-clothes .text {
     padding-left: 24px;
+  }
+
+  .best-clothes__ps {
+    margin-top: 24px;
   }
 }
 
@@ -13338,6 +13396,10 @@ h3 {
     flex-basis: calc(100% / 24 * 24 - 24px);
   }
 
+  .delivery {
+    max-width: 528px;
+  }
+
   .delivery>div>h1>span {
     display: block;
   }
@@ -13548,6 +13610,14 @@ h3 {
     flex-basis: calc(100% / 24 * 24 - 24px);
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .best-clothes {
+    max-width: 528px;
+  }
+
+  .best-clothes__caption {
+    font-size: 28px;
   }
 }
 
@@ -14021,12 +14091,20 @@ h3 {
     display: none;
   }
 
+  .delivery {
+    max-width: 100%;
+  }
+
   .delivery>div>.btn_back-link {
     display: none;
   }
 
   .materials-slider {
     display: none;
+  }
+
+  .best-clothes {
+    max-width: 100%;
   }
 }
 

@@ -131,10 +131,10 @@
     &.text > span:last-child
       padding-right: 70px
   .input
-    display: flex
-    justify-content: space-between
     margin-top: 10px
     position: relative
+    width: 100%
+    display: table
     &:before, &:after
       content: attr(data-currency)
       position: absolute
@@ -153,6 +153,10 @@
       transition: border-color .3s ease
       position: relative
       text-align: right
+      &:first-of-type
+        float: left
+      &:last-of-type
+        float: right
       &:focus
         border-color: #00ad5d
 // Square check filters
