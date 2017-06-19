@@ -116,4 +116,10 @@ class Ms  {
         $res = $this->get_page($this->url('entity/customerorder/metadata'), self::USER, self::PASS);
         return json_decode($res);
     }
+
+    public function getOrderById($id)
+    {
+        $res = $this->get_page($this->url('entity/customerorder/'. $id), self::USER, self::PASS);
+        return json_decode($res);
+    }
 }

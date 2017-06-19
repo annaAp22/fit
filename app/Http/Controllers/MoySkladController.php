@@ -161,16 +161,29 @@ class MoySkladController extends Controller
                     ]
                 ];
 
-                $order["owner"] = [
-                    'meta' =>
-                        [
-                            'href' => 'https://online.moysklad.ru/api/remap/1.1/entity/employee/c74ba39c-a8eb-11e3-62a4-002590a28eca',
-                            'metadataHref' => 'https://online.moysklad.ru/api/remap/1.1/entity/employee/metadata',
-                            'type' => 'employee',
-                            'mediaType' => 'application/json',
-                            'uuidHref' => 'https://online.moysklad.ru/app/#employee/edit?id=c74ba39c-a8eb-11e3-62a4-002590a28eca',
-                        ],
-                ];
+
+//                $order["owner"] = [
+//                    "meta" =>
+//                        [
+//                            "href" => "https://online.moysklad.ru/api/remap/1.1/entity/employee/0aac7a3e-021e-11e4-8d70-002590a28eca",
+//                            "metadataHref" => "https://online.moysklad.ru/api/remap/1.1/entity/employee/metadata",
+//                            "type" => "employee",
+//                            "mediaType" => "application/json",
+//                            "uuidHref" => "https://online.moysklad.ru/app/#employee/edit?id=0aac7a3e-021e-11e4-8d70-002590a28eca"
+//                        ]
+//
+//                ];
+//
+//                $order['group'] = [
+//                    'meta' => [
+//                        'href' => 'https://online.moysklad.ru/api/remap/1.1/entity/group/0201d161-d269-11e4-90a2-8ecb00020734',
+//                        'metadataHref' => 'https://online.moysklad.ru/api/remap/1.1/entity/group/metadata',
+//                        'type' => 'group',
+//                        'mediaType' => 'application/json',
+//                    ]
+//                ];
+
+
         $order["attributes"] = [
             [
                 // Source
@@ -186,6 +199,19 @@ class MoySkladController extends Controller
                     'name' => 'Сайт',
                 ],
             ],
+            [
+                "id" => "c78108c8-d4da-11e4-be18-0cc47a419cc0",
+                "value" => [
+                    "meta" => [
+                        'href' => 'https://online.moysklad.ru/api/remap/1.1/entity/employee/0aac7a3e-021e-11e4-8d70-002590a28eca',
+                        'metadataHref' => 'https://online.moysklad.ru/api/remap/1.1/entity/employee/metadata',
+                        'type' => 'employee',
+                        'mediaType' => 'application/json',
+                        'uuidHref' => 'https://online.moysklad.ru/app/#employee/edit?id=0aac7a3e-021e-11e4-8d70-002590a28eca',
+                    ]
+                ],
+                "name" => "API",
+            ]
           ];
 
                 $order["positions"] = json_decode($msOrder->ms_positions);
@@ -470,5 +496,11 @@ class MoySkladController extends Controller
     public function updateReservation()
     {
 
+    }
+
+    public function getOrder(Ms $ms, $id)
+    {
+        $res = $ms->getOrderById($id);
+        return $res;
     }
 }
