@@ -59,26 +59,7 @@
           </span>
         </a>
       </div>
-      <div class="container-in">
-        <div class="main-benefits-made-from">
-          <div class="main-benefits-made-from__col">
-            <div class="main-benefits-made-from__border">
-              <div class="main-benefits-made-from__title">СПОРТ-ОДЕЖДА ИЗ ИТАЛЬЯНСКОЙ ТКАНИ И НЕМЕЦКИХ НИТОК
-              </div>
-              <div class="main-benefits-made-from__warranty"><i class="sprite_main sprite_main-product_warranty-thumb-up"></i>
-                <div class="main-benefits-made-from__text main-benefits-made-from__text_green">Гарантия качества на 1000 тренировок
-                </div>
-                <div class="main-benefits-made-from__text main-benefits-made-from__text_gray">Дорогая итальянская ткань, прочные немецкие нитки
-                </div>
-              </div>
-            </div>
-            <p class="main-benefits-made-from__text main-benefits-made-from__text_des">В процессе создания моделей мы учитываем все факторы, которые предъявляются к вещам данной категории. Одежда для фитнеса в первую очередь должна отлично впитывать излишнюю влагу. Отсюда следует, что ткань для каждой модели должна отвечать мировым стандартам и обеспечивать комфорт во время занятий.
-            </p><img class="main-benefits-made-from__image main-benefits-made-from__image_mt" src="/img/main-made-from-material-min.jpg" alt="" role="presentation"/>
-          </div>
-          <div class="main-benefits-made-from__col"><img class="main-benefits-made-from__image" src="/img/main-made-from-girls-min.jpg" alt="" role="presentation"/>
-          </div>
-        </div>
-      </div>
+      @include('blocks.best-clothes')
     </div>
   </div>
   <!-- Video and Quality-->

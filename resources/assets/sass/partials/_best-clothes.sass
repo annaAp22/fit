@@ -1,6 +1,7 @@
 .best-clothes
-  +media-md(up)
-    background: url("/img/cloth-min.jpg") no-repeat right top
+  +grid()
+  +media-lg(up)
+    background: url("/img/cloth-min.jpg") no-repeat right 76px
   padding: 64px 0
   .wrapper
     width: 580px
@@ -12,11 +13,13 @@
     position: relative
     border-left: 15px solid #5fcad4
     line-height: 60px
-    padding-left: 32px
+    padding: 10px 0 10px 32px
     margin-bottom: 64px
     +media-md(down)
       font-size: 32px
-      line-height: 48px
+      line-height: 36px
+    +media-sm(down)
+      font-size: 28px
   &__item
     margin-bottom: 48px
     display: table
@@ -34,3 +37,5 @@
     margin-top: 48px
     font-weight: 300
     color: #7d7d7d
+    +media-md(down)
+      margin-top: 24px
