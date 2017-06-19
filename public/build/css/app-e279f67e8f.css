@@ -1755,6 +1755,8 @@ button {
 }
 
 .popup-notice_wishlist-header {
+  display: block;
+  padding: 15px 20px;
   top: -58px;
   right: -10px;
 }
@@ -8267,6 +8269,7 @@ li.fancybox-thumbs-loading {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .article-detailed__text>p:first-child {
