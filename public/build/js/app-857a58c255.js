@@ -751,7 +751,11 @@ $(function(){
             newTotal = parseInt(total.data('amount')) + delivery;
         total.text(number_format(newTotal, 0, '.', ' ') + ' ₽');
     });
-
+    //кликаем на первый попавшийся способ доставки, чтоб правильно посчиталась цена
+    var $first_delivery = $('.js-delivery:eq(0)');
+    if($first_delivery.length) {
+        $first_delivery.click();
+    }
     // Order submit click
     $body.on('click', '#js-order-submit', function(e) {
         e.preventDefault();

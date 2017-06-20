@@ -155,46 +155,47 @@ class OrderController extends Controller
         ]);
 
         $positions = [];
-        foreach ($order->products as $product)
-        {
-            $params = json_decode($product->pivot->extra_params);
-            $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
-            $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
-            $positions[] = [
-                "quantity" => intval($product->pivot->cnt),
-                "price" => floatval($product->price) * 100,
-                "discount" => floatval($product->discount),
-                "vat" => 0,
-                "assortment" => [
-                    "meta" => [
-                        "href" => "https://online.moysklad.ru/api/remap/1.1/entity/". $ms_product->ms_type ."/" . $ms_product->ms_uuid,
-                        "type" => $ms_product->ms_type,
-                        "mediaType" => "application/json"
-                    ]
-                ],
-                "reserve" => floatval(MsParam::reservation()->first()->value),
-            ];
-        }
-
-        // Search agent
-        $phoneVariants = [
-            $order->phone,
-            str_replace([' ', '+'], '', $order->phone),
-            str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
-        ];
-        if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
-        {
-            $msOrder->ms_agent_id = $agent->ms_uuid;
-        }
-
-
-        $msOrder->ms_positions = json_encode($positions);
-        $msOrder->save();
+//        foreach ($order->products as $product)
+//        {
+//            $params = json_decode($product->pivot->extra_params);
+//            $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
+//            $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
+//            $positions[] = [
+//                "quantity" => intval($product->pivot->cnt),
+//                "price" => floatval($product->price) * 100,
+//                "discount" => floatval($product->discount),
+//                "vat" => 0,
+//                "assortment" => [
+//                    "meta" => [
+//                        "href" => "https://online.moysklad.ru/api/remap/1.1/entity/". $ms_product->ms_type ."/" . $ms_product->ms_uuid,
+//                        "type" => $ms_product->ms_type,
+//                        "mediaType" => "application/json"
+//                    ]
+//                ],
+//                "reserve" => floatval(MsParam::reservation()->first()->value),
+//            ];
+//        }
+//
+//        // Search agent
+//        $phoneVariants = [
+//            $order->phone,
+//            str_replace([' ', '+'], '', $order->phone),
+//            str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
+//        ];
+//        if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
+//        {
+//            $msOrder->ms_agent_id = $agent->ms_uuid;
+//        }
+//
+//
+//        $msOrder->ms_positions = json_encode($positions);
+//        $msOrder->save();
 
     session()->forget('products.cart');
 
     session()->flash('products.order.id', $order->id);
     session()->flash('products.order.name', $order->name);
+    $phone = \App\Models\Setting::getVar('phone_number')['free'];
     Mail::send('emails.order',
         [
             'order' => $order,
@@ -203,9 +204,11 @@ class OrderController extends Controller
           $caption = 'Заказ';
           $message->to($email)->subject($caption);
         });
+
     Mail::send('emails.order_for_user',
         [
             'order' => $order,
+            'phone' => $phone,
         ], function ($message) use ($request) {
           $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);

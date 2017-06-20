@@ -364,51 +364,51 @@ class FrontApiController extends Controller
       }
       $order->update(['amount' => $amount]);
       // Add new order to moySklad orders table
-      $msOrder = new MsOrder();
-      $msOrder->ms_description = json_encode([
-          'name' => $order->name,
-          'email' => $order->email,
-          'phone' => $order->phone,
-          'address' => $order->address,
-          'delivery' => $order->delivery->name,
-      ]);
-
-      $positions = [];
-      foreach ($order->products as $product)
-      {
-        $params = json_decode($product->pivot->extra_params);
-        $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
-        $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
-        $positions[] = [
-            "quantity" => intval($product->pivot->cnt),
-            "price" => floatval($product->price) * 100,
-            "discount" => floatval($product->discount),
-            "vat" => 0,
-            "assortment" => [
-                "meta" => [
-                    "href" => "https://online.moysklad.ru/api/remap/1.1/entity/". $ms_product->ms_type ."/" . $ms_product->ms_uuid,
-                    "type" => $ms_product->ms_type,
-                    "mediaType" => "application/json"
-                ]
-            ],
-            "reserve" => floatval(MsParam::reservation()->first()->value),
-        ];
-      }
-
-      // Search agent
-      $phoneVariants = [
-          $order->phone,
-          str_replace([' ', '+'], '', $order->phone),
-          str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
-      ];
-      if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
-      {
-        $msOrder->ms_agent_id = $agent->ms_uuid;
-      }
-
-
-      $msOrder->ms_positions = json_encode($positions);
-      $msOrder->save();
+//      $msOrder = new MsOrder();
+//      $msOrder->ms_description = json_encode([
+//          'name' => $order->name,
+//          'email' => $order->email,
+//          'phone' => $order->phone,
+//          'address' => $order->address,
+//          'delivery' => $order->delivery->name,
+//      ]);
+//
+//      $positions = [];
+//      foreach ($order->products as $product)
+//      {
+//        $params = json_decode($product->pivot->extra_params);
+//        $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
+//        $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
+//        $positions[] = [
+//            "quantity" => intval($product->pivot->cnt),
+//            "price" => floatval($product->price) * 100,
+//            "discount" => floatval($product->discount),
+//            "vat" => 0,
+//            "assortment" => [
+//                "meta" => [
+//                    "href" => "https://online.moysklad.ru/api/remap/1.1/entity/". $ms_product->ms_type ."/" . $ms_product->ms_uuid,
+//                    "type" => $ms_product->ms_type,
+//                    "mediaType" => "application/json"
+//                ]
+//            ],
+//            "reserve" => floatval(MsParam::reservation()->first()->value),
+//        ];
+//      }
+//
+//      // Search agent
+//      $phoneVariants = [
+//          $order->phone,
+//          str_replace([' ', '+'], '', $order->phone),
+//          str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
+//      ];
+//      if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
+//      {
+//        $msOrder->ms_agent_id = $agent->ms_uuid;
+//      }
+//
+//
+//      $msOrder->ms_positions = json_encode($positions);
+//      $msOrder->save();
       session()->forget('products.cart');
 
       $res['modalAction'] = 'refresh-on-close';
@@ -437,9 +437,11 @@ class FrontApiController extends Controller
           $caption = 'Быстрый заказ';
           $message->to($email)->subject($caption);
         });
+    $phone = \App\Models\Setting::getVar('phone_number')['free'];
     Mail::send('emails.order_for_user',
         [
             'order' => $order,
+            'phone' => $phone,
         ], function ($message) use ($request) {
           $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);
