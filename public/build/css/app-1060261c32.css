@@ -6815,6 +6815,10 @@ footer .line {
 
 .checkout-body {
   margin-top: 30px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .form-header__title {
@@ -9839,11 +9843,11 @@ h3 {
     flex: 0 0 auto;
     margin-left: 12px;
     margin-right: 12px;
-    max-width: -webkit-calc(100%/24 * 12 - 24px);
-    max-width: calc(100% / 24 * 12 - 24px);
-    -webkit-flex-basis: -webkit-calc(100%/24 * 12 - 24px);
-    -ms-flex-preferred-size: calc(100% / 24 * 12 - 24px);
-    flex-basis: calc(100% / 24 * 12 - 24px);
+    max-width: -webkit-calc(100%/24 * 11.5 - 24px);
+    max-width: calc(100% / 24 * 11.5 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 11.5 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 11.5 - 24px);
+    flex-basis: calc(100% / 24 * 11.5 - 24px);
   }
 
   .form-footer {
@@ -11738,8 +11742,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 5 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 5 - 24px);
     flex-basis: calc(100% / 24 * 5 - 24px);
-    margin-right: -webkit-calc(100%/24 * 2 + 24px/2);
-    margin-right: calc(100% / 24 * 2 + 24px / 2);
   }
 
   .checkout-delivery {
@@ -14253,8 +14255,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 6 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 6 - 24px);
     flex-basis: calc(100% / 24 * 6 - 24px);
-    margin-right: -webkit-calc(100%/24 * 1 + 24px/2);
-    margin-right: calc(100% / 24 * 1 + 24px / 2);
   }
 
   .contacts__phones {
