@@ -220,9 +220,7 @@
                                         <td>{{$item->sysname}}</td>
                                         <td>
                                             @if($item->new) <span class="label label-info">Новинка</span>  </br> @endif
-                                            {{--
                                             @if($item->act) <span class="label label-warning"><i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>Акция</span>  </br> @endif
-                                            --}}
                                             @if($item->hit) <span class="label label-danger ">Хит</span> </br> @endif
                                             @if($item->stock)
                                             <span class="label  label-yellow arrowed-in arrowed-in-right">В наличии</span>
