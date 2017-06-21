@@ -220,7 +220,7 @@
                             <div class="product-warranty__item">
                                 <i class="sprite_main sprite_main-product_warranty-thumb-up"></i>
                                 <div class="product-warranty__text">
-                                    <div class="product-warranty__title">Гарантия качетва на 1000 тренеровок
+                                    <div class="product-warranty__title">Гарантия качества на 1000 тренировок
                                     </div>
                                     <div class="product-warranty__note">Дорогая итальянская ткань, прочные немецкие нитки
                                     </div>
