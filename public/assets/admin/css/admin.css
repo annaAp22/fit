@@ -14,10 +14,12 @@
 
 .input-checklist {
     display: flex;
-    justify-content: center;
+    //justify-content: center;
     align-items: center;
     margin-top: -4px;
 }
-
+.input-checklist input {
+    margin-right: 4px;
+}
 .input-checklist .sizebox { margin: 0px 10px; }
 .chosen-container { width: 100% !important; }

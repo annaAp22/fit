@@ -112,8 +112,8 @@ class CatalogController extends Controller
     if($category_id) {
       $category = Category::with(['parent', 'children_rec'])->findOrFail($category_id);
       $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
-
-      $products = Product::join('category_product','products.id','category_product.product_id')
+      //добавил выбор id по первой таблице(products.id), так как он затирался id из второй таблицы и соответственно товар получал чужие аттрибуты
+      $products = Product::join('category_product', 'products.id','category_product.product_id')->select('*', 'products.id')
           ->whereIn('category_product.category_id', collect($category_ids))
           ->published()
           ->with('attributes');

@@ -31,7 +31,7 @@
     </div>
 
     {{-- Checklist --}}
-    <div class="input-group col-sm-3 field field-values input-checklist" style="float:left; display:none;">
+    <div class="input-group col-sm-6 field field-values input-checklist" style="float:left; display:none;">
         <input  name="attributes[{{$id ?: -1}}]" data-dynamic type="hidden" value="{{ $value ?: '' }}" data-val="{{ $value ?: '' }}" />
     </div>
 
