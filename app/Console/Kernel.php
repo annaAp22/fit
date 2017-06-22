@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -38,6 +39,7 @@ class Kernel extends ConsoleKernel
 
         // Truncate database and import products from MoySklad
         $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
+        Log::info('крон запустился.');
     }
 
     /**
