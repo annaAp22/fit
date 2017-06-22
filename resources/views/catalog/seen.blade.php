@@ -34,6 +34,6 @@
             <section class="content-full-width">
                 @widget('SubscribeWidget')
             </section>
-        </div>
+        </section>
     </main>
 @stop

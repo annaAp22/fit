@@ -55,11 +55,11 @@
                 {{-- WishList--}}
                 <a href="{{ route('bookmarks') }}" class="js-hover-notice">
 
-                    @if($countD = count($defer))
-                    <div class="count count_wishlist">
+
+                    <div class="count count_wishlist @if($countD = count($defer)){{'active'}}@endif">
                         <span class="js-wishlist-quantity">{{ $countD }}</span>
                     </div>
-                    @endif
+
 
                     {{-- Icon--}}
                     <span class="icon-fade header-wishlist">

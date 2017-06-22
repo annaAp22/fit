@@ -7,7 +7,6 @@
 @section('content')
 <main class="container">
     <aside class="sidebar">
-        @widget('TagsWidget')
         @widget('BannerLeftWidget')
     </aside>
     <section class="content">

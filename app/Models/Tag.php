@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Tag extends Model
 {
@@ -39,7 +40,17 @@ class Tag extends Model
             ->withPivot('sort')
             ->orderBy('sort');
     }
-
+    /*
+     * @param ids - array of product id
+     * **/
+    public function scopeTagsByProductIds($query, $ids) {
+      $tags = DB::table('product_tag')->whereIn('product_id', $ids)->get();
+      $tagIds = array();
+      foreach($tags as $tag) {
+        $tagIds[] = $tag->tag_id;
+      }
+      return $query->published()->whereIn('id', $tagIds);
+    }
     public function productsWithoutSort() {
         return $this
             ->belongsToMany('App\Models\Product',

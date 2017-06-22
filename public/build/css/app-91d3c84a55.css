@@ -2155,8 +2155,13 @@ header .line_lg {
 }
 
 .header__basket .count_wishlist {
+  display: none;
   top: -3px;
   left: -15px;
+}
+
+.header__basket .count_wishlist.active {
+  display: block;
 }
 
 .header__basket .count_seen {

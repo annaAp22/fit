@@ -14,7 +14,8 @@ class TagsWidget extends AbstractWidget
      */
     protected $config = [
         'category_id' => 0,
-        'tag_id' => 0
+        'tag_id' => 0,
+        'products' => null,
     ];
 
     /**
@@ -40,7 +41,13 @@ class TagsWidget extends AbstractWidget
                 });
             })->where('status', 1)->orderBy('views', 'desc')->orderBy('name')->get();
         //по умолчанию все тэги
-        } else {
+        } else if($this->config['products']) {
+          $ids = array();
+          foreach ($this->config['products'] as $product) {
+            $ids[] = $product->id;
+          }
+          $tags = Tag::tagsByProductIds($ids)->orderBy('views', 'desc')->orderBy('name')->get();
+        }else {
             $tags = Tag::where('status', 1)->orderBy('views', 'desc')->orderBy('name')->get();
         }
         return view("widgets.tags_widget", [
