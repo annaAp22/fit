@@ -1070,13 +1070,7 @@ function commentSuccess(data) {
 // Update some counter by selector
 function updateCounter(data) {
     if(typeof data.selector !== 'undefined' && typeof data.count !== 'undefined') {
-        $selector = $(data.selector);
-        $selector.text(data.count);
-        if(data.count == 0) {
-            $selector.parent().removeClass('active');
-        }else {
-            $selector.parent().addClass('active');
-        }
+        $(data.selector).text(data.count);
     }
 }
 

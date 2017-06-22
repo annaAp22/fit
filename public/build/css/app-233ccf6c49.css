@@ -4698,6 +4698,9 @@ footer .line {
   font-size: 14px;
   color: #a9a9a9;
   margin-bottom: 15px;
+}
+
+.product-detailed__subtitle_size {
   margin-top: 20px;
 }
 
@@ -12125,7 +12128,6 @@ h3 {
     -webkit-order: 2;
     -ms-flex-order: 2;
     order: 2;
-    margin-top: 30px;
   }
 
   .product-detailed__subtitle_des,
