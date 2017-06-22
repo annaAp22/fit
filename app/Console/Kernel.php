@@ -39,7 +39,6 @@ class Kernel extends ConsoleKernel
 
         // Truncate database and import products from MoySklad
         $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
-        Log::info('крон запустился.');
     }
 
     /**
