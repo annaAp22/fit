@@ -196,23 +196,23 @@ class OrderController extends Controller
     session()->flash('products.order.id', $order->id);
     session()->flash('products.order.name', $order->name);
     $phone = \App\Models\Setting::getVar('phone_number')['free'];
-//    Mail::send('emails.order',
-//        [
-//            'order' => $order,
-//        ], function ($message) use ($request) {
-//          $email = \App\Models\Setting::getVar('email_support');
-//          $caption = 'Заказ';
-//          $message->to($email)->subject($caption);
-//        });
-//
-//    Mail::send('emails.order_for_user',
-//        [
-//            'order' => $order,
-//            'phone' => $phone,
-//        ], function ($message) use ($request) {
-//          $caption = 'Ваш заказ с сайта fit2u';
-//          $message->to($request->input('email'))->subject($caption);
-//        });
+    Mail::send('emails.order',
+        [
+            'order' => $order,
+        ], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Заказ';
+          $message->to($email)->subject($caption);
+        });
+
+    Mail::send('emails.order_for_user',
+        [
+            'order' => $order,
+            'phone' => $phone,
+        ], function ($message) use ($request) {
+          $caption = 'Ваш заказ с сайта fit2u';
+          $message->to($request->input('email'))->subject($caption);
+        });
 
     $res['html'] = view('order.partials.success', ['order_id' => $order->id])->render();
     $res['action'] = 'orderSuccess';
