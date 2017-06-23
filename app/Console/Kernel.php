@@ -39,8 +39,6 @@ class Kernel extends ConsoleKernel
         $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
         //
       $schedule->call('App\Http\Controllers\MoySkladController@test')->everyMinute();
-
-      Log::info('cron there was');
     }
 
     /**
