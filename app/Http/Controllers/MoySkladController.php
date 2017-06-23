@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\MsAgent;
+use Illuminate\Support\Facades\Log;
 
 class MoySkladController extends Controller
 {
@@ -19,6 +20,7 @@ class MoySkladController extends Controller
     // Old name: cron.
     public function exportOrders(Ms $ms)
     {
+      Log::info('cron entered in exportOrders');
 //        $orderData = '
 //            {
 //              "name": "000034",
@@ -220,16 +222,18 @@ class MoySkladController extends Controller
                 $res = $ms->postOrder($postData);
                 if( isset($res->errors))
                 {
+                    Log::info('cron out of exportOrders:'.$res->errors[0]->error);
                     return $res->errors[0]->error;
                 }
 
                 $msOrder->delete();
-
+                Log::info('cron out of exportOrders:'. $res->id . ' успешно добавлен!');
                 return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
             }
         }
         else
         {
+            Log::info('cron out of exportOrders:Нет новых заказов');
             return "Нет новых заказов";
         }
 
@@ -240,6 +244,7 @@ class MoySkladController extends Controller
     // Old name: cron2.
     public function updatePriceAndStock(Ms $ms)
     {
+        Log::info('cron entered in updatePriceAndStock');
         $paramsString = http_build_query([
             'offset' => 0,
             'limit' => 100,
@@ -325,7 +330,7 @@ class MoySkladController extends Controller
             }
             $product->save();
         }
-
+        Log::info('cron out of updatePriceAndStock: Получено остатков:'. count($rests));
         return "Получено остатков: " . count($rests);
 
     }
@@ -335,6 +340,7 @@ class MoySkladController extends Controller
     // Old name: cron3.
     public function importProducts(Ms $ms)
     {
+      Log::info('cron entered in importProducts');
         // Current import start index and total count
         $counter = MsCronCounter::importProducts()->firstOrFail();
 
@@ -432,7 +438,7 @@ class MoySkladController extends Controller
         {
             MsProduct::insert($syncProducts);
         }
-
+        Log::info('cron out of importProducts: Products synced count'. count($syncProducts));
         return "Products synced count: " . count($syncProducts);
 
     }
