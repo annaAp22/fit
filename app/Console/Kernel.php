@@ -29,17 +29,14 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         // Export customers orders to MoySklad
-        $log = $schedule->call('App\Http\Controllers\MoySkladController@exportOrders')
+        $schedule->call('App\Http\Controllers\MoySkladController@exportOrders')
             ->name('export-orders')
             ->withoutOverlapping();
-        Log::info($log);
         // Update stock rests
-        $log = $schedule->call('App\Http\Controllers\MoySkladController@updatePriceAndStock')
+        $schedule->call('App\Http\Controllers\MoySkladController@updatePriceAndStock')
             ->hourly();
-        Log::info($log);
         // Truncate database and import products from MoySklad
-        $log = $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
-        Log::info($log);
+        $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
     }
 
     /**
