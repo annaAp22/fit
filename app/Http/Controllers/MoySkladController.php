@@ -509,4 +509,8 @@ class MoySkladController extends Controller
         $res = $ms->getOrderById($id);
         return $res;
     }
+    public function test() {
+      Log::info('cron entire in test function');
+      return "ok";
+    }
 }
