@@ -9,6 +9,18 @@ button
   transition: background-color .3s ease, color .3s ease
   font-family: "museo_sans_cyrl", sans-serif
   display: inline-block
+  &.arrowed
+    > span
+      display: inline-block
+      vertical-align: middle
+      margin: 0 6px
+    span span
+      vertical-align: top
+      opacity: 0
+      transition: 0.3s ease 0s
+    &:hover
+      span span
+        opacity: 1
   &_w100p
     width: 100%
   &_yellow
@@ -24,6 +36,18 @@ button
     &:hover
       background-color: #fc942f
       color: #ffffff
+  &_yellow-2
+    padding: 14px 0
+    background-color: #fcd82f
+    color: #000000
+    font-size: 18px
+    font-weight: 700
+    & > *
+      vertical-align: middle
+    & > i
+      margin-left: 10px
+    &:hover
+      background-color: #fc942f
   &_deep-yellow
     padding: 14px
     background-color: #f6c339

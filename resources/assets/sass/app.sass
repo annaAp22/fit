@@ -224,14 +224,45 @@ input, textarea
 
 // Error 404 page
 .error-404
+  position: relative
+  h1
+    position: absolute
+    z-index: 1
+  .ps
+    position: absolute
+    z-index: 1
+    top: 120px
+    width: 280px
+    color: #272727
+    font-size: 14px
+    text-align: left
+    +hidden-md(down)
+    .sprite_main-close-2
+      display: block
+      margin: 0 auto 60px
   &__wrap
     min-width: 100%
     padding-bottom: 100px
   &__404
     font-size: 300px
   &__text
+    position: relative
+    +media-sm(down)
+      margin-top: 20px
+    .btn
+      position: absolute
+      bottom: 13%
+      left: 0
+      right: 0
+      margin: auto
+      width: 272px
+  .img
     text-align: center
-
+    img
+      max-width: 100%
+    +media-lg()
+      img
+        margin-left: 100px
 // mixins
 =image-center()
   position: absolute

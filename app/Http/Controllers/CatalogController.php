@@ -627,7 +627,7 @@ class CatalogController extends Controller
           'text' => $request->input('text'),
       ]);
     } else {
-      $this->setMetaTags();
+      $this->setMetaTags(null, 'Результаты поиска');
       return view('catalog.search', [
           'products' => !empty($products) ? $products : null,
           'text' => $request->input('text'),
