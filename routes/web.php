@@ -82,6 +82,7 @@ Route::group([
     Route::get('/moysklad/get/agents', 'MoySkladController@importAgents')->name('get.agents');
     Route::get('/moysklad/export/orders', 'MoySkladController@exportOrders')->name('post.orders');
     Route::get('/moysklad/get/order/{id}', 'MoySkladController@getOrder')->name('get.order');
+    Route::model('', 'User');
 
 });
 

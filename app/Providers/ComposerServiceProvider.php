@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Meta;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class ComposerServiceProvider extends ServiceProvider
             ->with('seen', array_keys($seen) );
       });
       View::composer(['errors::403','errors.403','errors::404','errors.404', 'errors::500', 'errors.500', 'errors::503', 'errors.503'], function ($view) {
+        Meta::setTitle('Страница не найдена');
         $settings = Setting::all();
         $result = collect();
         foreach($settings as $setting) {
