@@ -4,6 +4,8 @@
  */
 Artisan::call('view:clear');
 Cache::flush();
+include('redirects.php');
+//конец редиректов
 Route::group([
     'middleware' => ['location', 'settings']
     ], function() {
