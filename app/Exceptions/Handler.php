@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Monolog\Handler\MailHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -45,7 +46,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+      if($exception instanceof \Swift_RfcComplianceException) {
+        $x = 10;
+        $res = array(
+            'modal' => view('modals.mail_error')->render(),
+            'action' => 'openModal',
+        );
+        return response()->json($res);
+      }
+      return parent::render($request, $exception);
     }
 
     /**

@@ -468,305 +468,311 @@ template {
   background-position: -342px -24px;
 }
 
+.sprite_main-form-error-smile-gray {
+  width: 46px;
+  height: 46px;
+  background-position: -236px -65px;
+}
+
 .sprite_main-form-header-smile-green {
   width: 31px;
   height: 31px;
-  background-position: -236px -54px;
+  background-position: -342px -54px;
 }
 
 .sprite_main-form-input-letter-green {
   width: 17px;
   height: 13px;
-  background-position: -342px -54px;
+  background-position: -292px -95px;
 }
 
 .sprite_main-form-input-person-green {
   width: 12px;
   height: 14px;
-  background-position: -277px -77px;
+  background-position: -366px -5px;
 }
 
 .sprite_main-form-input-phone-green {
   width: 11px;
   height: 15px;
-  background-position: -299px -77px;
+  background-position: -30px -29px;
 }
 
 .sprite_main-form-input-point-green {
   width: 10px;
   height: 15px;
-  background-position: -320px -77px;
+  background-position: -260px -29px;
 }
 
 .sprite_main-form-secure-lock-gray {
   width: 25px;
   height: 34px;
-  background-position: -340px -77px;
+  background-position: -319px -95px;
 }
 
 .sprite_main-form-succsess-smile-gray {
   width: 46px;
   height: 46px;
-  background-position: -236px -102px;
+  background-position: -5px -139px;
 }
 
 .header__enter .dropdown a:before,
 .sprite_main-green-arrow-right {
   width: 7px;
   height: 10px;
-  background-position: -366px -5px;
+  background-position: -366px -29px;
 }
 
 .sprite_main-green-checked {
   width: 25px;
   height: 25px;
-  background-position: -185px -121px;
+  background-position: -61px -139px;
 }
 
 .sprite_main-green-letter {
   width: 17px;
   height: 13px;
-  background-position: -292px -121px;
+  background-position: -354px -95px;
 }
 
 .sprite_main-green-lock {
   width: 15px;
   height: 19px;
-  background-position: -319px -121px;
+  background-position: -185px -118px;
 }
 
 .sprite_main-green-pen {
   width: 16px;
   height: 16px;
-  background-position: -344px -121px;
+  background-position: -210px -118px;
 }
 
 .sprite_main-green-phone {
   width: 11px;
   height: 15px;
-  background-position: -5px -147px;
+  background-position: -292px -118px;
 }
 
 .sprite_main-header__basket {
   width: 44px;
   height: 46px;
-  background-position: -26px -147px;
+  background-position: -96px -139px;
 }
 
 .sprite_main-header__basket_active {
   width: 44px;
   height: 46px;
-  background-position: -80px -147px;
+  background-position: -236px -139px;
 }
 
 .sprite_main-header__basket_seen {
   width: 31px;
   height: 18px;
-  background-position: -134px -150px;
+  background-position: -313px -139px;
 }
 
 .sprite_main-header__basket_seen_active {
   width: 31px;
   height: 18px;
-  background-position: -292px -150px;
+  background-position: -150px -167px;
 }
 
 .sprite_main-header__basket_wishlist {
   width: 26px;
   height: 21px;
-  background-position: -344px -147px;
+  background-position: -191px -167px;
 }
 
 .sprite_main-header__basket_wishlist_active {
   width: 26px;
   height: 21px;
-  background-position: -134px -178px;
+  background-position: -290px -167px;
 }
 
 .sprite_main-header__city_point {
   width: 17px;
   height: 22px;
-  background-position: -170px -178px;
+  background-position: -354px -118px;
 }
 
 .sprite_main-header__enter {
   width: 18px;
   height: 18px;
-  background-position: -197px -178px;
+  background-position: -354px -150px;
 }
 
 .sprite_main-header__phones_viber {
   width: 25px;
   height: 26px;
-  background-position: -225px -178px;
+  background-position: -61px -178px;
 }
 
 .sprite_main-header__phones_whatsapp {
   width: 26px;
   height: 25px;
-  background-position: -260px -178px;
+  background-position: -326px -178px;
 }
 
 .sprite_main-header__search {
   width: 18px;
   height: 18px;
-  background-position: -296px -178px;
+  background-position: -5px -213px;
 }
 
 .sprite_main-header__search_active {
   width: 18px;
   height: 18px;
-  background-position: -324px -178px;
+  background-position: -33px -213px;
 }
 
 .sprite_main-icon-arrow-gray-left {
   width: 9px;
   height: 13px;
-  background-position: -5px -178px;
+  background-position: -362px -178px;
 }
 
 .sprite_main-icon-arrow-green-left_active {
   width: 20px;
   height: 20px;
-  background-position: -352px -178px;
+  background-position: -96px -213px;
 }
 
 .sprite_main-icon-arrow-small-left-gray {
   width: 13px;
   height: 10px;
-  background-position: -5px -208px;
+  background-position: -126px -201px;
 }
 
 .sprite_main-icon-arrow-small-left-green_active {
   width: 13px;
   height: 10px;
-  background-position: -28px -208px;
+  background-position: -149px -201px;
 }
 
 .sprite_main-icon-arrow-small-right-dark-green {
   width: 13px;
   height: 10px;
-  background-position: -51px -208px;
+  background-position: -172px -201px;
 }
 
 .sprite_main-icon-x-gray {
   width: 12px;
   height: 12px;
-  background-position: -74px -208px;
+  background-position: -195px -201px;
 }
 
 .sprite_main-icon-x-red_active {
   width: 12px;
   height: 12px;
-  background-position: -96px -208px;
+  background-position: -217px -201px;
 }
 
 .sprite_main-icon__arrow_black_to_right {
   width: 19px;
   height: 13px;
-  background-position: -296px -208px;
+  background-position: -239px -213px;
 }
 
 .sprite_main-icon__arrow_green_down {
   width: 10px;
   height: 7px;
-  background-position: -197px -208px;
+  background-position: -150px -150px;
 }
 
 .sprite_main-icon__arrow_green_up {
   width: 10px;
   height: 7px;
-  background-position: -325px -208px;
+  background-position: -170px -150px;
 }
 
 .sprite_main-icon__arrow_to_top {
   width: 12px;
   height: 16px;
-  background-position: -345px -208px;
+  background-position: -268px -201px;
 }
 
 .sprite_main-icon__arrow_yellow_to_right {
   width: 7px;
   height: 10px;
-  background-position: -366px -25px;
+  background-position: -290px -201px;
 }
 
 .sprite_main-icon__goods_count {
   width: 55px;
   height: 32px;
-  background-position: -5px -234px;
+  background-position: -307px -213px;
 }
 
 .sprite_main-icon__popup_info {
   width: 22px;
   height: 22px;
-  background-position: -70px -234px;
+  background-position: -5px -255px;
 }
 
 .sprite_main-icon_arrow_gray_up {
   width: 13px;
   height: 9px;
-  background-position: -102px -234px;
+  background-position: -37px -255px;
 }
 
 .sprite_main-listing__filter {
   width: 19px;
   height: 18px;
-  background-position: -125px -234px;
+  background-position: -60px -255px;
 }
 
 .sprite_main-listing__filter_arrow_down {
   width: 10px;
   height: 12px;
-  background-position: -154px -234px;
+  background-position: -89px -255px;
 }
 
 .sprite_main-listing__filter_color-checked {
   width: 22px;
   height: 22px;
-  background-position: -174px -234px;
+  background-position: -109px -255px;
 }
 
 .sprite_main-listing__filter_reset_red {
   width: 10px;
   height: 10px;
-  background-position: -206px -234px;
+  background-position: -141px -255px;
 }
 
 .sprite_main-listing__switch_tile {
   width: 44px;
   height: 32px;
-  background-position: -226px -234px;
+  background-position: -161px -255px;
 }
 
 .sprite_main-listing__switch_tile-wide {
   width: 44px;
   height: 32px;
-  background-position: -280px -234px;
+  background-position: -215px -255px;
 }
 
 .sprite_main-listing__switch_tile-wide_active {
   width: 44px;
   height: 32px;
-  background-position: -5px -276px;
+  background-position: -269px -255px;
 }
 
 .sprite_main-listing__switch_tile_active {
   width: 44px;
   height: 32px;
-  background-position: -59px -276px;
+  background-position: -323px -255px;
 }
 
 .sprite_main-main-size-ruller {
   width: 47px;
   height: 101px;
-  background-position: -383px -5px;
+  background-position: -388px -5px;
 }
 
 .sprite_main-main-style-leaf-gray {
   width: 39px;
   height: 45px;
-  background-position: -380px -116px;
+  background-position: -382px -116px;
 }
 
 .sprite_main-orange-arrow {
@@ -784,199 +790,199 @@ template {
 .sprite_main-product-set-banner-cycle-white {
   width: 33px;
   height: 42px;
-  background-position: -382px -191px;
+  background-position: -381px -191px;
 }
 
 .sprite_main-product__basket {
   width: 19px;
   height: 19px;
-  background-position: -334px -243px;
+  background-position: -377px -243px;
 }
 
 .sprite_main-product__basket_done {
   width: 26px;
   height: 19px;
-  background-position: -363px -243px;
+  background-position: -406px -243px;
 }
 
 .sprite_main-product__old-price {
   width: 90px;
   height: 29px;
-  background-position: -113px -272px;
+  background-position: -5px -297px;
 }
 
 .sprite_main-product__old-price_detailed {
   width: 116px;
   height: 34px;
-  background-position: -213px -276px;
+  background-position: -105px -297px;
 }
 
 .sprite_main-product__reviews-count {
   width: 29px;
   height: 29px;
-  background-position: -399px -243px;
+  background-position: -377px -272px;
 }
 
 .sprite_main-product__star {
   width: 15px;
   height: 15px;
-  background-position: -339px -282px;
+  background-position: -416px -272px;
 }
 
 .sprite_main-product__star_active {
   width: 15px;
   height: 16px;
-  background-position: -364px -282px;
+  background-position: -231px -297px;
 }
 
 .sprite_main-product__wishlist {
   width: 26px;
   height: 21px;
-  background-position: -389px -282px;
+  background-position: -256px -311px;
 }
 
 .sprite_main-product__wishlist_active {
   width: 26px;
   height: 21px;
-  background-position: -113px -313px;
+  background-position: -292px -311px;
 }
 
 .sprite_main-product__wishlist_done {
   width: 26px;
   height: 19px;
-  background-position: -149px -313px;
+  background-position: -328px -311px;
 }
 
 .sprite_main-product_delivery-truck {
   width: 35px;
   height: 21px;
-  background-position: -339px -313px;
+  background-position: -364px -311px;
 }
 
 .sprite_main-product_image-gallery-play {
   width: 41px;
   height: 41px;
-  background-position: -384px -313px;
+  background-position: -5px -342px;
 }
 
 .sprite_main-product_review-person-green {
   width: 23px;
   height: 26px;
-  background-position: -5px -364px;
+  background-position: -409px -311px;
 }
 
 .sprite_main-product_ruller {
   width: 26px;
   height: 31px;
-  background-position: -38px -364px;
+  background-position: -56px -347px;
 }
 
 .sprite_main-product_social-facebook {
   width: 9px;
   height: 18px;
-  background-position: -185px -313px;
+  background-position: -424px -191px;
 }
 
 .sprite_main-product_social-odnoklasniki {
   width: 10px;
   height: 19px;
-  background-position: -74px -364px;
+  background-position: -61px -219px;
 }
 
 .sprite_main-product_social-twitter {
   width: 19px;
   height: 16px;
-  background-position: -94px -364px;
+  background-position: -92px -347px;
 }
 
 .sprite_main-product_social-vk {
   width: 20px;
   height: 11px;
-  background-position: -123px -364px;
+  background-position: -121px -347px;
 }
 
 .sprite_main-product_warranty-thumb-up {
   width: 34px;
   height: 28px;
-  background-position: -153px -364px;
+  background-position: -151px -342px;
 }
 
 .sprite_main-question {
   width: 62px;
   height: 62px;
-  background-position: -197px -364px;
+  background-position: -195px -347px;
 }
 
 .sprite_main-scroll-arrow-gray-down {
   width: 8px;
   height: 5px;
-  background-position: -269px -364px;
+  background-position: -424px -219px;
 }
 
 .sprite_main-scroll-arrow-gray-up {
   width: 8px;
   height: 5px;
-  background-position: -287px -364px;
+  background-position: -126px -234px;
 }
 
 .sprite_main-slider-arrow-circle-white-left {
   width: 68px;
   height: 68px;
-  background-position: -305px -364px;
+  background-position: -267px -347px;
 }
 
 .sprite_main-social__footer_facebook {
   width: 13px;
   height: 26px;
-  background-position: -383px -364px;
+  background-position: -345px -347px;
 }
 
 .sprite_main-social__footer_instagram {
   width: 26px;
   height: 26px;
-  background-position: -74px -400px;
+  background-position: -368px -347px;
 }
 
 .sprite_main-social__footer_vk {
   width: 29px;
   height: 17px;
-  background-position: -110px -400px;
+  background-position: -404px -347px;
 }
 
 .sprite_main-social__side_facebook {
   width: 29px;
   height: 29px;
-  background-position: -383px -400px;
+  background-position: -92px -374px;
 }
 
 .sprite_main-social__side_facebook_active {
   width: 29px;
   height: 29px;
-  background-position: -5px -439px;
+  background-position: -404px -374px;
 }
 
 .sprite_main-social__side_instagram {
   width: 29px;
   height: 29px;
-  background-position: -44px -439px;
+  background-position: -5px -413px;
 }
 
 .sprite_main-social__side_instagram_active {
   width: 29px;
   height: 29px;
-  background-position: -83px -439px;
+  background-position: -44px -413px;
 }
 
 .sprite_main-social__side_vk {
   width: 29px;
   height: 29px;
-  background-position: -122px -439px;
+  background-position: -83px -413px;
 }
 
 .sprite_main-social__side_vk_active {
   width: 29px;
   height: 29px;
-  background-position: -161px -439px;
+  background-position: -122px -413px;
 }
 
 #loader.hidden {
