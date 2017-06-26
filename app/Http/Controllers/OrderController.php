@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Order;
 
 use Illuminate\Support\Facades\Mail;
+use Mockery\Exception;
 use Validator;
 
 class OrderController extends Controller
@@ -191,10 +192,6 @@ class OrderController extends Controller
 //        $msOrder->ms_positions = json_encode($positions);
 //        $msOrder->save();
 
-    session()->forget('products.cart');
-
-    session()->flash('products.order.id', $order->id);
-    session()->flash('products.order.name', $order->name);
     $phone = \App\Models\Setting::getVar('phone_number')['free'];
     Mail::send('emails.order',
         [
@@ -204,7 +201,6 @@ class OrderController extends Controller
           $caption = 'Заказ';
           $message->to($email)->subject($caption);
         });
-
     Mail::send('emails.order_for_user',
         [
             'order' => $order,
@@ -213,7 +209,9 @@ class OrderController extends Controller
           $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);
         });
-
+    session()->forget('products.cart');
+    session()->flash('products.order.id', $order->id);
+    session()->flash('products.order.name', $order->name);
     $res['html'] = view('order.partials.success', ['order_id' => $order->id])->render();
     $res['action'] = 'orderSuccess';
     return $res;
