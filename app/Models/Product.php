@@ -77,7 +77,6 @@ class Product extends Model
 
         return $slideClass;
     }
-
     public function photos() {
         return $this->hasMany('App\Models\ProductPhoto', 'product_id');
     }

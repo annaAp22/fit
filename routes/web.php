@@ -2,8 +2,8 @@
 /*
  * Страницы с sidebar'ом
  */
-Artisan::call('view:clear');
-Cache::flush();
+//Artisan::call('view:clear');
+//Cache::flush();
 include('redirects.php');
 //конец редиректов
 Route::group([

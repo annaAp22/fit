@@ -61,9 +61,11 @@ class Order extends Model
                 'order_id',
                 'product_id')
             ->withPivot('cnt', 'price', 'extra_params')
-            ->withTimestamps();;
+            ->withTimestamps();
     }
-
+    public function getSizeByProduct($product) {
+      return json_decode($product->pivot->extra_params)->size;
+    }
     public function payment() {
         return $this->belongsTo('App\Models\Payment', 'payment_id');
     }

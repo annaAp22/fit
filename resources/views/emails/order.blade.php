@@ -19,12 +19,14 @@ Email: <b>{{$order->email}}</b><br>
     <tr>
         <th></th>
         <th>название</th>
+        <th>размер</th>
         <th>цена</th>
     </tr>
     @foreach($order->products as $product)
         <tr>
             <td><img src="{{Request::root().$product->uploads->img->preview->url()}}" alt=""></td>
             <td><a href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a></td>
+            <td align="center">{{$order->getSizeByProduct($product)}}</td>
             <td>{{$product->price - $product->discount}} р.</td>
         </tr>
     @endforeach
