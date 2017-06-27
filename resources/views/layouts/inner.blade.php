@@ -12,7 +12,7 @@
     <![endif]-->
 
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
-
+    @include('blocks.head-counters')
 </head>
 <body>
     <div class="main-wrap">
