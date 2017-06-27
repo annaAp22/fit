@@ -66,6 +66,19 @@ class Order extends Model
     public function getSizeByProduct($product) {
       return json_decode($product->pivot->extra_params)->size;
     }
+    public function getPriceByProduct($product) {
+      return ($product->price - $product->discount)*$product->pivot->cnt;
+    }
+    public function getUnitPriceByProduct($product) {
+      return $product->price - $product->discount;
+    }
+    public function price() {
+      $price = isset($this->delivery)?$this->delivery->price:0;
+      foreach ($this->products as $product) {
+        $price += $this->getPriceByProduct($product);
+      }
+      return $price;
+    }
     public function payment() {
         return $this->belongsTo('App\Models\Payment', 'payment_id');
     }
