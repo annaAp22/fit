@@ -203,8 +203,8 @@ $(function(){
             navigation.insertAfter('.nav-catalog');
             women.prependTo('.js-women-desktop');
             men.prependTo('.js-men-desktop');
-            filter.prependTo('.sidebar');
-
+            //filter.prependTo('.sidebar');
+            filter.insertAfter('.sidebar-catalog');
         } else {
             //mobile screen
             women.appendTo('.js-women-mobile');
