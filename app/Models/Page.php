@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 class Page extends Model
 {
     protected $fillable = [
@@ -58,4 +58,12 @@ class Page extends Model
     public function photos() {
         return $this->hasMany('App\Models\PagePhoto', 'page_id');
     }
+  //mutators
+  public function setSysnameAttribute($value)
+  {
+    if(!$value)
+      $value = $this->attributes['name'];
+    $this->attributes['sysname'] = Str::slug($value);
+  }
+
 }

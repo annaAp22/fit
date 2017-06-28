@@ -24,7 +24,6 @@ class PageRequest extends Request
     public function rules()
     {
         return [
-            'sysname' => 'required|sysname|unique:pages,sysname,'.$this->route('page'),
             'content' => 'required',
         ];
     }
