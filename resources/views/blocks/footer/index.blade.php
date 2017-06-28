@@ -48,3 +48,4 @@
 </footer>
 <div class="map" id="map">
 </div>
+@include('blocks.counters')

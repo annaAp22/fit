@@ -1,4 +1,3 @@
-@include('blocks.counters')
 <header>
     <div class="line line_lg"></div>
     <div class="line"></div>
