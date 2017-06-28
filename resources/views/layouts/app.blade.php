@@ -25,7 +25,6 @@
             margin-right: 6px;
         }
     </style>
-    @include('blocks.head-counters')
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
