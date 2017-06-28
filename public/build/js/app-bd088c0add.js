@@ -189,7 +189,7 @@ function init() {
         zoom: 15,
 
         // The latitude and longitude to center the map (always required)
-        center: new google.maps.LatLng(55.711354, 37.654629), /* Moscow*/
+        center: new google.maps.LatLng(55.709328, 37.653426), /* Moscow*/
 
         // Do not change zoom on mouse scroll
         scrollwheel: false,
@@ -381,11 +381,17 @@ function init() {
     var map = new google.maps.Map(mapElement, mapOptions);
 
     // Let's also add a marker while we're at it
+    var bigMarker = new google.maps.MarkerImage(
+        '/img/map_point-min.png',
+        new google.maps.Size(126,132),
+        new google.maps.Point(0,0),
+        new google.maps.Point(118,91)
+    );
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(55.710074, 37.654759),
+        position: new google.maps.LatLng(55.709328, 37.653426),
         map: map,
         title: 'Магазин',
-        icon: "/img/map_point-min.png"
+        icon: bigMarker
     });
 
     mapElement2 = document.getElementById('agencies-map');
