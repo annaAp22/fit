@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\MsAgent;
-use Illuminate\Support\Facades\Log;
 
 class MoySkladController extends Controller
 {
@@ -20,81 +19,7 @@ class MoySkladController extends Controller
     // Old name: cron.
     public function exportOrders(Ms $ms)
     {
-      Log::info('cron entered in exportOrders');
-//        $orderData = '
-//            {
-//              "name": "000034",
-//              "organization": {
-//                "meta": {
-//                  "href": "https://online.moysklad.ru/api/remap/1.1/entity/organization/850c8195-f504-11e5-8a84-bae50000015e",
-//                  "type": "organization",
-//                  "mediaType": "application/json"
-//                }
-//              },
-//              "code": "1243521",
-//              "moment": "2016-04-19 13:50:24",
-//              "applicable": false,
-//              "vatEnabled": false,
-//              "agent": {
-//                "meta": {
-//                  "href": "https://online.moysklad.ru/api/remap/1.1/entity/counterparty/9794d400-f689-11e5-8a84-bae500000078",
-//                  "type": "counterparty",
-//                  "mediaType": "application/json"
-//                }
-//              },
-//              "state": {
-//                "meta": {
-//                  "href": "https://online.moysklad.ru/api/remap/1.1/entity/customerorder/metadata/states/fb56c504-2e58-11e6-8a84-bae500000069",
-//                  "type": "state",
-//                  "mediaType": "application/json"
-//                }
-//              },
-//              "positions": [
-//                {
-//                  "quantity": 10,
-//                  "price": 100,
-//                  "discount": 0,
-//                  "vat": 0,
-//                  "assortment": {
-//                    "meta": {
-//                      "href": "https://online.moysklad.ru/api/remap/1.1/entity/product/8b382799-f7d2-11e5-8a84-bae5000003a5",
-//                      "type": "product",
-//                      "mediaType": "application/json"
-//                    }
-//                  },
-//                  "reserve": 10
-//                },
-//                {
-//                  "quantity": 20,
-//                  "price": 200,
-//                  "discount": 0,
-//                  "vat": 21,
-//                  "assortment": {
-//                    "meta": {
-//                      "href": "https://online.moysklad.ru/api/remap/1.1/entity/product/be903062-f504-11e5-8a84-bae50000019a",
-//                      "type": "product",
-//                      "mediaType": "application/json"
-//                    }
-//                  },
-//                  "reserve": 20
-//                },
-//                {
-//                  "quantity": 30,
-//                  "price": 300,
-//                  "discount": 0,
-//                  "vat": 7,
-//                  "assortment": {
-//                    "meta": {
-//                      "href": "https://online.moysklad.ru/api/remap/1.1/entity/product/c02e3a5c-007e-11e6-9464-e4de00000006",
-//                      "type": "product",
-//                      "mediaType": "application/json"
-//                    }
-//                  },
-//                  "reserve": 30
-//                }
-//              ]
-//            }
-//        ';
+                
         // Check new orders
         $msOrders = MsOrder::all();
 
@@ -147,6 +72,7 @@ class MoySkladController extends Controller
                 {
                     $agentId = $msOrder->ms_agent_id;
                 }
+
                 $order["agent"] = [
                     "meta" => [
                         "href" => "https://online.moysklad.ru/api/remap/1.1/entity/counterparty/". $agentId,
@@ -162,28 +88,6 @@ class MoySkladController extends Controller
                         "mediaType" => "application/json"
                     ]
                 ];
-
-
-//                $order["owner"] = [
-//                    "meta" =>
-//                        [
-//                            "href" => "https://online.moysklad.ru/api/remap/1.1/entity/employee/0aac7a3e-021e-11e4-8d70-002590a28eca",
-//                            "metadataHref" => "https://online.moysklad.ru/api/remap/1.1/entity/employee/metadata",
-//                            "type" => "employee",
-//                            "mediaType" => "application/json",
-//                            "uuidHref" => "https://online.moysklad.ru/app/#employee/edit?id=0aac7a3e-021e-11e4-8d70-002590a28eca"
-//                        ]
-//
-//                ];
-//
-//                $order['group'] = [
-//                    'meta' => [
-//                        'href' => 'https://online.moysklad.ru/api/remap/1.1/entity/group/0201d161-d269-11e4-90a2-8ecb00020734',
-//                        'metadataHref' => 'https://online.moysklad.ru/api/remap/1.1/entity/group/metadata',
-//                        'type' => 'group',
-//                        'mediaType' => 'application/json',
-//                    ]
-//                ];
 
 
         $order["attributes"] = [
@@ -222,18 +126,15 @@ class MoySkladController extends Controller
                 $res = $ms->postOrder($postData);
                 if( isset($res->errors))
                 {
-                    Log::info('cron out of exportOrders:'.$res->errors[0]->error);
                     return $res->errors[0]->error;
                 }
 
                 $msOrder->delete();
-                Log::info('cron out of exportOrders:'. $res->id . ' успешно добавлен!');
                 return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
             }
         }
         else
         {
-            Log::info('cron out of exportOrders:Нет новых заказов');
             return "Нет новых заказов";
         }
 
@@ -244,7 +145,6 @@ class MoySkladController extends Controller
     // Old name: cron2.
     public function updatePriceAndStock(Ms $ms)
     {
-        Log::info('cron entered in updatePriceAndStock');
         $paramsString = http_build_query([
             'offset' => 0,
             'limit' => 100,
@@ -330,17 +230,16 @@ class MoySkladController extends Controller
             }
             $product->save();
         }
-        Log::info('cron out of updatePriceAndStock: Получено остатков:'. count($rests));
+
         return "Получено остатков: " . count($rests);
 
     }
 
     // Direction: moysklad -> site.
-    // Imports new products by portion of 1000, updates old data in moysklad products table, site products table stays unchanged.
+    // Imports new products by portion of 100, updates old data in moysklad products table, site products table stays unchanged.
     // Old name: cron3.
     public function importProducts(Ms $ms)
     {
-      Log::info('cron entered in importProducts');
         // Current import start index and total count
         $counter = MsCronCounter::importProducts()->firstOrFail();
 
@@ -373,6 +272,7 @@ class MoySkladController extends Controller
 
                 }
             }
+
 
             // Set last update date
             $counter->updated_at = Carbon::now();
@@ -438,7 +338,6 @@ class MoySkladController extends Controller
         {
             MsProduct::insert($syncProducts);
         }
-        Log::info('cron out of importProducts: Products synced count'. count($syncProducts));
         return "Products synced count: " . count($syncProducts);
 
     }
@@ -508,9 +407,5 @@ class MoySkladController extends Controller
     {
         $res = $ms->getOrderById($id);
         return $res;
-    }
-    public function test() {
-      Log::info('cron entire in test function');
-      return "ok";
     }
 }
