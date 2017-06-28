@@ -36,9 +36,9 @@
       <div class="footer__info">
         <div class="footer__requisites">{!! $global_settings['site_info']->value !!}
         </div>
-        <div class="footer__address">{!! $global_settings['address']->value !!} Телефон: {!! $global_settings['phone_number']->value['free'] !!} 2011–{{ date('Y') }}.
+        <div class="footer__address">{!! $global_settings['address']->value !!} Телефон: {!! $global_settings['phone_number']->value['free'] !!}.
         </div>
-        <div class="footer__copyright">©Копирование материалов сайта разрешено только при наличии письменного согласия администрации fit2u.ru.
+        <div class="footer__copyright">2011–{{ date('Y') }}. ©Копирование материалов сайта разрешено только при наличии письменного согласия администрации fit2u.ru.
         </div>
       </div>
     </div>
