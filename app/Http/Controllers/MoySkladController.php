@@ -191,6 +191,7 @@ class MoySkladController extends Controller
         }
 
         $sizes = Attribute::where('name', "Размеры")->first();
+        $allSizes = Attribute::where('name', "Все размеры")->first();
 //        $sizesAr = explode(",", str_replace(["[", "]"], "", $sizes->value));
         $sizesAr = json_decode($sizes->list);
 
@@ -212,8 +213,12 @@ class MoySkladController extends Controller
                     $products[$product_id]['quantity'] = $rest->quantity;
                     $size = last(explode("-", $rest->code));
                     // Skip all non predefined sizes
-                    if( in_array($size, $sizesAr))
-                        $products[$product_id]['sizes'][] = $size;
+                  if($rest->quantity > 0) {
+                    if(in_array($size, $sizesAr))
+                      $products[$product_id]['sizes'][] = $size;
+                  }
+                  if(in_array($size, $sizesAr))
+                    $products[$product_id]['allSizes'][] = $size;
                 }
             }
         }
@@ -230,9 +235,13 @@ class MoySkladController extends Controller
             $product->stock = 1;
             if(isset($msProduct['sizes']))
             {
-                $product->attributes()->attach($sizes->id, [
-                    'value' => json_encode($msProduct['sizes']),
-                ]);
+              $product->attributes()->attach($sizes->id, [
+                  'value' => json_encode($msProduct['sizes']),
+              ]);
+              $product->attributes()->attach($allSizes->id, [
+                  'value' => json_encode($msProduct['allSizes']),
+              ]);
+
             }
             $product->save();
         }
