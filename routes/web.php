@@ -66,6 +66,8 @@ Route::group([
     Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
     //test page
     //Route::get('/test.html', 'TestController@index')->name('test');
+    //Route::get('/test-ms.html', 'TestController@msProduct')->name('test-ms');
+    Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
 
     // Product comments
 //    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
