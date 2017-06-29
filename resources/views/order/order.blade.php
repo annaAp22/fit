@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-input form-body__input">
                             <div class="form-label form-required">Со мной можно связаться по телефону:
-                            </div><input class="input input_text form-input__input js-phone js-required-fields" type="text" name="phone" placeholder="+7 ___ ____ __ __" value=""/><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-phone-green"></i>
+                            </div><input class="input input_text form-input__input js-phone js-required-fields" type="text" name="phone" placeholder="+7 ___ ___ __ __" value=""/><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-phone-green"></i>
                         </div>
                         <div class="form-input form-body__input">
                             <div class="form-label form-required">Email:
