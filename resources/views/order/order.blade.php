@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-modal_center">
                             <label class="radio radio_box">
-                                <input class="js-required-fields" name="rating" value="0" type="checkbox"><span class="fake-input"><span></span></span><span class="label">Я соглашаюсь, на <a target="_blank" href="{{route('page', ['sysname' => 'polzovatelskoe-soglashenie'])}}">обработку персональных данных</a></span>
+                                <input class="js-required-fields" name="rating" value="1" type="checkbox" checked><span class="fake-input"><span></span></span><span class="label">Я соглашаюсь, на <a target="_blank" href="{{route('page', ['sysname' => 'polzovatelskoe-soglashenie'])}}">обработку персональных данных</a></span>
                             </label>
                         </div>
 

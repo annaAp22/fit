@@ -491,7 +491,15 @@ $(function(){
             $('.js-step-next').attr('disabled', true);
         }
     });
-
+    $body.on('click', '.js-required-fields', function(e) {
+        var fields = $('.js-required-fields');
+        if( formValid(fields) ) {
+            $('.js-step-next').attr('disabled', false);
+        }
+        else{
+            $('.js-step-next').attr('disabled', true);
+        }
+    });
     // Product gallery thumbs switch
     $body.on('click', '.js-gallery-thumb', function(e) {
         var $this = $(this),
