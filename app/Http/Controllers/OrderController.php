@@ -185,6 +185,7 @@ class OrderController extends Controller
            $order->phone,
            str_replace([' ', '+'], '', $order->phone),
            str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
+           str_replace([' ', '7', '+'], '', $order->phone),
        ];
        if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
        {
