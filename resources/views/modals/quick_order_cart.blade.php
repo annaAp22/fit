@@ -17,8 +17,13 @@
                 <label>Ваш телефон: <span class="mod-col-or">*</span></label>
                 <input class="phone-input js-required-fields js-phone input input_text" type="text" name="phone" placeholder="+7 (xxx) xxx xx xx * " >
                 <script type="text/javascript">
-                    $('.js-phone').mask("+7 000 000 00 000", {placeholder: "+7 ___ ___ __ __"});
+                    $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
                 </script>
+            </div>
+            <div class="form-modal_line">
+                <label class="radio radio_box">
+                    <input class="js-required-fields" name="rating" value="0" type="checkbox"><span class="fake-input"><span></span></span><span class="label">Я соглашаюсь, на <a target="_blank" href="{{route('page', ['sysname' => 'polzovatelskoe-soglashenie'])}}">обработку персональных данных</a></span>
+                </label>
             </div>
             <div class="form-modal_line">
                 <button class="btn btn_green">ОТПРАВИТЬ</button>

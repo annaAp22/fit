@@ -78,6 +78,12 @@
                             <div class="form-label">Я живу по адресу:
                             </div><input class="input input_text form-input__input" type="text" name="address" placeholder="г. Город ул. Улица д. 1 этаж 1 кв. 1" /><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-point-green"></i>
                         </div>
+                        <div class="form-modal_center">
+                            <label class="radio radio_box">
+                                <input class="js-required-fields" name="rating" value="0" type="checkbox"><span class="fake-input"><span></span></span><span class="label">Я соглашаюсь, на <a target="_blank" href="{{route('page', ['sysname' => 'polzovatelskoe-soglashenie'])}}">обработку персональных данных</a></span>
+                            </label>
+                        </div>
+
                     </div>
                     <!-- Step 2-->
                     <div class="container-in js-step js-step_2">

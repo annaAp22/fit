@@ -398,6 +398,15 @@ $(function(){
                         $(el).addClass('error');
                 }
             }
+            if(el.type == "checkbox") {
+                if(!el.checked) {
+                    if(errors)
+                        $(el).addClass('error');
+                }else {
+                    $(el).removeClass('error');
+                    checked++;
+                }
+            }
         });
         return checked == fields.length;
     }

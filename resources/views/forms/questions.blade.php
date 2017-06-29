@@ -16,7 +16,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            $('.js-phone').mask("+7 000 000 00 000", {placeholder: "+7 ___ ___ __ __"});
+            $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
         </script>
         <div class="clearfix"></div>
         <div class="field-caption-1">Ваш вопрос:</div>
