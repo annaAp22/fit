@@ -171,7 +171,6 @@
                     return true;
                 }
             });
-
             return layout;
         };
 
@@ -287,7 +286,8 @@
         // Activate page icon
         this.pageActive = function() {
             $(".carousel-pagination__page").removeClass('active');
-            $(self.pages[-1 * self.position]).addClass('active');
+            if(self.pages)
+                $(self.pages[-1 * self.position]).addClass('active');
         };
 
         // Disable buttons if count < items

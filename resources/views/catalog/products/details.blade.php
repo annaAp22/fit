@@ -110,16 +110,15 @@
                         </div>
 
                         @include('catalog.products.rating')
-                        @if($sizeAttr = $product->attributes->where('name', 'Размеры')->first())
+                        @if($sizes)
                             <!-- Size-->
                             <div class="product-detailed__subtitle product-detailed__subtitle_size">Выберите свой размер:</div>
-                            @php $sizes = json_decode($sizeAttr->pivot->value); @endphp
                             @include('catalog.products.sizes', ['class' => ' product-detailed__size'])
                         @else
                                 <input type="hidden" name="size" value="0">
                         @endif
 
-                        @if($sizeAttr)
+                        @if($sizes)
                             {{-- How to choose size modal --}}
                             @if(isset($catagoryInfo['crumbs'][0]) and $catagoryInfo['crumbs'][0] == 'woman')
                                 <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes_women">

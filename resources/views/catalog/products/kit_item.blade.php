@@ -9,8 +9,7 @@
         <a class="product-set-item__image" href="{{ route('product', $product->sysname) }}">
             <img src="{{ $product->uploads->img->kit->url() }}"/>
 
-            @if($sizeAttr = $product->attributes->where('name', 'Размеры')->first())
-                @php $sizes = json_decode($sizeAttr->pivot->value); @endphp
+            @if($sizes)
                 @include('catalog.products.sizes', ['class' => ' product-set-item__size'])
             @else
                 <input type="hidden" name="size" value="0">

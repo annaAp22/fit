@@ -3036,6 +3036,16 @@ header .line_lg {
   transform: rotateY(-180deg);
 }
 
+.size-filter__size.missing {
+  color: gray;
+}
+
+.size-filter__size.missing.active {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
 .color-filter__color {
   width: 30px;
   height: 30px;
@@ -5626,7 +5636,7 @@ footer .line {
   position: absolute;
   height: 50%;
   padding-top: 24px;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   background-color: hsla(0,0%,100%,.75);
   -webkit-transform: translateY(100%);
@@ -5647,6 +5657,15 @@ footer .line {
 
 .product-set-item__size>.size-filter__size.active {
   background-color: #fcd82f;
+}
+
+.product-set-item__size>.size-filter__size.missing {
+  color: gray;
+}
+
+.product-set-item__size>.size-filter__size.missing.active {
+  color: #fff;
+  background-color: silver;
 }
 
 .product-set-item__size>.popup-notice_size {

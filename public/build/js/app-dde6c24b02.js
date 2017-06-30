@@ -715,7 +715,16 @@ $(function(){
     });
 
     //Product set carousel
-    $("#js-product-set").carousel();
+    $("#js-product-set").carousel( {
+        responsive: {
+            1492 : {items: 5},
+            1203 : {items: 4},
+            840 : {items: 3},
+            576 : {items: 2},
+            300 : {items: 2},
+            0 : {items: 1}
+        }
+    });
 
     // Product seen carousel
     $(".js-product-carousel").carousel();
@@ -970,6 +979,8 @@ $(function(){
             return false;
         }
     });
+    //при загрузке влючаем disabled у размеров, так как браузер запомнил из без disabled
+    $('.js-square-check-single input[name=size]').prop('disabled', true);
 });
 
 // scroll to element

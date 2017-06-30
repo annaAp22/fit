@@ -42,15 +42,54 @@
         <div class="product__hidden">
 
             @include('catalog.products.rating')
-
-            @if($sizeAttr = $product->attributes->where('name', 'Размеры')->first())
-                @php $sizes = json_decode($sizeAttr->pivot->value); @endphp
-                    @include('catalog.products.sizes', ['class' => ' product__size'])
-                @else
-                    <div class="product__size-hidden">
-                        <input type="hidden" name="size" value="0">
-                    </div>
-                @endif
+            @php
+                $sizes = null;
+                if(isset($getSizesData)) {
+                    if(isset($product->pivot->parent->id) and $product->pivot->parent->id) {
+                        //$pid = $product->pivot->parent->id;
+                    }else {
+                        //$pid = $product->categories()->first()->parent_id;
+                    }
+                    $pid = $product->categories()->first()->parent_id;
+                    if($pid == null) {
+                        $pid = $product->categories()->first()->id;
+                    }
+                    if($pid == $getSizesData['rootManCategoryId']) {
+                        $sizes = $getSizesData['manSizes'];
+                    }elseif($pid == $getSizesData['rootWomanCategoryId']) {
+                        $sizes = $getSizesData['womanSizes'];
+                    }else {
+                        $sid = $getSizesData['subcategoryIds'][$pid];
+                    }
+                    if(!$sizes) {
+                        if($sid == $getSizesData['manCategoryId'] or $sid == $getSizesData['rootManCategoryId']) {
+                            $sizes = $getSizesData['manSizes'];
+                        }elseif($sid == $getSizesData['womanCategoryId'] or $sid == $getSizesData['rootWomanCategoryId']) {
+                            $sizes = $getSizesData['womanSizes'];
+                        }
+                    }
+                }
+                if($pid == $getSizesData['accessoriesId']) {
+                    $sizes = array();
+                }
+                $openSizesObj = $product->attributes->where('name', 'Размеры')->first();
+                if($openSizesObj) {
+                    $openSizes = json_decode($openSizesObj->pivot->value);
+                }
+            if(!$sizes) {
+                $sizeAttr = $product->attributes->where('name', 'Размеры')->first();
+                if($sizeAttr) {
+                    $sizes = json_decode($sizeAttr->pivot->value);
+                }
+            }
+            @endphp
+            @if($sizes)
+                @include('catalog.products.sizes', ['class' => ' product__size'])
+            @else
+                <div class="product__size-hidden">
+                    <input type="hidden" name="size" value="0">
+                </div>
+            @endif
 
                 <!-- Button buy-->
                 <button class="btn btn_green product__buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}">

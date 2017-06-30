@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribute;
 use App\Models\Banner;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
@@ -369,7 +370,8 @@ class CatalogController extends Controller
 //                ->published()
 //                ->get();
       $filters = $this->getFilters($category, $products, $this->totalProductsCount);
-      return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters'));
+      $getSizesData = $this->getSizesData($products);
+      return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters', 'getSizesData'));
     } else {
 
       $banners = Cache::remember('category.'.$hash.'.banners', 60, function()
@@ -402,10 +404,54 @@ class CatalogController extends Controller
         return $category->products()->published()->max('price');
       });
       $filters = $this->getFilters($category, $products, $category->products()->published()->count());
-      return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters'));
+      $getSizesData = $this->getSizesData($products);
+      return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters', 'getSizesData'));
     }
   }
-
+  /*
+   * @return array with
+   * man_sizes, womanSizes, manCategoryId, womanCategoryId
+   * **/
+  public function getSizesData($products) {
+    $woman_cloth = Category::where('sysname', 'odezhda')->first();
+    $man_cloth = Category::where('sysname', 'odeshda')->first();
+    $root_woman_cloth = Category::where('sysname', 'woman')->first();
+    $root_man_cloth = Category::where('sysname', 'man')->first();
+    $accessories = Category::where('sysname', 'accessories')->first();
+    $womanSizes = json_decode(Attribute::where('name', 'Женские размеры')->first()->list);
+    $manSizes = json_decode(Attribute::where('name', 'Мужские размеры')->first()->list);
+    $firstProduct = $products[0];
+    $category_ids = array();
+    foreach ($products as $product) {
+      $category_ids[] = $product->categories()->first()->parent_id;
+    }
+    /*
+    if(!isset($firstProduct->pivot)) {
+      foreach ($products as $product) {
+        $category_ids[] = $product->categories()->first()->parent_id;
+      }
+    } else {
+      foreach ($products as $product) {
+        $category_ids[] = $product->pivot->parent->id;
+      }
+    }*/
+    $subcategories = Category::whereIn('id', $category_ids)->get();
+    $subcategoryIds = array();
+    foreach ($subcategories as $subcategory) {
+      $subcategoryIds[$subcategory->id] = $subcategory->parent_id;
+    }
+    $sizesData = array(
+        'rootManCategoryId' => $root_man_cloth->id,
+        'rootWomanCategoryId' => $root_woman_cloth->id,
+        'manCategoryId' => $man_cloth->id,
+        'womanCategoryId' => $woman_cloth->id,
+        'accessoriesId' => $accessories->id,
+        'manSizes' => $manSizes,
+        'womanSizes' => $womanSizes,
+        'subcategoryIds' => $subcategoryIds,
+    );
+    return $sizesData;
+  }
   /**
    * Страница тэгов - товары с этим тегом
    * @param $sysname
@@ -432,7 +478,8 @@ class CatalogController extends Controller
       $products->max_price = $tag->products()->published()->max('price');
 
       $this->setMetaTags(null, $tag->title, $tag->description, $tag->keywords);
-      return view('catalog.catalog', compact('tag', 'products'));
+      $getSizesData = $this->getSizesData($products);
+      return view('catalog.catalog', compact('tag', 'products', 'getSizesData'));
     }
     else
     {
@@ -502,7 +549,8 @@ class CatalogController extends Controller
     if(isset($category)) {
       $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
     }
-    return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
+    $getSizesData = $this->getSizesData($products);
+    return view('catalog.catalog', compact('products', 'page', 'category', 'filters', 'getSizesData'));
   }
 
   /**
@@ -550,7 +598,8 @@ class CatalogController extends Controller
     }
 
     $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
-    return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
+    $getSizesData = $this->getSizesData($products);
+    return view('catalog.catalog', compact('products', 'page', 'category', 'filters', 'getSizesData'));
   }
 
   /**
@@ -596,7 +645,8 @@ class CatalogController extends Controller
       $page->sysname = $category->sysname;
     }
     $filters = $this->getFilters($category, $products, $this->totalProductsCount, $postfix);
-    return view('catalog.catalog', compact('products', 'page', 'category', 'filters'));
+    $getSizesData = $this->getSizesData($products);
+    return view('catalog.catalog', compact('products', 'page', 'category', 'filters', 'getSizesData'));
   }
 
   /**
@@ -738,25 +788,36 @@ class CatalogController extends Controller
         $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
       })->inRandomOrder()->take(10)->get();
     });
-    $category = Category::where('id', $product->categories[0]->id)->firstOrFail();
-    while($category->parent_id > 0) {
-      $category = Category::where('id', $category->parent_id)->firstOrFail();
-    }
-    $its_women = $category->sysname == 'woman';
     $category_info = $this->getCategoryInfo(null, $product);
-//    if(!$category_info) {
-//      $sizes = $product->attributes->where('name', 'Размеры')->first();
-//    }else {
-//      if($category_info) {
-//
-//      }
-//    }
+    $sizes = null;
+
+    $openSizes = $product->attributes->where('name', 'Размеры')->first();
+    if(isset($category_info['crumbs'][0]) && $category_info['crumbs'][1] != 'accessories') {
+      if($category_info['crumbs'][0] == 'woman') {
+        $sizes = Attribute::where('name', 'Женские размеры')->first();
+      }elseif($category_info['crumbs'][0] == 'man') {
+        $sizes = Attribute::where('name', 'Мужские размеры')->first();
+      }
+      $sizesArr = json_decode($sizes->list);
+      $openSizeArr = json_decode($openSizes->pivot->value);
+    }else {//для сумок и тп пока нет предзаказа, поэтому берем те размеры, которые есть на складе
+      $sizes = $openSizes;
+      if(isset($sizes->pivot->value)) {
+        $sizesArr = json_decode($sizes->pivot->value);
+        $openSizeArr = json_decode($sizes->pivot->value);
+      }else {
+        $sizesArr = array();
+        $openSizeArr = array();
+      }
+    }
 
     return view('catalog.products.details', [
         'product' => $product,
         'analogues' => $analogues,
         'comments' => $comments,
         'catagoryInfo' => $category_info,
+        'sizes' => $sizesArr,
+        'openSizes' => $openSizeArr,
     ]);
   }
 

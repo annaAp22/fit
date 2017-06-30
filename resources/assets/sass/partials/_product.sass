@@ -681,7 +681,7 @@
     position: absolute
     height: 50%
     padding-top: 24px
-    bottom: 0
+    bottom: -1px
     left: 0
     background-color: rgba(255, 255, 255, .75)
     transform: translateY(100%)
@@ -692,6 +692,11 @@
       color: #272727
       &.active
         background-color: #fcd82f
+      &.missing
+        color: gray
+        &.active
+          color: #fff
+          background-color: silver
     & > .popup-notice_size
       top: -100%
       width: 100%

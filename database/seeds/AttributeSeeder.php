@@ -54,7 +54,7 @@ class AttributeSeeder extends Seeder
           'status'    => 1,
       ]);
     $sizes = [];
-    for($i = 44; $i <= 54; $i += 2) $sizes[] = $i;
+    for($i = 46; $i <= 54; $i += 2) $sizes[] = $i;
     if(!Attribute::where('name', 'Мужские размеры')->first())
       Attribute::firstOrCreate([
           'type'      => 'checklist',

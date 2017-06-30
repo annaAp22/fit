@@ -7,10 +7,15 @@
         <div class="popup-notice__text">Выберите Ваш размер!
         </div>
     </div>
-
     @foreach($sizes as $size)
-        <div class="size-filter__size js-square"><span>{{ $size }}</span>
-            <input type="hidden" name="size" value="{{ $size }}" disabled>
-        </div>
+        @if(isset($openSizes) && !in_array($size, $openSizes))
+            <div class="size-filter__size js-square missing" title="Этого размера нет в наличии, но Вы можете оформить предзаказ"><span>{{ $size }}</span>
+                <input type="hidden" name="size" value="{{ $size }}" disabled>
+            </div>
+        @else
+            <div class="size-filter__size js-square"><span>{{ $size }}</span>
+                <input type="hidden" name="size" value="{{ $size }}" disabled>
+            </div>
+        @endif
     @endforeach
 </div>
