@@ -426,7 +426,12 @@ class FrontApiController extends Controller
          str_replace([' ', '7', '+'], ['','8', ''], $order->phone ),
          str_replace([' ', '7', '+'], '', $order->phone),
      ];
-     if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)->first() )
+      if( $agent = MsAgent::whereIn('ms_phone', $phoneVariants)
+          ->orWhere(function($query) use($order){
+            $query->whereNotNull('ms_email')
+                ->where('ms_email', $order->email);
+          })
+          ->first() )
      {
        $msOrder->ms_agent_id = $agent->ms_uuid;
      }
