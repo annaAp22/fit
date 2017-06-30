@@ -668,8 +668,26 @@ class CatalogController extends Controller
     $this->setMetaTags();
     return view('catalog.seen', compact('products'));
   }
-
-
+  /*
+   * Возвращает информации о категории, если категория не задана, узнает ее по продукту
+   * где поле crumbs содержит все chpu подкатегорий, crumbs[0] содержит chpu главной категории, crumbs[n] - соответственно chpu заданной категории
+   * @return array
+   * **/
+  public function getCategoryInfo($category, $product) {
+    $crumbs = array();
+    if(!$category) {
+      $category = Category::where('id', $product->categories[0]->id)->firstOrFail();
+    }
+    while($category->parent_id > 0) {
+      $crumbs[] = $category->sysname;
+      $category = Category::where('id', $category->parent_id)->firstOrFail();
+    }
+    $crumbs[] = $category->sysname;
+    $result = array(
+        'crumbs' => array_reverse($crumbs),
+    );
+    return $result;
+  }
   /**
    * Карточка товара
    * @param $sysname
@@ -725,11 +743,20 @@ class CatalogController extends Controller
       $category = Category::where('id', $category->parent_id)->firstOrFail();
     }
     $its_women = $category->sysname == 'woman';
+    $category_info = $this->getCategoryInfo(null, $product);
+//    if(!$category_info) {
+//      $sizes = $product->attributes->where('name', 'Размеры')->first();
+//    }else {
+//      if($category_info) {
+//
+//      }
+//    }
+
     return view('catalog.products.details', [
         'product' => $product,
         'analogues' => $analogues,
         'comments' => $comments,
-        'its_women' => $its_women,
+        'catagoryInfo' => $category_info,
     ]);
   }
 

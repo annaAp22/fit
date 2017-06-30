@@ -367,7 +367,7 @@ template {
 
 .header__enter .dropdown a:before,
 .sprite_main {
-  background-image: url(/img/sprite-min.png?v=1);
+  background-image: url(/img/sprite-min.png?v=2);
   background-repeat: no-repeat;
   display: inline-block;
 }
@@ -1152,15 +1152,18 @@ textarea {
   border: 1px solid red;
 }
 
+.radio_box,
 .radio_square {
   position: relative;
   text-align: center;
 }
 
+.radio_box>input,
 .radio_square>input {
   opacity: 0;
 }
 
+.radio_box>.fake-input,
 .radio_square>.fake-input {
   top: 0;
   left: 0;
@@ -1172,6 +1175,7 @@ textarea {
   cursor: pointer;
 }
 
+.radio_box>.fake-input>span,
 .radio_square>.fake-input>span {
   top: 3px;
   left: 3px;
@@ -1184,14 +1188,32 @@ textarea {
   transition: background-color .3s ease;
 }
 
+.radio_box>input:checked+span>span,
 .radio_square>input:checked+span>span {
   background-color: #fcd82f;
 }
 
+.radio_box>.label,
 .radio_square>.label {
   font-size: 16px;
   color: #484848;
   font-weight: 300;
+}
+
+.radio_box {
+  text-align: left;
+}
+
+.radio_box>input {
+  margin-right: 16px;
+}
+
+.radio_box>.label {
+  font-size: 14px;
+}
+
+.radio_box .error+.fake-input {
+  border-color: red;
 }
 
 button {
@@ -8035,6 +8057,10 @@ li.fancybox-thumbs-loading {
 
 .form-modal_line {
   margin-bottom: 18px;
+}
+
+.form-modal_center {
+  margin: 18px 12px;
 }
 
 #quick-order form {

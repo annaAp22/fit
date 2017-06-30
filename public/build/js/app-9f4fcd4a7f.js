@@ -846,6 +846,15 @@ $(function(){
                         $(el).addClass('error');
                 }
             }
+            if(el.type == "checkbox") {
+                if(!el.checked) {
+                    if(errors)
+                        $(el).addClass('error');
+                }else {
+                    $(el).removeClass('error');
+                    checked++;
+                }
+            }
         });
         return checked == fields.length;
     }
@@ -918,7 +927,7 @@ $(function(){
     });
 
     // Mask phone
-    $('.js-phone').mask("+7 000 000 00 000", {placeholder: "+7 ___ ___ __ __"});
+    $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
 
     // Check required fields
     $body.on('input', '.js-required-fields', function(e) {
@@ -930,7 +939,15 @@ $(function(){
             $('.js-step-next').attr('disabled', true);
         }
     });
-
+    $body.on('click', '.js-required-fields', function(e) {
+        var fields = $('.js-required-fields');
+        if( formValid(fields) ) {
+            $('.js-step-next').attr('disabled', false);
+        }
+        else{
+            $('.js-step-next').attr('disabled', true);
+        }
+    });
     // Product gallery thumbs switch
     $body.on('click', '.js-gallery-thumb', function(e) {
         var $this = $(this),
