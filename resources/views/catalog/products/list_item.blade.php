@@ -68,9 +68,9 @@
                             $sizes = $getSizesData['womanSizes'];
                         }
                     }
-                }
-                if($pid == $getSizesData['accessoriesId']) {
-                    $sizes = array();
+                    if($pid == $getSizesData['accessoriesId']) {
+                        $sizes = array();
+                    }
                 }
                 $openSizesObj = $product->attributes->where('name', 'Размеры')->first();
                 if($openSizesObj) {

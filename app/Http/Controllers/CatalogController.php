@@ -799,7 +799,12 @@ class CatalogController extends Controller
         $sizes = Attribute::where('name', 'Мужские размеры')->first();
       }
       $sizesArr = json_decode($sizes->list);
-      $openSizeArr = json_decode($openSizes->pivot->value);
+      if(isset($openSizes->pivot->value)) {
+        $openSizeArr = json_decode($openSizes->pivot->value);
+      }else {
+        $openSizeArr = $sizesArr;
+      }
+
     }else {//для сумок и тп пока нет предзаказа, поэтому берем те размеры, которые есть на складе
       $sizes = $openSizes;
       if(isset($sizes->pivot->value)) {
