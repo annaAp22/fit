@@ -83,7 +83,7 @@ Route::group([
     // Import goods from moysklad
     Route::get('/moysklad/import/products', 'MoySkladController@importProducts')->name('import.products');
     Route::get('/moysklad/get/rests', 'MoySkladController@updatePriceAndStock')->name('get.rests');
-    Route::get('/moysklad/get/agents', 'MoySkladController@importAgents')->name('get.agents');
+    Route::get('/moysklad/get/agents', 'MoySkladController@updateAgents')->name('get.agents');
     Route::get('/moysklad/export/orders', 'MoySkladController@exportOrders')->name('post.orders');
     Route::get('/moysklad/get/order/{id}', 'MoySkladController@getOrder')->name('get.order');
     Route::model('', 'User');

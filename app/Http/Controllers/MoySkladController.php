@@ -411,6 +411,71 @@ class MoySkladController extends Controller
 
     }
 
+    public function updateAgents(Ms $ms)
+    {
+        //        MsAgent::truncate();
+//        set_time_limit(600);
+        $task = MsCronCounter::where('action', 'import_agents')->firstOrFail();
+
+        $paramsString = http_build_query([
+            'offset' => 0,
+            'limit' => 100,
+            'updatedFrom' => $task->updated_at->toDateTimeString(),
+        ]);
+
+        $agents = [];
+        if( $res = $ms->getAgents($paramsString) )
+        {
+            $agents = array_merge($agents, $res->rows);
+            $size = $res->meta->size;
+
+            for( $offset = 100; $offset <= $size; $offset = $offset + 100 )
+            {
+                $paramsString = http_build_query([
+                    'offset' => $offset,
+                    'limit'  => 100,
+                    'updatedFrom' => $task->updated_at->toDateTimeString(),
+                ]);
+                if( $res = $ms->getAgents($paramsString) )
+                {
+                    $agents = array_merge($agents, $res->rows);
+                }
+            }
+        }
+
+        $syncAgents = [];
+
+        foreach ($agents as $agent)
+        {
+            // If agent not already in db then add new
+            $msAgent = MsAgent::where('ms_uuid', $agent->id)->first();
+
+            if( !$msAgent )
+            {
+                $syncAgents[] = [
+                    'ms_uuid' => $agent->id,
+                    'ms_name' => isset($agent->name) ? $agent->name : null,
+                    'ms_tag' => json_encode($agent->tags),
+                    'ms_phone' => isset($agent->phone) ? $agent->phone : null,
+                    'ms_email' => isset($agent->email) ? $agent->email : null,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+            }
+        }
+
+        // Set last update time
+        $task->updated_at = date('Y-m-d H:i:s');
+        $task->save();
+
+        // Insert new agents
+        if($syncAgents)
+            MsAgent::insert($syncAgents);
+
+        return "Загружено конртрагентов: " . (count($syncAgents));
+
+    }
+
     // Direction moysklad -> site.
     // Updates reservation option status.
     public function updateReservation()
