@@ -981,6 +981,23 @@ $(function(){
     });
     //при загрузке влючаем disabled у размеров, так как браузер запомнил из без disabled
     $('.js-square-check-single input[name=size]').prop('disabled', true);
+
+    $('.js-square[title]').each(function() {
+        $(this).click(function() {
+            var p = $(this).position();
+            $('#tooltip')
+                .text($(this).attr('title'))
+                .css('top', p.top + $(this).outerHeight() + 'px')
+                .css('left', p.left)
+                .show();
+        })
+    })
+
+    // $(document).click(function(e) {
+    //     if (!$(e.target).attr('title')) {
+    //         $('#tooltip').hide();
+    //     }
+    // });
 });
 
 // scroll to element

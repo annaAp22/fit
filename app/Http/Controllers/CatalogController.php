@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attribute;
 use App\Models\Banner;
+use App\Models\CategoryProduct;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,8 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Brand;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use Validator;
-use DB;
 use Lang;
 use Illuminate\Support\Facades\Cache;
 
@@ -391,32 +392,31 @@ class CatalogController extends Controller
    * man_sizes, womanSizes, manCategoryId, womanCategoryId
    * **/
   public function getSizesData($products) {
-    $woman_cloth = Category::where('sysname', 'odezhda')->first();
-    $man_cloth = Category::where('sysname', 'odeshda')->first();
-    $root_woman_cloth = Category::where('sysname', 'woman')->first();
-    $root_man_cloth = Category::where('sysname', 'man')->first();
-    $accessories = Category::where('sysname', 'accessories')->first();
-    $womanSizes = json_decode(Attribute::where('name', 'Женские размеры')->first()->list);
-    $manSizes = json_decode(Attribute::where('name', 'Мужские размеры')->first()->list);
-    $firstProduct = $products[0];
-    $category_ids = array();
+    $spec_categories = Category::whereIn('sysname', ['odezhda', 'odeshda', 'woman', 'man', 'accessories'])->get();
+    $woman_cloth = $spec_categories->where('sysname', 'odezhda')->first();
+    $man_cloth = $spec_categories->where('sysname', 'odeshda')->first();
+    $root_woman_cloth = $spec_categories->where('sysname', 'woman')->first();
+    $root_man_cloth = $spec_categories->where('sysname', 'man')->first();
+    $accessories = $spec_categories->where('sysname', 'accessories')->first();
+    $attributes = Attribute::whereIn('name', ['Женские размеры', 'Мужские размеры'])->get();
+    $womanSizes = json_decode($attributes->where('name', 'Женские размеры')->first()->list);
+    $manSizes = json_decode($attributes->where('name', 'Мужские размеры')->first()->list);
+    $product_ids = array();
+    //собираем id товаров
     foreach ($products as $product) {
-      $category_ids[] = $product->categories()->first()->parent_id;
+      $product_ids[] = $product->id;
     }
-    /*
-    if(!isset($firstProduct->pivot)) {
-      foreach ($products as $product) {
-        $category_ids[] = $product->categories()->first()->parent_id;
-      }
-    } else {
-      foreach ($products as $product) {
-        $category_ids[] = $product->pivot->parent->id;
-      }
-    }*/
+    $productCategories = CategoryProduct::select('category_id')->whereIn('product_id', $product_ids)->groupBy('category_id')->get();
+    $category_ids = array();
+    //собираем id категорий для товаров
+    foreach ($productCategories as $category) {
+      $category_ids[] = $category->category_id;
+    }
     $subcategories = Category::whereIn('id', $category_ids)->get();
-    $subcategoryIds = array();
+    $parentCategoryIds = array();
+    //собираем родительские категории
     foreach ($subcategories as $subcategory) {
-      $subcategoryIds[$subcategory->id] = $subcategory->parent_id;
+      $parentCategoryIds[$subcategory->id] = $subcategory->parent_id;
     }
     $sizesData = array(
         'rootManCategoryId' => $root_man_cloth->id,
@@ -426,7 +426,7 @@ class CatalogController extends Controller
         'accessoriesId' => $accessories->id,
         'manSizes' => $manSizes,
         'womanSizes' => $womanSizes,
-        'subcategoryIds' => $subcategoryIds,
+        'parentCategoryIds' => $parentCategoryIds,
     );
     return $sizesData;
   }

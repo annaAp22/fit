@@ -48,4 +48,5 @@
 </footer>
 <div class="map" id="map">
 </div>
+<div id="tooltip"></div>
 @include('blocks.counters')

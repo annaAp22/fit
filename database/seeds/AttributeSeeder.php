@@ -64,6 +64,20 @@ class AttributeSeeder extends Seeder
           'is_filter' => false,
           'status'    => 1,
       ]);
+    $list = array(
+        'Не определен',
+        'Женский',
+        'Мужской',
+    );
+    if(!Attribute::where('name', 'Тип размера')->first())
+      Attribute::firstOrCreate([
+          'type'      => 'list',
+          'name'      => 'Тип размера',
+          'unit'      => '',
+          'list'      => json_encode($list),
+          'is_filter' => false,
+          'status'    => 1,
+      ]);
 
   }
 }

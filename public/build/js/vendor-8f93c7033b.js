@@ -170,11 +170,9 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
                     return b - a;
                 }),
                 layout = breakpoints[0];
-            console.log('w=',w);
             breakpoints.some(function(el) {
                 if(w >= el) {
                     layout = el;
-                    console.log('layoutx=',layout);
                     return true;
                 }
             });
@@ -210,8 +208,6 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
                 if(typeof self._options.responsive[media] === 'object') {
                     if(typeof self._options.responsive[media]['items'] !== 'undefined') {
                         self._options.items = self._options.responsive[media]['items'];
-                        console.log('media', media);
-                        console.log('self._options.items=',self._options.items);
                     }
 
                     // Reinit carousel with new options
