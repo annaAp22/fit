@@ -220,7 +220,7 @@ class CatalogController extends Controller
             $products->orderBy('product_tag.sort');
           }
           else {
-            //$products->orderBy('category_product.sort', 'desc');
+            $products->orderBy('category_product.sort', 'asc');
             //$products->orderBy('id');
           }
       }
@@ -232,7 +232,7 @@ class CatalogController extends Controller
         $products->orderBy('product_tag.sort');
       }
       else {
-        $products->orderBy('category_product.sort', 'desc');
+        $products->orderBy('category_product.sort', 'asc');
       }
     }
 
@@ -307,14 +307,6 @@ class CatalogController extends Controller
 
     // Если категория родительская, то выводим листинг подкатегорий
     if($category->hasChildren) {
-
-      // Скрыто пока нет вида для главных категорий
-//            $categories = Category::with(['products'])
-//                ->childrenOf($category)
-//                ->published()
-//                ->get();
-//            return view('catalog.categories', compact('category', 'categories'));
-
       // Получение товаров дочерних категорий
       $category_ids = $category->children_ids($category, collect([]));
       if(!session()->has('filters.product.'.$category->id)) {
@@ -356,19 +348,6 @@ class CatalogController extends Controller
             ->published()
             ->max('price');
       });
-
-      // 2017.05.30 TODO: проверить нужен ли запрос ниже
-      // All category products with attributes
-//            $category->products = Product::with(['attributes' => function($query) {
-//                    $query->where('attributes.is_filter', 1)->withPivot('value')->select('attributes.*', 'attribute_product.value');
-//                }])
-//                ->whereHas('categories',
-//                    function($query) use($category_ids) {
-//                        $query->whereIn('categories.id', $category_ids);
-//                    })
-//                ->select('id')
-//                ->published()
-//                ->get();
       $filters = $this->getFilters($category, $products, $this->totalProductsCount);
       $getSizesData = $this->getSizesData($products);
       return view('catalog.catalog', compact('category', 'products', 'banners', 'parent_zero_id', 'filters', 'getSizesData'));
@@ -386,10 +365,9 @@ class CatalogController extends Controller
               ->with(['attributes', 'comments' => function($query){
                 $query->average();
               }])
-              ->published()
+              ->published()->orderBy('category_product.sort', 'asc')
               ->paginate($perPage);
         });
-
 
       }else {
         $products = $this->filteredProducts($category->id);
