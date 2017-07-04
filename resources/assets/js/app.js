@@ -533,23 +533,29 @@ $(function(){
     });
     //при загрузке влючаем disabled у размеров, так как браузер запомнил из без disabled
     $('.js-square-check-single input[name=size]').prop('disabled', true);
-
-    $('.js-square[title]').each(function() {
+    var squareTimeout;
+    $('.js-square').each(function() {
         $(this).click(function() {
-            var p = $(this).position();
+            clearTimeout(squareTimeout);
+            if(!$(this).hasClass('missing')) {
+                $('#tooltip').hide();
+                return;
+            }
+            var p = $(this).offset();
+            var left = p.left;
+            if(left + 200 > $(window).width()) {
+                left = 20;
+            }
             $('#tooltip')
-                .text($(this).attr('title'))
                 .css('top', p.top + $(this).outerHeight() + 'px')
-                .css('left', p.left)
+                .css('left', left)
                 .show();
+            squareTimeout = setTimeout(function() {
+                $('#tooltip').hide();
+            }, 3000);
         })
     })
 
-    $(document).click(function(e) {
-        if (!$(e.target).attr('title')) {
-            $('#tooltip').hide();
-        }
-    });
 });
 
 // scroll to element

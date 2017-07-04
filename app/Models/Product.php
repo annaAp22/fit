@@ -58,7 +58,51 @@ class Product extends Model
             'big'        => '1240x1860'
         ],
     ];
-
+    private $_availableSizes = null;
+    /*
+     * @return array of sizes whitch need to show
+     * @param $sizesData contain arrays of sizes manSizes and womanSizes
+     * **/
+    public function getSizes($sizesData) {
+        $sizeType = $this->relations['attributes']->where('name', 'Тип размера')->first();
+        if(isset($sizesData) && $sizeType && isset($sizeType->pivot->value)) {
+            if($sizeType->pivot->value == 'Женский') {
+                $sizes = $sizesData['womanSizes'];
+            }elseif($sizeType->pivot->value == 'Мужской'){
+                $sizes = $sizesData['manSizes'];
+            }
+        }
+        if(!isset($sizes)) {
+            $sizes = $this->getAvailableSizes();
+        }
+        return $sizes;
+    }
+    /*
+     * @return array of available sizes
+     * **/
+    public function getAvailableSizes() {
+        if($this->_availableSizes)
+            return $this->_availableSizes;
+        $sizeAttr = $this->relations['attributes']->where('name', 'Размеры')->first();
+        if($sizeAttr && isset($sizeAttr->pivot->value)) {
+            $sizes = json_decode($sizeAttr->pivot->value);
+        }else {
+            $sizes = array();
+        }
+        $this->_availableSizes = $sizes;
+        return $sizes;
+    }
+    /*
+     * @return sex by product
+     * **/
+    public function getSex() {
+        $attr = $this->relations['attributes']->where('name', 'Пол')->first();
+        if($attr && isset($attr->pivot->value)) {
+            return $attr->pivot->value;
+        } else {
+            return null;
+        }
+    }
     /*
      * wrap the article in a name by tag span
      * **/

@@ -110,7 +110,7 @@
                         </div>
 
                         @include('catalog.products.rating')
-                        @if($sizes)
+                        @if(isset($sizesData))
                             <!-- Size-->
                             <div class="product-detailed__subtitle product-detailed__subtitle_size">Выберите свой размер:</div>
                             @include('catalog.products.sizes', ['class' => ' product-detailed__size'])
@@ -118,20 +118,18 @@
                                 <input type="hidden" name="size" value="0">
                         @endif
 
-                        @if($sizes)
                             {{-- How to choose size modal --}}
-                            @if(isset($catagoryInfo['crumbs'][0]) and $catagoryInfo['crumbs'][0] == 'woman')
-                                <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes_women">
+                            @if($product->getSex() == 'Мужской')
+                                <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes_men">
                                     <i class="sprite_main sprite_main-icon__popup_info"></i>
                                     <span>Как подобрать размер?</span>
                                 </a>
                             @else
-                                    <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes_men">
-                                        <i class="sprite_main sprite_main-icon__popup_info"></i>
-                                        <span>Как подобрать размер?</span>
-                                    </a>
+                                <a class="btn btn_more product-detailed__btn product-detailed__btn product-detailed__btn_size js-action-link" data-url="{{route('ajax.modal')}}" data-modal="sizes_women">
+                                    <i class="sprite_main sprite_main-icon__popup_info"></i>
+                                    <span>Как подобрать размер?</span>
+                                </a>
                             @endif
-                        @endif
 
                         <!-- Buy-->
                         <button class="btn btn_green product__buy product-detailed__btn product-detailed__btn product-detailed__btn_buy js-add-to-cart{{ session()->has('products.cart.'. $product->id) ? ' active' : '' }}"  onclick="document.getElementById('is_fast').value = 0;">

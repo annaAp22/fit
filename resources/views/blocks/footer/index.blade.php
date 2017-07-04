@@ -48,5 +48,5 @@
 </footer>
 <div class="map" id="map">
 </div>
-<div id="tooltip"></div>
+<div id="tooltip">Этого размера нет в наличии, но Вы можете оформить предзаказ</div>
 @include('blocks.counters')

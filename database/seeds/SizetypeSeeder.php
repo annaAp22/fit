@@ -21,7 +21,7 @@ class SizetypeSeeder extends Seeder
 
     public function addSizes($categoryName, $value) {
       $attribute = Attribute::where('name', 'Тип размера')->first();
-      $attributeExist = DB::table('attribute_product')->where('attribute_id', $attribute->id)->first();
+      $attributeExist = DB::table('attribute_product')->where('attribute_id', $attribute->id)->where('value', $value)->first();
       if($attributeExist) {
         return;
       }

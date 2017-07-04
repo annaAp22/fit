@@ -42,28 +42,7 @@
         <div class="product__hidden">
 
             @include('catalog.products.rating')
-            @php
-                $sizes = null;
-                $openSizesObj = $product->attributes->where('name', 'Размеры')->first();
-                if($openSizesObj) {
-                    $openSizes = json_decode($openSizesObj->pivot->value);
-                }
-                $sizeType = $product->attributes->where('name', 'Тип размера')->first();
-                if(isset($getSizesData) && $sizeType && isset($sizeType->pivot->value)) {
-                    if($sizeType->pivot->value == 'Женский') {
-                        $sizes = $getSizesData['womanSizes'];
-                    }elseif($sizeType->pivot->value == 'Мужской'){
-                        $sizes = $getSizesData['manSizes'];
-                    }
-                }
-                if(!$sizes) {
-                    $sizeAttr = $product->attributes->where('name', 'Размеры')->first();
-                    if($sizeAttr) {
-                        $sizes = json_decode($sizeAttr->pivot->value);
-                    }
-                }
-            @endphp
-            @if($sizes)
+            @if(isset($sizesData))
                 @include('catalog.products.sizes', ['class' => ' product__size'])
             @else
                 <div class="product__size-hidden">

@@ -1919,13 +1919,15 @@ button {
 
 #tooltip {
   position: absolute;
+  max-width: 90%;
   left: 10000px;
   top: 0;
   z-index: 7;
   display: none;
+  font-size: 12px;
   background-color: #fff;
-  border: 1px solid #777;
-  padding: 2px;
+  border: 1px solid #000;
+  padding: 2px 3px;
 }
 
 header {
