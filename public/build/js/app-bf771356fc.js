@@ -1006,10 +1006,21 @@ $(function(){
     $(document).on('yaCounter32222358inited', function () {
         console.log('счетчик yaCounter32222358 можно использовать');
     });
+    $(document).on('yaCounter32222361inited', function () {
+        console.log('счетчик yaCounter32222361 можно использовать');
+    });
     //yandex targets
     $body.on('click', '#quick-buy-btn', function(e) {
         if(typeof yaCounter32222358 !== 'undefined') {
             yaCounter32222358.reachGoal('1CLICK_BTN');
+        }else {
+            console.log('yaCounter32222358 not defined');
+        }
+        return true;
+    });
+    $body.on('click', '#quick-order-finish', function(e) {
+        if(typeof yaCounter32222361 !== 'undefined') {
+            yaCounter32222361.reachGoal('1CLICK_FINISH');
         }else {
             console.log('yaCounter32222358 not defined');
         }
