@@ -1918,6 +1918,7 @@ button {
 }
 
 #tooltip {
+  pointer-events: none;
   position: absolute;
   max-width: 90%;
   left: 10000px;
