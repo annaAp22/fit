@@ -1003,6 +1003,9 @@ $(function(){
             }, 3000);
         })
     })
+    $(document).on('yaCounter32222358inited', function () {
+        console.log('счетчик yaCounter32222358 можно использовать');
+    });
     //yandex targets
     $body.on('click', '#quick-buy-btn', function(e) {
         if(typeof yaCounter32222358 !== 'undefined') {

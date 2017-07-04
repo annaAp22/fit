@@ -12,6 +12,7 @@
                         accurateTrackBounce:true,
                         webvisor:true,
                         trackHash:true,
+                        triggerEvent:true,
                         ecommerce:"dataLayer"
                     });
                 } catch(e) { }
