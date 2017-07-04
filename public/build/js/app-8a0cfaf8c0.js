@@ -1003,7 +1003,15 @@ $(function(){
             }, 3000);
         })
     })
-
+    //yandex targets
+    $body.on('click', '#quick-buy-btn', function(e) {
+        if(typeof yaCounter32222358 !== 'undefined') {
+            yaCounter32222358.reachGoal('1CLICK_BTN');
+        }else {
+            console.log('yaCounter32222358 not defined');
+        }
+        return true;
+    });
 });
 
 // scroll to element
