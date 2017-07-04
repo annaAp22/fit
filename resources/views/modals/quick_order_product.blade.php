@@ -27,7 +27,7 @@
                 </label>
             </div>
             <div class="form-modal_line">
-                <button class="btn btn_green">ОТПРАВИТЬ</button>
+                <button class="btn btn_green" onclick="yaCounter32222361.reachGoal('1CLICK_FINISH'); return true;">ОТПРАВИТЬ</button>
             </div>
         </div>
         <div class="quick-order_col">
