@@ -11,7 +11,7 @@
             Подпишитесь на нашу рассылку и будьте первым, кто получит самые свежие новости  скидках, новинках и выгодных предложениях!
         </div>
         <div class="subscription__input-group"><input class="subscription__input" type="text" name="email" placeholder="Ваша электронная почта..."/>
-            <button class="btn btn_green" type="submit"><span>Получить скидку</span></button>
+            <button onclick="fbq('track', 'Lead'); return true;" class="btn btn_green" type="submit"><span>Получить скидку</span></button>
         </div>
     </form>
 </div>
