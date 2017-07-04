@@ -574,7 +574,7 @@ $(function(){
         if(typeof yaCounter32222361 !== 'undefined') {
             yaCounter32222361.reachGoal('1CLICK_FINISH');
         }else {
-            console.log('yaCounter32222358 not defined');
+            console.log('yaCounter32222361 not defined');
         }
         return true;
     });
