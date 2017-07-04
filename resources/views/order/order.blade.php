@@ -110,7 +110,7 @@
                 <div class="form-footer js-step js-step js-step_2 active">
                     <!-- Step 1-->
                     <div class="container-in js-step js-step_1 active">
-                        <button onclick="yaCounter32222364.reachGoal('ORDER_FINISH'); return true;" class="btn btn_green form-footer__btn form-footer__btn_step-1 js-step-next" data-next_step="2" disabled><span>Подтвердить</span><i class="sprite_main sprite_main-icon-arrow-small-right-dark-green"></i>
+                        <button id="order-finish-btn" class="btn btn_green form-footer__btn form-footer__btn_step-1 js-step-next" data-next_step="2" disabled><span>Подтвердить</span><i class="sprite_main sprite_main-icon-arrow-small-right-dark-green"></i>
                         </button>
                         <div class="form-secure"><i class="form-secure__icon sprite sprite_main sprite sprite_main-form-secure-lock-gray"></i>
                             <div>

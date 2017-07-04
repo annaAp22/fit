@@ -1009,20 +1009,32 @@ $(function(){
     $(document).on('yaCounter32222361inited', function () {
         console.log('счетчик yaCounter32222361 можно использовать');
     });
+
+    $(document).on('yaCounter12254515inited', function () {
+        console.log('счетчик yaCounter12254515 можно использовать');
+    });
     //yandex targets
     $body.on('click', '#quick-buy-btn', function(e) {
-        if(typeof yaCounter32222358 !== 'undefined') {
-            yaCounter32222358.reachGoal('1CLICK_BTN');
+        if(typeof yaCounter12254515 !== 'undefined') {
+            yaCounter12254515.reachGoal('1CLICK_BTN');
         }else {
             console.log('yaCounter32222358 not defined');
         }
         return true;
     });
     $body.on('click', '#quick-order-finish', function(e) {
-        if(typeof yaCounter32222361 !== 'undefined') {
-            yaCounter32222361.reachGoal('1CLICK_FINISH');
+        if(typeof yaCounter12254515 !== 'undefined') {
+            yaCounter12254515.reachGoal('1CLICK_FINISH');
         }else {
-            console.log('yaCounter32222361 not defined');
+            console.log('yaCounter12254515 not defined');
+        }
+        return true;
+    });
+    $body.on('click', '#order-finish-btn', function(e) {
+        if(typeof yaCounter12254515 !== 'undefined') {
+            yaCounter12254515.reachGoal('ORDER_FINISH');
+        }else {
+            console.log('yaCounter12254515 not defined');
         }
         return true;
     });
