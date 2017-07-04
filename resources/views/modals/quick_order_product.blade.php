@@ -27,7 +27,7 @@
                 </label>
             </div>
             <div class="form-modal_line">
-                <button class="btn btn_green">ОТПРАВИТЬ</button>
+                <button id="quick-order-finish" class="btn btn_green">ОТПРАВИТЬ</button>
             </div>
         </div>
         <div class="quick-order_col">
