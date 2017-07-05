@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeTextFieldInCategories extends Migration
+class AddFieldInAttributes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class ChangeTextFieldInCategories extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('attributes', function (Blueprint $table) {
             //
-          $table->text('text')->nullable()->change();
+          $table->boolean('hidden')->nullable();
         });
     }
 
@@ -26,9 +26,9 @@ class ChangeTextFieldInCategories extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('attributes', function (Blueprint $table) {
             //
-          $table->text('text')->change();
+          $table->dropColumn(['hidden']);
         });
     }
 }
