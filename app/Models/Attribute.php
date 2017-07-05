@@ -17,7 +17,8 @@ class Attribute extends Model
         'unit',
         'list',
         'is_filter',
-        'status'
+        'status',
+        'hidden',
     ];
 
     static public $types = [
@@ -53,4 +54,6 @@ class Attribute extends Model
         }
         return [];
     }
+
+    public function scopePublished($query) { return $query->where('status', 1); }
 }

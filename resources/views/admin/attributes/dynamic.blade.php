@@ -1,4 +1,12 @@
-<div class="dynamic-input-item dynamic-attributes" style="margin-bottom:5px;">
+@php
+    if(isset($id) && $attributes->where('id', $id)->first() && $attributes->where('id', $id)->first()->hidden) {
+        $visibility = 'hidden';
+    }else{
+        $visibility = '';
+    }
+
+@endphp
+<div class="dynamic-input-item dynamic-attributes" style="margin-bottom:5px;" {{$visibility}}>
     {{-- Attribute select --}}
     <div class="input-group col-sm-4" style="float:left;">
         <a href="" class="input-group-addon @if($first)plus @else minus @endif">

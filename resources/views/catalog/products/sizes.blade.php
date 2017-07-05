@@ -9,10 +9,10 @@
     </div>
     @php
         $sizes = $product->getSizes($sizesData);
-        $openSizes = $product->getAvailableSizes();
+        $availableSizes = $product->getAvailableSizes();
     @endphp
     @foreach($sizes as $size)
-        @if(isset($openSizes) && !in_array($size, $openSizes))
+        @if(isset($availableSizes) && !in_array($size, $availableSizes))
             <div class="size-filter__size js-square missing"><span>{{ $size }}</span>
                 <input type="hidden" name="size" value="{{ $size }}" disabled>
             </div>

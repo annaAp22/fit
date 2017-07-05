@@ -2,7 +2,7 @@
 
     {{-- Catalog navigation --}}
     @widget('ListingCatalog')
-    @if(in_array(Route::currentRouteName(), ['seen', 'bookmarks']))
+    @if(in_array(Route::currentRouteName(), ['seen', 'bookmarks', 'search']))
         @widget('TagsWidget', ['products' => $products])
     @else
         @widget('TagsWidget')

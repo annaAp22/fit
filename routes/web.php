@@ -67,7 +67,9 @@ Route::group([
     //test page
     //Route::get('/test.html', 'TestController@index')->name('test');
     //Route::get('/test-ms.html', 'TestController@msProduct')->name('test-ms');
-    Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
+    //Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
+    Route::get('/update-price-and-stock.html', 'RunOnceController@updatePriceAndStock')->name('update-price-and-stock');
+    //Route::get('/one-more-test.html', 'TestController@oneMoreTest')->name('one-more-test');
 
     // Product comments
 //    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);

@@ -600,7 +600,7 @@ class CatalogController extends Controller
     $page = $request->input('page', null);
     $per_page = $page == 1 ? 400 : 5;
     if($request->has('text') && $request->input('text') !='') {
-      $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')
+      $products = Product::with('attributes')->where('name','LIKE' , '%'.$request->input('text').'%')
           ->published()
           ->orderBy('name')
           ->paginate($per_page);
@@ -619,9 +619,11 @@ class CatalogController extends Controller
       ]);
     } else {
       $this->setMetaTags(null, 'Результаты поиска');
+      $sizesData = $this->getSizesData();
       return view('catalog.search', [
           'products' => !empty($products) ? $products : null,
           'text' => $request->input('text'),
+          'sizesData' => $sizesData,
       ]);
     }
   }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttributeProduct;
 use App\Models\MsOrder;
-use Illuminate\Http\Request;
 use App\Library\MoySklad\Ms;
 use App\Models\MsProduct;
 use App\Models\MsCronCounter;
@@ -190,10 +190,13 @@ class MoySkladController extends Controller
             $msProductsAr[$msProduct->ms_externalCode] = $msProduct;
         }
 
-        $sizes = Attribute::where('name', "Размеры")->first();
-        $allSizes = Attribute::where('name', "Все размеры")->first();
+        $sizes = Attribute::where('name', 'Размеры')->first();
+        $allSizes = Attribute::where('name', 'Все размеры')->first();
 //        $sizesAr = explode(",", str_replace(["[", "]"], "", $sizes->value));
         $sizesAr = json_decode($sizes->list);
+        if(!$sizesAr) {
+          $sizesAr = json_decode($allSizes->list);
+        }
 
         foreach ($rests as $rest)
         {
@@ -222,12 +225,12 @@ class MoySkladController extends Controller
                 }
             }
         }
-
+        $productsIds = array_keys($products);
+        $attributes = AttributeProduct::attributeByProductsIds($productsIds)->where('attribute_id', $allSizes->id)->get();
         //Reset all size attributes
         \DB::table('attribute_product')
-            ->where('attribute_id', $sizes->id)
+            ->where('attribute_id', $sizes->id)->orWhere('attribute_id', $allSizes->id)
             ->delete();
-
         foreach ($products as $id => $msProduct)
         {
             $product = Product::find($id);
@@ -238,10 +241,16 @@ class MoySkladController extends Controller
               $product->attributes()->attach($sizes->id, [
                   'value' => json_encode($msProduct['sizes']),
               ]);
+              $allSizesArr = $msProduct['allSizes'];
+              $oldSizes = $attributes->where('product_id', $id)->first();
+              if($oldSizes and isset($oldSizes->value)) {
+                $oldSizes = json_decode($oldSizes->value);
+                $allSizesArr = array_unique(array_merge($allSizesArr, $oldSizes));
+                sort($allSizesArr);
+              }
               $product->attributes()->attach($allSizes->id, [
-                  'value' => json_encode($msProduct['allSizes']),
+                  'value' => json_encode($allSizesArr),
               ]);
-
             }
             $product->save();
         }
@@ -284,7 +293,6 @@ class MoySkladController extends Controller
                     {
                         $products = array_merge($products, $res->rows);
                     }
-
                 }
             }
 

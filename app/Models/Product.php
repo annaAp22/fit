@@ -64,16 +64,27 @@ class Product extends Model
      * @param $sizesData contain arrays of sizes manSizes and womanSizes
      * **/
     public function getSizes($sizesData) {
-        $sizeType = $this->relations['attributes']->where('name', 'Тип размера')->first();
-        if(isset($sizesData) && $sizeType && isset($sizeType->pivot->value)) {
-            if($sizeType->pivot->value == 'Женский') {
-                $sizes = $sizesData['womanSizes'];
-            }elseif($sizeType->pivot->value == 'Мужской'){
-                $sizes = $sizesData['manSizes'];
-            }
+//        $sizeType = $this->relations['attributes']->where('name', 'Тип размера')->first();
+//        if(isset($sizesData) && $sizeType && isset($sizeType->pivot->value)) {
+//            if($sizeType->pivot->value == 'Женский') {
+//                $sizes = $sizesData['womanSizes'];
+//            }elseif($sizeType->pivot->value == 'Мужской'){
+//                $sizes = $sizesData['manSizes'];
+//            }
+//        }
+      $sizeAttr = $this->relations['attributes']->where('name', 'Все размеры')->first();
+        if($sizeAttr && isset($sizeAttr->pivot->value)) {
+          $sizes = json_decode($sizeAttr->pivot->value);
+        }else {
+          $sizes = array();
         }
+        $availableSizes = $this->getAvailableSizes();
         if(!isset($sizes)) {
-            $sizes = $this->getAvailableSizes();
+            $sizes = $availableSizes;
+        }else {
+          $sizes = array_merge($sizes, $availableSizes);
+          sort($sizes);
+          $sizes = array_unique($sizes);
         }
         return $sizes;
     }

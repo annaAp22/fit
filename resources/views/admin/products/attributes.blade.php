@@ -9,7 +9,10 @@
     <label class="col-sm-3 control-label no-padding-right"> Атрибуты </label>
     <div class="col-sm-9">
         <div class="dynamic-input">
-            @php $i = 0; @endphp
+            @php $i = 0;
+                $attributes->where('name', 'Размеры')->first()->name = 'Доступные размеры';
+                $attributes->where('name', 'Все размеры')->first()->name = 'Размеры';
+            @endphp
             @if($attribute_ids)
                 @foreach($attribute_ids as $attr_id => $attr_value)
                     @include('admin.attributes.dynamic', ['attributes' => $attributes, 'first' => $i == 0, 'id' => $attr_id, 'value' => $attr_value])

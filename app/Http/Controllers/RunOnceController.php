@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Library\MoySklad\Ms;
 use App\Models\Attribute;
 use App\Models\MsProduct;
 use Illuminate\Http\Request;
@@ -46,4 +47,9 @@ class RunOnceController extends Controller
     var_dump(json_encode($sizes));
     return 'аттрибут с заданными размерами добавлен';
   }
+  public function updatePriceAndStock() {
+    $ms = new MoySkladController();
+    echo $ms->updatePriceAndStock(new Ms());
+  }
+
 }

@@ -48,7 +48,8 @@ class TagsWidget extends AbstractWidget
           }
           $tags = Tag::tagsByProductIds($ids)->orderBy('views', 'desc')->orderBy('name')->get();
         }else {
-            $tags = Tag::where('status', 1)->orderBy('views', 'desc')->orderBy('name')->get();
+            //$tags = Tag::where('status', 1)->orderBy('views', 'desc')->orderBy('name')->get();
+            $tags = collect([]);
         }
         return view("widgets.tags_widget", [
             'config' => $this->config, 'tags' => $tags
