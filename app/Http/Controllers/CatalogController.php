@@ -48,7 +48,35 @@ class CatalogController extends Controller
         'products_count' => $count,
     ]);
   }
+  /*
+   * Reset session pages for all products
+   * */
+  public function clearProductsPages() {
+    $data = session()->get('filters.product');
+    if(!isset($data))
+      return;
+    foreach($data as $key => $category) {
+      if(in_array($key, ['new', 'act', 'hit'])) {
+        foreach($category as $pKey =>  $pCategory) {
+          if(isset($pCategory['page'])) {
+            $way = 'filters.product.'.$key.'.'.$pKey;
+            session()->put($way.'.page', 1);
+            session()->put($way.'.pageCount', 1);
+
+          }
+        }
+      }else {
+        if(isset($category['page'])) {
+          $way = 'filters.product.'.$key;
+          session()->put($way.'.page', 1);
+          session()->put($way.'.pageCount', 1);
+        }
+      }
+    }
+  }
   public function saveFilters(Request $request, $postfix = '') {
+    //dd(session()->all());
+    $this->clearProductsPages();
     if(!$request->has('filter')) {
       return;
     }
@@ -102,10 +130,6 @@ class CatalogController extends Controller
       session()->forget('filters.product.'.$postfix.$id);
       session()->put('filters.product.'.$postfix.$id, $filters);
     }
-//    $response = array(
-//      'reload' => 1
-//    );
-    //return response()->json($response);
   }
 
   public function filteredProducts($category_id, $postfix = '') {
