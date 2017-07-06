@@ -93,8 +93,7 @@ class ProductController extends Controller
         $tags = Tag::orderBy('views', 'desc')->orderBy('name')->get();
         $categories = Category::with('children.children', 'parent')->roots()->orderBy('sort')->get();
         $brands = Brand::orderBy('name')->get();
-        //некоторые аттрибуты спрятали от редактирования
-        $attributes = Attribute::orderBy('name')->published()->get();
+        $attributes = Attribute::orderBy('name')->get();
         $kits = Kit::orderBy('name')->get();
 
         $related = [];
@@ -172,8 +171,7 @@ class ProductController extends Controller
         $categories = Category::with('children.children')->where('parent_id', 0)->orderBy('sort')->get();
         $tags = Tag::orderBy('views', 'desc')->orderBy('name')->get();
         $brands = Brand::orderBy('name')->get();
-        //некоторые аттрибуты спрятали от редактирования
-        $attributes = Attribute::orderBy('name')->published()->get();
+        $attributes = Attribute::orderBy('name')->get();
         $kits = Kit::orderBy('name')->get();
 
         $related = [];
