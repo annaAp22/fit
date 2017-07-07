@@ -416,13 +416,14 @@ class CatalogController extends Controller
    * man_sizes, womanSizes, manCategoryId, womanCategoryId
    * **/
   public function getSizesData() {
-    $attributes = Attribute::whereIn('name', ['Женские размеры', 'Мужские размеры'])->get();
-    $womanSizes = json_decode($attributes->where('name', 'Женские размеры')->first()->list);
-    $manSizes = json_decode($attributes->where('name', 'Мужские размеры')->first()->list);
-    $sizesData = array(
-        'manSizes' => $manSizes,
-        'womanSizes' => $womanSizes,
-    );
+//    $attributes = Attribute::whereIn('name', ['Женские размеры', 'Мужские размеры'])->get();
+//    $womanSizes = json_decode($attributes->where('name', 'Женские размеры')->first()->list);
+//    $manSizes = json_decode($attributes->where('name', 'Мужские размеры')->first()->list);
+//    $sizesData = array(
+//        'manSizes' => $manSizes,
+//        'womanSizes' => $womanSizes,
+//    );
+    $sizesData = array();
     return $sizesData;
   }
   /**
@@ -625,7 +626,7 @@ class CatalogController extends Controller
     $per_page = $page == 1 ? 400 : 5;
     if($request->has('text') && $request->input('text') !='') {
       $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')
-          ->published()
+          ->published()->with('attributes')
           ->orderBy('name')
           ->paginate($per_page);
     }
@@ -646,6 +647,7 @@ class CatalogController extends Controller
       return view('catalog.search', [
           'products' => !empty($products) ? $products : null,
           'text' => $request->input('text'),
+          'sizesData' => $this->getSizesData(),
       ]);
     }
   }

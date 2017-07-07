@@ -8,7 +8,7 @@
         </div>
     </div>
     @php
-        $sizes = $product->getSizes($sizesData);
+        $sizes = $product->getSizes();
         $openSizes = $product->getAvailableSizes();
     @endphp
     @foreach($sizes as $size)

@@ -238,10 +238,12 @@ class MoySkladController extends Controller
               $product->attributes()->attach($sizes->id, [
                   'value' => json_encode($msProduct['sizes']),
               ]);
+            }
+            if(isset($msProduct['allSizes']))
+            {
               $product->attributes()->attach($allSizes->id, [
                   'value' => json_encode($msProduct['allSizes']),
               ]);
-
             }
             $product->save();
         }

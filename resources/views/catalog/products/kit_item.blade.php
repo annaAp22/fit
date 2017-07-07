@@ -8,8 +8,7 @@
         <!-- Image-->
         <a class="product-set-item__image" href="{{ route('product', $product->sysname) }}">
             <img src="{{ $product->uploads->img->kit->url() }}"/>
-
-            @if($sizesData)
+            @if(count($product->getSizes()))
                 @include('catalog.products.sizes', ['class' => ' product-set-item__size'])
             @else
                 <input type="hidden" name="size" value="0">
