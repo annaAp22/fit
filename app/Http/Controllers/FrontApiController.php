@@ -100,11 +100,15 @@ class FrontApiController extends Controller
     }
 
     Mail::send('emails.support.question',
-        ['name' => $request->input('name'),
+        ['phone' => $request->input('phone'),
             'text' => $request->input('text'),
             'email' => $request->input('email')], function ($message) use ($request){
-          $message->from($request->input('email'), $request->input('name'));
-          $message->to(\App\Models\Setting::getVar('email_support'))->subject('Вопрос с сайта '.$request->root());
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Вопрос с сайта '.$request->root();
+          $message->to($email)->subject($caption);
+
+//          $message->from($request->input('email'), $request->input('name'));
+//          $message->to(\App\Models\Setting::getVar('email_support'))->subject('Вопрос с сайта '.$request->root());
         });
     return response()->json([
         'result' => 'ok',
