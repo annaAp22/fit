@@ -3,7 +3,7 @@
 <head></head>
 <body style="font-family: Verdana, Geneva, sans-serif;font-size:16px;line-height:28px;">
 <a href="{{Request::root()}}">
-    <img src="{{Request::root()}}img/header__logo-min.png" alt="fit2u"/>
+    <img src="{{Request::root()}}/img/header__logo-min.png" alt="fit2u"/>
 </a>
 <br><br>
 Здравствуйте! Благодарим вас за покупку!<br>
@@ -27,7 +27,7 @@
     @foreach($order->products as $product)
         <tr style="border-bottom:1px solid #d9d9d9;">
             <td style="padding-left:0;">
-                <img src="{{Request::root()}}$product->uploads->img->cart->url()}}" alt="">
+                <img src="{{Request::root()}}/{{$product->uploads->img->cart->url()}}" alt="">
             </td>
             <td style="font-size:14px;text-align:left;">
                 <a style="color:#272727;text-decoration:none" href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a>
