@@ -28,7 +28,10 @@
           <div class="navigation-footer__social-buttons">
             <div class="navigation-footer__title navigation-footer__title_mt">Мы в соц. сетях
             </div>
-            <div class="navigation-footer__social"><a href="#"><i class="sprite_main sprite_main-social__footer_vk"></i></a><a href="#"><i class="sprite_main sprite_main-social__footer_facebook"></i></a><a href="#"><i class="sprite_main sprite_main-social__footer_instagram"></i></a>
+            <div class="navigation-footer__social">
+              <a href="{!! $global_settings['social_vk']->value !!}" target="_blank"><i class="sprite_main sprite_main-social__footer_vk"></i></a>
+              <a href="{!! $global_settings['social_fb']->value !!}" target="_blank"><i class="sprite_main sprite_main-social__footer_facebook"></i></a>
+              <a href="{!! $global_settings['social_instagram']->value !!}" target="_blank"><i class="sprite_main sprite_main-social__footer_instagram"></i></a>
             </div>
           </div>
         </div>
