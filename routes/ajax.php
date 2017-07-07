@@ -11,6 +11,11 @@ Route::post('/letter', [
     'as'   => 'letter',
     'uses' => 'FrontApiController@letter'
 ]);
+Route::post('/cooperation', [
+    'as'   => 'cooperation',
+    'uses' => 'FrontApiController@cooperation'
+]);
+
 Route::post('/questions', 'FrontApiController@questions')->name('questions');
 
 Route::post('/callback', [

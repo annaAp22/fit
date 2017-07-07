@@ -141,6 +141,35 @@ class FrontApiController extends Controller
         'modal' => view('modals.letter_success')->render()
     ]);
   }
+  /**
+   * Заказ обратного звонка
+   * @param Request $request
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function cooperation(Request $request) {
+    $validator = Validator::make($request->input(), [
+        'email' => 'required',
+        'name' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json(['message' => 'При запросе произошла ошибка. Попробуйте снова.']);
+    }
+
+    Mail::send('emails.cooperation',
+        ['name' => $request->input('name'),
+            'email' => $request->input('email')], function ($message) use ($request) {
+          $email = \App\Models\Setting::getVar('email_support');
+          $caption = 'Запрос на сотрудничество '.$request->root();
+          $message->to($email)->subject($caption);
+        });
+
+    return response()->json([
+        'result' => 'ok',
+        'action' => 'openModal',
+        'modal' => view('modals.letter_success')->render()
+    ]);
+  }
 
   /**
    * AJAX - подгрузка товаров
