@@ -32,7 +32,7 @@
             <td style="font-size:14px;text-align:left;">
                 <a style="color:#272727;text-decoration:none" href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a>
                 <span style="color:#ababab"> {{$product->sku}}</span><br>
-                Размер: <span style="color:#ababab">{{$order->getSizeByProduct($product)}}</span>
+                Размер: <span style="color:#ababab">{{$order->getSizeByProduct($product)?:'не указан'}}</span>
             </td>
             <td style="font-size:18px;width:24%;" align="center">
                 <div style="display:table;width:100%;height:70px;border:1px solid #d6d6d6;border-bottom:0;border-top:0;">

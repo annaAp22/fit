@@ -64,7 +64,17 @@ class Order extends Model
             ->withTimestamps();
     }
     public function getSizeByProduct($product) {
-      return json_decode($product->pivot->extra_params)->size;
+      if(isset($product->pivot->extra_params)) {
+        $arr = json_decode($product->pivot->extra_params);
+      }else {
+        return 0;
+      }
+
+      if(isset($arr->size)) {
+        return $arr->size;
+      }else {
+        return 0;
+      }
     }
     public function getPriceByProduct($product) {
       return ($product->price - $product->discount)*$product->pivot->cnt;

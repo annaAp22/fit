@@ -431,7 +431,7 @@ class FrontApiController extends Controller
      foreach ($order->products as $product)
      {
        $params = json_decode($product->pivot->extra_params);
-       $sku = $params->size ? $product->sku . "-" . $params->size : $product->sku;
+       $sku = isset($params->size) ? $product->sku . "-" . $params->size : $product->sku;
        $ms_product = $product->ms_products()->where('ms_sku', $sku)->first();
        if($ms_product)
        {

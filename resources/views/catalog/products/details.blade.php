@@ -110,11 +110,12 @@
                         </div>
 
                         @include('catalog.products.rating')
-                        @if(isset($sizesData))
+                        @if(count($product->getSizes()))
                             <!-- Size-->
                             <div class="product-detailed__subtitle product-detailed__subtitle_size">Выберите свой размер:</div>
                             @include('catalog.products.sizes', ['class' => ' product-detailed__size'])
                         @else
+                                <span>&nbsp;</span>
                                 <input type="hidden" name="size" value="0">
                         @endif
 
