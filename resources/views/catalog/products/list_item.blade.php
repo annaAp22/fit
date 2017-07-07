@@ -42,7 +42,7 @@
         <div class="product__hidden">
 
             @include('catalog.products.rating')
-            @if(isset($sizesData))
+            @if(count($product->getSizes()))
                 @include('catalog.products.sizes', ['class' => ' product__size'])
             @else
                 <div class="product__size-hidden">
