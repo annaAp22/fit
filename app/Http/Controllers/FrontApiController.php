@@ -484,7 +484,7 @@ class FrontApiController extends Controller
     Mail::send('emails.order_for_user',
         [
             'order' => $order,
-            'phone' => $phone,
+            'phone' => strip_tags($phone),
         ], function ($message) use ($request) {
           $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);

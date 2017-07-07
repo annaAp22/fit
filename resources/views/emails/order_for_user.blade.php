@@ -1,41 +1,56 @@
 <html>
 
 <head></head>
-<body>
-Здравствуйте!<br>
-<br>
-Спасибо за заказ на сайте <a href="{{Request::root()}}"><b>fit2u</b></a><br>
-Номер Вашего заказа <b>{{$order->id}}</b><br>
-В ближайшее время наши специалисты свяжутся с вами.<br>
-@if(isset($phone))
-Если возникнут вопросы, можете связаться с нами по телефону {!! $phone !!}<br>
+<body style="font-family: Verdana, Geneva, sans-serif;font-size:16px;line-height:28px;">
+<a href="{{Request::root()}}">
+    <img src="{{Request::root()}}img/header__logo-min.png" alt="fit2u"/>
+</a>
+<br><br>
+Здравствуйте! Благодарим вас за покупку!<br>
+Вы оформили заказ в магазине крутой фитнес-одежды на сайте <a style="color:#000;text-decoration:none;" href="{{Request::root()}}">{{Request::root()}}</a><br>
+<b>Ваш заказ №{{$order->id}}</b> на сумму {{$order->price()}} р.<br>
+@if(isset($order->delivery))
+    Тип доставки: {{$order->delivery->name}}
+@else
+    Тип доставки: не указан
 @endif
+<br><br>
+<b>Судя по составу заказа, у вас прекрасный вкус:</b>
 <br>
-Товары, которые Вы заказали:<br>
-<table border="1" cellspacing="0" cellpadding="5">
-    <tr>
-        <th></th>
-        <th>название</th>
-        <th>размер</th>
-        <th>количество</th>
-        <th>стоимость</th>
+<table cellspacing="0" cellpadding="10" width="100%" style="line-height:16px;border-collapse: collapse;">
+    <tr style="color:#a7a7a7;font-size:12px;border-bottom:1px solid #d9d9d9;line-height:24px;white-space:nowrap;">
+        <th style="text-align: left;">фото товара:</th>
+        <th style="text-align:left;padding-right:8%;width:40%;">название товара:</th>
+        <th>цена за шт:</th>
+        <th>цена:</th>
     </tr>
     @foreach($order->products as $product)
-        <tr>
-            <td><img src="{{Request::root().$product->uploads->img->preview->url()}}" alt=""></td>
-            <td><a href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a></td>
-            <td align="center">{{$order->getSizeByProduct($product)}}</td>
-            <td align="center">{{$product->pivot->cnt}}</td>
-            <td>{{$order->getPriceByProduct($product)}} р.</td>
+        <tr style="border-bottom:1px solid #d9d9d9;">
+            <td style="padding-left:0;">
+                <img src="{{Request::root()}}$product->uploads->img->cart->url()}}" alt="">
+            </td>
+            <td style="font-size:14px;text-align:left;">
+                <a style="color:#272727;text-decoration:none" href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a>
+                <span style="color:#ababab"> {{$product->sku}}</span><br>
+                Размер: <span style="color:#ababab">{{$order->getSizeByProduct($product)}}</span>
+            </td>
+            <td style="font-size:18px;width:24%;" align="center">
+                <div style="display:table;width:100%;height:70px;border:1px solid #d6d6d6;border-bottom:0;border-top:0;">
+                    <div style="display:table-cell;vertical-align:middle;text-align:center;white-space:nowrap">
+                        <b>{{$product->getPriceWithDiscount()}} р.</b>
+                        @if(isset($product->pivot->cnt) && $product->pivot->cnt > 0)
+                            <span style="color:#ababab;font-size:14px; font-weight:400;">x {{$product->pivot->cnt}}</span>
+                        @endif
+                    </div>
+                </div>
+            </td>
+            <td style="font-size:18px;text-align:center;white-space:nowrap"><b>{{$order->getPriceByProduct($product)}} р.</b></td>
         </tr>
     @endforeach
 </table>
-<br>
-@if($order->delivery_id)
-    Способ доставки: <b>{{$order->delivery->name}}</b><br>
-    Стоимость доставки: <b>{{$order->delivery->price}} р.</b><br>
-    <p>Общая стоимость(с учетом доставки): <b>{{$order->price()}} р.</b></p>
-@else
-    <p>Общая стоимость: <b>{{$order->price()}} р.</b></p>
+<br><br>
+@if(isset($phone))
+    Остались вопросы? Мы с удовольствием ответим на них
+    <a style="color:#000;text-decoration:none" href="tel:{!! $phone !!}" class="daria-goto-anchor" target="_blank" rel="noopener noreferrer"><b>{!! $phone !!}</b></a>
 @endif
 </body>
