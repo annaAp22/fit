@@ -41,7 +41,6 @@
         <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-23564-eYnAF';</script>
         <!-- END vk pixel -->
     <!-- Facebook Pixel Code -->
-    <!-- Google analitics-->
     <script>
         !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -56,6 +55,7 @@
         /></noscript>
     <!-- DO NOT MODIFY -->
     <!-- End Facebook Pixel Code -->
+    <!-- Google analitics-->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -67,5 +67,33 @@
 
     </script>
     <!-- END Google analitics-->
+    <!-- Rating@Mail.ru counter -->
+    <script type="text/javascript">
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({id: "2524267", type: "pageView", start: (new Date()).getTime()});
+        (function (d, w, id) {
+            if (d.getElementById(id)) return;
+            var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+            ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+            var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+            if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+        })(document, window, "topmailru-code");
+    </script><noscript><div>
+            <img src="//top-fwz1.mail.ru/counter?id=2524267;js=na" style="border:0;position:absolute;left:-9999px;" alt="" />
+        </div></noscript>
+    <!-- //Rating@Mail.ru counter -->
+
+    <!-- Rating@Mail.ru counter dynamic remarketing appendix -->
+    <script type="text/javascript">
+        var _tmr = _tmr || [];
+        _tmr.push({
+            type: 'itemView',
+            productid: 'VALUE',
+            pagetype: 'VALUE',
+            list: 'VALUE',
+            totalvalue: 'VALUE'
+        });
+    </script>
+    <!-- // Rating@Mail.ru counter dynamic remarketing appendix -->
 @endif
 <!-- END counters-->
