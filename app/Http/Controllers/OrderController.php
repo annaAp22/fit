@@ -12,7 +12,6 @@ use App\Models\Product;
 use App\Models\Order;
 
 use Illuminate\Support\Facades\Mail;
-use Mockery\Exception;
 use Validator;
 
 class OrderController extends Controller
@@ -211,10 +210,12 @@ class OrderController extends Controller
           $caption = 'Заказ';
           $message->to($email)->subject($caption);
         });
+      $siteUrl = env('DEV_SITE_URL', $request->root());
       Mail::send('emails.order_for_user',
         [
             'order' => $order,
             'phone' => strip_tags($phone),
+            'siteUrl' => $siteUrl,
         ], function ($message) use ($request) {
           $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);

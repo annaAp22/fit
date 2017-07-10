@@ -481,10 +481,12 @@ class FrontApiController extends Controller
           $message->to($email)->subject($caption);
         });
     $phone = \App\Models\Setting::getVar('phone_number')['free'];
+    $siteUrl = env('DEV_SITE_URL', $request->root());
     Mail::send('emails.order_for_user',
         [
             'order' => $order,
             'phone' => strip_tags($phone),
+            'siteUrl' => $siteUrl,
         ], function ($message) use ($request) {
           $caption = 'Ваш заказ с сайта fit2u';
           $message->to($request->input('email'))->subject($caption);
