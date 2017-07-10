@@ -19,13 +19,13 @@
                         <h1>Результаты поиска</h1>
                         <div class="goods-count">
                             <span>Товаров найдено</span>
-                            <i class="sprite_main sprite_main-icon__goods_count">{{ $products->total() }}</i>
+                            <i class="sprite_main sprite_main-icon__goods_count">{{ isset($products)?$products->total():0 }}</i>
                         </div>
                     </div>
 
                     <!-- Goods listing-->
                     <div class="goods-listing js-container-search">
-                        @if($products->count())
+                        @if(isset($products) && $products->count())
                             @include('catalog.products.list')
                         @else
                             <p class="col-24">Поиск не принес результатов. Попробуйте поискать что-нибудь другое.</p>
@@ -33,7 +33,7 @@
                     </div>
 
                     {{-- Pagination --}}
-                    @if($products->currentPage() < $products->lastPage())
+                    @if(isset($products) && $products->currentPage() < $products->lastPage())
                         <div class="page-navigation js-pagination-search">
                             <button class="btn btn_more js-action-link"
                                     data-text="{{$text}}"
