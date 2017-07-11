@@ -51,5 +51,37 @@ class RunOnceController extends Controller
     $ms = new MoySkladController();
     echo $ms->updatePriceAndStock(new Ms());
   }
-
+  /*
+   *
+   * **/
+  public function removeSizesType() {
+    $q = Attribute::where('name', 'Тип размера');
+    $attribute = $q->first();
+    if($attribute) {
+      $attribute->products()->detach();
+      $q->forceDelete();
+      return 'типы размеров удалены';
+    }
+    return 'типы размеров не найдены';
+  }
+  /*
+   * удаление размеров связанных с полом
+   * **/
+  public function removeSizesSex() {
+    $sex = array('Женские размеры', 'Мужские размеры');
+    $result = '';
+    foreach ($sex as $name) {
+      $q = Attribute::where('name', $name);
+      $attribute = $q->first();
+      if($attribute) {
+        $attribute->products()->detach();
+        $q->forceDelete();
+        $result .=  $name." удалены.\n";
+      }
+    }
+    if($result) {
+      return $result;
+    }else
+      return 'нечего удалять';
+  }
 }

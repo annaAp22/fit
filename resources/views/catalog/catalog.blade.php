@@ -23,10 +23,12 @@
                     $filters['category'] = isset($category) ? $category : null;
                     $filters['brand'] = isset($brand) ? $brand : null;
                     $filters['tag'] = isset($tag) ? $tag : null;
-                    if(isset($category))
+                    if(isset($category)) {
                         $filters['filters'] = $category->filters;
-                    if(isset($tag))
+                    }
+                    if(isset($tag)) {
                         $filters['filters'] = $tag->filters;
+                    }
                     $filters['sort'] = isset($filters['sort'])?$filters['sort']:'sort';
                 @endphp
 

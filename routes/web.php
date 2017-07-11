@@ -39,7 +39,7 @@ Route::group([
         // Каталог
         Route::get('/catalog.html', ['as' => 'catalog.root', 'uses' => 'CatalogController@catalogRoot'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
         Route::get('/brand/{sysname}.html', ['as' => 'brands', 'uses' => 'CatalogController@brands'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
-        Route::get('/tag/{sysname}', ['as' => 'tags', 'uses' => 'CatalogController@tags'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
+        Route::any('/tag/{sysname}', ['as' => 'tags', 'uses' => 'CatalogController@tags'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
         Route::get('/seen', ['as' => 'seen', 'uses' => 'CatalogController@seen']);
         Route::get('/bookmarks', ['as' => 'bookmarks', 'uses' => 'CatalogController@bookmarks']);
 
@@ -67,13 +67,18 @@ Route::group([
     //test page
     //Route::get('/test.html', 'TestController@index')->name('test');
     //Route::get('/test-ms.html', 'TestController@msProduct')->name('test-ms');
-    //Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
+
     //Route::get('/update-price-and-stock.html', 'RunOnceController@updatePriceAndStock')->name('update-price-and-stock');
     //Route::get('/one-more-test.html', 'TestController@oneMoreTest')->name('one-more-test');
 
     // Product comments
 //    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
 //    Route::get('/comments', ['as' => 'comments', 'uses' => 'FrontApiController@comments']);
+
+    //run onece
+    //Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
+    Route::get('/run-once/remove-sizes-type.html', 'RunOnceController@removeSizesType')->name('remove-sizes-type');
+    Route::get('/run-once/remove-sex-sizes.html', 'RunOnceController@removeSizesSex')->name('remove-sex-sizes');
 
     // Yandex Market
     Route::get('/export/yandex-market', 'ExportController@yandexMarket')->name('yandex_market');

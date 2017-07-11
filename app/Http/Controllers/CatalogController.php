@@ -126,6 +126,9 @@ class CatalogController extends Controller
       }
     }
     $id = $request->input('category_id');
+    if(!$id) {
+      $id = $request->input('tag_id');
+    }
     if($id) {
       session()->forget('filters.product.'.$postfix.$id);
       session()->put('filters.product.'.$postfix.$id, $filters);
@@ -133,9 +136,9 @@ class CatalogController extends Controller
   }
 
   public function filteredProducts($category_id, $postfix = '') {
-    $session = session()->get('filters.product.'.$postfix.$category_id);
     //фильтр категории - получаем связанные товары из категории
     if($category_id) {
+      $session = session()->get('filters.product.'.$postfix.$category_id);
       $category = Category::with(['parent', 'children_rec'])->findOrFail($category_id);
       $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
       //добавил выбор id по первой таблице(products.id), так как он затирался id из второй таблицы и соответственно товар получал чужие аттрибуты
@@ -146,12 +149,14 @@ class CatalogController extends Controller
       $this->totalProductsCount = Product::join('category_product','products.id','category_product.product_id')
           ->whereIn('category_product.category_id', collect($category_ids))
           ->published()->count();
-    }else if(isset($session['tag_id'])) {
-      $products = Tag::findOrFail($session['tag_id'])
+    }elseif(session()->has('tag_id')) {
+      $tag_id = session()->get('tag_id');
+      $session = session()->get('filters.product.'.$postfix.$tag_id);
+      $products = Tag::findOrFail($tag_id)
           ->productsWithoutSort()
           ->published()
           ->with('attributes');
-      $this->totalProductsCount = Tag::findOrFail($session['tag_id'])->published()->count();
+      $this->totalProductsCount = Tag::findOrFail($tag_id)->published()->count();
       //по умолчанию просто фильтруем товары
     } else {
       $products = Product::with('attributes')->published();
@@ -241,7 +246,7 @@ class CatalogController extends Controller
         // по ручной сортировке в категории или теге
         case 'sort':
         default:
-          if(isset($session['tag_id'])) {
+          if(isset($tag_id)) {
             $products->orderBy('product_tag.sort');
           }
           else {
@@ -276,8 +281,14 @@ class CatalogController extends Controller
   }
   public function getFilters($category, $products, $totalProductCount = null, $postfix = '') {
     $productsCount = $totalProductCount;
-    $filters = session()->get('filters.product.'.$postfix.$category->id);
-    if(!$filters)
+    if(isset($category)) {
+      $filters = session()->get('filters.product.'.$postfix.$category->id);
+    }elseif(session()->has('tag_id')) {
+      $tag_id = session()->get('tag_id');
+      $filters = session()->get('filters.product.'.$postfix.$tag_id);
+    }
+
+    if(!isset($filters))
       $filters = array(
         'sort' => 'sort'
       );
@@ -431,14 +442,24 @@ class CatalogController extends Controller
    * @param $sysname
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function tags($sysname)
+  public function tags(Request $request, $sysname)
   {
     $tag = Tag::where('sysname', $sysname)
         ->published()
         ->firstOrFail();
     // if has products then render catalog, else articles
     // TODO: create pagination function for products and articles
-    $products = $tag->products()->with(['attributes'])->published()->paginate(20);
+    $postfix = 'tag.';
+    $request->request->add(['tag_id' => $tag->id]);
+    $this->saveFilters($request, $postfix);
+    if(!session()->has('filters.product.'.$postfix.$tag->id)) {
+      $products = $tag->products()->with(['attributes'])->published();
+      $this->totalProductsCount = $products->count();
+      $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+    }else {
+      session()->put('tag_id', $tag->id);
+      $products = $this->filteredProducts(null, $postfix);
+    }
     if($products->count())
     {
       $products->min_price = $tag->products()->published()->min('price');
@@ -446,7 +467,9 @@ class CatalogController extends Controller
 
       $this->setMetaTags(null, $tag->title, $tag->description, $tag->keywords);
       $sizesData = $this->getSizesData();
-      return view('catalog.catalog', compact('tag', 'products', 'sizesData'));
+      $filters = $this->getFilters(null, $products, $this->totalProductsCount, $postfix);
+
+      return view('catalog.catalog', compact('tag', 'products', 'sizesData', 'filters'));
     }
     else
     {

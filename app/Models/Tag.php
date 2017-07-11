@@ -64,7 +64,7 @@ class Tag extends Model
         $filters = [];
 
         foreach($this->products as $product)
-                foreach($product->attributes()->get() as $attr) {
+                foreach($product->attributes()->where('is_filter', 1)->where('status', 1)->get() as $attr) {
                     $attr->value = $attr->pivot->value;
                     if(in_array($attr->original['type'], ['checklist']))
                         $attr->value = json_decode($attr->value);
@@ -76,7 +76,9 @@ class Tag extends Model
                     $filters[$attr->id] = $attr;
                     $filters[$attr->id]->values = collect($attr->value);
                 }
-
+        foreach ($filters as $key => $val) {
+          $filters[$key]->values = $val->values->unique();
+        }
         return collect($filters);
     }
 
