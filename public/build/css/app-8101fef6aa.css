@@ -126,6 +126,7 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -3233,9 +3234,11 @@ header .line_lg {
 .sidebar-tags__tag {
   font-size: 13px;
   color: #a4a4a4;
-  -webkit-transition: color .3s ease,text-decoration .3s ease;
+  -webkit-transition: color .3s ease,-webkit-text-decoration .3s ease;
+  transition: color .3s ease,-webkit-text-decoration .3s ease;
   -o-transition: color .3s ease,text-decoration .3s ease;
   transition: color .3s ease,text-decoration .3s ease;
+  transition: color .3s ease,text-decoration .3s ease,-webkit-text-decoration .3s ease;
   display: block;
   margin: 10px 0;
   text-decoration: none;
@@ -3257,7 +3260,7 @@ header .line_lg {
 
 .sidebar-tags.active .sidebar-tags__hidden {
   opacity: 1;
-  max-height: 500px;
+  max-height: 2000px;
   -webkit-transition: max-height .6s ease,opacity .3s ease .1s;
   -o-transition: max-height .6s ease,opacity .3s ease .1s;
   transition: max-height .6s ease,opacity .3s ease .1s;
