@@ -521,7 +521,7 @@ class CatalogController extends Controller
     else
     {
       $postfix = '';
-      $products = Product::where('act', 1)->where('status', 1)->orderBy('name');
+      $products = Product::with('attributes')->where('act', 1)->where('status', 1)->orderBy('name');
     }
     if(!isset($category) or !session()->has('filters.product.'.$postfix.$category->id)) {
       $this->totalProductsCount = $products->count();
