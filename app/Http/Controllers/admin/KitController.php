@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Http\Request;
 use App\Models\Kit;
 use App\Http\Requests\admin\KitRequest;
 use App\Models\Product;
@@ -13,12 +14,15 @@ class KitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('index', new Kit);
-        $kits = Kit::with('products')->paginate();
-
-        return view('admin.kits.index', compact('kits'));
+        $q = Kit::with('products');
+        $filters = $this->getFormFilter($request->input());
+        if (!empty($filters) && !empty($filters['name']))
+          $q->where('name', 'LIKE', '%'.$filters['name'].'%');
+        $kits = $q->paginate($filters['perpage']);
+        return view('admin.kits.index', compact('kits', 'filters'));
     }
 
     /**
