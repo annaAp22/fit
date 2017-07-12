@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Cache;
 use phpbb\viewonline_helper;
 use Validator;
 use Image;
@@ -102,5 +103,11 @@ class MainController extends Controller
         echo '<script type="text/javascript">window.parent.CKEDITOR.tools.callFunction("'.$callback.'", "'.$full_path.'", "'.$message.'" );</script>';
         return;
     }
-
+    /*
+     * чистим кэш
+     * **/
+    public function cacheClear() {
+        Cache::flush();
+        return view('admin.cache');
+    }
 }

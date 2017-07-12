@@ -229,6 +229,13 @@
                     <b class="arrow"></b>
                 </li>
                 @endcan
+                <li @if( str_is('admin.cache-clear', Route::currentRouteName())) class="active" @endif>
+                    <a href="{{route('admin.cache-clear')}}">
+                        <i class="menu-icon fa fa-refresh"></i>
+                        <span class="menu-text" title="сделать это!"> Очистить кэш </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
             </ul>
         </li>
 

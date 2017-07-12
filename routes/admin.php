@@ -73,3 +73,4 @@ Route::get('/image/crop', ['as' => 'image.crop', 'uses' => 'MainController@crop'
 Route::post('/image/crop', ['as' => 'image.crop.save', 'uses' => 'MainController@cropUpdate']);
 
 Route::post('/editor/upload', ['as' => 'editor.upload', 'uses' => 'MainController@uploadFileCKeditor'] );
+Route::get('/cache-clear', 'MainController@cacheClear')->name('cache-clear');
