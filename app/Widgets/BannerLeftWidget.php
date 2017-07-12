@@ -12,7 +12,9 @@ class BannerLeftWidget extends AbstractWidget
      *
      * @var array
      */
-    protected $config = [];
+    protected $config = [
+        'sex' => 'woman'
+    ];
 
     /**
      * Treat this method as a controller action.
@@ -20,8 +22,12 @@ class BannerLeftWidget extends AbstractWidget
      */
     public function run()
     {
-        $banners = Banner::where('type', 'left')->where('status', 1)->get();
 
+        $banners = Banner::where('type', 'left')->where('status', 1)->get();
+        //заменяем ?sex в ссылках на пол для заданной страницы
+        foreach ($banners as $item) {
+            $item->url = str_replace('?sex', $this->config['sex'], $item->url);
+        }
         return view("widgets.banner_left_widget", [
             'config' => $this->config,
             'banners' => $banners,

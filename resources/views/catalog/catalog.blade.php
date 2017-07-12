@@ -47,7 +47,11 @@
                 @elseif(isset($tag))
                     @widget('TagsWidget', ['tag_id' => $tag->id])
                 @endif
-                @widget('BannerLeftWidget')
+                @if(isset($category))
+                    @widget('BannerLeftWidget', ['sex' => $category->getRootCategorySysname()])
+                @else
+                    @widget('BannerLeftWidget')
+                @endif
             </aside>
             <section class="content">
                 <div class="container-in">

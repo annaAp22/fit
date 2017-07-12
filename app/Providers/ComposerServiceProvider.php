@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Meta;
@@ -33,7 +34,6 @@ class ComposerServiceProvider extends ServiceProvider
         }
         $view->with('global_settings', $result);
       });
-
     }
 
     /**

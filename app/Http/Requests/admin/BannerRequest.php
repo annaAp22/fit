@@ -9,7 +9,7 @@ class BannerRequest extends Request
 {
     private $rules = [
         'type' => 'required',
-        'img' => 'required|image',
+        //'img' => 'required|image',
 //        'url' => 'required'
     ];
 

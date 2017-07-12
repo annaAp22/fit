@@ -9,7 +9,7 @@ use Indiesoft\LaravelUploads\LaravelUploads;
 class Category extends Model
 {
     use SoftDeletes, LaravelUploads;
-
+    private $_categoryType;
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
@@ -44,9 +44,29 @@ class Category extends Model
             'extensions' => 'jpg,jpeg,png',
         ],
     ];
-
-
-
+    /*
+     *@return системное имя корневой категории
+     * **/
+    public function getRootCategorySysname($category = null) {
+        $categoryType = 'woman';
+        if($category) {
+            if($category->parent_id === 0) {
+                $categoryType =  $category->sysname;
+            } else {
+                $category = self::where('id', $category->parent_id)->first();
+                $categoryType = $this->getRootCategorySysname($category);
+            }
+        }elseif($this->_categoryType) {
+            $categoryType =  $this->_categoryType;
+        } else {
+            $categoryType = $this->getRootCategorySysname($this);
+        }
+        $this->_categoryType = $categoryType;
+        return $categoryType;
+    }
+    /*
+     * scopes
+     * **/
     public function scopeRoots($query)
     {
         return $query->where(function($query) {
