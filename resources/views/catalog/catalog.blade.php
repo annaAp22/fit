@@ -44,6 +44,8 @@
                 @endif
                 @if(isset($category))
                     @widget('TagsWidget', ['category_id' => $category->id])
+                @elseif(isset($tag))
+                    @widget('TagsWidget', ['tag_id' => $tag->id])
                 @endif
                 @widget('BannerLeftWidget')
             </aside>
