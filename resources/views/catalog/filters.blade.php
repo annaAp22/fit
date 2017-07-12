@@ -47,7 +47,6 @@
                 @endforeach
             </div>
         @endif
-    <div id="filter-minus-h">
         @if($colors = $filters->where('name', 'Основной цвет')->first())
             <!-- Primary color filter -->
             <div class="sidebar-filter__subtitle">{{ $colors->name }}:</div>
@@ -76,36 +75,36 @@
                 </div>
             @endif
         </div>
-            <!-- All other filters -->
-            @if($filtersCount > 3)
+
+        <!-- All other filters -->
+        @if($filtersCount > 3)
             @foreach($filters->whereNotIn('name',['Размеры', 'Основной цвет', 'Цвет вставок']) as $filter)
-            <div class="sidebar-filter__hidden">
-                <div class="sidebar-filter__subtitle collapsed js-toggle-active">{{ $filter->name }}:<i class="sprite_main sprite_main-icon__arrow_green_down"></i></div>
-                <div class="checkbox-filter sidebar-filter__item">
-                    @foreach($filter->values as $value)
-                    <label>
-                        <input type="checkbox" name="attribute[{{ $filter->id }}][]" value="{{ $value }}"/>
-                        <div class="checkbox-filter__checkbox"><i class="sprite_main sprite_main-filter_checkbox"></i>
-                        </div><span>{{ $value }}</span>
-                    </label>
-                    @endforeach
+                <div class="sidebar-filter__hidden">
+                    <div class="sidebar-filter__subtitle collapsed js-toggle-active">{{ $filter->name }}:<i class="sprite_main sprite_main-icon__arrow_green_down"></i></div>
+                    <div class="checkbox-filter sidebar-filter__item">
+                        @foreach($filter->values as $value)
+                            <label>
+                                <input type="checkbox" name="attribute[{{ $filter->id }}][]" value="{{ $value }}"/>
+                                <div class="checkbox-filter__checkbox"><i class="sprite_main sprite_main-filter_checkbox"></i>
+                                </div><span>{{ $value }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
             @endforeach
 
             @section('more_filters')
-            <div class="switch-additional-filters js-show-more"><i class="sprite_main sprite_main-listing__filter_arrow_down"></i><span>Показать больше</span><span>Скрыть фильтры</span><i class="sprite_main sprite_main-listing__filter_arrow_down"></i></div>
+                <div class="switch-additional-filters js-show-more"><i class="sprite_main sprite_main-listing__filter_arrow_down"></i><span>Показать больше</span><span>Скрыть фильтры</span><i class="sprite_main sprite_main-listing__filter_arrow_down"></i></div>
             @stop
 
-            @endif
-            @endif
+        @endif
+    @endif
 
-            <!-- Apply filter-->
-            <button class="btn btn_yellow btn_w100p js-close-filters" name="apply">Применить
-            </button>
-            <button class="btn btn_reset btn_w100p js-filters-reset" name="reset"><i class="sprite_main sprite_main-listing__filter_reset_red"></i><span>Сбросить фильтры</span>
-            </button>
-            @yield('more_filters')
-        </div>
+    <!-- Apply filter-->
+    <button class="btn btn_yellow btn_w100p js-close-filters" name="apply">Применить
+    </button>
+    <button class="btn btn_reset btn_w100p js-filters-reset" name="reset"><i class="sprite_main sprite_main-listing__filter_reset_red"></i><span>Сбросить фильтры</span>
+    </button>
+    @yield('more_filters')
 </form>
 @endif
