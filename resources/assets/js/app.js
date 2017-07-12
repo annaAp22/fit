@@ -752,3 +752,28 @@ function paginationAppend(data) {
 
     }
 }
+
+//event for filter button showing while mosemove in filter section
+$('#js-filters').hover(
+    function () {
+        $( "#js-filters" ).mousemove(function( event ) {
+            var filtherH = $( "#js-filters" ).height();
+            var colorFH = $( ".color-filter" ).height();
+
+            var parentOffset = $(this).offset();
+            var relY = event.pageY - 22 - parentOffset.top;
+            $('#append_btn').css('top', relY );
+            if(relY <= 100){
+                $('#append_btn').css('display', 'none' );
+            }else if(relY >= filtherH - colorFH - 170){
+                $('#append_btn').css('display', 'none' );
+            }else{
+                $('#append_btn').css('display', 'block' );
+            }
+        });
+        $('#js-filters').css('position', 'relative');
+        $(this).append('<button id="append_btn" class="btn btn_yellow btn_w100p js-close-filters" style="width: 202px; position: absolute; top: y;left: 100%; z-index: 10;" name="apply">Применить</button>');
+    },function () {
+        $( this ).find( "#append_btn" ).remove();
+    }
+);
