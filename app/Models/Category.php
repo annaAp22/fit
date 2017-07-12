@@ -10,6 +10,7 @@ class Category extends Model
 {
     use SoftDeletes, LaravelUploads;
     private $_categoryType;
+    private $recursionCount;
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
@@ -47,19 +48,22 @@ class Category extends Model
     /*
      *@return системное имя корневой категории
      * **/
-    public function getRootCategorySysname($category = null) {
-        $categoryType = 'woman';
+    public function getRootCategorySysname($category = null, $count = 0) {
+        if($count > 5) {
+            return 'woman';
+        }
+        $count++;
         if($category) {
             if($category->parent_id === 0) {
                 $categoryType =  $category->sysname;
             } else {
                 $category = self::where('id', $category->parent_id)->first();
-                $categoryType = $this->getRootCategorySysname($category);
+                $categoryType = $this->getRootCategorySysname($category, $count);
             }
-        }elseif($this->_categoryType) {
+        } elseif($this->_categoryType) {
             $categoryType =  $this->_categoryType;
         } else {
-            $categoryType = $this->getRootCategorySysname($this);
+            $categoryType = $this->getRootCategorySysname($this, $count);
         }
         $this->_categoryType = $categoryType;
         return $categoryType;
