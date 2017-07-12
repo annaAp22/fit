@@ -14,7 +14,7 @@
     <div id="product-reviews" class="product-reviews container-in active js-reviews" data-count="{{$comments->count()}}">
         <!-- Reviews items-->
         @if($comments->count())
-            <div class="js-container-comments">
+            <div class="js-container-comments wrapper">
                 @include('catalog.products.comments')
             </div>
         @else
