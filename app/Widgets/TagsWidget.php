@@ -2,6 +2,9 @@
 
 namespace App\Widgets;
 
+use App\Models\Attribute;
+use App\Models\AttributeProduct;
+use App\Models\Product;
 use Arrilot\Widgets\AbstractWidget;
 use App\Models\Tag;
 
@@ -16,6 +19,7 @@ class TagsWidget extends AbstractWidget
         'category_id' => 0,
         'tag_id' => 0,
         'products' => null,
+        'category' => null,
     ];
 
     /**
@@ -24,8 +28,21 @@ class TagsWidget extends AbstractWidget
      */
     public function run()
     {
+        if($this->config['category']) {
+            $category  = $this->config['category'];
+        }
+        if(isset($category) && $category->parent_id == 0) {
+            $attributeProduct = new AttributeProduct();
+            if($category->sysname === 'man') {
+                $ids = $attributeProduct->getProductsByAttribute('Пол', 'Мужской');
+                $tags = Tag::tagsByProductIds($ids)->orderBy('views', 'desc')->orderBy('name')->get();
+            }else {
+                $ids = $attributeProduct->getProductsByAttribute('Пол', 'Женский');
+                $tags = Tag::tagsByProductIds($ids)->orderBy('views', 'desc')->orderBy('name')->get();
+            }
+        }
         //ищем теги у товаров в этой категории
-        if($this->config['category_id']) {
+        elseif($this->config['category_id']) {
             $category_id = $this->config['category_id'];
             $tags = Tag::whereHas('products', function ($query) use ($category_id) {
                 $query->whereHas('categories', function ($query) use ($category_id) {
@@ -33,7 +50,7 @@ class TagsWidget extends AbstractWidget
                 });
             })->where('status', 1)->orderBy('views', 'desc')->orderBy('name')->get();
         //ищем тэги у товаров с текущим тэгом)
-        } else if($this->config['tag_id']) {
+        } elseif($this->config['tag_id']) {
             $tag_id = $this->config['tag_id'];
             $tags = Tag::where('id', '!=', $tag_id)->whereHas('products', function ($query) use ($tag_id) {
                 $query->whereHas('tags', function ($query) use ($tag_id) {
@@ -41,7 +58,7 @@ class TagsWidget extends AbstractWidget
                 });
             })->where('status', 1)->orderBy('views', 'desc')->orderBy('name')->get();
         //по умолчанию все тэги
-        } else if($this->config['products']) {
+        } elseif($this->config['products']) {
           $ids = array();
           foreach ($this->config['products'] as $product) {
             $ids[] = $product->id;

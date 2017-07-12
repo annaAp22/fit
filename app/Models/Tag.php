@@ -59,7 +59,6 @@ class Tag extends Model
                 'product_id')
             ->withPivot('sort');
     }
-
     public function getFiltersAttribute() {
         $filters = [];
 

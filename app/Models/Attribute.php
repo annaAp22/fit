@@ -39,8 +39,6 @@ class Attribute extends Model
             ->withPivot('value');
     }
 
-
-
     public function getTypeAttribute($value) { return self::$types[$value]; }
 
     /**
@@ -52,5 +50,11 @@ class Attribute extends Model
             return json_decode($this->list, true);
         }
         return [];
+    }
+    /*
+     * scopes
+     * **/
+    public function scopePublished($query) {
+        return $query->where('status', 1);
     }
 }
