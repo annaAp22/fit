@@ -31,7 +31,7 @@
       <!-- Main categories-->
       <div class="main-benefits container-in">
         <!-- Sale category -->
-        <a class="main-benefits-banner-green" href="{{ route('actions') }}">
+        <a class="main-benefits-banner-green" href="{{ route('actions', ['sysname' => 'woman']) }}">
           <span class="main-benefits-banner-green__title">Скидки</span>
           <span class="main-benefits-banner-green__text"><span>до</span>
             <span>60 %</span></span>

@@ -34,7 +34,8 @@ Route::group([
 
 
         // Поиск
-        Route::match(['get', 'post'], '/search', ['as' => 'search', 'uses' => 'CatalogController@search']);
+        //Route::match(['get', 'post'], '/search', ['as' => 'search', 'uses' => 'CatalogController@search']);
+        Route::any('/search', ['as' => 'search', 'uses' => 'CatalogController@search']);
 
         // Каталог
         Route::get('/catalog.html', ['as' => 'catalog.root', 'uses' => 'CatalogController@catalogRoot'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
