@@ -757,15 +757,15 @@ function paginationAppend(data) {
 $('#js-filters').hover(
     function () {
         $( "#js-filters" ).mousemove(function( event ) {
+            var h = $(this).height() - 200;
             var filtherH = $( "#js-filters" ).height();
-            var colorFH = $( ".color-filter" ).height();
 
             var parentOffset = $(this).offset();
             var relY = event.pageY - 22 - parentOffset.top;
             $('#append_btn').css('top', relY );
             if(relY <= 100){
                 $('#append_btn').css('display', 'none' );
-            }else if(relY >= filtherH - colorFH - 170){
+            }else if(relY >= filtherH - 170){
                 $('#append_btn').css('display', 'none' );
             }else{
                 $('#append_btn').css('display', 'block' );
