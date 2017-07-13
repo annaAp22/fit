@@ -733,6 +733,7 @@ $(function(){
     $(".js-single-banner").carousel({
         margin: 0,
         pagination: true,
+        auto: true,
         responsive: {
             1492: 1,
             1203: 1,
@@ -1205,15 +1206,22 @@ function paginationAppend(data) {
 $('#js-filters').hover(
     function () {
         $( "#js-filters" ).mousemove(function( event ) {
-            var h = $(this).height() - 200;
             var filtherH = $( "#js-filters" ).height();
-
+            var colorFH = $( ".color-filter" ).height();
+            if(colorFH == null){
+                colorFH = 0;
+            }
             var parentOffset = $(this).offset();
             var relY = event.pageY - 22 - parentOffset.top;
+            //alert('relY'+relY);
+            var filterMH = filtherH - (colorFH + 125);
             $('#append_btn').css('top', relY );
             if(relY <= 100){
                 $('#append_btn').css('display', 'none' );
-            }else if(relY >= filtherH - 170){
+
+            }else if(relY >= filterMH){
+
+
                 $('#append_btn').css('display', 'none' );
             }else{
                 $('#append_btn').css('display', 'block' );

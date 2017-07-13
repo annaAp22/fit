@@ -702,7 +702,7 @@ class CatalogController extends Controller
       $views = session()->get('products.view');
       arsort($views);
       $views = array_slice(array_keys($views), 0, 48);
-      $products = Product::whereIn('id', $views)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $views).')')->take(48)->get();
+      $products = Product::with('attributes')->whereIn('id', $views)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $views).')')->take(48)->get();
     }
 
     $this->setMetaTags();

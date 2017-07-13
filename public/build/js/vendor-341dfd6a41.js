@@ -21,9 +21,12 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
                 576 : {items: 2},
                 320 : {items: 2}
             }, // carousel responsive items visible
-            pagination: false
+            pagination: false,
+            auto: false,
+            speed: 5000,
+            loop: false
         };
-
+        var speedTimer;
         this._options = $.extend({}, this._defaults, options);
 
         this.options = function(options) {
@@ -104,6 +107,10 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
             if(self.position > (self.count - self._options.items) * (-1) ) {
                 self.position--;
                 self.delta = self.move(-1 * (self.dimension));
+            }else {
+                // self.position = -1 * $page.index();
+                // self.delta = self.position * self.dimension;
+                // self.move();
             }
         };
 
@@ -356,8 +363,12 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
             if(self._options.pagination) {
                 self.paginate();
             }
-
-
+        }
+        //automatic scrolling
+        if(self._options.auto) {
+            speedTimer = setInterval(function(e) {
+                self.next();
+            }, self._options.speed)
         }
     };
 
