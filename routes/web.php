@@ -4,6 +4,8 @@
  */
 //Artisan::call('view:clear');
 //Cache::flush();
+//логируем путь, чтоб видеть где появилась ошибка
+\Illuminate\Support\Facades\Log::info(\Illuminate\Support\Facades\URL::current());
 include('redirects.php');
 //конец редиректов
 Route::group([
