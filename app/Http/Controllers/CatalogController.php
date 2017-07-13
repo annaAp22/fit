@@ -685,7 +685,7 @@ class CatalogController extends Controller
       //выводим последние 48 товара
       arsort($defers);
       $defers = array_slice(array_keys($defers), 0, 48);
-      $products = Product::whereIn('id', $defers)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->take(48)->get();
+      $products = Product::with('attributes')->whereIn('id', $defers)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->take(48)->get();
     }
     $this->setMetaTags();
     return view('catalog.bookmarks', compact('products'));
