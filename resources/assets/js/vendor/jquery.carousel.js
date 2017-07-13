@@ -102,10 +102,10 @@
             if(self.position > (self.count - self._options.items) * (-1) ) {
                 self.position--;
                 self.delta = self.move(-1 * (self.dimension));
-            }else {
-                // self.position = -1 * $page.index();
-                // self.delta = self.position * self.dimension;
-                // self.move();
+            }else if(self._options.loop) {
+                self.position = 0;
+                self.delta = 0;
+                self.move();
             }
         };
 

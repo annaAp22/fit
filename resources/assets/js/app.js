@@ -285,6 +285,8 @@ $(function(){
     $(".js-single-banner").carousel({
         margin: 0,
         pagination: true,
+        auto:true,
+        loop:true,
         responsive: {
             1492: 1,
             1203: 1,
