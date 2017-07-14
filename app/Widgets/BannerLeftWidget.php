@@ -23,8 +23,8 @@ class BannerLeftWidget extends AbstractWidget
      */
     public function run()
     {
-        if(isset($this->config['x'])) {
-            Log::info('x=1');
+        if(isset($this->config['x'])&&isset($this->config['sex'])) {
+            Log::info($this->config['sex']);
         }
         $banners = Banner::where('type', 'left')->where('status', 1)->get();
         //заменяем ?sex в ссылках на пол для заданной страницы
