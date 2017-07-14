@@ -48,7 +48,7 @@
                     @widget('TagsWidget', ['tag_id' => $tag->id])
                 @endif
                 @if(isset($category))
-                    @widget('BannerLeftWidget', ['sex' => $category->getRootCategorySysname(), 'x' => 1])
+                    @widget('BannerLeftWidget', ['sex' => $category->getRootCategorySysname(), 'x' => 1, 's' => $category->getRootCategorySysname()])
                 @else
                     @widget('BannerLeftWidget')
                 @endif

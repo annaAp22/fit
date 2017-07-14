@@ -14,7 +14,8 @@ class BannerLeftWidget extends AbstractWidget
      * @var array
      */
     protected $config = [
-        'sex' => 'woman'
+        'sex' => 'woman',
+        'x' => 0,
     ];
 
     /**
@@ -25,6 +26,9 @@ class BannerLeftWidget extends AbstractWidget
     {
         if(isset($this->config['x'])&&isset($this->config['sex'])) {
             Log::info($this->config['sex']);
+        }
+        if(isset($this->config['s'])) {
+            Log::info('s='.$this->config['s']);
         }
         $banners = Banner::where('type', 'left')->where('status', 1)->get();
         //заменяем ?sex в ссылках на пол для заданной страницы
