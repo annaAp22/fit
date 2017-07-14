@@ -50,28 +50,17 @@ class Category extends Model
      *@return системное имя корневой категории
      * **/
     public function getRootCategorySysname($category = null, $count = 0) {
-        if($count == 0) {
-            $this->s = '';
-        }
         if($count > 5) {
             return 'woman';
         }
         if(!$category) {
             $category = $this;
         }
-        $this->s .= $category->sysname;
-        $this->s .= '.p='.$category->parent_id.'('.gettype($category->parent_id).')';
         if($category->parent_id == 0) {
             $categoryType =  $category->sysname;
-            $this->s .= '.1';
         } else {
-            $this->s.= '.2';
             $category = self::where('id', $category->parent_id)->first();
             $categoryType = $this->getRootCategorySysname($category, $count + 1);
-        }
-        $this->s.= '.'.$categoryType;
-        if($count == 0) {
-            Log::info($this->s);
         }
         return $categoryType;
     }
