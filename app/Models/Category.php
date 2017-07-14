@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Log;
 use Indiesoft\LaravelUploads\LaravelUploads;
 
 class Category extends Model
@@ -56,6 +57,7 @@ class Category extends Model
         if($category) {
             if($category->parent_id === 0) {
                 $categoryType =  $category->sysname;
+                Log::info($category->sysname);
             } else {
                 $category = self::where('id', $category->parent_id)->first();
                 $categoryType = $this->getRootCategorySysname($category, $count);
