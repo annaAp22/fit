@@ -17,7 +17,8 @@ class ProductComment extends Model
         'rating',
         'status',
         'pros',
-        'cons'
+        'cons',
+        'created_at',
     ];
 
 
@@ -41,11 +42,10 @@ class ProductComment extends Model
 
 
     public function dateLocale() {
-        return (new Date($this->date))->format('d F Y');
+        return (new Date($this->attributes['created_at']))->format('d F Y');
     }
 
     public function datePicker() {
-        return (new Date($this->date))->format('d.m.Y');
+        return (new Date($this->attributes['created_at']))->format('d.m.Y');
     }
-
 }

@@ -4,7 +4,7 @@
             <i class="sprite_main sprite_main-product_review-person-green"></i>
             <div>
                 <div class="product-review__name">{{ $comment->name }}</div>
-                <div class="product-review__date">{{ $comment->created_at }}</div>
+                <div class="product-review__date">{{ $comment->created_at->format('Y.m.d') }}</div>
                 <div class="product-rating">
                     @for($i = 0; $i < $comment->rating; $i++)
                         <div class="icon-fade product-rating__star active"><i class="sprite_main sprite_main-product__star normal"></i><i class="sprite_main sprite_main-product__star_active active"></i>

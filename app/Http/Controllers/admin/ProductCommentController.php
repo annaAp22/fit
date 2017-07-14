@@ -99,7 +99,7 @@ class ProductCommentController extends Controller
     {
         $comment = ProductComment::findOrFail($id);
         $data = $request->all();
-        $data['date'] = (new Carbon($data['date']))->format('Y.m.d');
+        $data['created_at'] = strtotime($data['date']);
         $comment->update($data);
         return redirect()->route('admin.comments.index')->withMessage('Комментарий изменен');
     }
