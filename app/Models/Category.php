@@ -60,7 +60,7 @@ class Category extends Model
             $category = $this;
         }
         $this->s .= $category->sysname;
-        $this->s .= '.p='.$category->parent_id;
+        $this->s .= '.p='.$category->parent_id.'('.gettype($category->parent_id).')';
         if($category->parent_id === 0) {
             $categoryType =  $category->sysname;
             $this->s .= '.1';
