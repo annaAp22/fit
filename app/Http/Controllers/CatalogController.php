@@ -750,7 +750,7 @@ class CatalogController extends Controller
       ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
     });
     $comments = Cache::remember('product.'.$hash.'.comments', 60, function() use($product){
-      return $product->comments()->published()->paginate(5);
+      return $product->comments()->published()->orderBy('created_at', 'desc')->paginate(5);
     });
     $this->setMetaTags(null, $product->title, $product->description, $product->keywords);
 
