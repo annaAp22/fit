@@ -15,7 +15,6 @@ class BannerLeftWidget extends AbstractWidget
      */
     protected $config = [
         'sex' => 'woman',
-        'x' => 0,
     ];
 
     /**
@@ -24,11 +23,10 @@ class BannerLeftWidget extends AbstractWidget
      */
     public function run()
     {
-        if(isset($this->config['x'])&&isset($this->config['sex'])) {
-            Log::info($this->config['sex']);
-        }
-        if(isset($this->config['s'])) {
-            Log::info('s='.$this->config['s']);
+        if(isset($this->config['category'])) {
+            $category = $this->config['category'];
+            Log::info('s='.$category->sysname);
+            Log::info('sex='.$this->config['sex']);
         }
         $banners = Banner::where('type', 'left')->where('status', 1)->get();
         //заменяем ?sex в ссылках на пол для заданной страницы
