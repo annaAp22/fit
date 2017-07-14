@@ -54,21 +54,15 @@ class Category extends Model
             return 'woman';
         }
         $count++;
-        Log::info($this->attributes['sysname']);
-        if($this->_categoryType) {
-            $categoryType =  $this->_categoryType;
-        }else {
-            if(!$category) {
-                $category = $this;
-            }
-            if($category->parent_id === 0) {
-                $categoryType =  $category->sysname;
-            } else {
-                $category = self::where('id', $category->parent_id)->first();
-                $categoryType = $this->getRootCategorySysname($category, $count);
-            }
+        if(!$category) {
+            $category = $this;
         }
-        $this->_categoryType = $categoryType;
+        if($category->parent_id === 0) {
+            $categoryType =  $category->sysname;
+        } else {
+            $category = self::where('id', $category->parent_id)->first();
+            $categoryType = $this->getRootCategorySysname($category, $count);
+        }
         return $categoryType;
     }
     /*
