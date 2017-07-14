@@ -4,6 +4,7 @@ namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 use App\Models\Banner;
+use Illuminate\Support\Facades\Log;
 
 class BannerLeftWidget extends AbstractWidget
 {
@@ -22,7 +23,9 @@ class BannerLeftWidget extends AbstractWidget
      */
     public function run()
     {
-
+        if(isset($this->config['x'])) {
+            Log::info('x=1');
+        }
         $banners = Banner::where('type', 'left')->where('status', 1)->get();
         //заменяем ?sex в ссылках на пол для заданной страницы
         foreach ($banners as $item) {
