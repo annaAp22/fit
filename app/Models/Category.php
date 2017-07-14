@@ -57,11 +57,19 @@ class Category extends Model
         if(!$category) {
             $category = $this;
         }
+        $x = $category->sysname == 'man';
+        if($x)
+            Log::info($category->sysname);
         if($category->parent_id === 0) {
             $categoryType =  $category->sysname;
+            if($x)
+                Log::info(1);
         } else {
             $category = self::where('id', $category->parent_id)->first();
             $categoryType = $this->getRootCategorySysname($category, $count);
+            if($x) {
+                Log::info(1);
+            }
         }
         return $categoryType;
     }
