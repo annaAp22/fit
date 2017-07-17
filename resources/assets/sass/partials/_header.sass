@@ -28,10 +28,10 @@ header
       content: 'xs'
   .line
     +media-xl(up)
-      top: 128px
+      top: 126px
     +hidden-xs()
     position: absolute
-    top: 140px
+    top: 141px
     width: 100%
     height: 1px
     background-color: #e3e3e3
@@ -96,6 +96,17 @@ header
           top: 39px
         left: 8px
 .header
+  .hr-1
+    width: 100%
+    height: 1px
+    +media-lg(up)
+      order: 0
+    div
+      position: absolute
+      left: 0
+      right: 0
+      height: 1px
+      background-color: #e3e3e3
   +grid-in()
   +align(between, center)
   &__time
@@ -145,8 +156,9 @@ header
       margin-bottom: 10px
     +media-lg(up)
       order: 0
-    +col(24)
-    +col-md(18)
+    +col(18)
+    +media-sm(down)
+      max-width: 70%
     +col-lg(14)
     +col-xl(6)
     position: relative
@@ -254,29 +266,56 @@ header
   &__navigation
     +hidden-md(down)
     +col-lg(20)
-    +col-xl(21)
+    +col-xl(20)
     display: flex
   &__enter
     z-index: 100
-    +hidden-sm(down)
-    +col-md(6)
-    +col-lg(4)
-    +col-xl(3)
-    +media-md(down)
-      order: 2
-    text-align: center
+    background: #fff
+    height: 62px
     position: relative
+    //margin-left: -12px !important
+    order: 1
+    +media-lg(up)
+      +col(4)
+    +media-md()
+      +col(6)
+    +media-sm(down)
+      position: absolute
+      order: 2
+      width: 40px
+      bottom: 0
+      right: 24px
+      text-align: center
+      &:not(:hover)
+        i
+          margin: 0
+      span
+        font-size: 0
+      &:hover
+        width: 200px
+        span
+          font-size: 12px
+    +media-xs()
+      right: 12px
+    text-align: center
     text-decoration: none
     color: #272727
     font-size: 13px
-    padding: 21px 0
     border-left: 1px solid #d1d1d1
     border-right: 1px solid #d1d1d1
     transition: background-color .3s ease
+    min-height: 18px
+    padding: 21px 0
     &:hover
       .dropdown
         display: block
         max-height: none
+    + .vl
+      +hidden-lg(up)
+      width: 1px
+      height: 62px
+      order: 2
+      margin-left: -1px
     .dropdown
       width: 100%
       margin-top: -1px
@@ -284,6 +323,7 @@ header
       left: 0
       top: 100%
       background-color: #fff
+      box-shadow: 0 0 10px rgba(0,0,0,0.1)
       display: none
       max-height: 0
       z-index: 100
@@ -291,12 +331,17 @@ header
       a
         display: block
         color: #000
-        padding: 24px 10px 24px per_calc(30, 190)
+        padding: 24px 10px 24px 10px
+        margin-left: per_calc(36, 190)
         text-align: left
         text-decoration: none
         font-size: 14px
         font-weight: 700
         transition: color 0.3s ease 0s
+        border-top: 1px solid #ebebeb
+        +media-lg(down)
+          margin-left: 0
+          text-align: center
         &:before
           @extend .sprite_main
           @extend .sprite_main-green-arrow-right
@@ -304,6 +349,9 @@ header
           margin-right: 16px
         &:hover
           background-color: #ebebeb
+          margin-left: auto
+          margin-right: auto
+          text-align: center
           &:before
             content: ""
 

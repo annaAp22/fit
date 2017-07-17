@@ -1,6 +1,5 @@
 <header>
     <div class="line line_lg"></div>
-    <div class="line"></div>
     <div class="container">
         <div class="header">
             <!-- Schedule -->
@@ -100,6 +99,10 @@
                 @widget('HeaderBasket')
 
             </div>
+            <div class="hr-1">
+                <div></div>
+            </div>
+
             <div class="header__navigation">
                 <div class="nav-catalog">
                     <div class="nav-catalog__item js-toggle-active-target js-women js-catalog" data-target=".js-women" data-reset=".js-men"><span>ДЛЯ ЖЕНЩИН</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
@@ -107,20 +110,20 @@
                     <div class="nav-catalog__item js-toggle-active-target js-men js-catalog" data-target=".js-men" data-reset=".js-women"><span>ДЛЯ МУЖЧИН</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                     </div>
                 </div>
-
                 {{-- Pages navigation --}}
                 @widget('PageNavigation')
 
             </div>
             <!-- Site login-->
-            {{--<div class="header__enter" href="#">--}}
-                {{--<i class="sprite_main sprite_main-header__enter"></i>--}}
-                {{--<span>Войти / Вступить</span>--}}
-                {{--<div class="dropdown">--}}
-                    {{--<a href="">Войти в систему</a>--}}
-                    {{--<a href="">Создать кабинет</a>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+            <div class="header__enter" href="#">
+                <i class="sprite_main sprite_main-header__enter"></i>
+                <span>Войти / Вступить</span>
+                <div class="dropdown">
+                    <a href="">Войти в систему</a>
+                    <a href="">Создать кабинет</a>
+                </div>
+            </div>
+            <div class="vl"></div>
         </div>
     </div>
 
