@@ -74,3 +74,4 @@ Route::group(['prefix' => 'order'], function() {
 Route::get('news', 'FrontApiController@news')->name('news');
 // Articles pagination
 Route::get('articles', 'FrontApiController@articles')->name('articles');
+//Route::post('register', 'CustomerAccountController@create')->name('register');

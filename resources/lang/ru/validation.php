@@ -134,6 +134,10 @@ return [
 
     'attributes'           => [
         //
+        'name' => 'имя',
+        'password' => 'пароль',
+        'phone' => 'номер телефона',
+        'email' => 'email',
     ],
 
 ];

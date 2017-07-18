@@ -119,8 +119,9 @@
                 <i class="sprite_main sprite_main-header__enter"></i>
                 <span>Войти / Вступить</span>
                 <div class="dropdown">
-                    <a href="">Войти в систему</a>
-                    <a href="">Создать кабинет</a>
+                    <a class= "js-action-link" data-modal="login" data-url="{{route('ajax.modal')}}">Войти в систему</a>
+                    <a class= "js-action-link" data-modal="registration" data-url="{{route('ajax.modal')}}">Создать кабинет</a>
+                    <a class= "js-action-link" data-modal="registration_success" data-url="{{route('ajax.modal')}}">test</a>
                 </div>
             </div>
             <div class="vl"></div>
