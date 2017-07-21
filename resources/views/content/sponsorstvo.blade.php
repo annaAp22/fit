@@ -33,7 +33,7 @@
         <div>- Профессиональных спортсменов.</div>
     </div>
     <form action="{{route('ajax.questions')}}" class="questions-and-offers js-form-ajax" method="POST">
-        <fieldset>
+        <fieldset class="fieldset">
             <legend>Вопросы и предложения</legend>
             <div class="left-side">
                 <div class="field-caption-1">Ваша электронная почта:</div>

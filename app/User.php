@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'group_id',
+        'name', 'phone', 'email', 'password', 'group_id', 'status', 'birthday', 'subscription'
     ];
 
     /**
@@ -27,11 +29,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    protected $dates = ['birthday'];
+    //
     public function group() {
         return $this->belongsTo('App\Models\UserGroup', 'group_id');
     }
-
     public function orders() {
         return $this->hasMany('App\Models\Order', 'customer_id');
     }
@@ -45,4 +47,24 @@ class User extends Authenticatable
 
         return $result;
     }
+    /*
+     * send mail on reset password
+     * **/
+    public function sendPasswordResetNotification($token) {
+        Mail::send('auth.emails.password',
+            [
+                'token' => $token,
+                'user' => $this,
+            ],
+            function ($message) {
+                $caption = 'Сброс пароля на сайте fit2u';
+                $message->to($this->email)->subject($caption);
+            });
+    }
+    //accessors
+    //scopes
+    public function scopePublished($query) {
+        $query->where('status', 1);
+    }
+
 }

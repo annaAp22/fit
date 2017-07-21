@@ -74,7 +74,17 @@ $(function(){
     $body.on("click", ".js-select", function(){
         var select = $(this);
         select.find(".js-option").click(function(){
-            select.find(".js-selected").text($(this).text());
+            var text = $(this).text();
+            select.find(".js-selected").text(text);
+            var $parent = select.closest('.js-select');
+            var $hidden_input = $parent.find('.js-value');
+            if($hidden_input.length) {
+                var val = $(this).data('val');
+                if(!val){
+                    val = text;
+                }
+                $hidden_input.val(val);
+            }
         });
     });
 
@@ -360,6 +370,9 @@ $(function(){
                         fn(data);
                     }
                 }
+                if(typeof data.status !== 'undefined' && data.status == 'passwords.reset') {
+                    document.forms['home'].submit();
+                }
             },'json');
         }
     }
@@ -486,12 +499,11 @@ $(function(){
                     fn(data);
                 }
             }
-        });
+        }, 'json');
     });
 
     // Mask phone
     $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
-
     // Check required fields
     $body.on('input', '.js-required-fields', function(e) {
         var fields = $('.js-required-fields');
@@ -649,10 +661,11 @@ function orderSuccess(data) {
 function openModal(data) {
     if(typeof data.modal !== 'undefined') {
         $.fancybox.close();
-        $.fancybox.open([{
-                src : data.modal,
-                type : 'inline'
-            }],
+        var options = {
+            src : data.modal,
+            type : 'inline'
+        };
+        $.fancybox.open([options],
             {
                 closeBtn: false,
                 beforeClose : function( instance, current, e ) {
@@ -781,8 +794,44 @@ $('#js-filters').hover(
             }
         });
         $('#js-filters').css('position', 'relative');
-        $(this).append('<button id="append_btn" class="btn btn_yellow btn_w100p js-close-filters" style="width: 202px; position: absolute; top: y;left: 100%; z-index: 10;" name="apply">Применить</button>');
+        $(this).append('<button id="append_btn" class="btn btn_yellow btn_w100p js-close-filters" style="width: 202px; position: absolute; top: 0;left: 100%; z-index: 10;" name="apply">Применить</button>');
     },function () {
         $( this ).find( "#append_btn" ).remove();
     }
 );
+
+//обновление данных на странице
+function elementsRender(data) {
+    if (!data) {
+        return false
+    }
+
+    $.fancybox.close();
+    var obj = data['text'];
+    var s;
+    var i;
+    if (typeof obj !== 'undefined') {
+        for(s in obj) {
+            $(s).text(obj[s]);
+        }
+    }
+    obj = data['fields'];
+    if (typeof obj !== 'undefined') {
+        for(s in obj) {
+            $(s).value(obj[s]);
+        }
+    }
+    obj = data['hide'];
+    if (typeof obj !== 'undefined') {
+        for(i=0; i < obj.length; i++) {
+            $(obj[i]).attr('hidden', true);
+        }
+    }
+    obj = data['show'];
+    if (typeof obj !== 'undefined') {
+        for(i=0; i < obj.length; i++) {
+            $(obj[i]).removeAttr('hidden');
+        }
+    }
+    return true
+}

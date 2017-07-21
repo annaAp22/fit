@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -41,6 +43,9 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+        'admin' => [
+            'check_role',
+        ],
     ];
 
     /**
@@ -60,5 +65,6 @@ class Kernel extends HttpKernel
         'settings' => \App\Http\Middleware\Settings::class,
         'with_sidebar' => \App\Http\Middleware\SidebarLoader::class,
         'location' => \App\Http\Middleware\Location::class,
+        'check_role' => CheckRole::class,
     ];
 }

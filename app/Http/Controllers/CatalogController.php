@@ -448,7 +448,6 @@ class CatalogController extends Controller
         ->published()
         ->firstOrFail();
     // if has products then render catalog, else articles
-    // TODO: create pagination function for products and articles
     $postfix = 'tag.';
     $request->request->add(['tag_id' => $tag->id]);
     $this->saveFilters($request, $postfix);

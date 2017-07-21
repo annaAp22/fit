@@ -334,7 +334,6 @@ class FrontApiController extends Controller
       $response['clear'] = true;
     }
 
-//        $response['products'] = $products; // TODO: REALLY NEED THIS????
     $response['next_page'] = ($products->lastPage() > $products->currentPage() ? ($products->currentPage() + 1) : null);
     $response['count'] = $response['next_page'] ? $products->total() - ($products->currentPage() * $products->perPage()) : 0;
     if($products->total()) {

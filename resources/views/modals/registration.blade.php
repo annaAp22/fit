@@ -1,5 +1,5 @@
-<div id="registration-form" name="registration-form" class="form-type-1 modal-box quick-order-cart" style="display: inline-block;">
-    <form class="js-form-ajax" action="{{ route('ajax.register') }}" method="POST">
+<div id="registration-form" class="form-type-1 modal-box quick-order-cart" style="display: inline-block;">
+    <form name="registration-form" class="js-form-ajax" action="{{ route('ajax.register') }}" method="POST">
         <div class="form-modal">
             {{ csrf_field() }}
             <input type="hidden" name="last_name" value="registration">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <script type="text/javascript">
-                $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
+                $('#registration-form .js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
             </script>
             <div class="form-modal_line">
                 <div class="field-caption-1">Если телефон не доступен, пишите на почту:</div>
@@ -50,11 +50,13 @@
         </div>
     </form>
     <button data-fancybox-close class="modal-close">&#10006;</button>
+    <script type="text/javascript">
+        var reg_form = document.forms['registration-form'];
+        reg_form.onsubmit = function(e) {
+            reg_form['last_name'].value = 444 + 222;
+        };
+    </script>
+    @if(View::exists('users.fill_fields'))
+        @include('users.fill_fields')
+    @endif
 </div>
-<script>
-    //simple bot protection
-    var reg_form = document.getElementById('registration-form');
-    reg_form.addEventListener('submit', function(e) {
-        reg_form['last_name'].value = 444 + 222;
-    });
-</script>

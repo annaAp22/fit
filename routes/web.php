@@ -58,6 +58,8 @@ Route::group([
         // Новости
         Route::get('/news', ['as' => 'news', 'uses' => 'MainController@news']);
         Route::get('/news/{sysname}', ['as' => 'news.record', 'uses' => 'MainController@newsSingle']);
+
+    Route::get('/room', 'RoomController@index')->name('room');
     //});
 
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
@@ -96,7 +98,8 @@ Route::group([
     Route::get('/moysklad/get/agents', 'MoySkladController@updateAgents')->name('get.agents');
     Route::get('/moysklad/export/orders', 'MoySkladController@exportOrders')->name('post.orders');
     Route::get('/moysklad/get/order/{id}', 'MoySkladController@getOrder')->name('get.order');
-    Route::model('', 'User');
+    //Route::model('', 'User');
+
 
 });
 

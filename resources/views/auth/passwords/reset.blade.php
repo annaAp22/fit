@@ -1,70 +1,43 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
-                        {{ csrf_field() }}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-refresh"></i> Reset Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <main class="container">
+        <aside class="sidebar">
+            @widget('BannerLeftWidget')
+        </aside>
+        <section class="content">
+            <h1>Сброс пароля</h1>
+            <form name="reset-password-form" class="js-form-ajax form-type-1" action="{{ url('/password/reset') }}" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" name="token" value="{{ $token }}">
+                <div class="form-modal_line">
+                    <div class="field-caption-1">Email:</div>
+                    <div class="field-wrapper-1">
+                        <div class="icon sprite_main-green-letter sprite_main"></div>
+                        <input type="text" name="email" placeholder="Электронный адрес" class="js-required-fields" value="{{$email}}"/>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="form-modal_line">
+                    <div class="field-caption-1">Новый пароль:</div>
+                    <div class="field-wrapper-1">
+                        <div class="icon sprite_main-green-lock sprite_main"></div>
+                        <input type="password" name="password" class="js-required-fields"/>
+                    </div>
+                </div>
+                <div class="form-modal_line">
+                    <div class="field-caption-1">Введите пароль ещё раз:</div>
+                    <div class="field-wrapper-1">
+                        <div class="icon sprite_main-green-lock sprite_main"></div>
+                        <input type="password" name="password_confirmation" class="js-required-fields"/>
+                    </div>
+                </div>
+                <div class="form-modal_line">
+                    <button class="btn btn_yellow-3">Сохранить изменения
+                        <i class="sprite_main sprite_main-orange-arrow-2"></i>
+                    </button>
+                </div>
+            </form>
+            <form name="home" action="/"></form>
+        </section>
+    </main>
 @endsection

@@ -11,6 +11,11 @@
 		display: inline-block
 		vertical-align: top
 		margin-right: 10px
+.field-caption-2
+	font-size: 14px
+	font-weight: 500
+	color: #717171
+	margin-bottom: 8px
 .field-wrapper-1
 	position: relative
 	margin-bottom: 16px
@@ -28,10 +33,19 @@
 			width: 50%
 		+media-sm(down)
 			width: 100%
-.questions-and-offers, .form-type-1
-	fieldset
+.questions-and-offers, .form-type-1, .form-type-2
+	.fieldset
 		padding: per_calc(70, 1155) per_calc(80, 1155)
 		border: 3px solid #e1e1e1
+	.fieldset-2
+		padding: per_calc(70, 1155) per_calc(80, 1155)
+		background-color: #f3f3f3
+		border: none
+		.caption
+			color: #272727
+			font-size: 14px
+			font-weight: 900
+			margin-bottom: 40px
 	input[type=text], input[type=password]
 		height: 40px
 		width: 100%
@@ -54,6 +68,8 @@
 	.right-side
 		+media-md(up)
 			float: right
+		btn
+			width: 100%
 	legend
 		font-size: 1.5em
 		font-weight: 700
@@ -78,6 +94,11 @@
 	font-size: 30px
 	+media-sm(down)
 		font-size: 24px
+.inline-fields
+	+grid(fluid)
+	+align(between, stretch)
 #registration-success-form
 	.btn
 		margin-top: 0
+#user-info-form
+	margin-top: 40px
