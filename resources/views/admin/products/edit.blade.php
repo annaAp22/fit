@@ -264,7 +264,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-10"> Цена </label>
                         <div class="col-sm-9" style="padding-left: 12px;">
                             <div class="col-sm-2 input-group" style="float: left;">
-                                <input name="price" value="{{old('price', $product->price)}}" placeholder="Цена" type="text" id="form-field-10" class="input-number form-control">
+                                <input name="price" value="{{old('price', $product->price)}}" placeholder="Цена" type="text" id="form-field-10" class="input-number form-control" title="Цена на сайте">
                                 <span class="input-group-addon">
                                     <i class="fa fa-rub bigger-110"></i>
                                 </span>
@@ -274,7 +274,7 @@
                                 <span class="input-group-addon">%</span>
                             </div>
                             <div class="col-sm-2 input-group" style="float: left; margin-left: 20px;">
-                                <input name="price_old" value="{{old('price_old', $product->price_old)}}" placeholder="Старая цена" type="text" class="input-number form-control">
+                                <input name="price_old" value="{{old('price_old', $product->price_old)}}" placeholder="Цена в МойСклад" type="text" class="input-number form-control" title="Цена в МойСклад">
                                 <span class="input-group-addon">
                                     <i class="fa fa-rub bigger-110"></i>
                                 </span>

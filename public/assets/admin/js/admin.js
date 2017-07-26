@@ -88,22 +88,45 @@ jQuery(function($) {
     $('.spinbox-input').ace_spinner({min:0,max:100,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 
     if($('.calculate').length) {
-        $('.calculate input[name="price"], .calculate input[name="price_old"]').change(function(){
+        $('.calculate input[name="price"]').change(function(){
             var price = $('.calculate input[name="price"]').val();
             var price_old = $('.calculate input[name="price_old"]').val();
-            var discount = Math.ceil((price_old-price)*100/price_old);
-            if(discount < 0) {
-                discount = 0;
+            if(price && price_old) {
+                var discount = Math.ceil( ((price_old - price)/price_old) * 100 );
+                if(discount < 0) {
+                    discount = 0;
+                }
+                $('.calculate input[name="discount"]').val(discount)
             }
-            $('.calculate input[name="discount"]').val(discount)
+
+        });
+
+        $('.calculate input[name="price_old"]').change(function(){
+            var discountEl = $('.calculate input[name="discount"]'),
+                discount = discountEl.val(),
+                priceEl = $('.calculate input[name="price"]'),
+                price = priceEl.val(),
+                price_old = $(this).val();
+            if(discount) {
+                price = Math.ceil(  price_old * ( 1 - (discount / 100) ) );
+                priceEl.val(price);
+            }
+            else if(price) {
+                discount = Math.ceil( ((price_old - price)/price_old) * 100 );
+                if(discount < 0) {
+                    discount = 0;
+                }
+                discountEl.val(discount)
+            }
         });
 
         $('.calculate input[name="discount"]').change(function(){
             var discount = $(this).val();
-            var price = $('.calculate input[name="price"]').val();
-            var price_old = Math.ceil(price*100/(100-discount));
-
-            $('.calculate input[name="price_old"]').val(price_old)
+            var price_old = $('.calculate input[name="price_old"]').val();
+            if(price_old) {
+                var price = Math.ceil(  price_old * ( 1 - (discount / 100) ) );
+                $('.calculate input[name="price"]').val(price)
+            }
         });
     }
 
