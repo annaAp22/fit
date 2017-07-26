@@ -127,8 +127,8 @@
                                 <input name="discount" value="{{old('discount')}}" placeholder="Скидка" type="text" class="form-control input-number">
                                 <span class="input-group-addon">%</span>
                             </div>
-                            <div class="col-sm-2 input-group" style="float: left; margin-left: 20px;">
-                                <input name="price_old" value="{{old('price_old')}}" placeholder="Старая цена" type="text" class="input-number form-control">
+                            <div class="col-sm-3 input-group" style="float: left; margin-left: 20px;">
+                                <input name="price_old" value="{{old('price_old')}}" placeholder="Цена в МойСклад" type="text" class="input-number form-control" title="Цена в МойСклад">
                                 <span class="input-group-addon">
                                     <i class="fa fa-rub bigger-110"></i>
                                 </span>

@@ -167,7 +167,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::with('brand', 'categories.children', 'tags')->findOrFail($id);
-        $product->price_old = $product->priceOriginal;
+        $product->price_old = ceil( ( $product->price / (100 - $product->discount) ) * 100 );
         $categories = Category::with('children.children')->where('parent_id', 0)->orderBy('sort')->get();
         $tags = Tag::orderBy('views', 'desc')->orderBy('name')->get();
         $brands = Brand::orderBy('name')->get();

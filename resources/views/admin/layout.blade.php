@@ -115,7 +115,7 @@
     <!-- color picker -->
     <script src="/assets/admin/js/palette-color-picker.min.js"></script>
 
-    <script src="/assets/admin/js/admin.js"></script>
+    <script src="/assets/admin/js/admin.js?v=2017072602"></script>
 
     <![endif]-->
 </head>
