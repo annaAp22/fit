@@ -351,7 +351,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-12"> Комплекты </label>
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-12"> Комплекты (Old) </label>
                         <div class="col-sm-9">
 
                             <select multiple="" name="kits[]" class="chosen-select form-control tag-input-style" id="form-field-12" data-placeholder="Выберите комплект...">
@@ -363,7 +363,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-77"> С товаром покупают</label>
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-77"> Товары в комплекте (New)</label>
                         <div class="col-sm-9">
                             <div class="widget-box">
                                 <div class="widget-header">
@@ -375,7 +375,7 @@
 
                                 <div class="widget-body">
                                     <div class="widget-main">
-                                        @for($i = 0; $i<5; $i++)
+                                        @for($i = 0; $i<10; $i++)
                                         <select name="related[{{$i}}]" class="chosen-select chosen-autocomplite form-control" id="form-field-7{{$i}}" data-url="{{route('admin.products.search')}}" data-placeholder="Начните ввод...">
                                             <option value="">  </option>
                                             @if($related && $related->has($i))

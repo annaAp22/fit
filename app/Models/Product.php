@@ -261,6 +261,13 @@ class Product extends Model
   }
 
   public function getRestKitAttribute() {
+
+    // If related not empty (new kit) return related products else old kit products
+    if($this->related()->count())
+    {
+      return $this->related;
+    }
+
     if(!$this->kits->count()) return false;
 
     $kit = $this->kits->first();
