@@ -16,6 +16,8 @@
 	font-weight: 500
 	color: #717171
 	margin-bottom: 8px
+	+media-md()
+		font-size: 12px
 .field-wrapper-1
 	position: relative
 	margin-bottom: 16px
@@ -38,7 +40,7 @@
 		padding: per_calc(70, 1155) per_calc(80, 1155)
 		border: 3px solid #e1e1e1
 	.fieldset-2
-		padding: per_calc(70, 1155) per_calc(80, 1155)
+		padding: per_calc(60, 1155) per_calc(65, 1155)
 		background-color: #f3f3f3
 		border: none
 		.caption
@@ -97,6 +99,9 @@
 .inline-fields
 	+grid(fluid)
 	+align(between, stretch)
+.form-type-2
+	.btn-wrapper
+		width: 100%
 #registration-success-form
 	.btn
 		margin-top: 0

@@ -40,4 +40,137 @@
     .text
       font-weight: 700
       color: #00ad5d
-
+$order-table-side-padding: per_calc(44, 1155)
+$order-table-cell-padding: per_calc(28, 1155)
+.orders-table
+  &_caption
+    color: #272727
+    font-weight: 900
+    padding: 44px $order-table-side-padding 20px
+    background-color: #f3f3f3
+  &_wrapper
+    width: 100%
+    +media-sm(down)
+      overflow-x: auto
+      overflow-y: hidden
+  width: 100%
+  min-width: 700px
+  border-collapse: collapse
+  border-top: 1px solid #adadad
+  border-bottom: 1px solid #adadad
+  background-color: #f3f3f3
+  tr
+    &.even, &.odd
+      td
+        &:last-child
+          &:after
+            content: none
+        &:after
+          content: ""
+          background-color: #adadad
+          width: 1px
+          height: 32px
+          position: absolute
+          right: 0
+          top: 8px
+  tr.odd
+    background-color: #dedede
+  th, td
+    font-size: 14px
+    text-align: left
+    padding-left: $order-table-cell-padding
+    padding-right: $order-table-cell-padding
+    .num
+      min-width: 90px
+    &.count-col
+      text-align: center
+      padding-left: 4px
+      padding-right: 4px
+      &:first-child
+        padding-left: $order-table-side-padding
+      &:last-child
+        padding-right: $order-table-side-padding
+      font-size: 12px
+      &.price, &.status
+        font-size: 12px
+        font-weight: 500
+  th
+    font-size: 12px
+    color: #868686
+    height: 36px
+  td
+    height: 48px
+    position: relative
+    &.more-col
+      text-align: right
+      min-width: 135px
+    &.price
+      font-size: 16px
+      font-weight: 700
+      +media-sm(down)
+        font-size: 14px
+      +media-md(down)
+        max-width: 170px
+    &.status
+      font-weight: 700
+      min-width: 150px
+      +media-md(up)
+        max-width: 220px
+      &.complete
+        color: #00ad5d
+  .more
+    display: inline-table
+    cursor: pointer
+    min-width: 100px
+    border-left: 6px solid transparent
+    border-right: 6px solid transparent
+    +media-xs(down)
+      min-width: 20px
+      text-align: center
+    span
+      margin: 0
+    > span
+      display: table-cell
+      vertical-align: middle
+    .text
+      width: 88px
+      padding-right: 8px
+      text-align: left
+      +hidden-xs(down)
+    &:not(.active)
+      .open
+        display: none
+    &.active
+      .close
+        display: none
+  &_goods-line
+    counter-reset: good-number
+    &:not(.active)
+      display: none
+    td
+      height: 10px
+      background-color: #fff
+  &_good
+    &:not(.active)
+      display: none
+    counter-increment: good-number
+    background-color: #fff
+    height: 60px
+    .name-col
+      color: #272727
+      font-size: 12px
+      width: 1px
+    .name
+      display: table
+      vertical-align: top
+      width: 100%
+      &:before
+        content: counter(good-number) '. '
+        color: #fcd82f
+        font-size: 18px
+        font-weight: 700
+        display: table-cell
+      span
+        display: table-cell
+        text-align: left !important
+        font-size: 12px

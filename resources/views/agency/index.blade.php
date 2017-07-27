@@ -2,9 +2,7 @@
 @section('content')
     <main class="container">
         <div class="container">
-            <aside class="sidebar">
-                @widget('BannerLeftWidget')
-            </aside>
+            @include('blocks.aside')
             <section class="content">
                 <div class="agencies js-agencies">
                     <h1>Универсальный подарок - сертификат на яркую одежду</h1>

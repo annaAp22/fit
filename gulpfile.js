@@ -45,7 +45,7 @@ gulp.task('sass-compile-release', ['postcss', 'timeout', 'version']);
 elixir(function(mix) {
     console.log('Compiling in', elixir.config.production ? 'PRODUCTION' : 'DEVELOPMENT', 'mode.' );
     // Customer area
-    mix.sass('app.sass');
+    //mix.sass('app.sass');
     mix.task('postcss');
     mix.scripts([
         'vendor/jquery-3.2.1.min.js',
@@ -53,7 +53,8 @@ elixir(function(mix) {
         'vendor/jquery.mask.min.js',
         'vendor/nouislider.min.js',
         'vendor/hammer.min.js',
-        'vendor/jquery.fancybox.min.js'
+        'vendor/jquery.fancybox.min.js',
+        'vendor/jquery.horizontalScroll.js'
     ], 'public/js/vendor.js');
 
     mix.scripts([

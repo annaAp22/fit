@@ -1,9 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <main class="container">
-    <aside class="sidebar">
-        @widget('BannerLeftWidget')
-    </aside>
+    @include('blocks.aside')
     <section class="content">
             <!-- Header -->
             <div class="header-room">
@@ -36,7 +34,7 @@
                             <input type="text" name="email" value="{{$user->email}}" class="js-required-fields"/>
                         </div>
                         <div class="grid margin-top-40">
-                            <div class="hidden-sm-down">
+                            <div class="hidden-sm-down btn-wrapper">
                                 <div class="form-modal_line">
                                     <button class="btn btn_yellow-3">Сохранить изменения</button>
                                 </div>
@@ -66,7 +64,7 @@
                         <div class="field-wrapper-1 inline-fields">
                             <div class="sorting-select type-2 day js-toggle-active js-select">
                                 <input class="js-value" type="hidden" name="day" value="1"/>
-                                <span class="js-selected">{{$user->birthday->day?:1}}</span>
+                                <span class="js-selected">{{isset($user->birthday)?$user->birthday->day:1}}</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                                 <div class="sorting-select__dropdown scroll">
                                     @for($i = 1; $i < 32; $i++)
@@ -78,7 +76,7 @@
                                 $m = $global_settings['month_arr'];
                             @endphp
                             <div class="sorting-select type-2 month js-toggle-active js-select">
-                                <input class="js-value" type="hidden" name="month" value="{{$m_index = $user->birthday->month?:0}}"/>
+                                <input class="js-value" type="hidden" name="month" value="{{$m_index = isset($user->birthday)?$user->birthday->month:1}}"/>
                                 <span class="js-selected">{{trans('times.'.$m[$m_index - 1])}}</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                                 <div class="sorting-select__dropdown scroll">
@@ -91,7 +89,7 @@
                                 @php
                                     $current_year = date('Y');
                                 @endphp
-                                <input class="js-value" type="hidden" name="year" value="{{$y_index = $user->birthday->year?:$current_year}}"/>
+                                <input class="js-value" type="hidden" name="year" value="{{$y_index = isset($user->birthday)?$user->birthday->year:$current_year}}"/>
                                 <span class="js-selected">{{$y_index}}</span>
                                 <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                                 <div class="sorting-select__dropdown  scroll">

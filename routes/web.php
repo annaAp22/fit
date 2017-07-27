@@ -58,8 +58,8 @@ Route::group([
         // Новости
         Route::get('/news', ['as' => 'news', 'uses' => 'MainController@news']);
         Route::get('/news/{sysname}', ['as' => 'news.record', 'uses' => 'MainController@newsSingle']);
-
     Route::get('/room', 'RoomController@index')->name('room');
+    Route::get('/room/orders', 'RoomController@orders')->name('orders-history');
     //});
 
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);

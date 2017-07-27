@@ -11,9 +11,7 @@
 @section('content')
     <main>
         <div class="container">
-            <aside class="sidebar">
-                @widget('BannerLeftWidget')
-            </aside>
+            @include('blocks.aside')
             <section class="content">
                 <div class="container-in">
                     <div class="header-listing">

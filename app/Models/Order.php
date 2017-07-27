@@ -11,7 +11,8 @@ class Order extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['created_at', 'deleted_at'];
+    protected $casts = ['extra_params' => 'array'];
 
     static public $statuses = [
         'wait' => 'В ожидании',
@@ -24,7 +25,7 @@ class Order extends Model
     protected $fillable = [
         'delivery_id',
         'payment_id',
-
+        'customer_id',
         'datetime',
         
         'name',
@@ -34,8 +35,8 @@ class Order extends Model
         'address',
         'payment_add',
         'amount',
-
-        'status'
+        'extra_params',
+        'status',
     ];
 
 
@@ -51,8 +52,9 @@ class Order extends Model
     public function datePicker() {
         return (new Date($this->datetime))->format('d.m.Y H:i');
     }
-
-
+    public function getProducts() {
+      return $this->products()->get();
+    }
 
     public function products() {
         return $this
@@ -88,6 +90,13 @@ class Order extends Model
         $price += $this->getPriceByProduct($product);
       }
       return $price;
+    }
+    public function priceWithDelivery() {
+        $s = $this->amount;
+        if($this->delivery_id) {
+            $s += $this->delivery->price;
+        }
+        return $s;
     }
     public function payment() {
         return $this->belongsTo('App\Models\Payment', 'payment_id');

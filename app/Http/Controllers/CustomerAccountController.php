@@ -58,6 +58,7 @@ class CustomerAccountController extends Controller
             'show' => [
                 '#js-not-autorized',
             ],
+            'reload' => true,
         );
         return json_encode($result);
     }
@@ -78,9 +79,10 @@ class CustomerAccountController extends Controller
                 'show' => [
                     '#js-autorized',
                 ],
+                'reload' => true,
             );
             return json_encode($result);
-        }else {
+        } else {
             $result = array(
                 'action' => 'openModal',
             );
@@ -126,6 +128,7 @@ class CustomerAccountController extends Controller
         }
         if(isset($user)) {
             $result['modal'] = view('modals.registration_success')->render();
+            Auth::attempt(['email' => $data['email'], 'password' => $data['password']]);
             return $result;
         }elseif(!$messages) {
             $messages = array(

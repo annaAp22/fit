@@ -8,6 +8,7 @@ use App\Models\MsOrder;
 use App\Models\MsParam;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -382,7 +383,9 @@ class FrontApiController extends Controller
         'status' => 'wait',
         'email' => $request->input('email', 'no email'),
     ];
-
+    if(Auth::check()) {
+        $data['customer_id'] = Auth::user()->id;
+    }
     if($is_multiple)
     {
       $order = Order::create($data);

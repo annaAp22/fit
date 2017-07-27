@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -19,11 +21,37 @@ class ComposerServiceProvider extends ServiceProvider
     {
       // Using Closure based composers...
       View::composer('*', function ($view) {
+        $routeName = Route::current()->getName();
         $defer = \Session::get('products.defer') ?: [];
         $seen = \Session::get('products.view') ?: [];
         $view->with('defer', array_keys($defer) )
-            ->with('seen', array_keys($seen) );
+            ->with('seen', array_keys($seen) )
+            ->with('routeName', $routeName);
       });
+      //передаем пользователя в представления
+      View::composer(
+          [
+              'modals.quick_order_product', 'order.order', 'content.orders_history'
+          ],
+          function($view) {
+            $user = Auth::check()?Auth::user():null;
+            $view->with('user', $user);
+      });
+      //навигация по личному кабинету в боковой панели
+//      View::composer(
+//          [
+//              'blocks.room_navigation'
+//          ],
+//          function($view) {
+//            $routeName = Route::current()->getName();
+//            $active = array(
+//                'data' => ($routeName == 'room')?'active':'',
+//                'orders' => ($routeName == 'orders-history')?'active':'',
+//            );
+//            $view->with('active', $active);
+//          });
+
+
       View::composer(['errors::403','errors.403','errors::404','errors.404', 'errors::500', 'errors.500', 'errors::503', 'errors.503'], function ($view) {
         Meta::setTitle('Страница не найдена');
         $settings = Setting::all();

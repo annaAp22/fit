@@ -45,7 +45,7 @@
         <div class="checkout-body container-in">
             @include('order.partials.goods')
             <!--  Order form-->
-            <form class="checkout-form" action="{{ route('order.details') }}" method="post">
+            <form name="checkout-form" class="checkout-form" action="{{ route('order.details') }}" method="post">
                 <div class="form-header">
                     <!-- Step 1-->
                     <div class="form-header__title js-step js-step js-step_1 active"><i class="sprite_main sprite_main-form-header-smile-green"></i><span>Давайте знакомиться!</span>
@@ -64,15 +64,21 @@
                     <div class="container-in js-step js-step_1 active">
                         <div class="form-input form-body__input">
                             <div class="form-label form-required">Привет! Меня зовут:
-                            </div><input class="input input_text form-input__input js-required-fields" type="text" name="name" placeholder="Ф.И.О." value=""/><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-person-green"></i>
+                            </div>
+                            <input class="input input_text form-input__input js-required-fields" type="text" name="name" placeholder="Ф.И.О." value="{{isset($user->name)?$user->name:''}}"/>
+                            <i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-person-green"></i>
                         </div>
                         <div class="form-input form-body__input">
                             <div class="form-label form-required">Со мной можно связаться по телефону:
-                            </div><input class="input input_text form-input__input js-phone js-required-fields" type="text" name="phone" placeholder="+7 ___ ___ __ __" value=""/><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-phone-green"></i>
+                            </div>
+                            <input class="input input_text form-input__input js-phone js-required-fields" type="text" name="phone" placeholder="+7 ___ ___ __ __" value="{{isset($user->phone)?$user->phone:''}}"/>
+                            <i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-phone-green"></i>
                         </div>
                         <div class="form-input form-body__input">
                             <div class="form-label form-required">Email:
-                            </div><input class="input input_text form-input__input js-required-fields" type="text" name="email" placeholder="my_email@gmail.com"/><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-letter-green"></i>
+                            </div>
+                            <input class="input input_text form-input__input js-required-fields" type="text" name="email" placeholder="my_email@gmail.com" value="{{isset($user->email)?$user->email:''}}"/>
+                            <i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-letter-green"></i>
                         </div>
                         <div class="form-input form-body__input">
                             <div class="form-label">Я живу по адресу:

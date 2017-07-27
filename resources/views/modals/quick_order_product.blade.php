@@ -8,15 +8,15 @@
             <div class="form-modal_title">БЫСТРЫЙ ЗАКАЗ ТОВАРА</div>
             <div class="form-modal_line">
                 <label>Ваше имя: <span class="mod-col-or">*</span></label>
-                <input class="js-required-fields input input_text" type="text" name="name" placeholder="Фамилия, имя, отчество *" >
+                <input class="js-required-fields input input_text" type="text" name="name" placeholder="Фамилия, имя, отчество *" value="{{isset($user->name)?$user->name:''}}">
             </div>
             <div class="form-modal_line">
                 <label>Ваш email: <span class="mod-col-or">*</span></label>
-                <input class="js-required-fields input input_text" type="text" name="email" placeholder="sample@example.com" >
+                <input class="js-required-fields input input_text" type="text" name="email" placeholder="sample@example.com" value="{{isset($user->email)?$user->email:''}}">
             </div>
             <div class="form-modal_line">
                 <label>Ваш телефон: <span class="mod-col-or">*</span></label>
-                <input class="phone-input js-required-fields js-phone input input_text" type="text" name="phone" placeholder="+7 (xxx) xxx xx xx * " >
+                <input class="phone-input js-required-fields js-phone input input_text" type="text" name="phone" placeholder="+7 (xxx) xxx xx xx * " value="{{isset($user->phone)?$user->phone:''}}">
                 <script type="text/javascript">
                     $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
                 </script>

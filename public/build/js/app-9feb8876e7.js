@@ -462,7 +462,6 @@ $(function(){
 
         $this.toggleClass('active');
     });
-
     //Prevent default for hovered elements
     $body.on("click", ".js-prevent", function(e){
         e.preventDefault();
@@ -971,6 +970,8 @@ $(function(){
             $('.js-step-next').attr('disabled', true);
         }
     });
+    //тут же проверяем на валидность поля, так, как они могут быть заполнены автоматически
+    $('form').find('.js-required-fields:first').click();
     // Product gallery thumbs switch
     $body.on('click', '.js-gallery-thumb', function(e) {
         var $this = $(this),
@@ -1052,8 +1053,21 @@ $(function(){
         }
         return true;
     });
+    $('.js-horizontal-scroll').horizontalScroll({
+        'autoHide':true,
+        'autoHideMargin':30
+    });
+    //показываем/скрываем товары под заказом, в таблице заказов
+    $('.js-open-order').click(function(e) {
+       var grandpa = $(this).parent().parent();
+        grandpa.toggleClass('active')
+        var container = grandpa.parent();
+        var id = grandpa.data('id');
+        if(id != null) {
+            container.children('[data-id="'+id+'"]').toggleClass('active');
+        }
+    });
 });
-
 // scroll to element
 function scrollToEl($el) {
     var top = $el.offset().top - 100;
@@ -1253,16 +1267,27 @@ function elementsRender(data) {
     if (!data) {
         return false
     }
-
-    $.fancybox.close();
-    var obj = data['text'];
+    var obj;
     var s;
     var i;
+    obj = data['reload'];
+    if(typeof obj !== 'undefined' && obj) {
+        location.reload();
+    }
+    $.fancybox.close();
+    obj = data['text'];
     if (typeof obj !== 'undefined') {
         for(s in obj) {
-            $(s).text(obj[s]);
+            $(s).html(obj[s]);
         }
     }
+    obj = data['append'];
+    if (typeof obj !== 'undefined') {
+        for(s in obj) {
+            $(s).append(obj[s]);
+        }
+    }
+
     obj = data['fields'];
     if (typeof obj !== 'undefined') {
         for(s in obj) {

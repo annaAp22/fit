@@ -2,9 +2,7 @@
 
 @section('content')
     <main class="container">
-        <aside class="sidebar">
-            @widget('BannerLeftWidget')
-        </aside>
+        @include('blocks.aside')
         <section class="content">
             <h1>Сброс пароля</h1>
             <form name="reset-password-form" class="js-form-ajax form-type-1" action="{{ url('/password/reset') }}" method="POST">

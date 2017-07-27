@@ -6,9 +6,7 @@
 
 @section('content')
 <main class="container">
-    <aside class="sidebar">
-        @widget('BannerLeftWidget')
-    </aside>
+    @include('blocks.aside')
     <section class="content">
         <div class="container-in contacts">
 

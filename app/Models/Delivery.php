@@ -21,4 +21,9 @@ class Delivery extends Model
     public function orders() {
         return $this->hasMany('App\Models\Order', 'delivery_id');
     }
+    //scopes
+    /*
+     * @return published records
+     * **/
+    public function scopePublished($query) { return $query->where('status', 1); }
 }

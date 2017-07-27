@@ -78,3 +78,4 @@ Route::post('register', 'CustomerAccountController@create')->name('register');
 Route::post('login', 'CustomerAccountController@login')->name('login');
 Route::get('logout', 'CustomerAccountController@logout')->name('logout');
 Route::post('user/update', 'CustomerAccountController@update')->name('user-update');
+Route::post('/room/orders', 'RoomController@orders')->name('orders-history');

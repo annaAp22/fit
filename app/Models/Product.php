@@ -14,7 +14,6 @@ class Product extends Model
   use SoftDeletes, LaravelUploads;
 
   protected $dates = ['deleted_at'];
-
   protected $fillable = [
       'category_id',
       'brand_id',
@@ -195,8 +194,6 @@ class Product extends Model
   public function scopeSale($query) { return $this->scopeAct($query); }
   public function scopeNew($query) { return $query->where('new', 1); }
   public function scopeRecentlyAdded($query) { return $query->orderBy('created_at', 'desc'); }
-
-
 
   /**
    * Отложил ли покупатель этот товар?

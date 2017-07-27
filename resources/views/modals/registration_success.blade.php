@@ -8,11 +8,11 @@
             <div class="form-modal_line">
                 <div class="field-caption-1">Теперь Вы можете следить за статусом своих заказов, первым узнавать о скидках, новинках и прочее. </div>
             </div>
-            <div class="form-modal_line">
-                <button data-fancybox-close class="btn btn_yellow-3">Перейти к покупкам&nbsp;
-                    <i class="sprite_main sprite_main-orange-arrow-2"></i>
-                </button>
-            </div>
+            {{--<div class="form-modal_line">--}}
+                {{--<button data-fancybox-close class="btn btn_yellow-3">Перейти к покупкам&nbsp;--}}
+                    {{--<i class="sprite_main sprite_main-orange-arrow-2"></i>--}}
+                {{--</button>--}}
+            {{--</div>--}}
             @section('list-marker-1')
                 <div class="sprite_main sprite_main-green-checked"></div>
             @endsection
@@ -30,5 +30,5 @@
             </ul>
         </div>
     </form>
-    <button data-fancybox-close  class="modal-close">&#10006;</button>
+    <button data-fancybox-close  class="modal-close" onclick="location.reload()">&#10006;</button>
 </div>
