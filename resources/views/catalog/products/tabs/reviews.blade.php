@@ -94,4 +94,6 @@
         <textarea class="textarea textarea_text" name="text" placeholder="Несколько слов о товаре"></textarea>
         <button class="btn btn_green-border-900">ОТПРАВИТЬ</button>
     </div>
+
+    {{ csrf_field() }}
 </form>

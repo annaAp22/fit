@@ -213,9 +213,6 @@ class Product extends Model
     }
     return ceil($this->price * 100 / (100 - $this->discount));
   }
-  public function getPriceWithDiscount() {
-    return $this->price - $this->discount;
-  }
   public function getAverageRatingAttribute() {
     if (! array_key_exists('avgRating', $this->relations))
       $this->load('avgRating');
@@ -258,6 +255,13 @@ class Product extends Model
   }
 
   public function getRestKitAttribute() {
+
+    // If related not empty (new kit) return related products else old kit products
+    if($this->related()->count())
+    {
+      return $this->related;
+    }
+
     if(!$this->kits->count()) return false;
 
     $kit = $this->kits->first();

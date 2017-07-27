@@ -1,9 +1,9 @@
-@for($i = 0; $i < count($orders); $i++, $odd = $odd ^ 1)
+@for($i = 0, $j = $lastOrderCount; $i < count($orders); $i++, $j++, $odd = $odd ^ 1)
     @php
         $order = $orders[$i];
         $products = $order->products;
     @endphp
-    <tr class="{{$odd?'odd':'even'}}" data-id="{{$i}}">
+    <tr class="{{$odd?'odd':'even'}}" data-id="{{$j}}">
         <td>{{$order->id}}</td>
         <td>{{$order->created_at->format('d.m.Y')}}</td>
         <td class="count-col">{{$products->sum('pivot.cnt')}}</td>
@@ -26,7 +26,7 @@
         <td colspan="6"></td>
     </tr>
     @foreach($products as $product)
-        <tr class="orders-table_good" data-id="{{$i}}">
+        <tr class="orders-table_good" data-id="{{$j}}">
             <td colspan="2" class="name-col">
                             <span class="name">
                                 <span>{{$product->name}}</span>

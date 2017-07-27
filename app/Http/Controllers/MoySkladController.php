@@ -34,7 +34,7 @@ class MoySkladController extends Controller
                 $order['name'] = $newOrderId;
 
                 $des = json_decode($msOrder->ms_description);
-                $order['description'] = "ФИО: ". $des->name ."; E-mail: ". $des->email ."; Телефон: ". $des->phone . "; Адрес доставки: ". $des->address . "; Доставка(". $des->delivery . ")";
+                $order['description'] = "Заказ №: ". $des->order_id . "; ФИО: ". $des->name ."; E-mail: ". $des->email ."; Телефон: ". $des->phone . "; Адрес доставки: ". $des->address . "; Доставка(". $des->delivery . ")";
 
                 $order['organization'] = [
                     "meta" => [

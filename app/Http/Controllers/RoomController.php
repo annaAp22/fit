@@ -32,12 +32,14 @@ class RoomController extends Controller
     $perPage = Setting::getVar('perpage') ?: $this->perpage;
     $perPage = 10;
     $page = $request->input('page', null);
+    $lastOrderCount = 0;
     if($page == null) {
       $orders = $orderRequest->take($this->pageLimit)->paginate($perPage);
     }
     else {
+      $lastOrderCount = ($page - 1) * $perPage;
       if($request->input('perPage') == 'all') {
-        $orders = $orderRequest->skip(($page - 1) * $perPage)->take($this->pageLimit)->get();
+        $orders = $orderRequest->skip($lastOrderCount)->take($this->pageLimit)->get();
       } else {
         $orders = $orderRequest->take($this->pageLimit)->paginate($perPage);
       }
@@ -87,7 +89,7 @@ class RoomController extends Controller
         return [];
       }
       //получаем представления заказов
-      $tableRows = view('blocks.orders_rows', compact('orders', 'odd'))->render();
+      $tableRows = view('blocks.orders_rows', compact('orders', 'odd', 'lastOrderCount'))->render();
       $odd = $odd + $orders_count % 2;
       //получает представление постраничной навигации
       if($ordersRemained == 0) {
@@ -106,7 +108,7 @@ class RoomController extends Controller
       );
       return $result;
     } else {
-      return view('content.orders_history', compact('orders', 'odd', 'ordersRemained', 'page'));
+      return view('content.orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount'));
     }
 
   }

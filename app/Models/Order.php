@@ -78,18 +78,10 @@ class Order extends Model
         return 0;
       }
     }
-    public function getPriceByProduct($product) {
-      return ($product->price - $product->discount)*$product->pivot->cnt;
-    }
-    public function getUnitPriceByProduct($product) {
-      return $product->price - $product->discount;
-    }
-    public function price() {
-      $price = isset($this->delivery)?$this->delivery->price:0;
-      foreach ($this->products as $product) {
-        $price += $this->getPriceByProduct($product);
-      }
-      return $price;
+    public function getTotalWithDeliveryAttribute() {
+        $delivery_price = isset($this->delivery) ? $this->delivery->price : 0;
+        $total = $this->attributes['amount'] + $delivery_price;
+        return $total;
     }
     public function priceWithDelivery() {
         $s = $this->amount;

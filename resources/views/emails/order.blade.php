@@ -5,9 +5,9 @@
 <body>
 <p>Здравствуйте!</p>
 @if(isset($quick_buy) && $quick_buy === 1)
-    На сайте <a href="{{Request::root()}}"><b>fit2u</b>></a> произведен быстрый заказ:
+    На сайте <a href="{{Request::root()}}"><b>fit2u</b>></a> произведен быстрый заказ <b>№ {{$order->id}}</b>:
 @else
-    На сайте <a href="{{Request::root()}}"><b>fit2u</b></a> произведен заказ:
+    На сайте <a href="{{Request::root()}}"><b>fit2u</b></a> произведен заказ <b>№ {{$order->id}}</b>:
 @endif
 <br>
 Имя: <b>{{$order->name}}</b><br>
@@ -33,13 +33,9 @@ Email: <b>{{$order->email}}</b><br>
             <td><a href="{{route('product', ['sysname' => $product->sysname])}}">{{$product->name}}</a></td>
             <td align="center">{{$order->getSizeByProduct($product)}}</td>
             <td align="center">{{$product->pivot->cnt}}</td>
-            <td>{{$order->getPriceByProduct($product)}} р.</td>
+            <td>{{ $product->price * $product->pivot->cnt }} р.</td>
         </tr>
     @endforeach
 </table>
-@if($order->delivery_id)
-    <p>Общая стоимость(с учетом доставки): <b>{{$order->price()}} р.</b></p>
-@else
-    <p>Общая стоимость: <b>{{$order->price()}} р.</b></p>
-@endif
+    <p>Общая стоимость(с учетом доставки): <b>{{$order->totalWithDelivery }} р.</b></p>
 </body>
