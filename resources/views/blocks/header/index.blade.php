@@ -115,21 +115,21 @@
 
             </div>
             <!-- Site login-->
-            <div class="header__enter" href="#">
-                <i class="sprite_main sprite_main-header__enter"></i>
-                <span class="js-user-name">{{Auth::check()?Auth::user()->name:'Войти / Вступить'}}</span>
-                <div class="dropdown">
-                    <div id="js-not-autorized" @if(Auth::check()) hidden @endif>
-                        <a id="js-user-login" class= "js-action-link" data-modal="login" data-url="{{route('ajax.modal')}}">Войти в систему</a>
-                        <a id="js-user-register" class="js-action-link" data-modal="registration" data-url="{{route('ajax.modal')}}">Создать кабинет</a>
-                    </div>
-                    <div id="js-autorized"  @if(!Auth::check()) hidden @endif>
-                        <a href="{{route('room')}}">Кабинет</a>
-                        <a  class="js-action-link" data-url="{{ route('ajax.logout') }}">Выйти</a>
-                    </div>
-                    <a class= "js-action-link" data-modal="login" data-url="{{route('ajax.modal')}}">test</a>
-                </div>
-            </div>
+            {{--<div class="header__enter" href="#">--}}
+                {{--<i class="sprite_main sprite_main-header__enter"></i>--}}
+                {{--<span class="js-user-name">{{Auth::check()?Auth::user()->name:'Войти / Вступить'}}</span>--}}
+                {{--<div class="dropdown">--}}
+                    {{--<div id="js-not-autorized" @if(Auth::check()) hidden @endif>--}}
+                        {{--<a id="js-user-login" class= "js-action-link" data-modal="login" data-url="{{route('ajax.modal')}}">Войти в систему</a>--}}
+                        {{--<a id="js-user-register" class="js-action-link" data-modal="registration" data-url="{{route('ajax.modal')}}">Создать кабинет</a>--}}
+                    {{--</div>--}}
+                    {{--<div id="js-autorized"  @if(!Auth::check()) hidden @endif>--}}
+                        {{--<a href="{{route('room')}}">Кабинет</a>--}}
+                        {{--<a  class="js-action-link" data-url="{{ route('ajax.logout') }}">Выйти</a>--}}
+                    {{--</div>--}}
+                    {{--<a class= "js-action-link" data-modal="login" data-url="{{route('ajax.modal')}}">test</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div class="vl"></div>
         </div>
     </div>
