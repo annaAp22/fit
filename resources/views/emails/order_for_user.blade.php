@@ -9,7 +9,7 @@
 Здравствуйте! Благодарим вас за покупку!<br>
 Вы оформили заказ в магазине крутой фитнес-одежды на сайте <a style="color:#000;text-decoration:none;" href="{{$siteUrl}}">{{$siteUrl}}</a><br>
 <b>Ваш заказ №{{$order->id}}.</b><br>
-Сумма заказа с учётом стоимости доставки {{$order->price()}} р.<br>
+Сумма заказа с учётом стоимости доставки {{$order->totalWithDelivery}} р.<br>
 @if(isset($order->delivery))
     Тип доставки: {{$order->delivery->name}}
 @else
@@ -38,14 +38,14 @@
             <td style="font-size:18px;width:24%;" align="center">
                 <div style="display:table;width:100%;height:70px;border:1px solid #d6d6d6;border-bottom:0;border-top:0;">
                     <div style="display:table-cell;vertical-align:middle;text-align:center;white-space:nowrap">
-                        <b>{{$product->getPriceWithDiscount()}} р.</b>
+                        <b>{{$product->price}} р.</b>
                         @if(isset($product->pivot->cnt) && $product->pivot->cnt > 0)
                             <span style="color:#ababab;font-size:14px; font-weight:400;">x {{$product->pivot->cnt}}</span>
                         @endif
                     </div>
                 </div>
             </td>
-            <td style="font-size:18px;text-align:center;white-space:nowrap"><b>{{$order->getPriceByProduct($product)}} р.</b></td>
+            <td style="font-size:18px;text-align:center;white-space:nowrap"><b>{{$product->price * $product->pivot->cnt}} р.</b></td>
         </tr>
     @endforeach
 </table>

@@ -216,9 +216,6 @@ class Product extends Model
     }
     return ceil($this->price * 100 / (100 - $this->discount));
   }
-  public function getPriceWithDiscount() {
-    return $this->price - $this->discount;
-  }
   public function getAverageRatingAttribute() {
     if (! array_key_exists('avgRating', $this->relations))
       $this->load('avgRating');
