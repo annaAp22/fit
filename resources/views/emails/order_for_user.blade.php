@@ -8,7 +8,8 @@
 <br><br>
 Здравствуйте! Благодарим вас за покупку!<br>
 Вы оформили заказ в магазине крутой фитнес-одежды на сайте <a style="color:#000;text-decoration:none;" href="{{$siteUrl}}">{{$siteUrl}}</a><br>
-<b>Ваш заказ №{{$order->id}}</b> на сумму {{$order->price()}} р.<br>
+<b>Ваш заказ №{{$order->id}}.</b><br>
+Сумма заказа с учётом стоимости доставки {{$order->price()}} р.<br>
 @if(isset($order->delivery))
     Тип доставки: {{$order->delivery->name}}
 @else

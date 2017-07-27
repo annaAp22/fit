@@ -77,7 +77,7 @@ class Order extends Model
       }
     }
     public function getPriceByProduct($product) {
-      return ($product->price - $product->discount)*$product->pivot->cnt;
+      return $product->price * $product->pivot->cnt;
     }
     public function getUnitPriceByProduct($product) {
       return $product->price - $product->discount;

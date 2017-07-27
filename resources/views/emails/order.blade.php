@@ -5,9 +5,9 @@
 <body>
 <p>Здравствуйте!</p>
 @if(isset($quick_buy) && $quick_buy === 1)
-    На сайте <a href="{{Request::root()}}"><b>fit2u</b>></a> произведен быстрый заказ:
+    На сайте <a href="{{Request::root()}}"><b>fit2u</b>></a> произведен быстрый заказ <b>№ {{$order->id}}</b>:
 @else
-    На сайте <a href="{{Request::root()}}"><b>fit2u</b></a> произведен заказ:
+    На сайте <a href="{{Request::root()}}"><b>fit2u</b></a> произведен заказ <b>№ {{$order->id}}</b>:
 @endif
 <br>
 Имя: <b>{{$order->name}}</b><br>
