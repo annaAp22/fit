@@ -164,7 +164,7 @@ class OrderController extends Controller
            {
               $positions[] = [
                  "quantity" => intval($product->pivot->cnt),
-                 "price" => floatval($product->price) * 100,
+                 "price" => floatval($ms_product->ms_salePrice) * 100,
                  "discount" => floatval($product->discount),
                  "vat" => 0,
                  "assortment" => [
