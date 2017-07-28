@@ -10129,6 +10129,10 @@ h3 {
   width: 100%;
 }
 
+.orders-table_good .name a {
+  text-decoration: none;
+}
+
 .orders-table_good .name:before {
   content: counter(a) ". ";
   color: #fcd82f;

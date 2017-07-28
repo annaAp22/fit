@@ -29,7 +29,7 @@
         <tr class="orders-table_good" data-id="{{$j}}">
             <td colspan="2" class="name-col">
                             <span class="name">
-                                <span>{{$product->name}}</span>
+                                <a href="{{route('product', $product->sysname)}}">{{$product->name}}</a>
                             </span>
             </td>
             <td class="count-col">{{$product->pivot->cnt}}</td>

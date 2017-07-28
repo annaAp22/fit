@@ -5,6 +5,7 @@
         (function (d, w, c) {
             (w[c] = w[c] || []).push(function() {
                 try {
+                    console.log('new yandex metrika object');
                     w.yaCounter12254515 = new Ya.Metrika({
                         id:12254515,
                         clickmap:true,
