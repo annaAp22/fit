@@ -371,7 +371,7 @@ template {
 .radio_box>input:checked+.fake-input-2>span,
 .radio_square>input:checked+.fake-input-2>span,
 .sprite_main {
-  background-image: url(/img/sprite-min.png?v=2);
+  background-image: url(/img/sprite-min.png?v=3);
   background-repeat: no-repeat;
   display: inline-block;
 }
@@ -10126,6 +10126,10 @@ h3 {
   display: table;
   vertical-align: top;
   width: 100%;
+}
+
+.orders-table_good .name a {
+  text-decoration: none;
 }
 
 .orders-table_good .name:before {
