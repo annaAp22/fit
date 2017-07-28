@@ -21,7 +21,8 @@ class ComposerServiceProvider extends ServiceProvider
     {
       // Using Closure based composers...
       View::composer('*', function ($view) {
-        $routeName = Route::current()->getName();
+        $route = Route::current();
+        $routeName = $route ? $route->getName() : '';
         $defer = \Session::get('products.defer') ?: [];
         $seen = \Session::get('products.view') ?: [];
         $view->with('defer', array_keys($defer) )
