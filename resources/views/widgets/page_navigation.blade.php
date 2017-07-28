@@ -45,6 +45,8 @@
             <li><a href="#">Карта сайта</a></li>
             <li><a href="#">Спонсор</a></li>--}}
 
+            <li><a href="{{ route('photos') }}">Фото клиентов</a></li>
+
             {{-- Static pages --}}
             @foreach($info as $page)
                 <li><a href="{{ route('page', ['sysname' => $page->sysname]) }}">{{ $page->name }}</a></li>
