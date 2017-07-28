@@ -18,6 +18,7 @@ class RoomController extends Controller
     if(!$user) {
       abort('404');
     }
+    $this->setMetaTags();
     $orders_count = $orders = Order::where('email', $user->email)->orWhere('customer_id', $user->id)->count();
     $orders_count = min($orders_count, $this->pageLimit);
     return view('content.room', compact('user', 'orders_count'));
@@ -27,6 +28,7 @@ class RoomController extends Controller
     if(!$user) {
       abort('404');
     }
+    $this->setMetaTags();
     //получаем коллекцию заказов в зависимости от номера страницы и количества на странице
     $orderRequest = Order::where('email', $user->email)->orWhere('customer_id', $user->id)->orderBy('created_at', 'decs');
     $perPage = Setting::getVar('perpage') ?: $this->perpage;
