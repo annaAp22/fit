@@ -177,6 +177,15 @@
             <b class="arrow"></b>
         </li>
         @endcan
+        @can('index', new App\Models\Photo())
+        <li  @if( str_is('admin.photos*', Route::currentRouteName())) class="active" @endif>
+            <a href="{{route('admin.photos.index')}}">
+                <i class="menu-icon glyphicon glyphicon-picture"></i>
+                <span class="menu-text"> Фотографии </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        @endcan
 
         @if(Gate::check('index', new App\Models\Page()) || Gate::check('index', new App\Models\Metatag()) || Gate::check('index', new App\Models\Setting()) || Gate::check('index', new App\User()))
 
