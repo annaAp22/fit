@@ -29,9 +29,6 @@
                 </tr>
                 @include('blocks.orders_rows')
             </table>
-            <div class="js-page-navigation">
-                @include('blocks.orders_pages')
-            </div>
             <div class="horizontal_scroller hidden-md-up js-buttons-wrapper">
                 <div class="left js-left-btn">
                     <span class="sprite_main sprite_main-icon-arrow-gray-left"></span>
@@ -41,6 +38,12 @@
                 </div>
             </div>
         </div>
+        <div class="js-page-navigation">
+            @include('blocks.orders_pages')
+        </div>
+        @if(!count($orders))
+            <div class="no-orders">У Вас пока нет заказов</div>
+        @endif
     </section>
 
     <section class="content-full-width">

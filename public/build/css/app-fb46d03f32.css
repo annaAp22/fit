@@ -10142,6 +10142,11 @@ h3 {
   font-size: 12px;
 }
 
+.no-orders {
+  margin-top: 30px;
+  text-align: center;
+}
+
 @media screen and (min-width:576px) {
   .hidden-sm-up {
     display: none;

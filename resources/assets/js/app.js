@@ -618,7 +618,7 @@ $(function(){
         'autoHideMargin':30
     });
     //показываем/скрываем товары под заказом, в таблице заказов
-    $('.js-open-order').click(function(e) {
+    $body.on('click', '.js-open-order', function(e) {
        var grandpa = $(this).parent().parent();
         grandpa.toggleClass('active')
         var container = grandpa.parent();
@@ -830,6 +830,11 @@ function elementsRender(data) {
     var obj;
     var s;
     var i;
+    obj = data['redirect'];
+    if(typeof obj !== 'undefined' && obj) {
+        location.href = obj;
+        return true;
+    }
     obj = data['reload'];
     if(typeof obj !== 'undefined' && obj) {
         location.reload();

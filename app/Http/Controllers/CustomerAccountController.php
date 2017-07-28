@@ -58,7 +58,7 @@ class CustomerAccountController extends Controller
             'show' => [
                 '#js-not-autorized',
             ],
-            'reload' => true,
+            'redirect' => '/',
         );
         return json_encode($result);
     }
