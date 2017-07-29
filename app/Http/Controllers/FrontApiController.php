@@ -422,6 +422,7 @@ class FrontApiController extends Controller
       // Add new order to moySklad orders table
      $msOrder = new MsOrder();
      $msOrder->ms_description = json_encode([
+ 		'order_id' => $order->id,
          'name' => $order->name,
          'email' => $order->email,
          'phone' => $order->phone,
