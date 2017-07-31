@@ -1,7 +1,7 @@
 @php
     $men = $categories->where('name', 'Для мужчин')->first();
     $women = $categories->where('name', 'Для женщин')->first();
-    $training = $categories->where('name', 'Для тренировок')->first();
+    {{--$training = $categories->where('name', 'Для тренировок')->first();--}}
 @endphp
 
 <!-- Dropdown catalog-->
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <!-- Training categories!-->
+        {{--<!-- Training categories!-->
         <div class="catalog-dropdown__item catalog-dropdown__item_training js-training js-training-desktop js-catalog">
             <!-- Categories-->
             <div class="catalog-dropdown__categories container js-dropdown-training">
@@ -80,6 +80,6 @@
                     <img src="/img/catalog-dropdown_women__look-min.jpg"/>
                 </a>
             </div>
-        </div>
+        </div>--}}
     </div>
 </div>
