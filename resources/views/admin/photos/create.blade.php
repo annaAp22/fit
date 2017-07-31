@@ -90,7 +90,7 @@
                                 Обновить
                             </button>
                             &nbsp; &nbsp; &nbsp;
-                            <a class="btn btn-info" href="{{route('admin.banners.index')}}">
+                            <a class="btn btn-info" href="{{route('admin.photos.index')}}">
                                 <i class="ace-icon glyphicon glyphicon-backward bigger-110"></i>
                                 Назад
                             </a>

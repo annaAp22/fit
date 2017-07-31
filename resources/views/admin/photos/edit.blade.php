@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-xs-12 ace-thumbnails">
                 <!-- PAGE CONTENT BEGINS -->
-                <form class="form-horizontal" role="form" action="{{route('admin.banners.update', $photo->id)}}" method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" action="{{route('admin.photos.update', $photo->id)}}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PUT">
                     <input name="_token" type="hidden" value="{{csrf_token()}}">
 
@@ -94,13 +94,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-6"> URL </label>
-                        <div class="col-sm-9">
-                            <input type="text" id="form-field-6" name="url" placeholder="URL" value="{{ old('url', $photo->url) }}" class="col-sm-12">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Подпись </label>
                         <div class="col-sm-9">
                             <input type="text" id="form-field-1" name="caption" placeholder="Подпись" value="{{ old('caption', $photo->caption) }}" class="col-sm-5">
@@ -143,7 +136,7 @@
                                 Обновить
                             </button>
                             &nbsp; &nbsp; &nbsp;
-                            <a class="btn btn-info" href="{{route('admin.banners.index')}}">
+                            <a class="btn btn-info" href="{{route('admin.photos.index')}}">
                                 <i class="ace-icon glyphicon glyphicon-backward bigger-110"></i>
                                 Назад
                             </a>
