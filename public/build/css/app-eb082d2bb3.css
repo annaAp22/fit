@@ -4096,7 +4096,7 @@ header .line_lg {
 .header__enter {
   z-index: 6;
   background: #fff;
-  height: 62px;
+  height: 59px;
   position: relative;
   -webkit-box-ordinal-group: 2;
   -webkit-order: 1;
