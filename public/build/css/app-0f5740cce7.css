@@ -4236,6 +4236,10 @@ header .line_lg {
   transform: rotate(-180deg);
 }
 
+.nav-catalog__item_wide span {
+  width: 150px;
+}
+
 .nav-pages {
   display: -webkit-box;
   display: -webkit-flex;

@@ -198,6 +198,7 @@ $(function(){
     function moveElements(){
         var women = $('.js-dropdown-women'),
             men = $('.js-dropdown-men'),
+            training = $('.js-dropdown-training'),
             navigation = $('.js-pages'),
             filter = $('.sidebar-filter');
         var screenSize = checkWindowWidth();
@@ -205,6 +206,7 @@ $(function(){
         navigation.detach();
         women.detach();
         men.detach();
+        training.detach();
         filter.detach();
 
         if ( screenSize ) {
@@ -212,12 +214,14 @@ $(function(){
             navigation.insertAfter('.nav-catalog');
             women.prependTo('.js-women-desktop');
             men.prependTo('.js-men-desktop');
+            training.prependTo('.js-training-desktop');
             //filter.prependTo('.sidebar');
             filter.insertAfter('.sidebar-catalog');
         } else {
             //mobile screen
             women.appendTo('.js-women-mobile');
             men.appendTo('.js-men-mobile');
+            training.appendTo('.js-training-mobile');
             navigation.insertAfter('.js-pages-mobile');
             filter.appendTo('#sidebar-filters');
         }
