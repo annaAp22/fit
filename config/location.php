@@ -12,7 +12,8 @@ return [
     */
 
 
-    'driver' => App\Location\Drivers\SypexDriver::class,
+//    'driver' => App\Location\Drivers\SypexDriver::class,
+    'driver' => Stevebauman\Location\Drivers\MaxMind::class,
 
     /*
     |--------------------------------------------------------------------------
