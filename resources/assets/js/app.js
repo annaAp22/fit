@@ -319,7 +319,7 @@ $(function(){
     });
 
     var vkReviews = $("#js-vk_reviews");
-    if(vkReviews) {
+    if(vkReviews.length) {
         $.getScript("//vk.com/js/api/openapi.js?145", function() {
             VK.init({apiId: 4411901, onlyWidgets: true});
             VK.Widgets.Comments("js-vk_reviews", {limit: 10, attach: false});
