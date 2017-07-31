@@ -11,6 +11,7 @@ return [
     |
     */
 
+
     'driver' => App\Location\Drivers\SypexDriver::class,
 
     /*
@@ -91,7 +92,7 @@ return [
 
     'testing' => [
 
-        'enabled' => true,
+        'enabled' => false,
 
         'ip' => '66.102.0.0',
 

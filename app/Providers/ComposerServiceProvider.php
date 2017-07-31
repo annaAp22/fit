@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Meta;
+use Location;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -25,9 +26,12 @@ class ComposerServiceProvider extends ServiceProvider
         $routeName = $route ? $route->getName() : '';
         $defer = \Session::get('products.defer') ?: [];
         $seen = \Session::get('products.view') ?: [];
+        $position = Location::get();
+
         $view->with('defer', array_keys($defer) )
             ->with('seen', array_keys($seen) )
-            ->with('routeName', $routeName);
+            ->with('routeName', $routeName)
+            ->with('geoPosition', $position);
       });
       //передаем пользователя в представления
       View::composer(
