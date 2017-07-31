@@ -7,7 +7,7 @@ use App\Models\Photo;
 
 class PhotoController extends Controller
 {
-    public $onPage = 4;
+    public $onPage = 24;
 
     public function index()
     {
