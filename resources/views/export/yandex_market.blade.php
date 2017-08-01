@@ -37,7 +37,7 @@
                         <vendor>{{ $offer->brand->name }}</vendor>
                     @endif
                     <model>{{ $offer->sku }}</model>
-                    <description>{{ $offer->descr }}</description>
+                    {{--<description>{{ $offer->descr }}</description>--}}
                     @isset($offer->size)
                         <param name="Размер" unit="RU">{{ $offer->size }}</param>
                     @endisset

@@ -31,7 +31,6 @@
                     @endif
                     @isset($offer->size)
                         <g:size>{{ $offer->size }}</g:size>
-                        <g:size_system>RU</g:size_system>
                     @endisset
                     @if($color = $offer->attributes->where('name', 'Цвет')->first())
                         <g:color>{{ $color->pivot->value }}</g:color>
