@@ -25,6 +25,7 @@ class ComposerServiceProvider extends ServiceProvider
         $routeName = $route ? $route->getName() : '';
         $defer = \Session::get('products.defer') ?: [];
         $seen = \Session::get('products.view') ?: [];
+
         $view->with('defer', array_keys($defer) )
             ->with('seen', array_keys($seen) )
             ->with('routeName', $routeName);

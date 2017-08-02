@@ -19,8 +19,9 @@ class Location
     public function handle($request, Closure $next)
     {
         $ip = env('APP_ENV') == 'production' ? Request::ip() : '217.194.255.193';
+        $location = GeoLocation::get($ip);
         View::share([
-            'geo_location' => GeoLocation::get($ip),
+            'geo_location' => $location,
         ]);
         return $next($request);
     }

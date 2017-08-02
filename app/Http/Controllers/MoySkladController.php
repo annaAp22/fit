@@ -136,13 +136,15 @@ class MoySkladController extends Controller
                 }
 
                 $msOrder->delete();
-                return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
+                // return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
             }
         }
         else
         {
             return "Нет новых заказов";
         }
+
+        return true;
 
     }
 

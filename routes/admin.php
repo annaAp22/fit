@@ -17,6 +17,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::resource('banners', 'BannerController', ['except' => ['show']]);
     Route::put('/banners/restore/{id}', ['as' => 'banners.restore', 'uses' => 'BannerController@restore'])->where(['id' => '[0-9]+']);
 
+    Route::resource('photos', 'PhotoController', ['except' => ['show']]);
+
     Route::resource('categories', 'CategoryController', ['except' => ['show']]);
     Route::get('/categories/sort', ['as' => 'categories.sort', 'uses' => 'CategoryController@sort']);
     Route::post('/categories/sort/save', ['as' => 'categories.sort.save', 'uses' => 'CategoryController@sortSave']);

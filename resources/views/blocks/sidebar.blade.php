@@ -18,6 +18,14 @@
         </div>
       </div>
     </li>
+    <li class="mobile-sidebar__catalog-item js-toggle-active js-level1-training"><a href="#">Для тренировок</a><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+      <div class="mobile-sidebar__level-2 js-training-mobile">
+        <button class="btn btn_more"><i class="sprite_main sprite_main-icon__arrow_to_top"></i><span>Вернуться назад</span>
+        </button>
+        <div class="mobile-sidebar__title">Для тренировок
+        </div>
+      </div>
+    </li>
   </ul>
   <div class="mobile-sidebar__title js-pages-mobile">Навигация
   </div>

@@ -11,7 +11,9 @@ return [
     |
     */
 
-    'driver' => App\Location\Drivers\SypexDriver::class,
+
+//    'driver' => App\Location\Drivers\SypexDriver::class,
+    'driver' => Stevebauman\Location\Drivers\MaxMind::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +93,7 @@ return [
 
     'testing' => [
 
-        'enabled' => true,
+        'enabled' => false,
 
         'ip' => '66.102.0.0',
 

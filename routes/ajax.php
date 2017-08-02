@@ -79,3 +79,6 @@ Route::post('login', 'CustomerAccountController@login')->name('login');
 Route::get('logout', 'CustomerAccountController@logout')->name('logout');
 Route::post('user/update', 'CustomerAccountController@update')->name('user-update');
 Route::post('/room/orders', 'RoomController@orders')->name('orders-history');
+
+// Customer Photos
+Route::get('photos', 'PhotoController@paginate')->name('photos');

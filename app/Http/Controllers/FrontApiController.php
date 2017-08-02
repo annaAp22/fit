@@ -423,6 +423,7 @@ class FrontApiController extends Controller
       // Add new order to moySklad orders table
      $msOrder = new MsOrder();
      $msOrder->ms_description = json_encode([
+ 		'order_id' => $order->id,
          'name' => $order->name,
          'email' => $order->email,
          'phone' => $order->phone,
@@ -440,7 +441,7 @@ class FrontApiController extends Controller
        {
            $positions[] = [
                "quantity" => intval($product->pivot->cnt),
-               "price" => floatval($product->price) * 100,
+               "price" => (floatval($product->price) / (100 - $product->discount))  * 100 * 100,
                "discount" => floatval($product->discount),
                "vat" => 0,
                "assortment" => [

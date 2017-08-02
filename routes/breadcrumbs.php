@@ -131,3 +131,8 @@ Breadcrumbs::register('articles.tag.article', function($breadcrumbs, $tag, $arti
     $breadcrumbs->parent('articles.tag', $tag);
     $breadcrumbs->push($article->name, route('tag.article', ['tag_sysname' => $tag->sysname, 'sysname' => $article->sysname]));
 });
+
+Breadcrumbs::register('photos', function($breadcrumbs) {
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push('Фотографии клиентов', route('photos'));
+});

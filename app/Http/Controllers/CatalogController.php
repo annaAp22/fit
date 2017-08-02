@@ -307,7 +307,7 @@ class CatalogController extends Controller
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
   public function catalog(Request $request, $sysname) {
-//        Cache::flush();
+        Cache::flush();
     $this->saveFilters($request);
     $hash = md5($sysname);
     $category = Cache::remember('category' . $hash, 1440, function() use($sysname)

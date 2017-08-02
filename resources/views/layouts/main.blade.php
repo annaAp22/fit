@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 </head>
 <body>
+    <!--{{ var_dump($geo_location) }} -->
     @include('blocks.sidebar')
 
     <div class="main-wrapper js-sidebar-open" id="main">

@@ -69,12 +69,14 @@ Route::group([
   Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
+    // Customers Photos
+    Route::get('/photos', ['as' => 'photos', 'uses' => 'PhotoController@index']);
+
   // Каталог (совместимость со старым ЧПУ)
   Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
   //test page
   //Route::get('/test.html', 'TestController@index')->name('test');
   //Route::get('/test-ms.html', 'TestController@msProduct')->name('test-ms');
-
   //Route::get('/update-price-and-stock.html', 'RunOnceController@updatePriceAndStock')->name('update-price-and-stock');
   //Route::get('/one-more-test.html', 'TestController@oneMoreTest')->name('one-more-test');
 
