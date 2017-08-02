@@ -9,14 +9,15 @@
         "arrilot/laravel-widgets": "^3.7",
         "barryvdh/laravel-debugbar": "^2.3",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "doctrine/dbal": "^2.5",
         "indiesoft/laravel-uploads": "^0.1",
         "ivanlemeshev/laravel5-cyrillic-slug": "^1.0",
         "jenssegers/date": "^3.2",
         "kodicms/laravel-assets": "^0.3.5",
         "laravel/framework": "5.4.*",
         "predis/predis": "^1.1",
-        "stevebauman/location": "^2.0",
-        "doctrine/dbal": "v2.4.2"
+        "retailcrm/api-client-php": "~5.0",
+        "stevebauman/location": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

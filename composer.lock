@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2efe201463824d0ab5891c6d0d1b6225",
+    "content-hash": "687964c39b8175f6740dae30db92e0e0",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -439,16 +439,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.12",
+            "version": "v2.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44"
+                "reference": "729340d8d1eec8f01bff708e12e449a3415af873"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/7b9e911f9d8b30d43b96853dab26898c710d8f44",
-                "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/729340d8d1eec8f01bff708e12e449a3415af873",
+                "reference": "729340d8d1eec8f01bff708e12e449a3415af873",
                 "shasum": ""
             },
             "require": {
@@ -506,7 +506,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-02-08T12:53:47+00:00"
+            "time": "2017-07-22T20:44:48+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1856,6 +1856,58 @@
                 "uuid"
             ],
             "time": "2017-03-26T20:37:53+00:00"
+        },
+        {
+            "name": "retailcrm/api-client-php",
+            "version": "v5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/retailcrm/api-client-php.git",
+                "reference": "4f57734e92c714547dad4382c35c08cb08097255"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/retailcrm/api-client-php/zipball/4f57734e92c714547dad4382c35c08cb08097255",
+                "reference": "4f57734e92c714547dad4382c35c08cb08097255",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "RetailCrm\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "retailCRM",
+                    "email": "support@retailcrm.ru"
+                }
+            ],
+            "description": "PHP client for retailCRM API",
+            "homepage": "http://www.retailcrm.ru/",
+            "keywords": [
+                "api",
+                "rest",
+                "retailCRM"
+            ],
+            "time": "2017-06-22T13:42:42+00:00"
         },
         {
             "name": "stevebauman/location",

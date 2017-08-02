@@ -6,6 +6,7 @@ use App\Models\Delivery;
 use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
+use App\models\RetailOrder;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -207,8 +208,10 @@ class OrderController extends Controller
        $msOrder->ms_positions = json_encode($positions);
        $msOrder->save();
     }
+    //сохраняем заказ в таблицу для retailcrm
+    RetailOrder::create(['order_id' => $order->id]);
     //отправка почты, может быть отключена в настройках
-    if(!env('MAIL_DISABLED', 0)) {
+    if(!env('MAIL_DISABLED')) {
       $phone = \App\Models\Setting::getVar('phone_number')['free'];
       //send order to mail
       Mail::send('emails.order',
@@ -239,6 +242,7 @@ class OrderController extends Controller
     }
     $res['html'] = view('order.partials.success', ['order_id' => $order->id])->render();
     $res['action'] = 'orderSuccess';
+    $res['status'] = 200;
     return $res;
   }
 
