@@ -7,7 +7,7 @@ use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
 use App\Models\ProductComment;
-use App\models\RetailOrder;
+use App\Models\RetailOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;

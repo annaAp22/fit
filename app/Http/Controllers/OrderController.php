@@ -6,7 +6,7 @@ use App\Models\Delivery;
 use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
-use App\models\RetailOrder;
+use App\Models\RetailOrder;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
