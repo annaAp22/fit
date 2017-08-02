@@ -91,7 +91,7 @@ Route::group([
 
   // Yandex Market
   Route::get('/export/yandex-market', 'ExportController@yandexMarket')->name('yandex_market');
-  Route::get('/export/icml', 'ExportController@icml')->name('icml');
+  Route::get('/export/icml.xml', 'ExportController@icml')->name('icml');
   Route::get('/export/retail-rocket', 'ExportController@retailRocket')->name('retail_rocket');
   // Google Merchant Center
   Route::get('/export/google-merchant', 'ExportController@googleMerchant')->name('google_merchant');
