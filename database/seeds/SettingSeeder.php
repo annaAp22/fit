@@ -13,40 +13,62 @@ class SettingSeeder extends Seeder
      */
     public function run()
     {
-        Setting::firstOrCreate([
-            'type'  => 'string',
-            'var'   => 'perpage',
-            'value' => 9
+      $settings = [
+          [
+              'var' => 'perpage',
+              'type' => 'string',
+              'value' => '9',
+          ],
+          [
+              'var' => 'phone_number',
+              'type' => 'string',
+              'value' => '+7 (495) <span class="mod-bold">123-45-67</span>',
+          ],
+          [
+              'var' => 'email_support',
+              'type' => 'string',
+              'value' => 'support@somesite.ru',
+          ],
+          [
+              'var' => 'email_order',
+              'type' => 'string',
+              'value' => 'order@somesite.ru',
+          ],
+          [
+              'var' => 'address',
+              'type' => 'string',
+              'value' => 'г. Москва, ул. Пушкина, д. Колотушкина',
+          ],
+          [
+              'var' => 'schedule',
+              'type' => 'array',
+              'value' => '{"start_workday":"9:00","end_workday":"19:00","start_weekend":"10:00","end_weekend":"17:00"}',
+          ],
+          [
+              'var' => 'shop_name',
+              'type' => 'string',
+              'value' => 'Интернет-магазин «Fit2U»',
+          ],
+          [
+              'var' => 'company_name',
+              'type' => 'string',
+              'value' => 'Твой Фитнес имидж',
+          ],
+          [
+              'var' => 'retailcrm_url',
+              'type' => 'string',
+              'value' => 'https://fit2u.retailcrm.ru',
+          ],
+      ];
+      foreach ($settings as $setting) {
+        $row = Setting::firstOrNew([
+            'var'   => $setting['var'],
         ]);
-
-        Setting::firstOrCreate([
-            'type'  => 'string',
-            'var'   => 'phone_number',
-            'value' => '+7 (495) <span class="mod-bold">123-45-67</span>'
-        ]);
-
-        Setting::firstOrCreate([
-            'type'  => 'string',
-            'var'   => 'email_support',
-            'value' => 'support@somesite.ru'
-        ]);
-
-        Setting::firstOrCreate([
-            'type'  => 'string',
-            'var'   => 'email_order',
-            'value' => 'order@somesite.ru'
-        ]);
-
-        Setting::firstOrCreate([
-            'type'  => 'string',
-            'var'   => 'address',
-            'value' => 'г. Москва, ул. Пушкина, д. Колотушкина',
-        ]);
-
-        Setting::firstOrCreate([
-            'type'  => 'array',
-            'var'   => 'schedule',
-            'value' => '{"start_workday":"9:00","end_workday":"19:00","start_weekend":"10:00","end_weekend":"17:00"}'
-        ]);
+        if(!isset($row->value) or !isset($row->type)) {
+          $row->type = $setting['type'];
+          $row->value = $setting['value'];
+          $row->save();
+        }
+      }
     }
 }

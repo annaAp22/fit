@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 </head>
 <body>
+
     @include('blocks.sidebar')
 
     <div class="main-wrapper js-sidebar-open" id="main">

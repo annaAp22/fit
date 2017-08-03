@@ -7,6 +7,7 @@ use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
 use App\Models\ProductComment;
+use App\Models\RetailOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -373,9 +374,9 @@ class FrontApiController extends Controller
     }
     $validator = Validator::make($data, $validate);
 
-    if ($validator->fails())
+    if ($validator->fails()) {
       return response()->json(['error' => 1, 'message' => 'При оформлении заказа произошла ошибка. Попробуйте снова.']);
-
+    }
     $data = [
         'name' => $request->input('name'),
         'phone' => $request->input('phone'),
@@ -417,7 +418,7 @@ class FrontApiController extends Controller
       $order->products()->attach($request->input('id'), [
           'cnt' => $quantity,
           'price' => $product->price,
-          'extra_params' => $size ? json_encode(['size' => $size]) : '',
+          'extra_params' => $size ? json_encode(['size' => $size, 'type' => 'fast_order']) : '',
       ]);
       // Add new order to moySklad orders table
      $msOrder = new MsOrder();
@@ -474,27 +475,32 @@ class FrontApiController extends Controller
      $msOrder->ms_positions = json_encode($positions);
      $msOrder->save();
     }
-    Mail::send('emails.order',
-        [
-            'quick_buy' => 1,
-            'order' => $order,
-        ], function ($message) use ($request) {
-          $email = \App\Models\Setting::getVar('email_support');
-          $caption = 'Быстрый заказ';
-          $message->to($email)->subject($caption);
-        });
-    $phone = \App\Models\Setting::getVar('phone_number')['free'];
-    $siteUrl = env('DEV_SITE_URL', $request->root());
-    Mail::send('emails.order_for_user',
-        [
-            'order' => $order,
-            'phone' => strip_tags($phone),
-            'siteUrl' => $siteUrl,
-        ], function ($message) use ($request) {
-          $caption = 'Ваш заказ с сайта fit2u';
-          $message->to($request->input('email'))->subject($caption);
-        });
-
+    //сохраняем заказ в таблицу для retailcrm
+    RetailOrder::create(['order_id' => $order->id]);
+    //отправка почты, может быть отключена в настройках
+    if(!env('MAIL_DISABLED')) {
+      Mail::send('emails.order',
+          [
+              'quick_buy' => 1,
+              'order' => $order,
+          ], function ($message) use ($request) {
+            $email = \App\Models\Setting::getVar('email_support');
+            $caption = 'Быстрый заказ';
+            $message->to($email)->subject($caption);
+          });
+      $phone = \App\Models\Setting::getVar('phone_number')['free'];
+      $siteUrl = env('DEV_SITE_URL', $request->root());
+      Mail::send('emails.order_for_user',
+          [
+              'order' => $order,
+              'phone' => strip_tags($phone),
+              'siteUrl' => $siteUrl,
+          ], function ($message) use ($request) {
+            $caption = 'Ваш заказ с сайта fit2u';
+            $message->to($request->input('email'))->subject($caption);
+          });
+    }
+    $res['status'] = 200;
     $res['action'] = 'openModal';
     $res['modal'] = view('modals.order_success', ['user_name' => $data['name'], 'order_id' => $order->id])->render();
 

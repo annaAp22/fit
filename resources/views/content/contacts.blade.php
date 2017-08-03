@@ -111,7 +111,7 @@
                     <img class="page-text__image" src="{{ asset('assets/uploads/contacts-img-point-min.jpg') }}" alt="">
                 </div>
                 <div class="contacts__text">
-                    <a href="{{ route('page', ['sysname' => 'predstaviteli']) }}">Спортивные лосины и яркие топы марки Profit в других городах - список представителей</a>
+                    <a href="{{ route('page', ['sysname' => 'agencies']) }}">Спортивные лосины и яркие топы марки Profit в других городах - список представителей</a>
                 </div>
             </div>
             <!-- Store inside photos -->

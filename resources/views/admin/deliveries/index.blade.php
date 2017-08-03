@@ -56,6 +56,7 @@
                                 <thead>
                                 <tr>
                                     <th>Название</th>
+                                    <th>Символьный код</th>
                                     <th>Цена</th>
                                     <th>Статус</th>
                                     <th></th>
@@ -67,6 +68,9 @@
                                     <tr @if($item->trashed())style="background-color: #F6CECE"@endif>
                                         <td>
                                             <a href="{{route('admin.deliveries.edit', $item->id)}}">{{$item->name}}</a>
+                                        </td>
+                                        <td>
+                                            {{$item->sysname}}
                                         </td>
                                         <td>{{$item->price}} руб.</td>
                                         <td class="col-sm-1 center"><i class="ace-icon glyphicon @if($item->status) glyphicon-ok green @else glyphicon-remove red @endif  bigger-120"></i></td>

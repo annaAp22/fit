@@ -2,9 +2,11 @@
 
 namespace App\Console;
 
+use App\Console\Commands\MoySkladImportProducts;
+use App\Console\Commands\RetailSyncOrder;
+use App\Console\Commands\RetailUnsyncOrders;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,6 +17,9 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+      RetailSyncOrder::class,
+      MoySkladImportProducts::class,
+      RetailUnsyncOrders::class,
     ];
 
     /**

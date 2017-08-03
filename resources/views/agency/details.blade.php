@@ -7,7 +7,7 @@
             </aside>
             <section class="content">
                 <div class="agencies js-agencies">
-                    <h1>Наши представительства в городе {{$city->title}}</h1>
+                    <h1>Купить фитнес одежду Profit в городе {{$city->title}}</h1>
                     @foreach($city->shops as $item)
                         <input class="js-lat" type="hidden" value="{{$item->lat}}">
                         <input class="js-long" type="hidden" value="{{$item->long}}">

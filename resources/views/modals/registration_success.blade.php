@@ -2,8 +2,6 @@
     <form class="js-form-ajax" action="{{ route('ajax.callback') }}" method="POST">
         <div class="form-modal">
             {{ csrf_field() }}
-            <input type="hidden" name="is_multiple" value="1">
-
             <div class="form-modal_title-2">Ваш кабинет успешно создан!</div>
             <div class="form-modal_line">
                 <div class="field-caption-1">Теперь Вы можете следить за статусом своих заказов, первым узнавать о скидках, новинках и прочее. </div>
