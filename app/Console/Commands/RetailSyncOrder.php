@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\models\RetailOrder;
+use App\Models\MsProduct;
+use App\Models\RetailOrder;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -36,19 +37,40 @@ class RetailSyncOrder extends Command
    * send order to retail crm
    * @return order id into crm or false
    * **/
-  public function sendOrder($order) {
+  public function sendOrder($retailOrder) {
+    $order = $retailOrder->order;
     //достаем url и ключ для подключения к crm
     $retail_api_key = env('RETAIL_CRM_API_KEY');
     $url = Setting::where('var', 'retailcrm_url')->first()->value;
     //собираем массив товаров
     $items = [];
-    foreach($order->products as $product) {
+    $products = $order->products;
+    if(!isset($products) || !count($products)) {
+      $err = 'RetailCRM Order products not found';
+      Log::error($err);
+      $this->info($err);
+      return false;
+    }
+    //достаем торговое предложение, нам нужен внешний id, по которому будем искать товар
+    $ms_products = MsProduct::whereIn('product_id', $products->pluck('id'))->get();
+    foreach($products as $product) {
+      $extra_params = $product->pivot->extra_params;
+      if($extra_params) {
+        $size = json_decode($extra_params)->size;
+      }else {
+        $size = 0;
+      }
+      $product_id = $ms_products->where('product_id', $product->id)->where('size', $size)->first()['ms_uuid'];
       $offer = [
-          'externalId' => $product->id,
+          'externalId' => $product_id,
       ];
       $item = [
           'offer' => $offer,
-          'quantity' => $product->cnt,
+          'quantity' => $product->pivot->cnt,
+//          'properties' => [
+//              'code' => 'razmer',
+//              'value' => $size,
+//          ],
       ];
       $items[] = $item;
     }
@@ -56,42 +78,51 @@ class RetailSyncOrder extends Command
     $address = [
         'text' => $order->address,
     ];
-    //тип оплаты
-    $payments = [
-        'type' => isset($order->payment) ? $order->payment->sysname: null,
-        'comment' => $order->payment_add,
-    ];
+    //тип оплаты, пока не используется
+//    $payments = [
+//        'type' => isset($order->payment) ? $order->payment->sysname: null,
+//        'comment' => $order->payment_add,
+//    ];
     $retailOrderData = [
         'externalId' => $order->id,
         'firstName' => $order->name,
         'email' => $order->email,
         'phone' => $order->phone,
-        'createdAt' => $order->created_at,
+        'createdAt' => $order->created_at->format('Y-m-d H:i:s'),
         'items' => $items,
         'orderType' => isset($order->extra_params['type']) ? $order->extra_params['type'] : null,
         'delivery' => array(
             'code' => isset($order->delivery) ? $order->delivery->sysname : null,
             'address' => $address,
         ),
-        'payments' => $payments,
+        //'payments' => $payments,
     ];
     $client = new \RetailCrm\ApiClient(
         $url,
-        $retail_api_key,
-        \RetailCrm\ApiClient::V5
+        $retail_api_key
     );
     //создаем заказ в crm
     try {
       $response = $client->request->ordersCreate($retailOrderData);
     } catch (\RetailCrm\Exception\CurlException $e) {
-      Log::error($e->getMessage());
+      $err = 'RetailCRM '.$e->getMessage();
+      Log::error($err);
+      $this->info($err);
       return false;
     }
 
     if ($response->isSuccessful() && 201 === $response->getStatusCode()) {
       return $response->id;
     } else {
-      Log::error($response->getErrorMsg());
+      if(isset($response['errors'])) {
+        $err = 'RetailCRM '.json_encode($response['errors']);
+        Log::error($err);
+        $this->info($err);
+      }else {
+        $err = 'RetailCRM '.$response->getErrorMsg();
+        Log::error($err);
+        $this->info($err);
+      }
       return false;
     }
   }
@@ -105,21 +136,22 @@ class RetailSyncOrder extends Command
     $orderIds = $this->argument('order');
     //
     if(isset($orderIds) && count($orderIds)) {
-      $orders = RetailOrder::whereIn('order_id', $orderIds)->take(5)->get();
+      $orderQ = RetailOrder::whereIn('order_id', $orderIds);
     }else {
-      $orders = RetailOrder::take(5)->get();
+      $orderQ = RetailOrder::query();
     }
+    $orders = $orderQ->take(5)->get();
     $complete_orders = [];
     if(!$orders || !count($orders)) {
       $this->info('orders not found');
       return false;
     }
     foreach($orders as $order) {
+      $this->info('Sync order '. $order->order_id);
       $order_id = $this->sendOrder($order);
       if($order_id) {
-        $complete_orders.push($order_id);
+        $this->info(' success, was created RetailCRM order:'.$order_id);
       }
     }
-    $this->info('Was created RetailCRM orders, with numbers:'. implode(',', $complete_orders));
   }
 }

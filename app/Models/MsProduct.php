@@ -11,6 +11,7 @@ class MsProduct extends Model
         'product_id',
         'ms_uuid',
         'ms_sku',
+        'size',
         'ms_type',
         'ms_externalCode',
         'ms_quantity',

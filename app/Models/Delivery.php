@@ -13,6 +13,7 @@ class Delivery extends Model
 
     protected $fillable = [
         'name',
+        'sysname',
         'descr',
         'price',
         'status'

@@ -26,6 +26,7 @@ class DeliveryRequest extends Request
         return [
             'name' => 'required',
             'phone' => 'required',
+            'sysname' => 'alpha_dash',
 //            'email' => 'email',
 //            'address' => 'required',
             'delivery_id' => 'required|integer',

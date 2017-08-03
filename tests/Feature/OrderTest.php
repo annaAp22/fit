@@ -46,7 +46,7 @@ class TestFastOrder extends TestCase
         ],
         '341' => [
             '42' => [
-                "cnt" => "1",
+                "cnt" => "2",
                 "price" => 3990,
                 "extra" => [
                     "size" => "42",

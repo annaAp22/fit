@@ -47,7 +47,12 @@
                             <input type="text" id="form-field-0" name="name" placeholder="Название" value="{{ old('name', $delivery->name) }}" class="col-sm-12">
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">Символный код</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="sysname" placeholder="Символный код" value="{{ old('sysname', $delivery->sysname) }}" class="col-sm-12">
+                        </div>
+                    </div>
                     <div class="form-group calculate">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-10"> Цена </label>
                             <div class="col-sm-9">

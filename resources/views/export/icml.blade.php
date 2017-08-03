@@ -31,7 +31,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>'."\n";
                     @endif
                     <param name="Артикул" code="article">{{$offer->sku}}</param>
                     @isset($offer->size)
-                    <param name="Размер" unit="RU">{{ $offer->size }}</param>
+                    <param name="Размер" code="size" unit="RU">{{ $offer->size }}</param>
                     @endisset
                     @foreach($offer->attributes->where('name', '!=', 'Размеры') as $param)
                         <param name="{{ $param->name }}">{{ $param->pivot->value }}</param>

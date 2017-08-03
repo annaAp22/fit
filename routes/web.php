@@ -76,7 +76,6 @@ Route::group([
   Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
   //test page
   //Route::get('/test.html', 'TestController@index')->name('test');
-  //Route::get('/test-ms.html', 'TestController@msProduct')->name('test-ms');
   //Route::get('/update-price-and-stock.html', 'RunOnceController@updatePriceAndStock')->name('update-price-and-stock');
   //Route::get('/one-more-test.html', 'TestController@oneMoreTest')->name('one-more-test');
 
@@ -91,6 +90,7 @@ Route::group([
 
   // Yandex Market
   Route::get('/export/yandex-market', 'ExportController@yandexMarket')->name('yandex_market');
+  //other exports
   Route::get('/export/icml.xml', 'ExportController@icml')->name('icml');
   Route::get('/export/retail-rocket', 'ExportController@retailRocket')->name('retail_rocket');
   // Google Merchant Center
@@ -105,6 +105,9 @@ Route::group([
   Route::get('/moysklad/export/orders', 'MoySkladController@exportOrders')->name('post.orders');
   Route::get('/moysklad/get/order/{id}', 'MoySkladController@getOrder')->name('get.order');
 
+  //RetailCRM
+  Route::get('/retailCRM/product/{id}', 'RetailCRMController@product')->name('retailcrm-get-product');
+  Route::get('/retailCRM/order/{id?}', 'RetailCRMController@orders')->name('retailcrm-get-order');
   //Route::model('', 'User');
 
 
