@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\MoySkladImportProducts;
 use App\Console\Commands\RetailSyncOrder;
+use App\Console\Commands\RetailUnsyncOrders;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
         //
       RetailSyncOrder::class,
       MoySkladImportProducts::class,
+      RetailUnsyncOrders::class,
     ];
 
     /**
