@@ -26,9 +26,18 @@ class SelectCity extends AbstractWidget
         $regions = GeoCity::regions()->orderBySort()->get();
         if( isset($_COOKIE['city']) )
         {
-            $this->config['city'] = htmlspecialchars($_COOKIE['city']);
+            $this->config['city'] = 'Electrostal'; //htmlspecialchars($_COOKIE['city']);
             $region = GeoCity::cityRegion($this->config['city'])->first();
-            $this->config['region'] = $region->region;
+
+            if( $region )
+            {
+                $this->config['region'] = $region->region;
+            }
+            else
+            {
+                unset($_COOKIE['city']);
+            }
+
         }
         $cities = GeoCity::regionCities($this->config['region'])->get();
 
