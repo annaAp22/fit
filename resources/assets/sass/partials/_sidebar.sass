@@ -526,3 +526,29 @@ body
     padding-right: 0
     & > .sidebar-filter__title
       font-size: 18px
+
+// Geo city change
+.sidebar-geo
+  &.active
+    .mobile-sidebar__level-2
+      transform: translateX(0) translateZ(0)
+      min-height: 500px
+  &__city
+    font-size: 16px
+    font-weight: 400
+    cursor: pointer
+    padding: 20px
+    margin: 20px -20px 0
+    & > *
+      vertical-align: middle
+    & > i:last-child
+      transform: rotate(-90deg)
+    &:hover
+      background-color: #f3f3f3
+  &__level-2
+    .geo-city__select
+      margin-top: 40px
+      &__body
+        max-height: 290px
+
+

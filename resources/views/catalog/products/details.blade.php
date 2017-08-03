@@ -243,14 +243,17 @@
                             <div class="product-delivery__wrap"><i class="sprite_main sprite_main-product_delivery-truck"></i>
                                 <div class="product-delivery__title">Доставка:
                                 </div>
-                                <div class="product-delivery__note">Уже завтра!
+                                <div class="product-delivery__note">{{ $user_city == 'Москва' ? 'Уже завтра!' : 'Почтой' }}
                                 </div><i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
                             </div>
                             <div class="product-delivery__hidden">
-                                <div class="product-delivery__city"><span>Ваш город:</span><span>г. Москва<i class="sprite_main sprite_main-icon__arrow_green_up"></i></span>
+                                <div class="product-delivery__city js-product-delivery__city"><span>Ваш город:</span><span class="">{{ $user_city }}<i class="sprite_main sprite_main-icon__arrow_green_up"></i></span>
                                 </div>
-                                <div class="product-delivery__cost"><span>Стоимость:</span><span>Курьером: от 300 руб.<br/>При заказе от 6 000 руб<br/>Бесплатно</span>
-                                </div>
+                                @if( $user_city == 'Москва' )
+                                    <div class="product-delivery__cost"><span>Стоимость:</span><span>Курьером: от 300 руб.<br/>При заказе от 6 000 руб<br/>Бесплатно</span></div>
+                                @else
+                                    <div class="product-delivery__cost"><span>Стоимость:</span><span> от 150 руб.</span></div>
+                                @endif
                                 <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке по России</a>
                                 </div>
                                 <div class="product-delivery__store"><i class="sprite_main sprite_main-header__city_point"></i><a href="{{ route('contacts') }}">Магазин в Москве</a>

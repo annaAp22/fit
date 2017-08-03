@@ -20,14 +20,19 @@
             </a>
 
             {{-- City choose --}}
-            {{--<div class="header__city">
-                <i class="sprite_main sprite_main-header__city_point"></i>
-                <span>г. Екатеринбург</span>
-                <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-            </div>--}}
+            <div class="header__city">
+                <span class="js-toggle-active-target" data-target=".js-geo-city-widget">
+                    <i class="sprite_main sprite_main-header__city_point"></i>
+                    <span>{{ $user_city }}</span>
+                    <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                </span>
+
+                {{-- Choose city popup --}}
+                @widget('SelectCity')
+            </div>
 
             <!-- Search Start -->
-            <form id="search" class="header__search" method="POST" action="{{ route('search') }}">
+            <form id="search" class="header__search form-search" method="POST" action="{{ route('search') }}">
                 {{ csrf_field() }}
                 <button class="icon-fade" type="submit">
                     <i class="sprite_main sprite_main-header__search_active normal"></i>

@@ -319,6 +319,8 @@
   ::-webkit-scrollbar-thumb
     border-radius: 10px
     background-color: #ebebeb
+    &:hover
+      background-color: #fcd82f
   //background image in sprite_main css
   ::-webkit-scrollbar-button
     background: url(data:image/pngbase64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAPCAYAAACMa21tAAABHElEQVRIS2NkGGSAcZC5h2HUQYRiZGiE0KVLl9b9//9fiJ2d3VdDQ+MzyFc3btzg/fnz52ZGRsZ3enp6QYR8iix/5swZLjY2tvVAM//9/v072MTE5Bsu/VhD6OLFi3uBGpyA+Oj379+9QJo5OTm3ASlrIN6vr68PkiMKgBzDysq6GWoeSM8+oKN8cTkKq4OgPtoK9JEDEB8DmQIMGSsgdQiIvYAO+kqMa5DNAao/AdVjATTrwK9fv7yxOQpnGiLVZ9gcCAtpkKf+/PkDDmkWFpZtUM/tA3rMGV0f3kQNi3uQJqCPAvHFPQ4HrQaKiwGj3dfCwuITSM2JEyf4gNG/Cch8DXRQKEkOIiZaqK1maGR7avuaFPNGQ4hQaAEAw810EAtWPwoAAAAASUVORK5CYII=) no-repeat
@@ -463,7 +465,7 @@
     background-color: #ffffff
     width: calc(100% + 1px)
     z-index: 2
-    padding: 0 24px 0 80px
+    padding: 0 24px 0 24px
     +media-xs()
       padding-left: 60px
     font-size: 13px
@@ -478,15 +480,14 @@
   &__city
     & > span
       &:last-child
+        cursor: pointer
         font-size: 14px
         color: #000000
         margin-left: 10px
         & > i
           transform: rotate(90deg) translateZ(0)
   &__store
-    margin-left: -80px
     padding-top: 20px
-    padding-left: 32px
     width: calc(100% + 80px + 24px)
     display: flex
     +align(start, center)

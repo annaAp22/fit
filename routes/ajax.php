@@ -82,3 +82,7 @@ Route::post('/room/orders', 'RoomController@orders')->name('orders-history');
 
 // Customer Photos
 Route::get('photos', 'PhotoController@paginate')->name('photos');
+
+// Geo Cities list by Region
+Route::get('geo_cities', 'GeoCityController@citiesByRegion')->name('geo_cities');
+Route::get('geo_cities/autocomplete', 'GeoCityController@citiesAutocomplete')->name('geo_cities_autocomplete');

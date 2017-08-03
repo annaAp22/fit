@@ -72,3 +72,109 @@
   background-color: #fff
   border: 1px solid #000
   padding: 2px 3px
+
+// Popup choose city
+.geo-city
+  margin-top: 20px
+  position: absolute
+  width: 673px
+  padding: 28px 45px 70px
+  background-color: #ffffff
+  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.13)
+  z-index: 12
+  visibility: hidden
+  transform: scale(0)
+  transition: transform .1s ease, visibility 0s ease .3s
+  cursor: default
+  &.active
+    visibility: visible
+    transform: scale(1)
+    transition: transform .3s ease
+  &:before
+    content: ""
+    display: block
+    position: absolute
+    left: 60px
+    top: -20px
+    width: 0
+    height: 0
+    border-style: solid
+    border-width: 0 10px 20px 10px
+    border-color: transparent transparent #ffffff transparent
+  &__top, &__bottom
+    display: flex
+    align-items: center
+    justify-content: space-between
+  &__top
+    margin: 0 -45px 28px -45px
+    border-bottom: 1px solid #ebebeb
+    padding: 0 45px 28px
+  &__bottom
+    height: 260px
+    & > div:first-child
+      margin-right: 50px
+  &__title
+    font-weight: 700
+    font-size: 18px
+    flex-grow: 1
+  &__search
+    flex-grow: 1
+  &__close
+    position: static
+    margin: -20px 0 0 40px
+  &__select
+    flex-grow: 1
+    border-left: none
+    height: 100%
+    height: calc(100% - 18px)
+    padding: 0
+    &__body
+      padding-top: 0
+      margin-top: 20px
+    &__title
+      font-weight: 700
+      font-size: 16px
+    &__item
+      font-size: 14px
+      color: #a5a5a5
+      line-height: 24px
+      & > span
+        line-height: 16px
+        &.active, &:hover
+          color: #66be7e
+          cursor: pointer
+
+.autocomplete-suggestions
+  margin-top: 20px
+  padding: 25px
+  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.13)
+  background: #FFF
+  line-height: 24px
+  &:before
+    content: ""
+    display: block
+    position: absolute
+    left: 60px
+    top: -20px
+    width: 0
+    height: 0
+    border-style: solid
+    border-width: 0 10px 20px 10px
+    border-color: transparent transparent #ffffff transparent
+  strong
+    font-weight: normal
+    color: #66be7e
+.autocomplete-suggestion
+  padding: 15px 25px
+  margin: 0 -25px
+  white-space: nowrap
+  overflow: hidden
+  cursor: pointer
+  line-height: 18px
+.autocomplete-selected
+  background: #F0F0F0
+.autocomplete-group
+  padding: 2px 5px
+  strong
+    display: block
+    border-bottom: 1px solid #000

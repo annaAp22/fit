@@ -1,5 +1,5 @@
 <!-- BEGIN counters-->
-@if(env('IS_LOCALHOST', '0') === '0')
+@if(env('APP_ENV') == 'production')
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (d, w, c) {

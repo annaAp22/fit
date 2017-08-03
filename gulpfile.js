@@ -54,7 +54,8 @@ elixir(function(mix) {
         'vendor/nouislider.min.js',
         'vendor/hammer.min.js',
         'vendor/jquery.fancybox.min.js',
-        'vendor/jquery.horizontalScroll.js'
+        'vendor/jquery.horizontalScroll.js',
+        'vendor/jquery.ajax.autocomplete.min.js'
     ], 'public/js/vendor.js');
 
     mix.scripts([

@@ -3,6 +3,7 @@ $(function(){
 
     // Toggle active class
     $body.on("click", ".js-toggle-active", function(e){
+        e.stopPropagation();
         var $this = $(this),
             reset = $this.data('reset');
         if($this.hasClass(".js-prevent-default"))
@@ -200,7 +201,8 @@ $(function(){
             men = $('.js-dropdown-men'),
             training = $('.js-dropdown-training'),
             navigation = $('.js-pages'),
-            filter = $('.sidebar-filter');
+            filter = $('.sidebar-filter'),
+            geo = $('.js-geo-level-2');
         var screenSize = checkWindowWidth();
 
         navigation.detach();
@@ -208,6 +210,7 @@ $(function(){
         men.detach();
         training.detach();
         filter.detach();
+        geo.detach();
 
         if ( screenSize ) {
             //desktop screen
@@ -217,6 +220,8 @@ $(function(){
             training.prependTo('.js-training-desktop');
             //filter.prependTo('.sidebar');
             filter.insertAfter('.sidebar-catalog');
+            geo.appendTo('.js-geo-desktop');
+
         } else {
             //mobile screen
             women.appendTo('.js-women-mobile');
@@ -224,6 +229,7 @@ $(function(){
             training.appendTo('.js-training-mobile');
             navigation.insertAfter('.js-pages-mobile');
             filter.appendTo('#sidebar-filters');
+            geo.appendTo('.js-geo-mobile');
         }
     }
     function checkWindowWidth() {
@@ -631,6 +637,32 @@ $(function(){
             container.children('[data-id="'+id+'"]').toggleClass('active');
         }
     });
+
+    // Change user geo city
+    $body.on('click', '.js-geo-city', function(e) {
+        var city = $(this).data('city'),
+            expires = 3600 * 24 * 30;
+        setCookie('city', city, {expires: expires, path: '/'});
+        location.reload();
+    });
+
+    // Open user geo city modal from product card
+    $body.on('click', '.js-product-delivery__city', function() {
+        scrollToEl2($('header'));
+        $('.js-geo-city-widget').addClass('active');
+    });
+
+    $('.js-geo-city-search').autocomplete({
+        serviceUrl: '/ajax/geo_cities/autocomplete',
+        minChars: 2,
+        onSelect: function (suggestion) {
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            var city = suggestion.value,
+                expires = 3600 * 24 * 30;
+            setCookie('city', city, {expires: expires, path: '/'});
+            location.reload();
+        }
+    });
 });
 // scroll to element
 function scrollToEl($el) {
@@ -876,4 +908,43 @@ function elementsRender(data) {
         }
     }
     return true
+}
+
+function replaceGeoCities(data) {
+    if(typeof data.cities !== 'undefined') {
+        $(".js-geo-city__body").html(data.cities);
+    }
+}
+function setCookie(name, value, options) {
+    options = options || {};
+
+    var expires = options.expires;
+
+    if (typeof expires == "number" && expires) {
+        var d = new Date();
+        d.setTime(d.getTime() + expires * 1000);
+        expires = options.expires = d;
+    }
+    if (expires && expires.toUTCString) {
+        options.expires = expires.toUTCString();
+    }
+
+    value = encodeURIComponent(value);
+
+    var updatedCookie = name + "=" + value;
+
+    for (var propName in options) {
+        updatedCookie += "; " + propName;
+        var propValue = options[propName];
+        if (propValue !== true) {
+            updatedCookie += "=" + propValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+}
+function deleteCookie(name) {
+    setCookie(name, "", {
+        expires: -1
+    })
 }

@@ -71,8 +71,6 @@ class MainController extends Controller
             ->get();
 
 //        $reviews = \App\Models\Review::where('status', 1)->orderBy('created_at', 'desc')->take(10)->get();
-
-
         $this->setMetaTags();
         return view('content.index', [
             'banner_content' => $banner_content,

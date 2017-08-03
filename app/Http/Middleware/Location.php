@@ -20,8 +20,19 @@ class Location
     {
         $ip = env('APP_ENV') == 'production' ? Request::ip() : '217.194.255.193';
         $location = GeoLocation::get($ip);
+
+        if( !isset($_COOKIE['city']) )
+        {
+            setcookie( "city", $location->cityName, time()+(3600 * 24 * 30) );
+            $user_city = $location->cityName;
+        }
+        else
+        {
+            $user_city = $_COOKIE['city'];
+        }
         View::share([
             'geo_location' => $location,
+            'user_city' => $user_city,
         ]);
         return $next($request);
     }
