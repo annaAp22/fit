@@ -252,7 +252,7 @@
                                 @if( $user_city == 'Москва' )
                                     <div class="product-delivery__cost"><span>Стоимость:</span><span>Курьером: от 300 руб.<br/>При заказе от 6 000 руб<br/>Бесплатно</span></div>
                                 @else
-                                    <div class="product-delivery__cost"><span>Стоимость:</span><span> от 150 руб.</span></div>
+                                    <div class="product-delivery__cost"><span>Стоимость:</span><span> от 300 руб.</span></div>
                                 @endif
                                 <div class="product-delivery__link"><a href="{{ route('delivery') }}">Подробнее о доставке по России</a>
                                 </div>
