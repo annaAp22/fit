@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 </head>
 <body>
-    <!--{{ var_dump($geo_location) }} -->
+    <!--@if(isset($geo_location)){{ var_dump($geo_location) }} @endif -->
     @include('blocks.sidebar')
 
     <div class="main-wrapper js-sidebar-open" id="main">
