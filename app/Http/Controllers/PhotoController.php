@@ -8,6 +8,7 @@ use App\Models\Photo;
 class PhotoController extends Controller
 {
     public $onPage = 24;
+    public $maxOnPage = 400;
 
     public function index()
     {
@@ -24,7 +25,8 @@ class PhotoController extends Controller
     public function paginate(Request $request)
     {
         $page = $request->input('page');
-        $photos = Photo::published()->paginate($this->onPage);
+        $onPage = $page == 1 ? $this->maxOnPage : $this->onPage;
+        $photos = Photo::published()->paginate($onPage);
         $html = \View::make('photos.list', compact('photos'))->render();
         $next_page = $photos->lastPage() > $photos->currentPage() ? ($photos->currentPage() + 1) : null; // номер следующей страницы
         $count = $next_page ? $photos->total() - ($photos->currentPage() * $photos->perPage()) : 0; // количество оставшихся комментариев
