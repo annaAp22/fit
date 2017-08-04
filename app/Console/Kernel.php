@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\MoySkladImportProducts;
 use App\Console\Commands\RetailSyncOrder;
 use App\Console\Commands\RetailUnsyncOrders;
+use App\Console\Commands\TestOrders;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -20,6 +21,7 @@ class Kernel extends ConsoleKernel
       RetailSyncOrder::class,
       MoySkladImportProducts::class,
       RetailUnsyncOrders::class,
+      TestOrders::class,
     ];
 
     /**
@@ -44,6 +46,8 @@ class Kernel extends ConsoleKernel
         $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
         // Import new agents
         $schedule->call('App\Http\Controllers\MoySkladController@updateAgents')->hourly();
+        //Export orders to retailrcrm
+        $schedule->command('retailcrm:send_order')->everyMinute();
    
     }
 
