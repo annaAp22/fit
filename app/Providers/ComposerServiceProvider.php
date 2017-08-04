@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Request;
 use Meta;
+use Location as GeoLocation;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -26,8 +28,25 @@ class ComposerServiceProvider extends ServiceProvider
         $defer = \Session::get('products.defer') ?: [];
         $seen = \Session::get('products.view') ?: [];
 
+          $ip = env('APP_ENV') == 'production' ? Request::ip() : '217.194.255.193';
+          $location = GeoLocation::get($ip);
+
+
+          if( !isset($_COOKIE['city']) )
+          {
+              $cityName = $location->cityName ?: 'Москва';
+              setcookie( "city", $cityName, time()+(3600 * 24 * 30) );
+              $user_city = $cityName;
+          }
+          else
+          {
+              $user_city = $_COOKIE['city'];
+          }
+
         $view->with('defer', array_keys($defer) )
             ->with('seen', array_keys($seen) )
+            ->with('user_city', $user_city)
+            ->with('geo_location', $location)
             ->with('routeName', $routeName);
       });
       //передаем пользователя в представления
