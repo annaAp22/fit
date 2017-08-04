@@ -25,10 +25,12 @@ class ComposerServiceProvider extends ServiceProvider
         $routeName = $route ? $route->getName() : '';
         $defer = \Session::get('products.defer') ?: [];
         $seen = \Session::get('products.view') ?: [];
+        $user_city = 'Москва';
 
         $view->with('defer', array_keys($defer) )
             ->with('seen', array_keys($seen) )
-            ->with('routeName', $routeName);
+            ->with('routeName', $routeName)
+            ->with('user_city', $user_city);
       });
       //передаем пользователя в представления
       View::composer(

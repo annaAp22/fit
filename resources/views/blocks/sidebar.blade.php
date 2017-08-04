@@ -35,7 +35,7 @@
     <div class="sidebar-geo js-toggle-active">
         <div class="sidebar-geo__city">
             <i class="sprite_main sprite_main-header__city_point"></i>
-            <span>{{ isset($user_city) ? $user_city : 'Москва' }}</span>
+            <span>{{ $user_city }}</span>
             <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
         </div>
 
