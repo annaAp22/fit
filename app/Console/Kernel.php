@@ -21,7 +21,6 @@ class Kernel extends ConsoleKernel
       RetailSyncOrder::class,
       MoySkladImportProducts::class,
       RetailUnsyncOrders::class,
-      TestOrders::class,
     ];
 
     /**
