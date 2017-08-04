@@ -94,7 +94,6 @@ class RetailSyncOrder extends Command
 //        'comment' => $order->payment_add,
 //    ];
     //$type = $order->extra_params['type'];
-    Log::info($order->extra_params['type']);
     $retailOrderData = [
         'externalId' => $order->id,
         'firstName' => $order->name,
