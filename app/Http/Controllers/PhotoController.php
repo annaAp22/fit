@@ -13,11 +13,7 @@ class PhotoController extends Controller
     public function index()
     {
         $photos = Photo::published()->paginate($this->onPage);
-
-        // if AJAX
-        if (\Request::ajax()) {
-            return \Response::json(View::make('photos.list', compact('photos'))->render());
-        }
+        
         $this->setMetaTags(null, 'Фотографии клентов', 'Фотографии клентов', '');
         return view('photos.index', compact('photos'));
     }
