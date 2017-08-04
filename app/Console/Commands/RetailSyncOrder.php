@@ -112,6 +112,7 @@ class RetailSyncOrder extends Command
     }
 
     if ($response->isSuccessful() && 201 === $response->getStatusCode()) {
+      $retailOrder->delete();
       return $response->id;
     } else {
       if(isset($response['errors'])) {
@@ -119,9 +120,17 @@ class RetailSyncOrder extends Command
         Log::error($err);
         $this->info($err);
       }else {
-        $err = 'RetailCRM '.$response->getErrorMsg();
+        $err = $response->getErrorMsg();
+        if($err == 'Order already exists.') {
+          $retailOrder->delete();
+          $err = 'RetailCRM '.$err;
+          $this->info($err);
+          $this->info('Order is removed from the list, now');
+        }else {
+          $err = 'RetailCRM '.$err;
+          $this->info($err);
+        }
         Log::error($err);
-        $this->info($err);
       }
       return false;
     }
