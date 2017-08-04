@@ -21,10 +21,12 @@ class Location
         $ip = env('APP_ENV') == 'production' ? Request::ip() : '217.194.255.193';
         $location = GeoLocation::get($ip);
 
+
         if( !isset($_COOKIE['city']) )
         {
-            setcookie( "city", $location->cityName, time()+(3600 * 24 * 30) );
-            $user_city = $location->cityName;
+            $cityName = $location->cityName ?: 'Москва';
+            setcookie( "city", $cityName, time()+(3600 * 24 * 30) );
+            $user_city = $cityName;
         }
         else
         {
