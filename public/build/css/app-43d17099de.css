@@ -3983,7 +3983,7 @@ header .line_lg {
 .header__enter {
   z-index: 7;
   background: #fff;
-  height: 59px;
+  height: 60px;
   position: relative;
   -webkit-box-ordinal-group: 2;
   -webkit-order: 1;
@@ -4009,7 +4009,7 @@ header .line_lg {
 
 .header__enter+.vl {
   width: 1px;
-  height: 62px;
+  height: 60px;
   -webkit-box-ordinal-group: 3;
   -webkit-order: 2;
   -ms-flex-order: 2;
