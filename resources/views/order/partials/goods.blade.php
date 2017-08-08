@@ -8,6 +8,9 @@
                     <div class="checkout-goods__art"> {{ $product->sku }}
                     </div>
                 </div>
+                @if($product->size)
+                    <div class="checkout-goods__size">Размер:<span>{{ $product->size }}</span></div>
+                @endif
                 <div class="checkout-goods__price">{{ number_format($product->price, 0, '.', ' ') }} ₽
                 </div>
             </div>

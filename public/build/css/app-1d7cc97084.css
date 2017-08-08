@@ -8557,6 +8557,18 @@ footer .line {
   max-width: 120px;
 }
 
+.checkout-goods__size {
+  margin: 15px 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.checkout-goods__size>span {
+  margin-left: 10px;
+  font-weight: 500;
+  color: #a6a6a6;
+}
+
 .checkout-goods__title {
   margin-top: 13px;
   font-size: 16px;
