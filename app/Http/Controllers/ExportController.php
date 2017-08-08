@@ -81,7 +81,7 @@ class ExportController extends Controller
 
     // Get all products which has ya_market == 1
     $products = Product::with(['categories' => function($query) {
-      $query->select('categories.id')->take(1);
+      $query->select('categories.id')->distinct();
     }, 'attributes' => function($query) {
       $query->whereIn('name', ['Размеры', 'Цвет', 'Пол', 'Материал']);
     }, 'brand'])
@@ -89,7 +89,6 @@ class ExportController extends Controller
         ->where('ya_market', 1)
         ->orderBy('id')
         ->get();
-
 
     $offers = collect();
     foreach($products as $product)
