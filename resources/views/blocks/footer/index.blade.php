@@ -3,7 +3,7 @@
     <div class="footer">
       <div class="navigation-footer">
         @widget('CatalogWidget', ['type' => 'footerMenu'])
-        @widget('FooterList', ['page_title' => 'Для клиентов', 'type' => 'clients'])
+        {{--@widget('FooterList', ['page_title' => 'Для клиентов', 'type' => 'clients'])--}}
         @widget('FooterList', ['page_title' => 'Инфо'])
         <div class="navigation-footer__column">
           <div class="navigation-footer__contacts">

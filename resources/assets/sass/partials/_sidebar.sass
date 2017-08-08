@@ -474,20 +474,20 @@ body
     cursor: auto
     z-index: 1
     & > .catalog-dropdown__categories
+      margin-left: 0
       flex-direction: column
-      width: 100%
       padding: 0
 
     .catalog-dropdown__title
       font-size: 18px
-    .catalog-dropdown__column
+    .catalog-dropdown__column, .catalog-dropdown__column-fake
       margin-bottom: 30px
       a
         font-size: 16px
-        line-height: 36px
+        line-height: 24px
         font-weight: 500
         text-transform: none
-        padding: 10px 0
+        padding: 16px 0
         display: block
         &:hover, &:focus
           font-weight: 700

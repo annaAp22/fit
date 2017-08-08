@@ -468,6 +468,7 @@ header
   width: 100%
   z-index: 5
   &__item
+    +hidden-md(down)
     overflow: hidden
     top: 0
     opacity: 0
@@ -483,17 +484,33 @@ header
       opacity: 1
   &__categories
     padding-top: 40px
-    width: calc(100% - 578px)
-  &__title
+    //width: calc(100% - 578px)
+    margin-left: 24px
+  &__title, &__title-fake
     font-size: 12px
     line-height: 14px
     height: 28px
     text-transform: uppercase
     font-weight: 900
     margin-bottom: 14px
-  &__column
-    +col-lg(8)
-    +col-xl(6)
+    &:empty
+      +hidden-md(down)
+  &__title-fake
+    +hidden-md(down)
+  &__column, &__column-fake
+    padding-right: 30px
+    li
+      &:before
+        content: attr(data-text)
+        height: 1px
+        visibility: hidden
+        overflow: hidden
+        font-weight: 700
+        display: block
+  &__column-fake
+    +media-md(down)
+      margin-top: -30px
+
   .star
     margin-top: 30px
     span

@@ -112,7 +112,6 @@ class CategoryController extends Controller
         $category->uploads->upload();
         $category->update($data);
 
-
         return redirect()->route('admin.categories.index')->withMessage('Категория изменена');
     }
 

@@ -1,8 +1,8 @@
 <div class="nav-pages js-pages">
     {{-- Delivery --}}
-    <a class="nav-pages__item" href="{{ route('delivery') }}"><span>Доставка и оплата</span></a>
+    {{--<a class="nav-pages__item" href="{{ route('delivery') }}"><span>Доставка и оплата</span></a>--}}
     {{-- Articles --}}
-    <a class="nav-pages__item" href="{{ route('articles') }}"><span>Статьи</span></a>
+    {{--<a class="nav-pages__item" href="{{ route('articles') }}"><span>Статьи</span></a>--}}
     {{-- Reviews --}}
     <a class="nav-pages__item" href="{{ route('reviews') }}"><span>Отзывы</span></a>
 
@@ -44,9 +44,7 @@
             <li><a href="#">Подарочный сертификат</a></li>
             <li><a href="#">Карта сайта</a></li>
             <li><a href="#">Спонсор</a></li>--}}
-
-            <li><a href="{{ route('photos') }}">Фото клиентов</a></li>
-
+            @include('blocks.info-additional')
             {{-- Static pages --}}
             @foreach($info as $page)
                 <li><a href="{{ route('page', ['sysname' => $page->sysname]) }}">{{ $page->name }}</a></li>
