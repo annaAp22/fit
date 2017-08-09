@@ -479,13 +479,18 @@ class CatalogController extends Controller
             $this->saveFilters($request, $postfix);
             if(!session()->has('filters.product.'.$postfix.$category->id)) {
                 $category_ids = $category->children_ids($category, collect([]));
-                $products = Product::with('attributes')
-                    ->whereHas('categories',
-                        function ($query) use ($category_ids) {
-                            $query->whereIn('categories.id', $category_ids);
-                        })
-                    ->where($field, 1)
-                    ->published();
+//                $products = Product::with('attributes')
+//                    ->whereHas('categories',
+//                        function ($query) use ($category_ids) {
+//                            $query->whereIn('categories.id', $category_ids);
+//                        })
+//                    ->where($field, 1)
+//                    ->published();
+                $products = Product::join('category_product', 'products.id','category_product.product_id')->select('*', 'products.id')
+                    ->whereIn('category_product.category_id', collect($category_ids))
+                    ->published()
+                    ->with('attributes')->where($field, 1)->orderBy('sort');
+
             }else {
                 $products = $this->filteredProducts($category->id, $postfix);
             }
