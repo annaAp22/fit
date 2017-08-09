@@ -148,12 +148,10 @@ $(function() {
         var showAll = $(this).data('all');
         if(typeof showAll !== 'undefined' && showAll) {
             $page.val('all');
-            $pageCount.val(1);
         }else {
             $page.val(1);
-            $pageCount.val(parseInt($pageCount.val())+1);
         }
-        console.log('get next page');
+        $pageCount.val(parseInt($pageCount.val())+1);
         $filters.trigger('submit');
     });
 

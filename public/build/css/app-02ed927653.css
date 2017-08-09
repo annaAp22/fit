@@ -4603,7 +4603,7 @@ header .line_lg {
 
 .sidebar-catalog .list-item.active .list-item__level-2 {
   padding: 30px 0 20px 30px;
-  max-height: 500px;
+  max-height: 1000px;
   opacity: 1;
   -webkit-transition: opacity .3s ease .3s,padding-left .3s ease .3s,max-height .3s ease,padding-top .3s ease,padding-bottom .3s ease;
   -o-transition: opacity .3s ease .3s,padding-left .3s ease .3s,max-height .3s ease,padding-top .3s ease,padding-bottom .3s ease;
