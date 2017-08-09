@@ -30,7 +30,7 @@
         </div>
         <div class="cart-modal_bottom">
             <button data-fancybox-close class="btn btn_show-all">Продолжить покупки</button>
-            <a href="{{ route('cart') }}" class="btn btn_green">ОФОРМИТЬ ЗАКАЗ</a>
+            <a href="{{ route('cart') }}" class="btn btn_green">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</a>
         </div>
     </form>
     <button data-fancybox-close  class="modal-close">&#10006;</button>

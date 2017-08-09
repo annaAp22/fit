@@ -24,7 +24,7 @@ class CatalogController extends Controller
    * Кол-во товаров на первом скрине, на страницах с фильтрацией
    * @var int
    */
-  private $perpage = 20;
+  private $perpage = 24;
   //products count for current cutegory without filters
   private $totalProductsCount;
   public function catalogRoot() {
@@ -645,7 +645,7 @@ class CatalogController extends Controller
   public function search(Request $request) {
     //TODO: переделать на полнотекстовой через эластиксеарч
     $page = $request->input('page', null);
-    $per_page = $page == 1 ? 400 : 5;
+    $per_page = $page == 1 ? 400 : Setting::getVar('perpage') ?: $this->perpage;
     if($request->has('text') && $request->input('text') !='') {
       $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')
           ->published()->with('attributes')
