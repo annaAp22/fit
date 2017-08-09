@@ -126,7 +126,6 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -5024,11 +5023,9 @@ header .line_lg {
 .sidebar-tags__tag {
   font-size: 13px;
   color: #a4a4a4;
-  -webkit-transition: color .3s ease,-webkit-text-decoration .3s ease;
-  transition: color .3s ease,-webkit-text-decoration .3s ease;
+  -webkit-transition: color .3s ease,text-decoration .3s ease;
   -o-transition: color .3s ease,text-decoration .3s ease;
   transition: color .3s ease,text-decoration .3s ease;
-  transition: color .3s ease,text-decoration .3s ease,-webkit-text-decoration .3s ease;
   display: block;
   margin: 10px 0;
   text-decoration: none;
@@ -7473,6 +7470,30 @@ footer .line {
   flex-basis: calc(100% / 24 * 24 - 24px);
   font-size: 14px;
   color: #000;
+}
+
+.product-review__text_answer {
+  background: #e8e8e8;
+  padding: 10px;
+  position: relative;
+}
+
+.product-review__text_answer:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 60px;
+  top: -15px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 15px;
+  border-color: transparent transparent #e8e8e8;
+}
+
+.product-review__answer-title {
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .product-reviews-navigation {
@@ -11024,6 +11045,11 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 15 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 15 - 24px);
     flex-basis: calc(100% / 24 * 15 - 24px);
+  }
+
+  .product-review__text_answer {
+    margin-left: -webkit-calc(100%/24 * 9 + 24px/2)!important;
+    margin-left: calc(100% / 24 * 9 + 24px / 2)!important;
   }
 
   .product-reviews-navigation>.btn_more {
