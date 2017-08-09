@@ -1,3 +1,452 @@
+$(function() {
+    var $filters = $('#js-filters'),
+        $sorters = $('.js-sort'),
+        $page = $filters.find('input[name=page]'),
+        $pageCount = $filters.find('input[name="pageCount"]'),
+        $productsCount = $('.js-goods-count span'),
+        $items = $('#js-goods'),
+        $paginator = $('.js-pagination'),
+        dontTouchThis = [
+            'page',
+            '_token',
+            'category_id',
+            'brand_id',
+            'tag_id',
+            'price_from',
+            'price_to'
+        ],
+        dontTouchSelector = '',
+        resetPagination = function(submit) {
+            if(typeof submit === 'undefined')
+                submit = false;
+            //console.log('reset pagination');
+            $page.val(1);
+            $pageCount.val(1);
+            if(submit) {
+                $filters.trigger('submit');
+            }
+        },
+        // Reset filters values
+        resetFilters = function() {
+            $filters.find('input[type=checkbox]', 'input[type=radio]').attr('checked', false);
+            $filters.find('input[name^=attribute]').attr('disabled', true);
+            $filters.find('input[name=sort]').val('sort');
+            $('.js-square').removeClass('active');
+            if(rangeSlider) {
+                rangeSlider.noUiSlider.set([rRange[0], rRange[1]]);
+            }
+            resetPagination(true);
+        };
+
+    for(var index in dontTouchThis)
+        dontTouchSelector += '[name!=' + dontTouchThis[index] + ']';
+
+    if($page.val() == '') $paginator.hide();
+
+    // Price range slider init
+    var rangeSlider = document.getElementById('js-range-slider');
+    if( rangeSlider ) {
+        var $this = $(rangeSlider);
+        rStart = $this.data('start'),
+            rRange = $this.data('range');
+
+        noUiSlider.create(rangeSlider, {
+            start: [ rStart[0], rStart[1] ],
+            connect: true,
+            range: {
+                'min': rRange[0],
+                'max': rRange[1]
+            }
+        });
+
+        var priceMin = document.getElementById('js-price-min'),
+            priceMax = document.getElementById('js-price-max');
+
+        rangeSlider.noUiSlider.on('update', function( values, handle ) {
+
+            var value = values[handle];
+
+            if ( handle ) {
+                priceMax.value = Math.round(value);
+            } else {
+                priceMin.value = Math.round(value);
+            }
+        });
+
+        rangeSlider.noUiSlider.on('set', function(){
+            resetPagination();
+        });
+
+        priceMin.addEventListener('change', function(){
+            rangeSlider.noUiSlider.set([this.value, null]);
+        });
+        priceMax.addEventListener('change', function(){
+            rangeSlider.noUiSlider.set([null, this.value]);
+        });
+    }
+
+    $filters.find('input[name^=attribute],select[name^=attribute]').on('change', function(e) {
+        e.preventDefault();
+        resetPagination();
+    });
+    $filters.find('.js-square').on('click', function(e) {
+        resetPagination();
+    });
+
+    // $filters.on('submit', function(e) {
+    //     e.preventDefault();
+    //     var formData = $(this).serialize();
+    //     console.log(formData);
+    //     $.post($(this).attr('action'), formData, function(data) {
+    //         if(data['reload'] == 1) {
+    //             location.reload();
+    //             return true;
+    //         }
+    //         if(data.clear) {
+    //             $page.val(2);
+    //             $items.html($(data.items));
+    //         } else {
+    //             if($page.val() == 'all') {
+    //                 $items.html($(data.items));
+    //             }
+    //             else {
+    //                 $items.append($(data.items));
+    //             }
+    //         }
+    //
+    //         if(data.next_page === null) {
+    //             $paginator.hide();
+    //         }
+    //         else {
+    //             $paginator.show();
+    //             $page.val(data.next_page);
+    //         }
+    //         $productsCount.html(data.count);
+    //     });
+    // });
+    $sorters.on('click', function(e) {
+        e.preventDefault();
+        var sort = $(this).data('sort');
+        $filters.find("input[name=sort]").val(sort);
+
+        if($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            //$filters.find('input[type=hidden]' + dontTouchSelector).val('');
+        } else {
+            $sorters.removeClass('active');
+            $(this).addClass('active');
+
+            //$filters.find('input[type=hidden]' + dontTouchSelector).val('');
+            //$filters.find('input[type=hidden][name=' + $(this).attr('name') + ']').val($(this).val());
+        }
+
+        resetPagination(true);
+    });
+
+    $paginator.on('click', function(e) {
+        e.preventDefault();
+        var showAll = $(this).data('all');
+        if(typeof showAll !== 'undefined' && showAll) {
+            $page.val('all');
+            $pageCount.val(1);
+        }else {
+            $page.val(1);
+            $pageCount.val(parseInt($pageCount.val())+1);
+        }
+        console.log('get next page');
+        $filters.trigger('submit');
+    });
+
+    $(".js-filters-reset").on('click', function(e) {
+        e.preventDefault();
+        resetFilters();
+        $('.js-toggle-sidebar.active').trigger('click');
+        return false;
+    });
+    $(".js-close-filters").on('click', function(){
+        $('.js-toggle-sidebar.active').trigger('click');
+    });
+});
+var mapDiv = document.getElementById('map');
+var map2Div = document.getElementById('agencies-map');
+var mapLoad = function(e) {
+    mapDiv.removeEventListener('click', mapLoad);
+    $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIc5obn1ArfkEzXhkgZiMyyHPRQmjNx5M", function() {
+        init();
+    });
+};
+mapDiv.addEventListener('click', mapLoad);
+if(map2Div)
+    mapLoad();
+
+// When the window has finished loading create our google map below
+//google.maps.event.addDomListener(window, 'load', init);
+
+function init() {
+    // Basic options for a simple Google Map
+    // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+    var mapOptions = {
+        // How zoomed in you want the map to start at (always required)
+        zoom: 15,
+
+        // The latitude and longitude to center the map (always required)
+        center: new google.maps.LatLng(55.709328, 37.653426), /* Moscow*/
+
+        // Do not change zoom on mouse scroll
+        scrollwheel: false,
+
+        // How you would like to style the map.
+        // This is where you would paste any style found on Snazzy Maps.
+        styles: [
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#e9e9e9"
+                    },
+                    {
+                        "lightness": 17
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f5f5f5"
+                    },
+                    {
+                        "lightness": 20
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 17
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 29
+                    },
+                    {
+                        "weight": 0.2
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 18
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 16
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f5f5f5"
+                    },
+                    {
+                        "lightness": 21
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#dedede"
+                    },
+                    {
+                        "lightness": 21
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "color": "#ffffff"
+                    },
+                    {
+                        "lightness": 16
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "saturation": 36
+                    },
+                    {
+                        "color": "#333333"
+                    },
+                    {
+                        "lightness": 40
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f2f2f2"
+                    },
+                    {
+                        "lightness": 19
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#fefefe"
+                    },
+                    {
+                        "lightness": 20
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#fefefe"
+                    },
+                    {
+                        "lightness": 17
+                    },
+                    {
+                        "weight": 1.2
+                    }
+                ]
+            }
+        ]
+    };
+
+    // Get the HTML DOM element that will contain your map
+    // We are using a div with id="map" seen below in the <body>
+    var mapElement = document.getElementById('map');
+    // Create the Google Map using our element and options defined above
+    var map = new google.maps.Map(mapElement, mapOptions);
+
+    // Let's also add a marker while we're at it
+    var bigMarker = new google.maps.MarkerImage(
+        '/img/map_point-min.png',
+        new google.maps.Size(126,132),
+        new google.maps.Point(0,0),
+        new google.maps.Point(118,91)
+    );
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(55.709328, 37.653426),
+        map: map,
+        title: 'Магазин',
+        icon: bigMarker
+    });
+
+    mapElement2 = document.getElementById('agencies-map');
+    // Create the Google Map using our element and options defined above
+    var $agencies = $('.js-agencies');
+    var shops = {
+        lat:$agencies.find('.js-lat'),
+        long:$agencies.find('.js-long'),
+        address:$agencies.find('.js-address'),
+    }
+    //if shop markers is apsend then create map and place markers
+    if(shops.lat.length) {
+        var zoom = $(map2Div).data('zoom');
+        var lat = $(map2Div).data('lat');
+        var long = $(map2Div).data('long');
+        if(zoom) {
+            mapOptions.zoom = zoom;
+        }
+        // Let's also add a marker while we're at it
+        var marker2;
+        var address;
+        if(!lat)
+            lat = shops.lat.eq(0).val();
+        if(!long)
+            long = shops.long.eq(0).val();
+        mapOptions.center = new google.maps.LatLng(lat, long);
+        var map2 = new google.maps.Map(mapElement2, mapOptions);
+        var markerImage = new google.maps.MarkerImage(
+            '/img/map-point-small-min.png',
+            new google.maps.Size(52,51),
+            new google.maps.Point(0,0),
+            new google.maps.Point(47,42)
+        );
+
+        for(var i = 0; i < shops.lat.length; i++) {
+            address = shops['address'].eq(i).val();
+            if(!address) {
+                address = shops['address'].eq(i).text()
+            }
+            marker2 = new google.maps.Marker({
+                position: new google.maps.LatLng(shops.lat.eq(i).val(), shops.long.eq(i).val()),
+                map: map2,
+                title: address,
+                icon: markerImage
+            });
+        }
+    }
+    // center map on window resize
+    google.maps.event.addDomListener(window, "resize", function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+    });
+}
 $(function(){
     var $body = $('body');
 
@@ -947,3 +1396,5 @@ function deleteCookie(name) {
         expires: -1
     })
 }
+
+//# sourceMappingURL=app.js.map

@@ -32,9 +32,9 @@ class ComposerServiceProvider extends ServiceProvider
           $location = GeoLocation::get($ip);
 
 
-          if( !isset($_COOKIE['city']) )
+          if( !isset($_COOKIE['city']))
           {
-              $cityName = $location->cityName ?: 'Москва';
+              $cityName = isset($location->cityName) ? $location->cityName : 'Москва';
               setcookie( "city", $cityName, time()+(3600 * 24 * 30) );
               $user_city = $cityName;
           }

@@ -32,8 +32,9 @@ $(function() {
             $filters.find('input[name^=attribute]').attr('disabled', true);
             $filters.find('input[name=sort]').val('sort');
             $('.js-square').removeClass('active');
-            rangeSlider.noUiSlider.set([rRange[0], rRange[1]]);
-
+            if(rangeSlider) {
+                rangeSlider.noUiSlider.set([rRange[0], rRange[1]]);
+            }
             resetPagination(true);
         };
 

@@ -1,18 +1,23 @@
-@if($category->children->count())
+@if(isset($category) && $category->children->count())
 	@foreach($category->children as $cat)
-		<div class="catalog-dropdown__column">
-			<div class="catalog-dropdown__title">{{ $cat->name }}</div>
-			<ul class="ul ul_green-hover">
-				@if($cat->children->count())
-					@foreach($cat->children as $subcat)
-						<li>
-							<a href="{{ route('catalog', $subcat->sysname) }}">{{ $subcat->name }}</a>
-						</li>
-					@endforeach
+		@if($cat->children->count())
+			@if(isset($chunk))
+				@php
+					$chunks = $cat->children->chunk($chunk);
+				@endphp
+
+				@if(count($chunks))
+					@include('catalog.dropdown-column', ['items' => $chunks[0], 'cat_name' => $cat->name])
+					@for($i =1; $i < count($chunks); $i++)
+						@include('catalog.dropdown-column-fake', ['items' => $chunks[$i]])
+					@endfor
 				@endif
-			</ul>
-		</div>
+			@else
+				@include('catalog.dropdown-column', ['items' => $cat->children, 'cat_name' => $cat->name])
+			@endif
+		@endif
 	@endforeach
+	@if(isset($unique_offer))
 	<div class="catalog-dropdown__column">
 		<div class="catalog-dropdown__title">Уникальные предложения</div>
 		<ul class="ul ul_green-hover">
@@ -26,4 +31,5 @@
 			</li>--}}
 		</ul>
 	</div>
+	@endif
 @endif

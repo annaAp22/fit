@@ -126,7 +126,7 @@ class OrderController extends Controller
       $delivery = Delivery::where('id', $data['delivery_id'])->published()->first();
     }
     if($delivery) {
-      $data['extra_params'] = json_encode(['delivery_price' => $delivery->price]);
+      $data['extra_params'] = ['delivery_price' => $delivery->price];
     }
 
     //$data['payment_add'] = 'Почтовый индекс: '.$data['index'].'. Комментарий: '.$data['payment_add'];

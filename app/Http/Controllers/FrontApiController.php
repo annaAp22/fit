@@ -383,6 +383,7 @@ class FrontApiController extends Controller
         'datetime' => date('Y-m-d H:i:s'),
         'status' => 'wait',
         'email' => $request->input('email', 'no email'),
+        'extra_params' => ['type' => 'one-click'],
     ];
     if(Auth::check()) {
         $data['customer_id'] = Auth::user()->id;
@@ -418,7 +419,7 @@ class FrontApiController extends Controller
       $order->products()->attach($request->input('id'), [
           'cnt' => $quantity,
           'price' => $product->price,
-          'extra_params' => $size ? json_encode(['size' => $size, 'type' => 'fast_order']) : '',
+          'extra_params' => $size ? json_encode(['size' => $size]) : '',
       ]);
       // Add new order to moySklad orders table
      $msOrder = new MsOrder();

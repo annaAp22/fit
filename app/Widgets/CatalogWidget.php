@@ -29,8 +29,8 @@ class CatalogWidget extends AbstractWidget
             }
         ])
             ->roots()
-            ->published()
             ->sorted()
+            ->published()
             ->get();
     }
     /**
@@ -42,8 +42,10 @@ class CatalogWidget extends AbstractWidget
         if(!$this->categories) {
             $this->init();
         }
-        if($this->config['type'] == 'footerMenu'){
+        if($this->config['type'] == 'footerMenu') {
             return $this->footerMenu();
+        } elseif($this->config['type'] == 'headerNavigation'){
+            return  $this->headerNavigation();
         }else
             return  $this->headerMenu();
     }
@@ -58,4 +60,11 @@ class CatalogWidget extends AbstractWidget
             'categories' => $this->categories,
         ]);
     }
+    private function headerNavigation() {
+        return view("widgets.header_navigation", [
+            'config' => $this->config,
+            'categories' => $this->categories,
+        ]);
+    }
+
 }

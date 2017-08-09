@@ -107,20 +107,7 @@
             <div class="hr-1">
                 <div></div>
             </div>
-
-            <div class="header__navigation">
-                <div class="nav-catalog">
-                    <div class="nav-catalog__item js-toggle-active-target js-women js-catalog" data-target=".js-women" data-reset=".js-men, .js-training"><span>ДЛЯ ЖЕНЩИН</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-                    </div>
-                    <div class="nav-catalog__item js-toggle-active-target js-men js-catalog" data-target=".js-men" data-reset=".js-women, .js-training"><span>ДЛЯ МУЖЧИН</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-                    </div>
-                    {{--<div class="nav-catalog__item nav-catalog__item_wide js-toggle-active-target js-training js-catalog" data-target=".js-training" data-reset=".js-women, .js-men"><span>ДЛЯ ТРЕНИРОВОК</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-                    </div>--}}
-                </div>
-                {{-- Pages navigation --}}
-                @widget('PageNavigation')
-
-            </div>
+            @widget('CatalogWidget', ['type' => 'headerNavigation'])
             <!-- Site login-->
             <div class="header__enter" href="#">
                 <i class="sprite_main sprite_main-header__enter"></i>

@@ -3,11 +3,21 @@
 namespace App\Console\Commands;
 
 use App\Models\MsProduct;
+use App\Models\Order;
 use App\Models\RetailOrder;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
+/*
+ * Команда отправляет заказы в retailcrm,
+ * если указана опция log, то отправляет заказы в лог
+ * если указать order, то отправляются указанный заказ.
+ * Можно указывать несколко orders через пробел.
+ * Сами заказы лежат в таблице для retailCRM и после успешной отправки удаляются из нее.
+ * За раз отправляется по 5 заказов максимум, чтоб избежать отказа от CRM.
+ * Если найдет заказ, который уже отправлялся, он так же удаляется.
+ * **/
 class RetailSyncOrder extends Command
 {
   /**
@@ -15,7 +25,7 @@ class RetailSyncOrder extends Command
    *
    * @var string
    */
-  protected $signature = 'retailcrm:send_order {order?*}';
+  protected $signature = 'retailcrm:send_order {order?*} {--log}';
 
   /**
    * The console command description.
@@ -83,6 +93,7 @@ class RetailSyncOrder extends Command
 //        'type' => isset($order->payment) ? $order->payment->sysname: null,
 //        'comment' => $order->payment_add,
 //    ];
+    //$type = $order->extra_params['type'];
     $retailOrderData = [
         'externalId' => $order->id,
         'firstName' => $order->name,
@@ -90,7 +101,7 @@ class RetailSyncOrder extends Command
         'phone' => $order->phone,
         'createdAt' => $order->created_at->format('Y-m-d H:i:s'),
         'items' => $items,
-        'orderType' => isset($order->extra_params['type']) ? $order->extra_params['type'] : null,
+        'orderMethod' => isset($order->extra_params['type']) ? $order->extra_params['type'] : null,
         'delivery' => array(
             'code' => isset($order->delivery) ? $order->delivery->sysname : null,
             'address' => $address,
@@ -101,6 +112,13 @@ class RetailSyncOrder extends Command
         $url,
         $retail_api_key
     );
+    //если включено логирование, то не отправляем в лог вместо crm
+    if($this->option('log')) {
+      Log::info($retailOrderData);
+      $this->info('order logging');
+      return false;
+    }
+
     //создаем заказ в crm
     try {
       $response = $client->request->ordersCreate($retailOrderData);
@@ -150,7 +168,6 @@ class RetailSyncOrder extends Command
       $orderQ = RetailOrder::query();
     }
     $orders = $orderQ->take(5)->get();
-    $complete_orders = [];
     if(!$orders || !count($orders)) {
       $this->info('orders not found');
       return false;
