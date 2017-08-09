@@ -103,6 +103,14 @@
 
 
                     <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-18"> Ответ магазина </label>
+                        <div class="col-sm-9">
+                            <textarea id="form-field-18" name="answer" placeholder="Текст ответа" class="col-sm-12">{{ old('answer', $comment->answer) }}</textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-5"> Активность </label>
                         <div class="col-sm-9">
                             <label>

@@ -15,7 +15,7 @@ class AddAnswerToProductComments extends Migration
     {
         Schema::table('product_comments', function (Blueprint $table) {
             //имя которое может использоваться для синхронизации с crm
-            $table->string('answer')->nullable()->after('rating');
+            $table->text('answer')->nullable()->after('rating');
         });
     }
 
