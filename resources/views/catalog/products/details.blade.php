@@ -189,13 +189,13 @@
                                     @if($main_color)
                                         <span class="description-scroll__param-title description-scroll__param-title_strong">
                                             <span>Цвет основы:</span>
-                                            <span class="description-scroll__color" style="background-color:{{$main_color->pivot->value}};"></span>
+                                            <span class="description-scroll__color" style="background-color:{{$main_color->pivot->value}};" title="{{ $main_color->color }}"></span>
                                         </span>
                                     @endif
                                     @if($sub_color)
                                         <span class="description-scroll__param-title description-scroll__param-title_strong">
                                             <span>Цвет вставок:</span>
-                                            <span class="description-scroll__color" style="background-color:{{$sub_color->pivot->value}};"></span>
+                                            <span class="description-scroll__color" style="background-color:{{$sub_color->pivot->value}};" title="{{ $sub_color->color }}"></span>
                                         </span>
                                     @endif
                                 </div>
