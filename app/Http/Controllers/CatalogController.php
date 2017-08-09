@@ -645,7 +645,7 @@ class CatalogController extends Controller
   public function search(Request $request) {
     //TODO: переделать на полнотекстовой через эластиксеарч
     $page = $request->input('page', null);
-    $per_page = $page == 1 ? 400 : 5;
+    $per_page = $page == 1 ? 400 : 24;
     if($request->has('text') && $request->input('text') !='') {
       $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')
           ->published()->with('attributes')
