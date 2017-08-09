@@ -61,7 +61,7 @@
         <div class="catalog-dropdown__item catalog-dropdown__item_training js-training js-training-desktop js-catalog">
             <!-- Categories-->
             <div class="catalog-dropdown__categories container js-dropdown-training">
-                @include('widgets.catalog_categories', ['category' => $training, 'chunk' => 6])
+                @include('widgets.catalog_categories', ['category' => $training, 'chunk' => 8])
             </div>
 
             <!-- Look banner-->
