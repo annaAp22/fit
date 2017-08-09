@@ -18,6 +18,7 @@ class ProductComment extends Model
         'status',
         'pros',
         'cons',
+        'answer',
         'created_at',
     ];
 

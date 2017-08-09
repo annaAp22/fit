@@ -126,6 +126,7 @@
                                     <th>Дата</th>
                                     <th>Имя</th>
                                     <th>Комментарий</th>
+                                    <th>Ответ</th>
                                     <th>Статус</th>
                                     <th></th>
                                 </tr>
@@ -140,7 +141,8 @@
                                         </td>
                                         <td>{{$item->name}}</td>
                                         <td>{{str_limit($item->text, 200)}}</td>
-                                        <td class="col-sm-1 center"><i class="ace-icon glyphicon @if($item->status) glyphicon-ok green @else glyphicon-remove red @endif  bigger-120"></i></td>
+                                        <td class="center"><i class="ace-icon glyphicon @if($item->answer) glyphicon-ok green @else glyphicon-remove red @endif  bigger-120"></i></td>
+                                        <td class="center"><i class="ace-icon glyphicon @if($item->status) glyphicon-ok green @else glyphicon-remove red @endif  bigger-120"></i></td>
                                         <td class="col-sm-1">
                                             <div class="hidden-sm hidden-xs btn-group">
                                                 <a class="btn btn-xs btn-info" href="{{route('admin.comments.edit', $item->id)}}">

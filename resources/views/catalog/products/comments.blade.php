@@ -18,5 +18,11 @@
             </div>
         </div>
         <div class="product-review__text">{{ $comment->text }}</div>
+        @if($comment->answer)
+            <div class="product-review__text product-review__text_answer">
+                <div class="product-review__answer-title">Ответ магазина:</div>
+                {{ $comment->answer }}
+            </div>
+        @endif
     </div>
 @endforeach

@@ -35,6 +35,7 @@
     </div>
   </div>
     @endif
+
     @if(isset($filters) && $filtersCount = $filters->count())
         @if($sizes = $filters->where('name', 'Размеры')->first())
             <!-- Size filter-->
@@ -52,7 +53,7 @@
             <div class="sidebar-filter__subtitle">{{ $colors->name }}:</div>
             <div class="color-filter square-filter js-square-check-filter">
                 @foreach($colors->values as $color)
-                    <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};">
+                    <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};" title="{{ $colors->getColorAttribute($color) }}">
                         <input type="hidden" name="attribute[{{ $colors->id }}][]" value="{{ $color }}" @if(!isset($attributes[$colors->id])or(!in_array($color, $attributes[$colors->id]))) disabled="disabled" @endif/>
                         <i class="sprite_main sprite_main-listing__filter_color-checked"></i>
                     </div>
@@ -67,7 +68,7 @@
                 <div class="sidebar-filter__annotation">{{ $colors->name }}:</div>
                 <div class="color-filter square-filter sidebar-filter__item js-square-check-filter js-hidden">
                     @foreach($colors->values as $color)
-                        <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};">
+                        <div class="color-filter__color{{ $color == "#ffffff" ? " color-filter__color_white" : "" }} js-square @if(isset($attributes[$colors->id])and(in_array($color, $attributes[$colors->id]))) active @endif" style="background-color: {{ $color }};" title="{{ $colors->getColorAttribute($color) }}">
                             <input type="hidden" name="attribute[{{ $colors->id }}][]" value="{{ $color }}" disabled="disabled"/>
                             <i class="sprite_main sprite_main-listing__filter_color-checked"></i>
                         </div>

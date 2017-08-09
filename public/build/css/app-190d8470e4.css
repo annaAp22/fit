@@ -7475,6 +7475,30 @@ footer .line {
   color: #000;
 }
 
+.product-review__text_answer {
+  background: #e8e8e8;
+  padding: 10px;
+  position: relative;
+}
+
+.product-review__text_answer:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 60px;
+  top: -15px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 15px;
+  border-color: transparent transparent #e8e8e8;
+}
+
+.product-review__answer-title {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
 .product-reviews-navigation {
   margin-top: 30px;
   width: 100%;
@@ -11024,6 +11048,11 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 15 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 15 - 24px);
     flex-basis: calc(100% / 24 * 15 - 24px);
+  }
+
+  .product-review__text_answer {
+    margin-left: -webkit-calc(100%/24 * 9 + 24px/2)!important;
+    margin-left: calc(100% / 24 * 9 + 24px / 2)!important;
   }
 
   .product-reviews-navigation>.btn_more {
