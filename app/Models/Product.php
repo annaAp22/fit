@@ -213,7 +213,7 @@ class Product extends Model
    * **/
   public function scopeInCategory($query, $category) {
       $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
-      $query->join('category_product', 'products.id','category_product.product_id')->select('products.*')
+      $query->join('category_product', 'products.id','category_product.product_id')->select('products.*','sort')
           ->whereIn('category_product.category_id', collect($category_ids))
           ->published();
   }
