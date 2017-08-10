@@ -194,6 +194,29 @@ class Product extends Model
   public function scopeSale($query) { return $this->scopeAct($query); }
   public function scopeNew($query) { return $query->where('new', 1); }
   public function scopeRecentlyAdded($query) { return $query->orderBy('created_at', 'desc'); }
+  /*
+   * возвращает товары, без повторов, для заданной страницы
+   * дописывает в коллекцию Общее число товаров
+   * **/
+  public function scopeDistinctPaginate($query, $perpage) {
+      $field = $this->getTable().'.id';
+      $products = $query->distinct($field)->paginate($perpage);
+      $products->totalCount = $query->count($field);
+      $products->totalPages = intval(($products->totalCount + $perpage - 1) / $perpage);
+    return $products;
+  }
+  protected function total() {
+      return 100;
+  }
+  /*
+   * получаем запрос товаров для заданной категории
+   * **/
+  public function scopeInCategory($query, $category) {
+      $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
+      $query->join('category_product', 'products.id','category_product.product_id')->select('products.*')
+          ->whereIn('category_product.category_id', collect($category_ids))
+          ->published();
+  }
 
   /**
    * Отложил ли покупатель этот товар?

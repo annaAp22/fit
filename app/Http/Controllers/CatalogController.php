@@ -133,7 +133,6 @@ class CatalogController extends Controller
             session()->put('filters.product.'.$postfix.$id, $filters);
         }
     }
-
     public function filteredProducts($category_id, $postfix = '') {
         //фильтр категории - получаем связанные товары из категории
         if($category_id) {
@@ -141,25 +140,16 @@ class CatalogController extends Controller
             $category = Category::with(['parent', 'children_rec'])->findOrFail($category_id);
             $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
             //добавил выбор id по первой таблице(products.id), так как он затирался id из второй таблицы и соответственно товар получал чужие аттрибуты
-            $products = Product::join('category_product', 'products.id','category_product.product_id')->select('*', 'products.id')
-                ->whereIn('category_product.category_id', collect($category_ids))
-                ->published()
-                ->with('attributes');
-            $products->totalCount = Product::join('category_product','products.id','category_product.product_id')
-                ->whereIn('category_product.category_id', collect($category_ids))
-                ->published()->count();
-        }elseif(session()->has('tag_id')) {
+            $products = Product::inCategory($category);
+        } elseif(session()->has('tag_id')) {
             $tag_id = session()->get('tag_id');
             $session = session()->get('filters.product.'.$postfix.$tag_id);
             $products = Tag::findOrFail($tag_id)
                 ->productsWithoutSort()
-                ->published()
-                ->with('attributes');
-            $products->totalCount = Tag::findOrFail($tag_id)->published()->count();
+                ->published();
             //по умолчанию просто фильтруем товары
         } else {
-            $products = Product::with('attributes')->published();
-            $products->totalCount = Product::published()->count();
+            $products = Product::published();
         }
         //фильтр по бренду
         if(isset($session['brand_id'])) {
@@ -274,11 +264,12 @@ class CatalogController extends Controller
         if(isset($session['pageCount'])) {
             $perPage *= $session['pageCount'];
         }
-        $products->totalCount = $products->count();
-        $products = $products->paginate($perPage);
+        $products = $products->with('attributes')->distinctPaginate($perPage);
         return $products;
     }
-    /***/
+    /*
+     *
+     * **/
     public function getFilters($category, $products, $postfix = '') {
         if(isset($category)) {
             $filters = session()->get('filters.product.'.$postfix.$category->id);
@@ -345,26 +336,9 @@ class CatalogController extends Controller
         }
         $category_ids = $category->children_ids($category, collect([]));
         if(!session()->has('filters.product.'.$category->id)) {
-//            $products = Product::with(['attributes', 'comments' => function ($query) {
-//                $query->average();
-//            }])->whereHas(
-//                'categories',
-//                function ($query) use ($category_ids) {
-//                    $query->whereIn('categories.id', $category_ids);
-//                })->published()->paginate($category->perpage);
-
-            $products = Product::join('category_product', 'products.id','category_product.product_id')->select('*', 'products.id')
-                ->whereIn('category_product.category_id', collect($category_ids))
-                ->published()->orderBy('sort')->with('attributes')->paginate($category->perpage);
-
-            $products->totalCount = Product::whereHas(
-                'categories',
-                function ($query) use ($category_ids) {
-                    $query->whereIn('categories.id', $category_ids);
-                })->published()->count();
+            $products = Product::inCategory($category)->orderBy('sort')->with('attributes')->distinctPaginate($category->perpage);
         } else {
             $products = $this->filteredProducts($category->id);
-            $products->totalCount = $products->total();
         }
         $products->min_price = Product::whereHas(
             'categories',
@@ -440,14 +414,14 @@ class CatalogController extends Controller
         $postfix = 'tag.';
         $request->request->add(['tag_id' => $tag->id]);
         $this->saveFilters($request, $postfix);
+        $perpage = Setting::getVar('perpage') ?: $this->perpage;
         if(!session()->has('filters.product.'.$postfix.$tag->id)) {
             $products = $tag->products()->with(['attributes'])->published();
-            $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
+            $products = $products->distinctPaginate($perpage);
         }else {
             session()->put('tag_id', $tag->id);
             $products = $this->filteredProducts(null, $postfix);
         }
-        $products->totalCount = $products->count();
         if($products->count())
         {
             $products->min_price = $tag->products()->published()->min('price');
@@ -472,25 +446,15 @@ class CatalogController extends Controller
      * **/
     public function getProductsByField($field, $request, $sysname = null) {
         $postfix = $field.'.';
+        $perpage = Setting::getVar('perpage') ?: $this->perpage;
         if($sysname)
         {
             $category = Category::with('children_rec')->sysname($sysname)->firstOrFail();
+            $category->perpage = $perpage;
             $request->request->add([$field => '1', 'category_id' => $category->id]);
             $this->saveFilters($request, $postfix);
             if(!session()->has('filters.product.'.$postfix.$category->id)) {
-                $category_ids = $category->children_ids($category, collect([]));
-//                $products = Product::with('attributes')
-//                    ->whereHas('categories',
-//                        function ($query) use ($category_ids) {
-//                            $query->whereIn('categories.id', $category_ids);
-//                        })
-//                    ->where($field, 1)
-//                    ->published();
-                $products = Product::join('category_product', 'products.id','category_product.product_id')->select('*', 'products.id')
-                    ->whereIn('category_product.category_id', collect($category_ids))
-                    ->published()
-                    ->with('attributes')->where($field, 1)->orderBy('sort');
-
+                $products = Product::inCategory($category)->where($field, 1)->orderBy('sort')->with('attributes')->distinctPaginate($category->perpage);
             }else {
                 $products = $this->filteredProducts($category->id, $postfix);
             }
@@ -499,14 +463,10 @@ class CatalogController extends Controller
         {
             $products = Product::with('attributes')->where($field, 1)->where('status', 1)->orderBy('name');
         }
-        if(isset($category)) {
-            // Количество товаров на странице
-            $category->perpage = intval(Setting::getVar('perpage')) ?: $this->perpage;
+        //если категория общая, то категории не нужны, берем все товары, например все новинки
+        if(!isset($category)) {
+            $products = Product::where($field, 1)->orderBy('id')->with('attributes')->distinctPaginate($perpage);
         }
-        if(!isset($category) or !session()->has('filters.product.'.$postfix.$category->id)) {
-            $products = $products->paginate(Setting::getVar('perpage') ?: $this->perpage);
-        }
-        $products->totalCount = $products->count();
         $products->min_price = Product::where($field, 1)->where('status', 1)->min('price');
         $products->max_price = Product::where($field, 1)->where('status', 1)->max('price');
         $page = $this->setMetaTags();
@@ -606,11 +566,13 @@ class CatalogController extends Controller
      */
     public function bookmarks() {
         $products = collect();
+        $perpage = Setting::getVar('perpage') ?: $this->perpage;
         if(session()->has('products.defer') && $defers = session()->get('products.defer')) {
             //выводим последние 48 товара
             arsort($defers);
             $defers = array_slice(array_keys($defers), 0, 48);
-            $products = Product::with('attributes')->whereIn('id', $defers)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->take(48)->get();
+//            $products = Product::with('attributes')->whereIn('id', $defers)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->take(48)->get();
+            $products = Product::whereIn('id', $defers)->with('attributes')->orderByRaw('FIELD(id, '.implode(',', $defers).')')->distinctPaginate($perpage);
         }
         $this->setMetaTags();
         return view('catalog.bookmarks', compact('products'));
