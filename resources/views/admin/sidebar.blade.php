@@ -75,6 +75,14 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
+
+                <li  @if( str_is('admin.looks*', Route::currentRouteName())) class="active" @endif>
+                    <a href="{{route('admin.looks.index')}}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Looks </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
             </ul>
         </li>
         @endcan

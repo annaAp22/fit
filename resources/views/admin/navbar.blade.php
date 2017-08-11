@@ -18,7 +18,7 @@
             <a href="{{route('admin.main')}}" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    BMW-S85B50 | Панель управления
+                    Fit2U | Панель управления
                 </small>
             </a>
         </div>

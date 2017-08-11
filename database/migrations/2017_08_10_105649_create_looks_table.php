@@ -17,9 +17,9 @@ class CreateLooksTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('image')->nullable();
-            $table->text('dot')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
