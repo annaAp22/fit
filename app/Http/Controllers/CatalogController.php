@@ -271,7 +271,6 @@ class CatalogController extends Controller
             $perPage *= $session['pageCount'];
         }
         $products = $products->distinctPaginate($perPage);
-        Log::info($products);
         return $products;
     }
     /*
