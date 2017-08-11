@@ -196,27 +196,41 @@ class Product extends Model
   public function scopeRecentlyAdded($query) { return $query->orderBy('created_at', 'desc'); }
   /*
    * возвращает товары, без повторов, для заданной страницы
-   * дописывает в коллекцию Общее число товаров
+   * дописывает в коллекцию Общее число товаров - totalCount и общее число страниц - totalPages.
+   * использует стандартный paginate, поэтому доступны методы, для получения информации о странице
    * **/
   public function scopeDistinctPaginate($query, $perpage) {
       $field = $this->getTable().'.id';
-      $products = $query->distinct($field)->paginate($perpage);
+      $products = $query->distinct($field)->published()->paginate($perpage);
       $products->totalCount = $query->count($field);
       $products->totalPages = intval(($products->totalCount + $perpage - 1) / $perpage);
     return $products;
   }
-  protected function total() {
-      return 100;
+  public function scopeWithInfo($query) {
+      $query->with([
+          'attributes',
+          'comments' => function($query){
+              $query->average();
+          }
+          ]);
   }
   /*
-   * получаем запрос товаров для заданной категории
+   * получаем запрос товаров для заданной категории вместе с комментариями
    * **/
   public function scopeInCategory($query, $category) {
       $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
       $query->join('category_product', 'products.id','category_product.product_id')->select('products.*','sort')
           ->whereIn('category_product.category_id', collect($category_ids))
-          ->published();
+          ->withInfo();
   }
+    /*
+     * получаем запрос товаров для заданной категории вместе с комментариями
+     * **/
+    public function scopeInTag($query, $tag) {
+        $query->join('product_tag', 'products.id','product_tag.product_id')->select('products.*','sort')
+            ->where('tag_id', $tag->id)
+            ->withInfo();
+    }
 
   /**
    * Отложил ли покупатель этот товар?

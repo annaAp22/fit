@@ -14,6 +14,7 @@ use App\Models\Tag;
 use App\Models\Brand;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Validator;
 use Lang;
 use Illuminate\Support\Facades\Cache;
@@ -24,8 +25,14 @@ class CatalogController extends Controller
      * Кол-во товаров на первом скрине, на страницах с фильтрацией
      * @var int
      */
-    private $perpage = 24;
+    private $perpage = 23;
     //products count for current cutegory without filters
+    public function __construct() {
+        $perpage = Setting::getVar('perpage') ?: $this->perpage;
+        if($perpage) {
+            $this->perpage = $perpage;
+        }
+    }
     public function catalogRoot() {
         $categories = Category::with([
             'products' => function($query) {
@@ -141,15 +148,14 @@ class CatalogController extends Controller
             $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
             //добавил выбор id по первой таблице(products.id), так как он затирался id из второй таблицы и соответственно товар получал чужие аттрибуты
             $products = Product::inCategory($category);
-        } elseif(session()->has('tag_id')) {
+        } elseif(session()->has('tag_id')) {//товары из тегов
             $tag_id = session()->get('tag_id');
             $session = session()->get('filters.product.'.$postfix.$tag_id);
-            $products = Tag::findOrFail($tag_id)
-                ->productsWithoutSort()
-                ->published();
+            $tag = Tag::findOrFail($tag_id);
+            $products = Product::inTag($tag);
             //по умолчанию просто фильтруем товары
         } else {
-            $products = Product::published();
+            $products = Product::withInfo();
         }
         //фильтр по бренду
         if(isset($session['brand_id'])) {
@@ -264,7 +270,8 @@ class CatalogController extends Controller
         if(isset($session['pageCount'])) {
             $perPage *= $session['pageCount'];
         }
-        $products = $products->with('attributes')->distinctPaginate($perPage);
+        $products = $products->distinctPaginate($perPage);
+        Log::info($products);
         return $products;
     }
     /*
@@ -336,7 +343,7 @@ class CatalogController extends Controller
         }
         $category_ids = $category->children_ids($category, collect([]));
         if(!session()->has('filters.product.'.$category->id)) {
-            $products = Product::inCategory($category)->orderBy('sort')->with('attributes')->distinctPaginate($category->perpage);
+            $products = Product::inCategory($category)->orderBy('sort')->distinctPaginate($category->perpage);
         } else {
             $products = $this->filteredProducts($category->id);
         }
@@ -416,8 +423,8 @@ class CatalogController extends Controller
         $this->saveFilters($request, $postfix);
         $perpage = Setting::getVar('perpage') ?: $this->perpage;
         if(!session()->has('filters.product.'.$postfix.$tag->id)) {
-            $products = $tag->products()->with(['attributes'])->published();
-            $products = $products->distinctPaginate($perpage);
+            $products = Product::inTag($tag)->distinctPaginate($perpage);
+
         }else {
             session()->put('tag_id', $tag->id);
             $products = $this->filteredProducts(null, $postfix);
@@ -454,7 +461,7 @@ class CatalogController extends Controller
             $request->request->add([$field => '1', 'category_id' => $category->id]);
             $this->saveFilters($request, $postfix);
             if(!session()->has('filters.product.'.$postfix.$category->id)) {
-                $products = Product::inCategory($category)->where($field, 1)->orderBy('sort')->with('attributes')->distinctPaginate($category->perpage);
+                $products = Product::inCategory($category)->where($field, 1)->orderBy('sort')->distinctPaginate($category->perpage);
             }else {
                 $products = $this->filteredProducts($category->id, $postfix);
             }
@@ -465,7 +472,7 @@ class CatalogController extends Controller
         }
         //если категория общая, то категории не нужны, берем все товары, например все новинки
         if(!isset($category)) {
-            $products = Product::where($field, 1)->orderBy('id')->with('attributes')->distinctPaginate($perpage);
+            $products = Product::withInfo()->where($field, 1)->orderBy('id')->distinctPaginate($perpage);
         }
         $products->min_price = Product::where($field, 1)->where('status', 1)->min('price');
         $products->max_price = Product::where($field, 1)->where('status', 1)->max('price');
@@ -533,10 +540,12 @@ class CatalogController extends Controller
         $page = $request->input('page', null);
         $per_page = $page == 1 ? 400 : Setting::getVar('perpage') ?: $this->perpage;
         if($request->has('text') && $request->input('text') !='') {
+//            $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')
+//                ->published()->with('attributes')
+//                ->orderBy('name')
+//                ->paginate($per_page);
             $products = Product::where('name','LIKE' , '%'.$request->input('text').'%')
-                ->published()->with('attributes')
-                ->orderBy('name')
-                ->paginate($per_page);
+                ->orderBy('name')->withInfo()->distinctPaginate($this->perpage);
         }
 
         if($request->isXmlHttpRequest()) {
@@ -566,13 +575,13 @@ class CatalogController extends Controller
      */
     public function bookmarks() {
         $products = collect();
-        $perpage = Setting::getVar('perpage') ?: $this->perpage;
+        $perpage = 48;
         if(session()->has('products.defer') && $defers = session()->get('products.defer')) {
             //выводим последние 48 товара
             arsort($defers);
             $defers = array_slice(array_keys($defers), 0, 48);
 //            $products = Product::with('attributes')->whereIn('id', $defers)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->take(48)->get();
-            $products = Product::whereIn('id', $defers)->with('attributes')->orderByRaw('FIELD(id, '.implode(',', $defers).')')->distinctPaginate($perpage);
+            $products = Product::whereIn('id', $defers)->orderByRaw('FIELD(id, '.implode(',', $defers).')')->withInfo()->distinctPaginate($perpage);
         }
         $this->setMetaTags();
         return view('catalog.bookmarks', compact('products'));
@@ -584,14 +593,16 @@ class CatalogController extends Controller
      */
     public function seen() {
         $products = collect();
+        $perpage = 48;
         if(session()->has('products.view')) {
             //выводим последние 48 товара
             $views = session()->get('products.view');
             arsort($views);
             $views = array_slice(array_keys($views), 0, 48);
-            $products = Product::with('attributes')->whereIn('id', $views)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $views).')')->take(48)->get();
-        }
+//            $products = Product::with('attributes')->whereIn('id', $views)->where('status', 1)->orderByRaw('FIELD(id, '.implode(',', $views).')')->take(48)->get();
+            $products = Product::whereIn('id', $views)->orderByRaw('FIELD(id, '.implode(',', $views).')')->withInfo()->distinctPaginate($perpage);
 
+        }
         $this->setMetaTags();
         return view('catalog.seen', compact('products'));
     }
