@@ -1,7 +1,3 @@
-<pre>
-
-&nbsp;</pre>
-
 <div class="contacts container-in"><!-- Header -->
     <div class="header-listing">
         <h1>Наш магазин в Москве</h1>
@@ -41,7 +37,9 @@
         <div class="page-text__title_700 page-text__title_h3">По всем вопросам звоните:</div>
 
         <div class="contacts__text contacts__text_phones">Телефон магазина:<br />
-            <strong>+7 (968) 965-03-88</strong> <img alt="" src="/assets/uploads/contacts-phones-1-min.jpg" /></div>
+            <strong>+7 (968) 965-03-88</strong>
+            <!--{{links.messenger_phones}}-->
+        </div>
 
         <div class="contacts__text contacts__text_phones">Бесплатный номер:<br />
             <strong>+7 (800) 333-45-35</strong> <img alt="" src="/assets/uploads/contacts-phones-2-min.jpg" /></div>

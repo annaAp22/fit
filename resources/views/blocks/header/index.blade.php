@@ -45,8 +45,13 @@
             {{-- Phones --}}
             <div class="header__phones">
                 <div>
-                    <i class="sprite_main sprite_main-header__phones_whatsapp"></i>&nbsp;
-                    <i class="sprite_main sprite_main-header__phones_viber"></i>
+                    <i>
+                        <a target="_blank" href="https://api.whatsapp.com/send?phone={{ $global_settings['phone_number']->number['msk'] }}" rel="nofollow" class="sprite_main sprite_main-header__phones_whatsapp messenger"></a>
+                    </i>
+                    <i>
+                        <a target="_blank" href="https://mssg.me/fit2u" rel="nofollow" class="sprite_main sprite_main-header__phones_viber messenger"></a>
+                    </i>
+                    &nbsp;
                 </div>
                 <div class="header__item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
                 </div>
