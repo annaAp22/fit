@@ -9096,6 +9096,7 @@ footer .line {
 
 .contacts__text_phones>* {
   vertical-align: middle;
+  display: inline-block;
 }
 
 .contacts__text_phones>strong>a {

@@ -10,6 +10,8 @@ use Illuminate\Contracts\Mail\Mailer;
 use App\Http\Requests;
 use App\Models\Page;
 use \App\Models\Product;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 use Validator;
 use App\Helpers;
 use Carbon\Carbon;
@@ -108,6 +110,15 @@ class MainController extends Controller
         }
         $page = Page::where('sysname', $sysname)->with(['vars', 'photos'])->firstOrFail();
         $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
+        //некоторые фото могут содержаться на разных страницах, например контакты и наш магазин имеют одинаковые фото
+        //в параметре add_photos можно указать sysname страницы, с которой взять фотки
+        $add_photos = $page->vars->where('var', 'add_photos')->first();
+        if($add_photos) {
+            $other_page = Page::where('sysname', $add_photos['value'])->with(['vars', 'photos'])->firstOrFail();
+            foreach($other_page->photos as $photo) {
+                $page->photos->push($photo);
+            }
+        }
 // Replace <!--{{block_name}}--> with rendered value
         $vars = [];
         $template_vars = $page->vars->where('var', 'template_vars')->first();
@@ -115,7 +126,11 @@ class MainController extends Controller
         {
             foreach(explode(',', $template_vars['value']) as $template)
             {
-                $vars[$template] = view($template)->render();
+                if (View::exists($template)) {
+                    $vars[$template] = view($template, compact('page'))->render();
+                } else {
+                    Log::warning('view '.$template.' not found in page '.$page->sysname);
+                }
             }
 
             $page->content = Helpers\process_vars($page->content, $vars);
@@ -174,7 +189,6 @@ class MainController extends Controller
         $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
         return view('content.contacts', ['page' => $page]);
     }
-
     /**
      * Страница Полезно знать
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
