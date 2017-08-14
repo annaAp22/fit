@@ -14,7 +14,7 @@ class AddErrorTextToMsOrders extends Migration
     public function up()
     {
         Schema::table('ms_orders', function(Blueprint $table){
-            $table->text('error_message')->default(0);
+            $table->text('error_message')->nullable();
         });
     }
 
