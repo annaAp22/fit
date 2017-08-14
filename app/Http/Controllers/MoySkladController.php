@@ -20,7 +20,9 @@ class MoySkladController extends Controller
   {
 
     // Check new orders
-    $msOrders = MsOrder::all();
+    $msOrders = MsOrder::noErrors()->get();
+
+    $resultMessage = '';
 
     if($msOrders->count())
     {
@@ -131,11 +133,17 @@ class MoySkladController extends Controller
         $res = $ms->postOrder($postData);
         if( isset($res->errors))
         {
-          return $res->errors[0]->error;
+            $msOrder->error = 1;
+            $msOrder->save();
+//          return $res->errors[0]->error;
+            $resultMessage .= 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
         }
-
-        $msOrder->delete();
-        // return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
+        else
+        {
+            $resultMessage .= 'Заказ №: ' . $msOrder->id . ' успешно импортирован/r/n';
+            $msOrder->delete();
+            // return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
+        }
       }
     }
     else
@@ -143,7 +151,7 @@ class MoySkladController extends Controller
       return "Нет новых заказов";
     }
 
-    return true;
+    return $resultMessage;
 
   }
 
@@ -157,8 +165,9 @@ class MoySkladController extends Controller
         'limit' => 100,
     ]);
     $rests = [];
+    $res = $ms->getStock($paramsString);
 
-    if( $res = $ms->getStock($paramsString) )
+    if( $res && !isset($res->errors) )
     {
       $rests = array_merge($rests, $res->rows);
       // If products total count > limit by one request,
