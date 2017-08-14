@@ -59,7 +59,13 @@ class SettingSeeder extends Seeder
               'type' => 'string',
               'value' => 'https://fit2u.retailcrm.ru',
           ],
+          [
+              'var' => 'top_menu_count_in_row',
+              'type' => 'string',
+              'value' => '8',
+          ],
       ];
+      //усли значение не задано то устанавливаем, а если задано, то уже кто-то настроил
       foreach ($settings as $setting) {
         $row = Setting::firstOrNew([
             'var'   => $setting['var'],
