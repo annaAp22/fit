@@ -114,7 +114,7 @@
             </div>
             @widget('CatalogWidget', ['type' => 'headerNavigation'])
             <!-- Site login-->
-            <div class="header__enter" href="#">
+            <div class="header__enter js-toggle-active" href="#">
                 <i class="sprite_main sprite_main-header__enter"></i>
                 <span class="js-user-name">{{Auth::check()?Auth::user()->name:'Войти / Вступить'}}</span>
                 <div class="dropdown">

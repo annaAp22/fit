@@ -3989,6 +3989,7 @@ header .line_lg {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
+  cursor: pointer;
   text-align: center;
   text-decoration: none;
   color: #272727;
@@ -4002,7 +4003,7 @@ header .line_lg {
   padding: 21px 0;
 }
 
-.header__enter:hover .dropdown {
+.header__enter.active .dropdown {
   display: block;
   max-height: none;
 }
@@ -13966,7 +13967,7 @@ h3 {
     text-align: center;
   }
 
-  .header__enter:not(:hover) i {
+  .header__enter:not(.active) i {
     margin: 0;
   }
 
@@ -13974,11 +13975,11 @@ h3 {
     font-size: 0;
   }
 
-  .header__enter:hover {
+  .header__enter.active {
     width: 200px;
   }
 
-  .header__enter:hover span {
+  .header__enter.active span {
     font-size: 12px;
   }
 

@@ -758,6 +758,9 @@ class FrontApiController extends Controller
     $cart = session()->get('products.cart');
     session()->forget('products.cart');
     foreach($request->input('products') as $id => $items) {
+        if(!isset($cart[$id])) {
+            continue;
+        }
       foreach($items as $size => $cnt)
       {
         session()->put('products.cart.'.$id.'.'.$size, [

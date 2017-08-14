@@ -257,6 +257,7 @@ header
     height: 60px
     position: relative
     order: 1
+    cursor: pointer
     +media-lg(up)
       +col(4)
     +media-md()
@@ -268,12 +269,12 @@ header
       bottom: 0
       right: 24px
       text-align: center
-      &:not(:hover)
+      &:not(.active)
         i
           margin: 0
       span
         font-size: 0
-      &:hover
+      &.active
         width: 200px
         span
           font-size: 12px
@@ -288,7 +289,7 @@ header
     transition: background-color .3s ease
     min-height: 18px
     padding: 21px 0
-    &:hover
+    &.active
       .dropdown
         display: block
         max-height: none

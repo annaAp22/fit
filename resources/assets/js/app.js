@@ -1,4 +1,6 @@
 $(function(){
+    ///^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i;
+    var email_pattern =/.+@.+\..+/i;
     var $body = $('body');
 
     // Toggle active class
@@ -418,6 +420,14 @@ $(function(){
 
         var checked = 0;
         fields.each(function(index, el) {
+            if(el.name == 'email') {
+                if(el.value.search(email_pattern) == 0) {
+                    $(el).removeClass('error');
+                    checked++;
+                } else if(errors){
+                    $(el).addClass('error');
+                }
+            } else
             if(el.name == 'phone') {
                 if( el.value.length > 14 ) {
                     checked++;
