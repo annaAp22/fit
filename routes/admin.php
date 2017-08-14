@@ -76,4 +76,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::post('/editor/upload', ['as' => 'editor.upload', 'uses' => 'MainController@uploadFileCKeditor']);
     Route::get('/cache-clear', 'MainController@cacheClear')->name('cache-clear');
+
+    Route::resource('looks', 'LookController', ['except' => ['show']]);
+    Route::put('/looks/restore/{id}', ['as' => 'looks.restore', 'uses' => 'LookController@restore'])->where(['id' => '[0-9]+']);
     });

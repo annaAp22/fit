@@ -13,9 +13,9 @@
             </li>
 
             <li>
-                <a href="{{route('admin.products.index')}}">Товары</a>
+                <a href="{{route('admin.looks.index')}}">Looks</a>
             </li>
-            <li class="active">Добавление товара</li>
+            <li class="active">Добавление look</li>
         </ul><!-- /.breadcrumb -->
 
 
@@ -67,34 +67,39 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-4"> Изображение </label>
-                        <div class="col-sm-9">
-                            <input name="img" type="file" value="{{ old('img') }}" class="img-drop" accept="image/*" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-77"> Товары на изображении</label>
                         <div class="col-sm-9">
                             <div class="widget-box">
                                 <div class="widget-header">
                                     <h4 class="smaller">
-                                        Товары
+                                        Look
                                         <small>Добавьте новую точку и выберите товар</small>
                                     </h4>
                                 </div>
 
                                 <div class="widget-body">
                                     <div class="widget-main">
-                                        @for($i = 0; $i<10; $i++)
-                                            <select name="related[{{$i}}]" class="chosen-select chosen-autocomplite form-control" id="form-field-7{{$i}}" data-url="{{route('admin.products.search')}}" data-placeholder="Начните ввод...">
-                                                <option value="">  </option>
-                                                @if($related && $related->has($i))
-                                                    <option value="{{$related->get($i)->id}}" selected>{{$related->get($i)->name}}</option>
-                                                @endif
-                                            </select>
-                                            <br><br>
+                                        @for($i = 1; $i<= 10; $i++)
+                                            <div class="form-group dot-related" id="dot-related_{{$i}}">
+                                                <label class="col-sm-1 control-label no-padding-right" for="form-field-5">Товар {{ $i }}: </label>
+                                                <div class="col-sm-11">
+                                                    <select name="products[{{$i}}]" class="chosen-select chosen-autocomplite form-control" id="form-field-7{{$i}}" data-url="{{route('admin.products.search')}}" data-placeholder="Начните ввод..." disabled>
+                                                        <option value="">  </option>
+                                                        @if($products && $products->has($i))
+                                                            <option value="{{$products->get($i)->id}}" selected>{{$products->get($i)->name}}</option>
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
                                         @endfor
+
+                                        <button class="btn btn-success" id="add-moving-dot">Добавить точку</button>&nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-danger" id="remove-moving-dot">Удалить последнюю точку</button>
+                                        <div id="moving-wrapper" class="moving-wrapper">
+                                            <input id="image" name="image" type="file" value="{{ old('image') }}" class="img-drop" accept="image/*" />
+                                        </div>
+
+                                        @include('admin.looks.dots')
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +130,7 @@
                                 Обновить
                             </button>
                             &nbsp; &nbsp; &nbsp;
-                            <a class="btn btn-info" href="{{route('admin.categories.index')}}">
+                            <a class="btn btn-info" href="{{route('admin.looks.index')}}">
                                 <i class="ace-icon glyphicon glyphicon-backward bigger-110"></i>
                                 Назад
                             </a>
