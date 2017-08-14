@@ -76,6 +76,20 @@
                     <b class="arrow"></b>
                 </li>
 
+
+            </ul>
+        </li>
+        @endcan
+
+        @can('index', new App\Models\Look())
+        <li {{ str_is('admin.looks*', Route::currentRouteName()) || str_is('admin.look_categories*', Route::currentRouteName()) ? 'active open' : '' }}>
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-eye"></i>
+                <span class="menu-text">Look Book</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
                 <li  @if( str_is('admin.looks*', Route::currentRouteName())) class="active" @endif>
                     <a href="{{route('admin.looks.index')}}">
                         <i class="menu-icon fa fa-caret-right"></i>
@@ -83,9 +97,18 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
+
+                <li  @if( str_is('admin.look_categories*', Route::currentRouteName())) class="active" @endif>
+                    <a href="{{route('admin.look_categories.index')}}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Books </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
             </ul>
         </li>
         @endcan
+
         @can('index', new App\Models\ProductComment())
         <li  @if( str_is('admin.comments*', Route::currentRouteName())) class="active" @endif>
             <a href="{{route('admin.comments.index')}}">

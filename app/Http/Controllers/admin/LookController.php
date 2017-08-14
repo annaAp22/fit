@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Models\Look;
 use App\Models\Product;
+use App\Models\LookCategory;
 
 class LookController extends Controller
 {
@@ -18,17 +19,22 @@ class LookController extends Controller
         $this->authorize('index', new Look());
         $filters = $this->getFormFilter($request->input());
 
-        $looks = Look::with('products')->orderBy('id', 'desc');
+        $looks = Look::with('products', 'category')->orderBy('id', 'desc');
 
         if (!empty($filters) && isset($filters['status']) && $filters['status']!='') {
             $looks->where('status', $filters['status']);
+        }
+        if (!empty($filters) && isset($filters['category_id']) && $filters['category_id']!='') {
+            $looks->where('category_id', $filters['category_id']);
         }
         if (!empty($filters) && isset($filters['deleted']) && $filters['deleted']) {
             $looks->withTrashed();
         }
         $looks = $looks->paginate($filters['perpage'], null, 'page', !empty($filters['page']) ? $filters['page'] : null);
 
-        return view('admin.looks.index', ['looks' => $looks,'filters' => $filters]);
+        $categories = LookCategory::sort()->get();
+
+        return view('admin.looks.index', compact('looks', 'filters', 'categories'));
     }
 
     /**
@@ -44,7 +50,8 @@ class LookController extends Controller
                 $products = Product::whereIn('id', old('products'))->get();
             }
         }
-        return view('admin.looks.create', compact('products'));
+        $categories = LookCategory::sort()->get();
+        return view('admin.looks.create', compact('products', 'categories'));
     }
 
     /**
@@ -91,7 +98,7 @@ class LookController extends Controller
      */
     public function edit($id)
     {
-        $look = Look::with('products')->findOrFail($id);
+        $look = Look::with('products', 'category')->findOrFail($id);
 
         $products = compact([]);
         if(old()) {
@@ -107,8 +114,9 @@ class LookController extends Controller
             $position = json_decode($product->pivot->position);
             $product->position = $position;
         }
+        $categories = LookCategory::sort()->get();
 
-        return view('admin.looks.edit', compact('look', 'products'));
+        return view('admin.looks.edit', compact('look', 'products', 'categories'));
     }
 
     /**
