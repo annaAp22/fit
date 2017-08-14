@@ -82,7 +82,7 @@
         @endcan
 
         @can('index', new App\Models\Look())
-        <li {{ str_is('admin.looks*', Route::currentRouteName()) || str_is('admin.look_categories*', Route::currentRouteName()) ? 'active open' : '' }}>
+        <li class="{{ str_is('admin.looks*', Route::currentRouteName()) || str_is('admin.look_categories*', Route::currentRouteName()) ? 'active open' : '' }}">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-eye"></i>
                 <span class="menu-text">Look Book</span>
