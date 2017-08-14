@@ -42,27 +42,23 @@
                 <form class="form-horizontal" role="form" action="{{route('admin.looks.store')}}" method="POST" enctype="multipart/form-data">
                     <input name="_token" type="hidden" value="{{csrf_token()}}">
 
-                    {{-- TODO: Add category relation --}}
-                  {{--  <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-20"> Категория </label>
+                    <div class="form-group">
+                        <label for="form-field-0" class="col-sm-3 control-label no-padding-right"> Book (раздел)</label>
                         <div class="col-sm-9">
-                            <select multiple="" name="categories[]" class="chosen-select form-control tag-input-style" id="form-field-20" data-placeholder="Выберите категории...">
+                            <select name="category_id" id="form-field-0" class="form-control">
                                 <option value="">--Не выбрана--</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}" @if(old() && old('categories') && in_array($category->id, old('categories')))selected="selected"@endif>{{$category->name}}</option>
-                                    @if($category->children->count()))
-                                    @include('admin.products.dropdown', ['cats' => $category->children, 'index' => 1])
-                                    @endif
+                                    <option value="{{$category->id}}" @if(old() && old('category_id')==$category->id)selected="selected"@endif>{{$category->name}}</option>
                                 @endforeach
                             </select>
                         </div>
-                    </div>--}}
+                    </div>
 
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-0"> Название </label>
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Название </label>
                         <div class="col-sm-9">
-                            <input type="text" id="form-field-0" name="name" placeholder="Название" value="{{ old('name') }}" class="col-sm-12">
+                            <input type="text" id="form-field-1" name="name" placeholder="Название" value="{{ old('name') }}" class="col-sm-12">
                         </div>
                     </div>
 

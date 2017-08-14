@@ -43,7 +43,17 @@
                 <input type="hidden" name="_method" value="PUT">
                 <input name="_token" type="hidden" value="{{csrf_token()}}">
 
-                {{-- TODO: Add category relation --}}
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-21"> Book (раздел) </label>
+                    <div class="col-sm-9">
+                        <select name="category_id" id="form-field-21">
+                            <option value="">--Не выбран--</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}" @if((old() && old('category_id')==$category->id) || (empty(old()) && $look->category_id==$category->id))selected="selected"@endif>{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="form-field-0"> Название </label>

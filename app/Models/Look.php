@@ -19,6 +19,7 @@ class Look extends Model
         'name',
         'image',
         'status',
+        'category_id',
     ];
 
     protected $uploads = [
@@ -33,5 +34,10 @@ class Look extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product')->withPivot('position');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\LookCategory', 'category_id');
     }
 }

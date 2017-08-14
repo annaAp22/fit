@@ -33,6 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Tag::class            => \App\Policies\TagPolicy::class,
         \App\User::class                  => \App\Policies\UserPolicy::class,
         \App\Models\Look::class           => \App\Policies\LookPolicy::class,
+        \App\Models\LookCategory::class   => \App\Policies\LookCategoryPolicy::class,
     ];
 
     /**
