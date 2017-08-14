@@ -481,11 +481,15 @@ class CatalogController extends Controller
             $page->category = $category;
             $page->sysname = $category->sysname;
         }
+        $sizesData = $this->getSizesData();
         if(isset($category)) {
             $filters = $this->getFilters($category, $products, $postfix);
+            $this->addProductsInfo($category, $products, $request);
+        }else {
+            $fakeCategory = collect();
+            $fakeCategory->perpage = intval(Setting::getVar('perpage')) ?: $this->perpage;
+            $this->addProductsInfo($fakeCategory, $products, $request);
         }
-        $sizesData = $this->getSizesData();
-        $this->addProductsInfo($category, $products, $request);
         return view('catalog.catalog', compact('products', 'page', 'category', 'filters', 'sizesData'));
     }
     /**
