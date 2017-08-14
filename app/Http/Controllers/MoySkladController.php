@@ -134,15 +134,14 @@ class MoySkladController extends Controller
         if( isset($res->errors))
         {
             $msOrder->error = 1;
+            $msOrder->error_message = $res->errors;
             $msOrder->save();
-//          return $res->errors[0]->error;
             $resultMessage .= 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
         }
         else
         {
             $resultMessage .= 'Заказ №: ' . $msOrder->id . ' успешно импортирован/r/n';
             $msOrder->delete();
-            // return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
         }
       }
     }
