@@ -105,7 +105,7 @@ class Ms  {
     {
         $paramsString = build_query([
             'limit' => 1,
-            'order' => 'moment,desc',
+            'order' => 'name,desc',
         ]);
         $res = $this->get_page($this->url('entity/customerorder', $paramsString), self::USER, self::PASS);
         return json_decode($res);
