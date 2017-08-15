@@ -9,7 +9,7 @@
         </div>
         @endif
         @if($categories->contains('name', 'Тип тренировок'))
-        <div class="nav-catalog__item nav-catalog__item_wide js-toggle-active-target js-training js-catalog" data-target=".js-training" data-reset=".js-women, .js-men"><span>Тип тренировок</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+        <div class="nav-catalog__item nav-catalog__item_wide js-toggle-active-target js-training js-catalog" data-target=".js-training" data-reset=".js-women, .js-men"><span>ТИП ТРЕНИРОВОК</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
         </div>
         @endif
     </div>
