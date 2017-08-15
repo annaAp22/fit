@@ -166,7 +166,7 @@ class MoySkladController extends Controller
     $rests = [];
     $res = $ms->getStock($paramsString);
 
-    if( $res && !isset($res->errors) )
+    if( $res && isset($res->meta->limit, $res->meta->size) )
     {
       $rests = array_merge($rests, $res->rows);
       // If products total count > limit by one request,
