@@ -552,8 +552,10 @@
   +col(24)
   +col-lg(16)
   +col-xl(18)
+.product-set-goods-large
+  width: 100%
 
-.products-carousel
+.products-carousel, .products-carousel-2
   position: relative
   margin-top: 30px
   display: flex
@@ -622,6 +624,8 @@
     z-index: 2
 
 // Product set item
+.products-carousel-2
+  margin-top: 0!important
 .product-set-item
   width: 177px
   margin: 0 12px
@@ -699,6 +703,7 @@
           color: #fff
           background-color: silver
     & > .popup-notice_size
+      margin-top: -2px
       top: -100%
       width: 100%
       left: 0
