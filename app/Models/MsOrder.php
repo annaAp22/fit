@@ -10,11 +10,13 @@ class MsOrder extends Model
         'ms_description',
         'ms_agent_id',
         'ms_positions',
-        'error'
+        'error',
+        'error_message',
     ];
 
     protected $casts = [
         'error' => 'boolean',
+        'error_message' => 'array',
     ];
 
     protected $dates = [

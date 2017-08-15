@@ -134,15 +134,14 @@ class MoySkladController extends Controller
         if( isset($res->errors))
         {
             $msOrder->error = 1;
+            $msOrder->error_message = $res->errors;
             $msOrder->save();
-//          return $res->errors[0]->error;
             $resultMessage .= 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
         }
         else
         {
             $resultMessage .= 'Заказ №: ' . $msOrder->id . ' успешно импортирован/r/n';
             $msOrder->delete();
-            // return 'Заказ с внешним кодом: ' . $res->id . ' успешно добавлен!';
         }
       }
     }
@@ -167,7 +166,7 @@ class MoySkladController extends Controller
     $rests = [];
     $res = $ms->getStock($paramsString);
 
-    if( $res && !isset($res->errors) )
+    if( $res && isset($res->meta->limit, $res->meta->size) )
     {
       $rests = array_merge($rests, $res->rows);
       // If products total count > limit by one request,
