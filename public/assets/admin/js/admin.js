@@ -34,6 +34,7 @@ window.initAutocomplete = function() {
 };
 
 jQuery(function($) {
+    $body = $('body');
     $('[data-rel=tooltip]').tooltip({container:'body'});
     $('[data-rel=popover]').popover({container:'body'});
 
@@ -476,4 +477,35 @@ jQuery(function($) {
         e.preventDefault();
         $(this).parents('.js-dynamic-product-input').remove();
     });
+    // Do some action by ajax
+    $body.on('click', '.js-save-check', function(e) {
+        var $this = $(this),
+            url = $this.data('url'),
+            postData = {
+                'id': $this.data('id'),
+                'checker':this.name
+            }
+        if($this.prop('checked')) {
+            postData.value = 1;
+        }
+        $.post(url, postData, function(data) {
+            // Exception
+            if(typeof data.error !== 'undefined'){
+                console.log(data.message);
+            }
+            // Do some action
+            if(typeof data.action !== 'undefined'){
+                var fn = window[data.action];
+                if(typeof fn === 'function') {
+                    fn(data);
+                }
+            }
+        }, 'json');
+    });
 });
+//показывает уведомление о сохранении
+function saveComplete() {
+    $('#saveComplete').animate({'opacity':'1'}, 100, function() {
+      $(this).animate({'opacity':'0'}, 5000);
+    })
+}

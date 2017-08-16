@@ -4,14 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Brand;
 use App\Models\Kit;
 use App\Models\Product;
-use App\Models\ProductComment;
 use App\Models\ProductPhoto;
 use App\Models\Attribute;
 
@@ -399,7 +396,38 @@ class ProductController extends Controller
         }
         return redirect()->back()->withMessage('Сортировка сохранена');
     }
-
+    /*
+     * save checker
+     * **/
+    public function saveChecker(Request $request) {
+        $data = $request->input();
+        if(isset($data['checker'], $data['id'])) {
+            if(!in_array($data['checker'], ['act','hit','new'])) {
+                return [
+                    'error' => 'Ошибка данных!',
+                    'message' => 'поле отсутствует в списке разрешенных',
+                ];
+            }
+            $product = Product::find($data['id']);
+            if(isset($data['value'])) {
+                //$product->$data['checker'] = 1;
+                $product->update([$data['checker'] => 1]);
+            }else {
+                //$product->$data['checker'] = 0;
+                $product->update([$data['checker'] => 0]);
+            }
+            //$product->save();
+            return [
+                'status' => 200,
+                'action' => 'saveComplete',
+            ];
+        }else {
+            return [
+                'error' => 'Ошибка данных!',
+                'message' => 'не удалось сохранить чекер',
+            ];
+        }
+    }
 
 
 }

@@ -56,18 +56,7 @@
                             <div class="row">
                                 <form method="GET" action="{{route('admin.products.index')}}">
                                     <div class="row">
-                                        <div class="col-xs-2" style="width: 15%">
-                                            <div class="dataTables_length">
-                                                <label>На страниц
-                                                    <select name="f[perpage]" class="form-control input-sm">
-                                                        <option value="10" @if (isset($filters['perpage']) &&  $filters['perpage']== 10) selected="selected" @endif>10</option>
-                                                        <option value="25" @if (isset($filters['perpage']) &&  $filters['perpage']== 25) selected="selected" @endif>25</option>
-                                                        <option value="50" @if (isset($filters['perpage']) &&  $filters['perpage']== 50) selected="selected" @endif>50</option>
-                                                        <option value="100" @if (isset($filters['perpage']) &&  $filters['perpage']== 100) selected="selected" @endif>100</option>
-                                                    </select> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3" style="width: 23%">
+                                        <div class="col-xs-4">
                                             <div class="dataTables_filter">
                                                 <label>Название:
                                                     <input type="text" name="f[name]" value="{{$filters['name'] or ''}}" class="form-control input-sm">
@@ -75,7 +64,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xs-3"style="width: 21%">
+                                        <div class="col-xs-4">
                                             <div class="dataTables_filter">
                                                 <label>Категория:
                                                     <select name="f[id_category]" id="form-field-20">
@@ -91,7 +80,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xs-2" style="width: 21%">
+                                        <div class="col-xs-4">
                                             <div class="dataTables_filter">
                                                 <label>Бренд:
                                                     <select name=f[brand_id]" id="form-field-21">
@@ -103,7 +92,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-xs-2" style="width: 18%">
+                                        <div class="col-xs-4">
                                             <div class="dataTables_filter">
                                                 <label>ЧПУ:
                                                     <input type="text" name="f[sysname]" value="{{$filters['sysname'] or ''}}" class="form-control input-sm">
@@ -136,7 +125,7 @@
                                     @endforeach
                                     @endif
                                     <div class="row">
-                                        <div class="col-xs-2">
+                                        <div class="col-xs-2 col-lg-5">
                                             <div class="dataTables_length">
                                                 <label>Тэг:
                                                     <select name="f[tag]" class="form-control input-sm">
@@ -148,7 +137,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-3">
-                                            <div class="dataTables_length">
+                                            <div class="dataTables_filter">
                                                 <label>Статус
                                                     <select name="f[status]" class="form-control input-sm">
                                                         <option value="" @if (!isset($filters['status'])) selected="selected" @endif>Все</option>
@@ -158,8 +147,8 @@
                                                     </select> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xs-3">
-                                            <div class="dataTables_length">
+                                        <div class="col-xs-3 col-lg-4">
+                                            <div class="dataTables_filter">
                                                 <div class="checkbox">
                                                     <label class="block">
                                                         <input name="f[deleted]" value="1" type="checkbox" @if (isset($filters['deleted'])) checked="checked" @endif class="ace input-lg">
@@ -168,7 +157,20 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-3">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="dataTables_length">
+                                                <label>На странице
+                                                    <select name="f[perpage]" class="form-control input-sm">
+                                                        <option value="10" @if (isset($filters['perpage']) &&  $filters['perpage']== 10) selected="selected" @endif>10</option>
+                                                        <option value="25" @if (isset($filters['perpage']) &&  $filters['perpage']== 25) selected="selected" @endif>25</option>
+                                                        <option value="50" @if (isset($filters['perpage']) &&  $filters['perpage']== 50) selected="selected" @endif>50</option>
+                                                        <option value="100" @if (isset($filters['perpage']) &&  $filters['perpage']== 100) selected="selected" @endif>100</option>
+                                                    </select> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-8">
                                             <div class="dataTables_filter">
                                                 <a class="btn  btn-xs" href="{{route('admin.products.index')}}?refresh=1">
                                                     Сбросить
@@ -219,9 +221,22 @@
                                         <td>@if($item->brand) {{$item->brand->name}} @endif</td>
                                         <td>{{$item->sysname}}</td>
                                         <td>
-                                            @if($item->new) <span class="label label-info">Новинка</span>  </br> @endif
-                                            @if($item->act) <span class="label label-warning"><i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>Акция</span>  </br> @endif
-                                            @if($item->hit) <span class="label label-danger ">Хит</span> </br> @endif
+                                            <label class="block">
+                                                <input name="new" data-id="{{$item->id}}" data-url="{{route('ajax.product-check')}}" value="1" type="checkbox" autocomplete="off" @if($item->new) checked="checked" @endif class="ace input-lg js-save-check">
+                                                <span class="lbl"> Новинка</span>
+                                            </label>
+                                            <label class="block">
+                                                <input name="act" data-id="{{$item->id}}" data-url="{{route('ajax.product-check')}}" value="1" type="checkbox" autocomplete="off" @if($item->act) checked="checked" @endif class="ace input-lg js-save-check">
+                                                <span class="lbl"> Акция</span>
+                                            </label>
+                                            <label class="block">
+                                                <input name="hit" data-id="{{$item->id}}" data-url="{{route('ajax.product-check')}}" value="1" type="checkbox" autocomplete="off" @if($item->hit) checked="checked" @endif class="ace input-lg js-save-check">
+                                                <span class="lbl"> Хит</span>
+                                            </label>
+                                            <br>
+                                            {{--@if($item->new) <span class="label label-info">Новинка</span>  </br> @endif--}}
+                                            {{--@if($item->act) <span class="label label-warning"><i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>Акция</span>  </br> @endif--}}
+                                            {{--@if($item->hit) <span class="label label-danger ">Хит</span> </br> @endif--}}
                                             @if($item->stock)
                                             <span class="label  label-yellow arrowed-in arrowed-in-right">В наличии</span>
                                             @else
@@ -289,6 +304,5 @@
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content -->
-
-
+    <div id="saveComplete" class="saved">Сохранено</div>
 @stop

@@ -88,3 +88,4 @@ Route::get('geo_cities', 'GeoCityController@citiesByRegion')->name('geo_cities')
 Route::get('geo_cities/autocomplete', 'GeoCityController@citiesAutocomplete')->name('geo_cities_autocomplete');
 //widget
 Route::post('widget', 'WidgetController@showWidget')->name('widget');
+Route::post('products/check', 'admin\ProductController@saveChecker')->name('product-check');

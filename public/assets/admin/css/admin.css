@@ -23,3 +23,16 @@
 }
 .input-checklist .sizebox { margin: 0px 10px; }
 .chosen-container { width: 100% !important; }
+.saved {
+    display: table;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 5px 10px;
+    border: 1px solid silver;
+    background-color: rgba(255,255,255,0.5);
+    opacity: 0;
+}
