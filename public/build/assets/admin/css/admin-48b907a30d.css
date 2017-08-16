@@ -1,0 +1,38 @@
+.ibox-tools {
+    display: inline-block;
+    float: right;
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+    margin-right: 3px;
+}
+
+.input-color {
+    display: flex;
+    align-items: center;
+}
+
+.input-checklist {
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    margin-top: -4px;
+}
+.input-checklist input {
+    margin-right: 4px;
+}
+.input-checklist .sizebox { margin: 0px 10px; }
+.chosen-container { width: 100% !important; }
+.saved {
+    display: table;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 5px 10px;
+    border: 1px solid silver;
+    background-color: rgba(255,255,255,0.5);
+    opacity: 0;
+}
