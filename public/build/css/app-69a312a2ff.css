@@ -5098,7 +5098,7 @@ header .line_lg {
 
 .sidebar-tags.active .sidebar-tags__hidden {
   opacity: 1;
-  max-height: 2000px;
+  max-height: 10000px;
   -webkit-transition: max-height .6s ease,opacity .3s ease .1s;
   -o-transition: max-height .6s ease,opacity .3s ease .1s;
   transition: max-height .6s ease,opacity .3s ease .1s;
