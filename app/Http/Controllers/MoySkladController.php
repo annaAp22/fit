@@ -169,13 +169,15 @@ class MoySkladController extends Controller
     if( $res && isset($res->meta->limit, $res->meta->size) )
     {
       $rests = array_merge($rests, $res->rows);
+      $limit = $res->meta->limit;
+      $size = $res->meta->size;
       // If products total count > limit by one request,
       // then do another request with offset
-      for( $offset = $res->meta->limit; $offset < $res->meta->size; $offset = $offset + $res->meta->limit )
+      for( $offset = $limit; $offset < $size; $offset = $offset + $limit )
       {
         $paramsString = http_build_query([
             'offset' => $offset,
-            'limit'  => $res->meta->limit,
+            'limit'  => $limit,
         ]);
         if( $res = $ms->getStock($paramsString) )
         {
