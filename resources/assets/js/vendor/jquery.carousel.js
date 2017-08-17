@@ -19,7 +19,8 @@
             pagination: false,
             auto: false,
             speed: 5000,
-            loop: false
+            loop: false,
+            afterLoad: false
         };
         this._options = $.extend({}, this._defaults, options);
 
@@ -299,9 +300,12 @@
 
         // Activate page icon
         this.pageActive = function() {
-            $(".carousel-pagination__page").removeClass('active');
-            if(self.pages)
+            if(self.pages) {
+                self.pages.forEach(function(page) {
+                    page.className = "carousel-pagination__page";
+                });
                 $(self.pages[-1 * self.position]).addClass('active');
+            }
         };
 
         // Disable buttons if count < items
@@ -392,6 +396,9 @@
                 self.pauseOnHover();
             }
 
+            if(self._options.afterLoad) {
+                self._options.afterLoad(self);
+            }
 
         }
 

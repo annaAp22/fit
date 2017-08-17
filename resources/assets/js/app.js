@@ -340,19 +340,29 @@ $(function(){
     });
 
     // Look Book banners slider
-    $(".js-look-book").carousel({
-        margin: 20,
-        pagination: true,
-        auto: false,
-        loop: true,
-        responsive: {
-            1492: 1,
-            1203: 1,
-            840: 1,
-            576: 1,
-            320: 1
-        }
-    });
+    var lookBook = $(".js-look-book");
+    if( typeof lookBook !== 'undefined' ) {
+        lookBook.carousel({
+            margin: 20,
+            pagination: true,
+            auto: false,
+            loop: true,
+            responsive: {
+                1492: 1,
+                1203: 1,
+                840: 1,
+                576: 1,
+                320: 1
+            },
+            afterLoad: function(instance) {
+                if(instance.items.length > 2) {
+                    instance.next();
+                }
+                return false;
+            }
+        });
+    }
+
 
     // Load VK comments widget
     $(".js-vk-comments-widget").on('click.vk',function() {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Http\Requests\admin\LookRequest;
 use Illuminate\Http\Request;
 use App\Models\Look;
 use App\Models\Product;
@@ -57,10 +58,10 @@ class LookController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param LookRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LookRequest $request)
     {
         $data = $request->all();
         $look = new Look($data);
@@ -117,11 +118,11 @@ class LookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param LookRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LookRequest $request, $id)
     {
         $look = Look::findOrFail($id);
         $old_image = $look->image;

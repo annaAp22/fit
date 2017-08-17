@@ -21,7 +21,7 @@ class LookCategory extends Model
 
     public function looks()
     {
-        return $this->hasMany('App\Look', 'category_id');
+        return $this->hasMany('App\Models\Look', 'category_id');
     }
 
     public function scopePublished($query)
