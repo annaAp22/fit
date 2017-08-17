@@ -208,9 +208,20 @@
                                 @endisset
                                 <!-- Country of origin-->
                                 @if($country_of_origin)
-                                <div class="description-scroll__param-title description-scroll__mt"><span>Страна производства:</span><span class="description-scroll__param-value">{{$country_of_origin->pivot->value}}</span>
+                                <div class="description-scroll__param-title description-scroll__mt"><strong>Страна производства:</strong><span class="description-scroll__param-value">{{$country_of_origin->pivot->value}}</span>
                                 </div>
                                 @endif
+                            <!-- Sex-->
+                                {{--@if(isset($product->sex))--}}
+                                    {{--<div class="description-scroll__param-title description-scroll__mt"><strong>Пол:</strong><span class="description-scroll__param-value">{{$product->sex}}</span>--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--<!-- Material-->--}}
+                                {{--@if(isset($product->material))--}}
+                                    {{--<div class="description-scroll__param-title description-scroll__mt"><strong>Состав ткани:</strong><span class="description-scroll__param-value">{{$product->material}}</span>--}}
+                                    {{--</div>--}}
+                                    {{--<a href="https://fit2u.ru/page/iz_chego_shem">Подробнее о тканях</a>--}}
+                                {{--@endif--}}
                                 <!-- Other description-->
                                 <div class="description-scroll__param-value description-scroll__mt">
                                     {!! $product->text !!}

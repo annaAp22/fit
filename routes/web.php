@@ -85,8 +85,6 @@ Route::group([
 
   //run onece
   //Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
-  Route::get('/run-once/remove-sizes-type.html', 'RunOnceController@removeSizesType')->name('remove-sizes-type');
-  Route::get('/run-once/remove-sex-sizes.html', 'RunOnceController@removeSizesSex')->name('remove-sex-sizes');
 
   // Yandex Market
   Route::get('/export/yandex-market', 'ExportController@yandexMarket')->name('yandex_market');
