@@ -95,7 +95,8 @@
                                     <div id="moving-wrapper" class="moving-wrapper" @if($look->image)style="width: {{$look->uploads->image->normal->width}}px; height: {{$look->uploads->image->normal->height}}px;"@endif>
 
                                         @foreach($products as $key => $product)
-                                            <div class="moving-dot" id="moving-dot_{{ $key + 1 }}" style="top: {{ $product->position->top }}px; left: {{ $product->position->left }}px">{{ $key + 1 }}
+                                            <div class="moving-dot" id="moving-dot_{{ $key + 1 }}" style="top: {{ 100*$product->position->top/$look->uploads->image->normal->height }}%;
+                                                    left: {{ 100*$product->position->left/$look->uploads->image->normal->width }}%">{{ $key + 1 }}
                                                 <input type="hidden" name="dots[{{ $key + 1 }}][left]" class="left" value="{{ $product->position->left }}">
                                                 <input type="hidden" name="dots[{{ $key + 1 }}][top]" class="top" value="{{ $product->position->top }}">
                                             </div>

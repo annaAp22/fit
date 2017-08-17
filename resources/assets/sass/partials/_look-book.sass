@@ -1,0 +1,204 @@
+// Look Book slider
+.look-book
+  margin: 20px auto 0
+  max-width: 866px
+  &__title
+    font-size: 36px
+    text-align: center
+    & > span
+      &:not(:nth-child(2))
+        font-weight: 700
+      &:not(:first-child)
+        color: #1db66f
+  &__text
+    margin-top: 20px
+    color: #585858
+    font-size: 14px
+    text-align: center
+  &__buy-package-form
+    display: none
+    position: absolute
+    z-index: 3
+    bottom: 0
+    right: 0
+
+.look-book-slider
+  margin-top: 20px
+  position: relative
+  margin-bottom: 90px
+  +media-md(down)
+    margin-top: 24px
+  +hidden-xs()
+  &__wrap
+    margin: 0 auto
+    max-width: 866px
+    overflow: visible
+  &__track
+    display: flex
+    &:not(.js-dragged)
+      transition: transform .3s ease
+  &__banner
+    max-width: 100%
+    display: block
+    //&_md-up
+    //  +hidden-sm(down)
+    //&_sm
+    //  +hidden-md(up)
+  &__item
+    position: relative
+    &.active
+      & > .moving-dot, & > .look-book__buy-package-form
+        display: block
+  & > .btn
+    position: absolute
+    z-index: 1
+    top: 50%
+    width: 48px
+    height: 78px
+    padding: 0
+    transform: translateY(-50%)
+    background-color: #ffffff
+    &:hover:not(:disabled), &:focus:not(:disabled)
+      background-color: #efefef
+    &.left
+      left: 0
+    &.right
+      right: 0
+  & > .carousel-pagination
+    bottom: -60px
+    & > .carousel-pagination__page
+      border-color: #bebebe
+      position: relative
+      &:after
+        content: ""
+        position: absolute
+        width: 13px
+        height: 13px
+        border-radius: 100%
+        transition: width .2s ease, height .2s ease
+      &.active
+        border-color: #ffffff
+        &:after
+          top: -8px
+          left: -8px
+          width: 21px
+          height: 21px
+          border: 2px solid #bebebe
+
+.moving-dot
+  display: none
+  position: absolute
+  width: 38px
+  height: 38px
+  line-height: 37px
+  background-color: #ffffff
+  border-radius: 20px
+  text-align: center
+  cursor: pointer
+  font-weight: 700
+  user-select: none
+  z-index: 3
+  color: grey
+  & > span
+    display: block
+    position: relative
+    z-index: 1
+    transition: transform .2s ease
+  &:before
+    content: ""
+    position: absolute
+    top: -11px
+    left: -11px
+    display: block
+    width: 56px
+    height: 56px
+    border: 2px solid #fff
+    border-radius: 30px
+  &.active
+    z-index: 10
+    & > span
+      color: red
+      &.top.right
+        transform: rotate(45deg)
+      &.top.left
+        transform: rotate(-45deg)
+      &.bottom.right
+        transform: rotate(-45deg)
+      &.bottom.left
+        transform: rotate(45deg)
+    & > .look-book-product
+      visibility: visible
+      opacity: 1
+      transform: rotate(0deg) !important
+      transition: visibility 0s ease, opacity .2s ease, transform .2s ease
+  &__plus
+    font-size: 30px
+
+
+
+.look-book-product
+  position: absolute
+  background-color: #ffffff
+  padding: 20px 0
+  width: 250px
+  visibility: hidden
+  opacity: 0
+  transition: visibility 0s ease .2s, opacity .2s ease, transform .2s ease
+  box-shadow: 0 0 30px -10px rgba(0,0,0,.1)
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    width: 0
+    height: 0
+    border-style: solid
+  &.top.right
+    top: -26px
+    left: 66px
+    transform: rotate(45deg)
+    &:after
+      border-width: 10px 16px 10px 0
+      border-color: transparent #ffffff transparent transparent
+      top: 35px
+      left: -14px
+  &.bottom.left
+    bottom: -26px
+    right: 66px
+    transform: rotate(45deg)
+    &:after
+      border-width: 10px 0 10px 16px
+      border-color: transparent transparent transparent #ffffff
+      bottom: 35px
+      right: -14px
+  &.bottom.right
+    bottom: -26px
+    left: 66px
+    transform: rotate(-45deg)
+    &:after
+      border-width: 10px 16px 10px 0
+      border-color: transparent #ffffff transparent transparent
+      bottom: 35px
+      left: -14px
+  &.top.left
+    top: -26px
+    right: 66px
+    transform: rotate(-45deg)
+    &:after
+      border-width: 10px 0 10px 16px
+      border-color: transparent transparent transparent #ffffff
+      top: 35px
+      right: -14px
+  .popup-notice_size
+    line-height: 14px
+    & > .popup-notice__triangle
+      bottom: -15px
+
+.btn-look-book_buy
+  padding: 0 20px
+  height: 50px
+  font-weight: 700
+  color: #fff
+  font-size: 14px
+  box-shadow: -2px -2px 30px 0px rgba(0,0,0,.1)
+  & > *
+    vertical-align: middle

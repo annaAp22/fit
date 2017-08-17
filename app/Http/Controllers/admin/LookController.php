@@ -109,11 +109,6 @@ class LookController extends Controller
             $products = $look->products;
         }
 
-        foreach( $products as $product )
-        {
-            $position = json_decode($product->pivot->position);
-            $product->position = $position;
-        }
         $categories = LookCategory::sort()->get();
 
         return view('admin.looks.edit', compact('look', 'products', 'categories'));

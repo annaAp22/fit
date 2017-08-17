@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Validator;
 use Lang;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Look;
 
 class CatalogController extends Controller
 {
@@ -647,7 +648,7 @@ class CatalogController extends Controller
                 'related.attributes',
                 'comments' => function($query){
                     $query->average();
-                }
+                },
             ])->where('sysname', $sysname)->where('status', 1)->firstOrFail();
         });
         $comments = Cache::remember('product.'.$hash.'.comments', 60, function() use($product){
@@ -686,11 +687,14 @@ class CatalogController extends Controller
             }
         }
 
+        $looks = $product->looks()->published()->with('products', 'products.attributes')->get();
+
         return view('catalog.products.details', [
             'product' => $product,
             'analogues' => $analogues,
             'comments' => $comments,
             'sizesData' => $this->getSizesData(),
+            'looks' => $looks,
         ]);
     }
 
