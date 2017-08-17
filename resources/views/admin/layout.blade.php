@@ -21,7 +21,7 @@
 
 
 
-    <link rel="stylesheet" href="/assets/admin/css/admin.css" />
+    <link rel="stylesheet" href="{{ elixir('assets/admin/css/admin.css') }}" />
 
     <link rel="stylesheet" href="/assets/admin/css/colorbox.min.css" />
 
@@ -115,7 +115,7 @@
     <!-- color picker -->
     <script src="/assets/admin/js/palette-color-picker.min.js"></script>
 
-    <script src="/assets/admin/js/admin.js?v=2017072602"></script>
+    <script src="{{elixir('assets/admin/js/admin.js')}}"></script>
 
     <![endif]-->
 </head>

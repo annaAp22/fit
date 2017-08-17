@@ -22,7 +22,30 @@ $(function(){
         e.preventDefault();
         return false;
     });
-
+    //переключение вкладок и страниц соответствующих вкладкам
+    $body.on("click", ".js-tab-active", function(e) {
+        e.stopPropagation();
+        var $this = $(this);
+        var $parent = $this.closest('.js-tabulator');
+        var $pages = $parent.find('.js-tab-page');
+        var $tabs = $parent.find('.js-tab-active');
+        var $page = $pages.eq($this.index());
+        var data = $page.data();
+        $tabs.removeClass('active');
+        $this.addClass('active');
+        $pages.removeClass('active');
+        $page.addClass('active');
+        //если содержимое вкладки уже было создано, то больше не создаем
+        if(typeof data.complete != 'undefined' && data.complete == '1') {
+            return;
+        }
+        //выполняем привязанное действие к странице, соответствующей вкладке
+        if(typeof data.action != 'undefined') {
+            var fn = window[data.action];
+            var parent = $page.get(0);
+            fn(parent);
+        }
+    });
     // Square check filter (size, color)
     var squareCheckFilter = $('.js-square-check-filter');
     if( squareCheckFilter ) {
@@ -298,7 +321,6 @@ $(function(){
             0 : {items: 1}
         }
     });
-
     // Product seen carousel
     $(".js-product-carousel").carousel();
 
@@ -973,3 +995,68 @@ function deleteCookie(name) {
         expires: -1
     })
 }
+/*
+* Add windget in parent
+* @param parent - parent DOM element for widget, must contain data params:
+* name - widget name,
+* url - widget controller url.
+* Other params contain widget options
+* **/
+function widget(parent) {
+    var data = $(parent).data();
+    var url = data.url;
+    var params = {
+        'name':data.name,
+        'params':data.options
+    }
+    var callback;
+    if(data.callback) {
+        callback = window[data.callback];
+    }
+    $.post(url, params, function(data) {
+        if(data) {
+            var $parent = $(parent);
+            $parent.empty();
+            $parent.append(data);
+            if(callback) {
+                callback();
+            }
+        }
+    }).done(function(e) {
+        $(parent).data('complete', 1);
+    });
+}
+//массив инициализированных слайдеров продуктов
+var productsSlider = [];
+//Создается еще один слайдер продуктов
+function productsSliderInit() {
+    var $sliders = $('.js-product-slider');
+    var find;
+    var slider;
+
+    for(var i = 0; i < $sliders.length; i++) {
+        find = false;
+        //если на элементе уже установлен слайдер, то пропускаем его
+        for(var j = 0; j < productsSlider.length; j++) {
+            if(productsSlider[j] == $sliders[i]) {
+                find = true;
+                break;
+            }
+        }
+        if(!find) {
+            slider = $sliders[i];
+            productsSlider.push(slider);
+            $(slider).carousel({
+                responsive: {
+                    1492 : {items: 6},
+                    1203 : {items: 5},
+                    840 : {items: 5},
+                    576 : {items: 3},
+                    300 : {items: 2},
+                    0 : {items: 1}
+                }
+            });
+        }
+    }
+}
+productsSliderInit();

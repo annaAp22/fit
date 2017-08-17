@@ -71,6 +71,8 @@ elixir(function(mix) {
     //     'css/app.css'
     // );
     mix.version([
+        'assets/admin/css/admin.css',
+        'assets/admin/js/admin.js',
         'css/app.css',
         'js/vendor.js',
         'js/lib.js',

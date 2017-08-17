@@ -91,6 +91,32 @@
       {{--</div>--}}
     {{--</div>--}}
   </div>
+  <!-- spec offers tabulator -->
+  <div class="container">
+    <div class="tabulator-offers js-tabulator">
+      <div class="tab-wrapper">
+        <label class="tab js-tab-active active">
+          <span>Новая коллекция</span>
+        </label>
+        <label class="tab js-tab-active">
+          <span>Акции</span>
+        </label>
+        <label class="tab js-tab-active">
+          <span>Хиты продаж</span>
+        </label>
+      </div>
+      <div class="page-wrapper">
+        <div class="page js-tab-page active" data-action="widget" data-options='{"config":{"type":"new"}}' data-url="{{route('ajax.widget')}}" data-name="ProductsSliderWidget" data-callback="productsSliderInit" data-complete="1">
+          @widget('ProductsSliderWidget', ['type' => 'new'])
+        </div>
+        <div class="page js-tab-page active" data-action="widget" data-options='{"config":{"type":"act"}}' data-url="{{route('ajax.widget')}}" data-name="ProductsSliderWidget" data-callback="productsSliderInit">
+        </div>
+        <div class="page js-tab-page active" data-action="widget" data-options='{"config":{"type":"hit"}}' data-url="{{route('ajax.widget')}}" data-name="ProductsSliderWidget" data-callback="productsSliderInit">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main find size-->
   <div class="colored-bg colored-bg_f3f3f3 colored-bg_mt">
     <div class="container">

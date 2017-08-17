@@ -1,7 +1,7 @@
 @php
     $men = $categories->where('name', 'Для мужчин')->first();
     $women = $categories->where('name', 'Для женщин')->first();
-    $training = $categories->where('name', 'Для тренировок')->first();
+    $training = $categories->where('name', 'Тип тренировок')->first();
 @endphp
 
 <!-- Dropdown catalog-->
