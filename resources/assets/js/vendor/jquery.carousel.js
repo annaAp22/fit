@@ -21,7 +21,6 @@
             speed: 5000,
             loop: false
         };
-        var speedTimer;
         this._options = $.extend({}, this._defaults, options);
 
         this.options = function(options) {
@@ -131,6 +130,11 @@
             if(self._options.pagination) {
                 self.pageActive();
             }
+
+
+            self.items.removeClass('active');
+            self.items.eq(-1*self.position).addClass('active');
+
             return p;
         };
 
@@ -196,6 +200,9 @@
                     self.checkButtons();
                     self.updateCss();
                     self.pageActive();
+
+                    self.items.removeClass('active');
+                    self.items.eq(-1*self.position).addClass('active');
                 }
 
             });
@@ -324,6 +331,25 @@
             }
         };
 
+        // Set auto slide interval
+        this.autoSlide = function() {
+            self.timer = setInterval(function(e) {
+                    self.next();
+            }, self._options.speed);
+        };
+
+        // Pause auto slide on hover
+        this.pauseOnHover = function() {
+            self.wrapper.on('mouseover', function(e) {
+                $(this).addClass('hover');
+                clearInterval(self.timer);
+            });
+            self.wrapper.on('mouseout', function(e) {
+                $(this).removeClass('hover');
+                self.autoSlide();
+            });
+        };
+
         // Init carousel
         var self = this;
         self.wrapper = $el.find("> div");
@@ -358,13 +384,17 @@
             if(self._options.pagination) {
                 self.paginate();
             }
+
+            // Auto slide with time interval
+            if(self._options.auto) {
+                self.autoSlide();
+                // Pause auto slide on hover
+                self.pauseOnHover();
+            }
+
+
         }
-        //automatic scrolling
-        if(self._options.auto) {
-            speedTimer = setInterval(function(e) {
-                self.next();
-            }, self._options.speed)
-        }
+
     };
 
     $.fn.carousel = function(methodOrOptions) {

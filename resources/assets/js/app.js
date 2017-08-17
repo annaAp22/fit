@@ -12,7 +12,7 @@ $(function(){
             e.preventDefault();
         // Remove active class
         if(typeof reset !== 'undefined') {
-            $(reset).removeClass("active")
+            $(reset).not($this).removeClass("active")
         }
 
         $this.toggleClass('active');
@@ -105,7 +105,8 @@ $(function(){
     function toggleActiveTarget($this) {
         var target = $this.data('target'),
             switchN = $this.data('switch'),
-            reset = $this.data('reset');
+            reset = $this.data('reset'),
+            toggle = $this.data('toggle');
 
         // toggle switch if needed
         if(typeof switchN !== 'undefined') {
@@ -113,9 +114,9 @@ $(function(){
         }
         // remove active from all elements
         else if(typeof reset !== 'undefined') {
-            $(reset).removeClass("active")
+            $(reset).not($(target)).removeClass("active")
         }
-        else {
+        else if(typeof  toggle === 'unefined' || toggle == 1) {
             $this.toggleClass("active");
         }
 
@@ -307,6 +308,21 @@ $(function(){
         pagination: true,
         auto:true,
         loop:true,
+        responsive: {
+            1492: 1,
+            1203: 1,
+            840: 1,
+            576: 1,
+            320: 1
+        }
+    });
+
+    // Look Book banners slider
+    $(".js-look-book").carousel({
+        margin: 20,
+        pagination: true,
+        auto: false,
+        loop: true,
         responsive: {
             1492: 1,
             1203: 1,
@@ -730,11 +746,11 @@ function openModal(data) {
         $.fancybox.close();
         var options = {
             src : data.modal,
-            type : 'inline'
+            type : 'inline',
+            smallBtn: false
         };
         $.fancybox.open([options],
             {
-                closeBtn: false,
                 beforeClose : function( instance, current, e ) {
                     var form = current.$slide.find('form');
                     if(typeof form.data('submit-on-close') !== 'undefined'){

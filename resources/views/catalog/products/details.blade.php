@@ -110,7 +110,7 @@
                         </div>
 
                         @include('catalog.products.rating')
-                        @if(count($product->getSizes()))
+                        @if(count($product->sizes))
                             <!-- Size-->
                             <div class="product-detailed__subtitle product-detailed__subtitle_size">Выберите свой размер:</div>
                             @include('catalog.products.sizes', ['class' => ' product-detailed__size'])
@@ -272,6 +272,8 @@
         </section>
 
         <section class="content-full-width">
+
+            @include('looks.product_detailed')
 
             {{--<!-- Seo text-->
             <div class="page-text">

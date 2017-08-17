@@ -40,4 +40,11 @@ class Look extends Model
     {
         return $this->belongsTo('App\Models\LookCategory', 'category_id');
     }
+
+    // Scopes
+    public function scopePublished($query)
+    {
+        return $query->where('status', 1);
+    }
+
 }

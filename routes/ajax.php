@@ -45,22 +45,24 @@ Route::group([ 'prefix' => 'product' ], function() {
 });
 
 Route::group(['prefix' => 'cart'], function() {
-    Route::post('/cart/add/{id}/{cnt}', [
+    Route::post('/add/{id}/{cnt}', [
         'as'   => 'cart.add',
         'uses' => 'FrontApiController@addToCart'
     ])->where(['id' => '[0-9]+', 'cnt' => '[0-9]+']);
 
-    Route::get('/cart/remove/{id}/{size}', [
+    Route::get('/remove/{id}/{size}', [
         'as'   => 'cart.remove',
         'uses' => 'FrontApiController@removeFromCart'
     ])->where('id', '[0-9]+');
 
-    Route::post('/cart/update/{id}', 'FrontApiController@updateCartQuantity')->name('cart.update.quantity')->where('id', '[0-9]+');
+    Route::post('/update/{id}', 'FrontApiController@updateCartQuantity')->name('cart.update.quantity')->where('id', '[0-9]+');
 
     Route::post('/', [
         'as'   => 'cart.edit',
         'uses' => 'FrontApiController@cartEdit'
     ]);
+
+    Route::post('/multiple/add', 'FrontApiController@addToCartMultiple')->name('cart.multiple.add');
 });
 
 Route::group(['prefix' => 'order'], function() {
