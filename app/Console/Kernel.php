@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\MoySkladImportProducts;
+use App\Console\Commands\ProductsSex;
 use App\Console\Commands\RetailSyncOrder;
 use App\Console\Commands\RetailUnsyncOrders;
 use App\Console\Commands\TestOrders;
@@ -18,9 +19,10 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-      RetailSyncOrder::class,
-      MoySkladImportProducts::class,
-      RetailUnsyncOrders::class,
+        RetailSyncOrder::class,
+        MoySkladImportProducts::class,
+        RetailUnsyncOrders::class,
+        ProductsSex::class,
     ];
 
     /**

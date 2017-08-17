@@ -13,6 +13,7 @@ class Attribute extends Model
 
     protected $fillable = [
         'name',
+        'sysname',
         'type',
         'unit',
         'list',

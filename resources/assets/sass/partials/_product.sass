@@ -345,8 +345,11 @@
     font-size: 14px
     color: #36b057
   &__param-title
-    & > span
+    & > span, & > strong
       margin-right: 10px
+    & > strong
+      font-weight: 700
+      color: #000000
     &_strong
       font-weight: 700
       color: #000000
@@ -354,7 +357,7 @@
     font-weight: 500
     color: #666666
   &__mt
-    margin-top: 20px
+    margin-top: 10px
   &__color-wrap
     display: flex
     +align(between)

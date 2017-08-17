@@ -47,7 +47,15 @@
                             <input type="text" id="form-field-0" name="name" placeholder="Название" value="{{ old('name', $attribute->name) }}" class="col-sm-12">
                         </div>
                     </div>
-
+                    <!-- sysname -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-0">Символьный код</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="form-field-0" name="sysname" placeholder="Символьный код" value="{{$attribute->sysname}}" class="col-sm-12">
+                            <span class="text-muted">только латинские цифры и знак подчеркивания</span>
+                        </div>
+                    </div>
+                    <!-- type -->
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"  for="form-field-1"> Тип </label>
                         <div class="col-sm-9">

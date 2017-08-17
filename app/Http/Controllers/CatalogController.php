@@ -680,9 +680,14 @@ class CatalogController extends Controller
                 $query->whereIn('category_id', $product->categories->pluck('id')->toArray());
             })->inRandomOrder()->take(10)->get();
         });
+        foreach($product->attributes as $attribute) {
+            if(isset($attribute->pivot->value, $attribute->sysname)) {
+                $sysname = $attribute->sysname;
+                $product->$sysname = $attribute->pivot->value;
+            }
+        }
 
         $looks = $product->looks()->published()->with('products', 'products.attributes')->get();
-
 
         return view('catalog.products.details', [
             'product' => $product,

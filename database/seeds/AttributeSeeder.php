@@ -33,51 +33,36 @@ class AttributeSeeder extends Seeder
 
     $sizes = [];
     for($i = 38; $i <= 50; $i += 2) $sizes[] = $i;
-    if(!Attribute::where('name', 'Размеры')->first())
-      Attribute::firstOrCreate([
-          'type'      => 'checklist',
-          'name'      => 'Размеры',
-          'unit'      => '',
-          'list'      => json_encode($sizes),
-          'is_filter' => true,
-          'status'    => 1,
-      ]);
-    $sizes = [];
-    for($i = 38; $i <= 48; $i += 2) $sizes[] = $i;
-    if(!Attribute::where('name', 'Женские размеры')->first())
-      Attribute::firstOrCreate([
-          'type'      => 'checklist',
-          'name'      => 'Женские размеры',
-          'unit'      => '',
-          'list'      => json_encode($sizes),
-          'is_filter' => false,
-          'status'    => 1,
-      ]);
-    $sizes = [];
-    for($i = 46; $i <= 54; $i += 2) $sizes[] = $i;
-    if(!Attribute::where('name', 'Мужские размеры')->first())
-      Attribute::firstOrCreate([
-          'type'      => 'checklist',
-          'name'      => 'Мужские размеры',
-          'unit'      => '',
-          'list'      => json_encode($sizes),
-          'is_filter' => false,
-          'status'    => 1,
-      ]);
-    $list = array(
-        'Не определен',
-        'Женский',
-        'Мужской',
-    );
-    if(!Attribute::where('name', 'Тип размера')->first())
-      Attribute::firstOrCreate([
-          'type'      => 'list',
-          'name'      => 'Тип размера',
-          'unit'      => '',
-          'list'      => json_encode($list),
-          'is_filter' => false,
-          'status'    => 1,
-      ]);
+    if(!Attribute::where('name', 'Размеры')->first()) {
+        Attribute::firstOrCreate([
+            'type'      => 'checklist',
+            'name'      => 'Размеры',
+            'unit'      => '',
+            'list'      => json_encode($sizes),
+            'is_filter' => true,
+            'status'    => 1,
+        ]);
+    }
+    $attributes = Attribute::get();
 
+    $names = [
+        'Страна производства' => 'country',
+        'Основной цвет' => 'default_color',
+        'Цвет вставок' => 'inserts_color',
+        'Размеры' => 'sizes',
+        'Назначение' => 'target',
+        'Цвет' => 'color',
+        'Материал' => 'material',
+        'Пол' => 'sex',
+        'Все размеры' => 'all_sizes',
+        'Дополнительный цвет' => 'additional_color',
+    ];
+    //записываем системные имена для всех аттрибутов, у которых их нет
+    foreach ($attributes as $attribute) {
+        if(!isset($attribute->sysname) && isset($names[$attribute->name])) {
+            $attribute->sysname = $names[$attribute->name];
+            $attribute->save();
+        }
+    }
   }
 }

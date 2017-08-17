@@ -86,6 +86,7 @@ Route::group([
 //    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
 //    Route::get('/comments', ['as' => 'comments', 'uses' => 'FrontApiController@comments']);
 
+
     //run onece
     //Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
     Route::get('/run-once/remove-sizes-type.html', 'RunOnceController@removeSizesType')->name('remove-sizes-type');

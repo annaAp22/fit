@@ -39,11 +39,19 @@
                 <!-- PAGE CONTENT BEGINS -->
                 <form class="form-horizontal" role="form" action="{{route('admin.attributes.store')}}" method="POST" enctype="multipart/form-data">
                     <input name="_token" type="hidden" value="{{csrf_token()}}">
-
+                    <!-- name -->
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-0"> Название </label>
                         <div class="col-sm-9">
                             <input type="text" id="form-field-0" name="name" placeholder="Название" value="{{ old('name') }}" class="col-sm-12">
+                        </div>
+                    </div>
+                    <!-- sysname -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-0">Символьный код</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="form-field-0" name="sysname" placeholder="Символьный код" value="" class="col-sm-12">
+                            <span class="text-muted">только латинские цифры и знак подчеркивания</span>
                         </div>
                     </div>
 

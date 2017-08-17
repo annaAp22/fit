@@ -10,6 +10,7 @@ class AttributeRequest extends Request
 {
     private $rules = [
         'name' => 'required',
+        'sysname' => 'regex:/^[a-z_]+$/',
         'type' => 'required',
 
     ];
