@@ -1,26 +1,59 @@
 .tabulator-offers
-  padding-bottom: 24px
-  padding-top: 24px
+  padding-bottom: 40px
+  padding-top: 40px
   width: 100%
   pointer-events: none
   > *
     pointer-events: auto
   .tab-wrapper
     display: table
-    width: 100%
     margin-bottom: 24px
+    +media-xs(down)
+      display: block
   .tab
-    width: 33.3333%
+    &:not(:last-of-type)
+      padding-right: 40px
+      &:before
+        content: ""
+        width: 1px
+        height: 30px
+        right: 20px
+        top: 4px
+        background-color: silver
+        position: absolute
+    position: relative
     +media-sm(down)
       width: auto
+      padding-right: 20px
     font-size: 16px
     +media-xs(down)
-      font-size: 14px
+      display: table
+      width: 100%
+      padding-right: 0
+      background-color: #e8e8e8
+      margin-bottom: 4px
+      &:not(:last-of-type)
+        border-bottom: 1px solid #e6e6e6
+        padding-right: 0
+        &:before
+          content: none
+      &.active
+        color: #fff
+        background-color: #00ad5d
+        span
+          border-bottom: 0
+      &:hover:not(.active)
+        background-color: #dadada
+      span
+        padding-top: 16px
+        padding-bottom: 16px
     text-align: center
     cursor: pointer
     display: table-cell
     span
+      padding-top: 10px
       padding-bottom: 10px
+      line-height: 18px
       display: inline-block
     &.active
       span

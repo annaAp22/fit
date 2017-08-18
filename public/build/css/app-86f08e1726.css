@@ -2021,8 +2021,8 @@ button {
 }
 
 .tabulator-offers {
-  padding-bottom: 24px;
-  padding-top: 24px;
+  padding-bottom: 40px;
+  padding-top: 40px;
   width: 100%;
   pointer-events: none;
 }
@@ -2033,20 +2033,35 @@ button {
 
 .tabulator-offers .tab-wrapper {
   display: table;
-  width: 100%;
   margin-bottom: 24px;
 }
 
 .tabulator-offers .tab {
-  width: 33.3333%;
+  position: relative;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
   display: table-cell;
 }
 
+.tabulator-offers .tab:not(:last-of-type) {
+  padding-right: 40px;
+}
+
+.tabulator-offers .tab:not(:last-of-type):before {
+  content: "";
+  width: 1px;
+  height: 30px;
+  right: 20px;
+  top: 4px;
+  background-color: silver;
+  position: absolute;
+}
+
 .tabulator-offers .tab span {
+  padding-top: 10px;
   padding-bottom: 10px;
+  line-height: 18px;
   display: inline-block;
 }
 
@@ -14517,6 +14532,7 @@ h3 {
 
   .tabulator-offers .tab {
     width: auto;
+    padding-right: 20px;
   }
 
   #cart-modal {
@@ -15676,8 +15692,43 @@ h3 {
     display: none;
   }
 
+  .tabulator-offers .tab-wrapper {
+    display: block;
+  }
+
   .tabulator-offers .tab {
-    font-size: 14px;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    background-color: #e8e8e8;
+    margin-bottom: 4px;
+  }
+
+  .tabulator-offers .tab:not(:last-of-type) {
+    border-bottom: 1px solid #e6e6e6;
+    padding-right: 0;
+  }
+
+  .tabulator-offers .tab:not(:last-of-type):before {
+    content: none;
+  }
+
+  .tabulator-offers .tab.active {
+    color: #fff;
+    background-color: #00ad5d;
+  }
+
+  .tabulator-offers .tab.active span {
+    border-bottom: 0;
+  }
+
+  .tabulator-offers .tab:hover:not(.active) {
+    background-color: #dadada;
+  }
+
+  .tabulator-offers .tab span {
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .cart-modal_top {
