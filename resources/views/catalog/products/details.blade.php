@@ -300,7 +300,7 @@
             </div>--}}
 
             @widget('ViewProductsWidget')
-
+            @widget('SimilarProductsWidget', ['category_id' => $product->categories->first()->id])
             @widget('SubscribeWidget')
         </section>
     </main>
