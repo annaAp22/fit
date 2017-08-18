@@ -93,6 +93,12 @@ class Category extends Model
             ->orderBy('category_product.sort');
     }
 
+    // Offer banners
+    public function offers()
+    {
+        return $this->belongsToMany('App\Models\Offer');
+    }
+
     // Get all descendants products
     public function children_rec()
     {

@@ -128,7 +128,6 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -5187,11 +5186,9 @@ header .line_lg {
 .sidebar-tags__tag {
   font-size: 13px;
   color: #a4a4a4;
-  -webkit-transition: color .3s ease,-webkit-text-decoration .3s ease;
-  transition: color .3s ease,-webkit-text-decoration .3s ease;
+  -webkit-transition: color .3s ease,text-decoration .3s ease;
   -o-transition: color .3s ease,text-decoration .3s ease;
   transition: color .3s ease,text-decoration .3s ease;
-  transition: color .3s ease,text-decoration .3s ease,-webkit-text-decoration .3s ease;
   display: block;
   margin: 10px 0;
   text-decoration: none;
@@ -12536,10 +12533,6 @@ h3 {
     font-size: 43px;
   }
 
-  .banner-look__image_md {
-    display: none;
-  }
-
   .btn_filter {
     display: none;
   }
@@ -13839,14 +13832,6 @@ h3 {
     display: none;
   }
 
-  .banner-look {
-    display: none;
-  }
-
-  .banner-look__image_xl {
-    display: none;
-  }
-
   .goods-view {
     display: none;
   }
@@ -14742,6 +14727,10 @@ h3 {
   }
 
   .header-listing .goods-count>span {
+    display: none;
+  }
+
+  .banner-look {
     display: none;
   }
 
