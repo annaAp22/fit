@@ -31,7 +31,7 @@ class ViewProductsWidget extends AbstractWidget
             $ids = array_except($ids, [$this->config['product_id']]);
         }
 
-        $products = Product::with('attributes')->whereIn('id', array_keys($ids))->where('status', 1)->get();
+        $products = Product::withInfo()->whereIn('id', array_keys($ids))->where('status', 1)->get();
 
         return view("widgets.view_products_widget", [
             'config' => $this->config, 'products' => $products
