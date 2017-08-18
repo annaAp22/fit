@@ -70,7 +70,7 @@
                     </div>
 
                     {{-- Category Offer Look banner --}}
-                    @if( $category->offers->count() )
+                    @if( isset($category->offers) && $category->offers->count() )
                         @php $offer = $category->offers->first(); @endphp
                         <a class="banner-look" href="{{ $offer->url ?: '' }}" target="_blank">
                             <img class="banner-look__image banner-look__image_xl" src="{{ $offer->uploads->image->lg->url() }}" alt="" role="presentation"/>
