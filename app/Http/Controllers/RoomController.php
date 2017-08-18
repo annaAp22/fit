@@ -1,4 +1,7 @@
 <?php
+/*
+ * Customer personal cabinet page controller.
+ */
 
 namespace App\Http\Controllers;
 

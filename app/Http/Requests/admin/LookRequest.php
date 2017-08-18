@@ -24,6 +24,7 @@ class LookRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
             'image' => 'image',
         ];
     }

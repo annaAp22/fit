@@ -136,3 +136,8 @@ Breadcrumbs::register('photos', function($breadcrumbs) {
     $breadcrumbs->parent('index');
     $breadcrumbs->push('Фотографии клиентов', route('photos'));
 });
+
+Breadcrumbs::register('look_book', function($breadcrumbs) {
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push('Look Book', route('look_book'));
+});
