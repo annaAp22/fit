@@ -31,19 +31,6 @@
             {{-- MD down visible --}}
             <li><button class="btn btn_more"><i class="sprite_main sprite_main-icon__arrow_to_top"></i><span>Вернуться назад</span></button></li>
             <li class="mobile-sidebar__title">Информация</li>
-
-            {{-- Non static pages --}}
-            {{--<li><a href="#">Отзывы клиентов</a></li>
-            <li><a href="#">Наши клиенты</a></li>
-            <li><a href="#">Рецепты ПП</a></li>
-            <li><a href="#">Новости</a></li>
-            <li><a href="#">База знаний</a></li>
-            <li><a href="#">Наши представители</a></li>
-            <li><a href="#">Магазин в Москве</a></li>
-            <li><a href="#">Фото клиентов</a></li>
-            <li><a href="#">Подарочный сертификат</a></li>
-            <li><a href="#">Карта сайта</a></li>
-            <li><a href="#">Спонсор</a></li>--}}
             @include('blocks.info-additional')
             {{-- Static pages --}}
             @foreach($info as $page)
