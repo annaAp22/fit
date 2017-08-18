@@ -15,7 +15,7 @@ class SimilarProductsWidget extends AbstractWidget
     protected $config = [
         'category_id' => 0
     ];
-
+    public $cacheTime = 60;
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.
