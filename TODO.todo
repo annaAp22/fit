@@ -1,9 +1,10 @@
-    -выполнить миграцию по аттрибутам: php artisan migrate
-    -засеять системные имена: php artisan db:seed --class=AttributeSeeder
-    -запустить задачу по удалению аттрибута пола из текста: php artisan products:text sex --remove
-    -запустить задачу по удалению аттрибута материал из текста: php artisan products:text material --remove
-    -запустить задачу по удалению удалению переноса в первом пустом параграфе из текста: php artisan products:text pbr --remove
-    -запустить задачу по удалению первого пустого параграфа из текста из текста: php artisan products:text p --remove
+..........................
+    +выполнить миграцию по аттрибутам: php artisan migrate
+    +засеять системные имена: php artisan db:seed --class=AttributeSeeder
+    +запустить задачу по удалению аттрибута пола из текста: php artisan products:text sex --remove
+    +запустить задачу по удалению аттрибута материал из текста: php artisan products:text material --remove
+    +запустить задачу по удалению удалению переноса в первом пустом параграфе из текста: php artisan products:text pbr --remove
+    +запустить задачу по удалению первого пустого параграфа из текста из текста: php artisan products:text p --remove
 ..........................
     +выполнить задачу по импорту продуктов со склада(php artisan moysklad:import_products)
     +заполнить системные имена для таблицы доставок

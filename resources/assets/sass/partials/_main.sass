@@ -513,58 +513,41 @@
     flex-wrap: wrap
     +align(between)
     margin-top: -24px
-    margin-left: -24px
-    margin-right: -24px
+    margin-left: -12px
+    margin-right: -12px
   &__article
     position: relative
     flex-grow: 1
     +media-lg(up)
       margin: 24px
-    +media-md(down)
-      margin-top: 12px
-      margin-bottom: 12px
     overflow: hidden
+    max-height: 320px
+    margin-top: 12px
+    margin-bottom: 12px
     +media-lg(up)
-      max-height: 358px
-    +media-md(down)
-      max-height: 300px
-    &:first-child
-      +media-lg(up)
-        width: calc(40% - 48px)
-      +media-md()
-        +col(16)
-      +media-sm(down)
-        +col(24)
-    &:nth-child(2)
-      +media-lg(up)
-        width: calc(30% - 48px)
-      +media-md()
-        +col(8)
-      +media-sm()
+      &:first-child
+        +col(10)
+      &:nth-child(2)
+        +col(7)
+      &:nth-child(3)
+        +col(7)
+      &:nth-child(4)
+        +col(10)
+      &:nth-child(5)
+        +col(14)
+    +media-md()
+      +col(8)
+      &:nth-child(4)
         +col(12)
-      +media-xs()
-        +col(24)
-    &:nth-child(3)
-      +media-lg(up)
-        width: calc(30% - 48px)
-      +media-md()
-        +col(8)
-      +media-sm()
+      &:nth-child(5)
         +col(12)
-      +media-xs()
+    +media-sm()
+      +col(12)
+      &:nth-child(5)
         +col(24)
-    &:nth-child(4)
-      +media-lg(up)
-        width: calc(40% - 48px)
-      +media-md()
-        +col(16)
-      +media-sm(down)
-        +col(24)
-    &:last-child
-      +media-lg(up)
-        width: calc(60% - 48px)
-      +media-md(down)
-        +col(24)
+    +media-xs()
+      +col(24)
+
 
 
 .recipe-article-preview
@@ -574,6 +557,7 @@
   &__image
     & > img
       min-width: 100%
+      min-height: 320px
       display: block
       transition: transform 1s .1s
     &:after
