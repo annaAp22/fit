@@ -1,10 +1,10 @@
 <div class="nav-pages js-pages">
     {{-- Delivery --}}
-    {{--<a class="nav-pages__item" href="{{ route('delivery') }}"><span>Доставка и оплата</span></a>--}}
+    <a class="nav-pages__item" href="{{ route('delivery') }}"><span>Доставка и оплата</span></a>
     {{-- Articles --}}
     {{--<a class="nav-pages__item" href="{{ route('articles') }}"><span>Статьи</span></a>--}}
     {{-- Reviews --}}
-    <a class="nav-pages__item" href="{{ route('reviews') }}"><span>Отзывы</span></a>
+    {{--<a class="nav-pages__item" href="{{ route('reviews') }}"><span>Отзывы</span></a>--}}
 
     @if($help->count())
         {{-- Help pages --}}

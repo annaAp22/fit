@@ -104,6 +104,8 @@ class MainController extends Controller
             'agencies' => 'agencies',
             'delivery' => 'delivery',
             'contacts' => 'contacts',
+            'reviews' => 'reviews',
+            'otzyvy' => 'reviews',
         );
         if(isset($redirect[$sysname])) {
           return redirect()->route($redirect[$sysname]);
