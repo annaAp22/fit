@@ -2,15 +2,15 @@
 
 @section('breadcrumbs')
     @php
-        $root = null;
-        if(isset($category)) $root = $category;
-        if(isset($brand)) $root = $brand;
-        if(isset($tag)) $root = $tag;
+    $root = null;
+    if(isset($category)) $root = $category;
+    if(isset($brand)) $root = $brand;
+    if(isset($tag)) $root = $tag;
     @endphp
     @if(isset($page))
         {!!  Breadcrumbs::render('new_hit_act', $page) !!}
     @else
-	    {!!  Breadcrumbs::render('catalog', $root) !!}
+        {!!  Breadcrumbs::render('catalog', $root) !!}
     @endif
 @endsection
 
@@ -19,17 +19,17 @@
         <div class="container">
             <aside class="sidebar">
                 @php
-                    $filters['paginator'] = $products;
-                    $filters['category'] = isset($category) ? $category : null;
-                    $filters['brand'] = isset($brand) ? $brand : null;
-                    $filters['tag'] = isset($tag) ? $tag : null;
-                    if(isset($category)) {
-                        $filters['filters'] = $category->filters;
-                    }
-                    if(isset($tag)) {
-                        $filters['filters'] = $tag->filters;
-                    }
-                    $filters['sort'] = isset($filters['sort'])?$filters['sort']:'sort';
+                $filters['paginator'] = $products;
+                $filters['category'] = isset($category) ? $category : null;
+                $filters['brand'] = isset($brand) ? $brand : null;
+                $filters['tag'] = isset($tag) ? $tag : null;
+                if(isset($category)) {
+                $filters['filters'] = $category->filters;
+                }
+                if(isset($tag)) {
+                $filters['filters'] = $tag->filters;
+                }
+                $filters['sort'] = isset($filters['sort'])?$filters['sort']:'sort';
                 @endphp
 
                 @if(isset($filters['productsCount']) and $filters['productsCount'] > 0)
@@ -69,23 +69,27 @@
                         </div>
                     </div>
 
-                    <!-- Look banner-->
-                {{-- <a class="banner-look" href="#">
-                     <img class="banner-look__image banner-look__image_xl" src="/img/listing_look_banner-min.jpg" alt="" role="presentation"/><img class="banner-look__image banner-look__image_md" src="/img/listing_look_banner-md-min.jpg" alt="" role="presentation"/>
-                 </a>--}}
-                    <!-- Show filters button md down-->
+                    {{-- Category Offer Look banner --}}
+                    @if( $category->offers->count() )
+                        @php $offer = $category->offers->first(); @endphp
+                        <a class="banner-look" href="{{ $offer->url ?: '' }}" target="_blank">
+                            <img class="banner-look__image banner-look__image_xl" src="{{ $offer->uploads->image->lg->url() }}" alt="" role="presentation"/>
+                            {{--<img class="banner-look__image banner-look__image_md" src="{{ $offer->uploads->image->lg->url() }}" alt="" role="presentation"/>--}}
+                        </a>
+                    @endif
+                            <!-- Show filters button md down-->
                     <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры подбора товаров</button>
                     <!-- Sorting and view-->
                     <div class="goods-sorting"><i class="sprite_main sprite_main-listing__filter"></i><span>Сортировать товары:</span>
                         @php
-                            $sortNames = array(
-                                'sort' => 'По умолчанию',
-                                'expensive' => 'Сначала дороже',
-                                'cheaper' => 'Сначала дешевле',
-                                'hit' => 'По популярности',
-                                'act' => 'По акциям',
-                                'new' => 'По новинкам',
-                            )
+                        $sortNames = array(
+                        'sort' => 'По умолчанию',
+                        'expensive' => 'Сначала дороже',
+                        'cheaper' => 'Сначала дешевле',
+                        'hit' => 'По популярности',
+                        'act' => 'По акциям',
+                        'new' => 'По новинкам',
+                        )
                         @endphp
                         <div class="sorting-select js-toggle-active js-select"><span class="js-selected">{{$sortNames[$filters['sort']]}}</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
                             <div class="sorting-select__dropdown">
@@ -145,7 +149,7 @@
 
                 <!-- Related articles-->
                 <div class="related-articles">
-                    
+
                 </div>
 
                 @if(isset($category))

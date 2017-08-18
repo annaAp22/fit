@@ -81,4 +81,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::put('/looks/restore/{id}', ['as' => 'looks.restore', 'uses' => 'LookController@restore'])->where(['id' => '[0-9]+']);
     Route::resource('look_categories', 'LookCategoryController', ['except' => ['show']]);
     Route::put('/look_categories/restore/{id}', ['as' => 'look_categories.restore', 'uses' => 'LookCategoryController@restore'])->where(['id' => '[0-9]+']);
+
+    Route::resource('offers', 'OfferController', ['except' => ['show']]);
+    Route::put('/offers/restore/{id}', ['as' => 'offers.restore', 'uses' => 'OfferController@restore'])->where(['id' => '[0-9]+']);
     });

@@ -10,7 +10,7 @@
 
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/assets/admin/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/assets/admin/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/admin/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/assets/admin/css/jquery-ui.custom.min.css" />

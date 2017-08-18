@@ -12540,10 +12540,6 @@ h3 {
     font-size: 43px;
   }
 
-  .banner-look__image_md {
-    display: none;
-  }
-
   .btn_filter {
     display: none;
   }
@@ -13878,14 +13874,6 @@ h3 {
     display: none;
   }
 
-  .banner-look {
-    display: none;
-  }
-
-  .banner-look__image_xl {
-    display: none;
-  }
-
   .goods-view {
     display: none;
   }
@@ -14756,6 +14744,10 @@ h3 {
   }
 
   .header-listing .goods-count>span {
+    display: none;
+  }
+
+  .banner-look {
     display: none;
   }
 

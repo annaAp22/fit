@@ -314,7 +314,8 @@ class CatalogController extends Controller
             'children_rec',
             'products.attributes' => function ($query) {
                 $query->where('attributes.is_filter', 1);
-            }
+            },
+            'offers',
         ])->sysname($sysname)->published()->firstOrFail();
 
     }
