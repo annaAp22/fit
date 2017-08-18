@@ -109,6 +109,16 @@
         </li>
         @endcan
 
+        @can( 'index', new App\Models\Offer() )
+        <li class="{{ str_is('admin.offers*', Route::currentRouteName()) ? 'active' : '' }}">
+            <a href="{{route('admin.offers.index')}}">
+                <i class="menu-icon fa fa-handshake-o"></i>
+                <span class="menu-text"> Offer категории </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        @endcan
+
         @can('index', new App\Models\ProductComment())
         <li  @if( str_is('admin.comments*', Route::currentRouteName())) class="active" @endif>
             <a href="{{route('admin.comments.index')}}">
