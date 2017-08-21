@@ -130,6 +130,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-5"> Активность </label>
+                        <div class="col-sm-9">
+                            <label>
+                                <input type="hidden" name="status" value="0">
+                                <input name="status" checked="checked" value="1" class="ace ace-switch ace-switch-4 btn-empty" type="checkbox">
+                                <span class="lbl"></span>
+                            </label>
+                        </div>
+                    </div>
 
 
                     <div class="clearfix form-actions">

@@ -110,8 +110,12 @@ class MainController extends Controller
         if(isset($redirect[$sysname])) {
           return redirect()->route($redirect[$sysname]);
         }
-        $page = Page::where('sysname', $sysname)->with(['vars', 'photos'])->firstOrFail();
-        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
+        $query = Page::where('sysname', $sysname)->with(['vars', 'photos']);
+        if($request->isXmlHttpRequest()) {
+            $page = $query->firstOrNew([]);
+        } else {
+            $page = $query->published()->firstOrFail();
+        }
         //некоторые фото могут содержаться на разных страницах, например контакты и наш магазин имеют одинаковые фото
         //в параметре add_photos можно указать sysname страницы, с которой взять фотки
         $add_photos = $page->vars->where('var', 'add_photos')->first();
@@ -137,7 +141,18 @@ class MainController extends Controller
 
             $page->content = Helpers\process_vars($page->content, $vars);
         }
-        return view('content.with_sidebar', ['page' => $page]);
+        if($request->isXmlHttpRequest()) {
+            //текс нужно добавить в блок с постфиксом sysname
+            return response()->json([
+                'text' => [
+                    '#js-'.$sysname => $page->content,
+                ],
+                'action' => 'elementsRender',
+            ]);
+        } else {
+            $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
+            return view('content.with_sidebar', ['page' => $page]);
+        }
     }
 
     /**
@@ -156,10 +171,22 @@ class MainController extends Controller
      * Страница Доставки и оплаты
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function delivery() {
-        $page = Page::where('sysname', 'delivery')->with('vars')->firstOrFail();
-        $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
-        return view('content.with_sidebar', ['page' => $page]);
+    public function delivery(Request $request) {
+        $query = Page::where('sysname', 'delivery')->with('vars');
+        if($request->isXmlHttpRequest()) {
+            $page = $query->firstOrNew(['content' => '']);
+            return response()->json([
+                'text' => [
+                    '#js-delivery-wrapper' => $page->content,
+                ],
+                'action' => 'elementsRender',
+            ]);
+
+        }else {
+            $page = $query->published()->firstOrFail();
+            $this->setMetaTags(null, $page->title, $page->description, $page->keywords);
+            return view('content.with_sidebar', ['page' => $page]);
+        }
     }
 
     /**

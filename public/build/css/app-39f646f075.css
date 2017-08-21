@@ -2082,6 +2082,86 @@ button {
   display: block;
 }
 
+.tabulator-details {
+  padding-bottom: 40px;
+  padding-top: 40px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-left: 12px;
+  margin-right: 12px;
+  max-width: -webkit-calc(100%/24 * 18 - 24px);
+  max-width: calc(100% / 24 * 18 - 24px);
+  -webkit-flex-basis: -webkit-calc(100%/24 * 18 - 24px);
+  -ms-flex-preferred-size: calc(100% / 24 * 18 - 24px);
+  flex-basis: calc(100% / 24 * 18 - 24px);
+  pointer-events: none;
+}
+
+.tabulator-details>* {
+  pointer-events: auto;
+}
+
+.tabulator-details .tab-wrapper {
+  display: table;
+  margin-bottom: 24px;
+}
+
+.tabulator-details .tab {
+  font-size: 20px;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  display: table-cell;
+}
+
+.tabulator-details .tab:not(:last-of-type) {
+  padding-right: 40px;
+}
+
+.tabulator-details .tab:not(:last-of-type):before {
+  content: "";
+  width: 1px;
+  height: 32px;
+  right: 20px;
+  top: 4px;
+  background-color: silver;
+  position: absolute;
+}
+
+.tabulator-details .tab strong {
+  font-size: 18px;
+  color: #969696;
+  font-weight: inherit;
+}
+
+.tabulator-details .tab span {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  line-height: 18px;
+  display: inline-block;
+}
+
+.tabulator-details .tab.active span {
+  border-bottom: 5px solid #fcd82f;
+}
+
+.tabulator-details .page-wrapper {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.tabulator-details .page {
+  display: none;
+}
+
+.tabulator-details .page.active {
+  display: block;
+}
+
 #cart-modal {
   max-width: 825px;
 }
@@ -14537,6 +14617,11 @@ h3 {
     padding-right: 20px;
   }
 
+  .tabulator-details .tab {
+    width: auto;
+    padding-right: 20px;
+  }
+
   #cart-modal {
     width: 90%;
   }
@@ -15701,6 +15786,45 @@ h3 {
   }
 
   .tabulator-offers .tab span {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .tabulator-details .tab-wrapper {
+    display: block;
+  }
+
+  .tabulator-details .tab {
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    background-color: #e8e8e8;
+    margin-bottom: 4px;
+  }
+
+  .tabulator-details .tab:not(:last-of-type) {
+    border-bottom: 1px solid #e6e6e6;
+    padding-right: 0;
+  }
+
+  .tabulator-details .tab:not(:last-of-type):before {
+    content: none;
+  }
+
+  .tabulator-details .tab.active {
+    color: #fff;
+    background-color: #00ad5d;
+  }
+
+  .tabulator-details .tab.active span {
+    border-bottom: 0;
+  }
+
+  .tabulator-details .tab:hover:not(.active) {
+    background-color: #dadada;
+  }
+
+  .tabulator-details .tab span {
     padding-top: 16px;
     padding-bottom: 16px;
   }
