@@ -10482,6 +10482,11 @@ h3 {
 
 .look-book-slider__item {
   position: relative;
+  opacity: .3;
+}
+
+.look-book-slider__item.active {
+  opacity: 1;
 }
 
 .look-book-slider__item.active>.look-book__buy-package-form,
