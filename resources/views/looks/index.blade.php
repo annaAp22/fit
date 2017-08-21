@@ -16,7 +16,9 @@
                     <div class="header-listing">
                         <h1>Подобрать Look</h1>
                     </div>
-
+                    <div class="look-book-notice">
+                        Не доступно на телефоне
+                    </div>
                     @foreach($books as $book)
                         @if($book->looks->count())
                             <div class="look-book">

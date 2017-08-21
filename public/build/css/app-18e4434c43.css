@@ -128,6 +128,7 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -5266,9 +5267,11 @@ header .line_lg {
 .sidebar-tags__tag {
   font-size: 13px;
   color: #a4a4a4;
-  -webkit-transition: color .3s ease,text-decoration .3s ease;
+  -webkit-transition: color .3s ease,-webkit-text-decoration .3s ease;
+  transition: color .3s ease,-webkit-text-decoration .3s ease;
   -o-transition: color .3s ease,text-decoration .3s ease;
   transition: color .3s ease,text-decoration .3s ease;
+  transition: color .3s ease,text-decoration .3s ease,-webkit-text-decoration .3s ease;
   display: block;
   margin: 10px 0;
   text-decoration: none;
@@ -10446,6 +10449,14 @@ h3 {
   z-index: 3;
   bottom: 0;
   right: 0;
+}
+
+.look-book-notice {
+  display: none;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding: 24px 0;
 }
 
 .look-book-slider {
@@ -16395,6 +16406,10 @@ h3 {
 
   .orders-table .more .text {
     display: none;
+  }
+
+  .look-book-notice {
+    display: block;
   }
 
   .look-book-slider {
