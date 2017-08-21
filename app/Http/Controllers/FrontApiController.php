@@ -10,6 +10,7 @@ use App\Models\ProductComment;
 use App\Models\RetailOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -634,6 +635,9 @@ class FrontApiController extends Controller
             else
             {
                 $product = Product::published()->find($id);
+                if(!$product) {
+                    Log::warning('product not found -'.$id);
+                }
                 session()->put('products.cart.'.$id.'.'.$size, [
                     'cnt' => $cnt,
                     'price' => $product->price
