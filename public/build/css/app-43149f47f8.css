@@ -2093,11 +2093,11 @@ button {
   flex: 0 0 auto;
   margin-left: 12px;
   margin-right: 12px;
-  max-width: -webkit-calc(100%/24 * 18 - 24px);
-  max-width: calc(100% / 24 * 18 - 24px);
-  -webkit-flex-basis: -webkit-calc(100%/24 * 18 - 24px);
-  -ms-flex-preferred-size: calc(100% / 24 * 18 - 24px);
-  flex-basis: calc(100% / 24 * 18 - 24px);
+  max-width: -webkit-calc(100%/24 * 24 - 24px);
+  max-width: calc(100% / 24 * 24 - 24px);
+  -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
+  -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
+  flex-basis: calc(100% / 24 * 24 - 24px);
   pointer-events: none;
 }
 
@@ -12420,6 +12420,22 @@ h3 {
     display: none;
   }
 
+  .tabulator-details {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 18 - 24px);
+    max-width: calc(100% / 24 * 18 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 18 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 18 - 24px);
+    flex-basis: calc(100% / 24 * 18 - 24px);
+  }
+
   header:before {
     content: "desktop";
   }
@@ -13894,6 +13910,68 @@ h3 {
     display: none;
   }
 
+  .tabulator-details .tab-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+
+  .tabulator-details .tab {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 12 - 24px);
+    max-width: calc(100% / 24 * 12 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 12 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 12 - 24px);
+    flex-basis: calc(100% / 24 * 12 - 24px);
+    padding-right: 0;
+    background-color: #e8e8e8;
+    margin-bottom: 24px;
+  }
+
+  .tabulator-details .tab:not(:last-of-type) {
+    border-bottom: 1px solid #e6e6e6;
+    padding-right: 0;
+  }
+
+  .tabulator-details .tab:not(:last-of-type):before {
+    content: none;
+  }
+
+  .tabulator-details .tab.active {
+    color: #fff;
+    background-color: #00ad5d;
+  }
+
+  .tabulator-details .tab.active span {
+    border-bottom: 0;
+  }
+
+  .tabulator-details .tab.active strong {
+    color: inherit;
+  }
+
+  .tabulator-details .tab:hover:not(.active) {
+    background-color: #dadada;
+  }
+
+  .tabulator-details .tab span {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
   .header__city {
     display: none;
   }
@@ -14618,8 +14696,11 @@ h3 {
   }
 
   .tabulator-details .tab {
-    width: auto;
-    padding-right: 20px;
+    font-size: 16px;
+  }
+
+  .tabulator-details .tab strong {
+    font-size: 14px;
   }
 
   #cart-modal {
@@ -15790,43 +15871,21 @@ h3 {
     padding-bottom: 16px;
   }
 
-  .tabulator-details .tab-wrapper {
-    display: block;
-  }
-
   .tabulator-details .tab {
-    display: table;
-    width: 100%;
-    padding-right: 0;
-    background-color: #e8e8e8;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 24 - 24px);
+    max-width: calc(100% / 24 * 24 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
+    flex-basis: calc(100% / 24 * 24 - 24px);
     margin-bottom: 4px;
-  }
-
-  .tabulator-details .tab:not(:last-of-type) {
-    border-bottom: 1px solid #e6e6e6;
-    padding-right: 0;
-  }
-
-  .tabulator-details .tab:not(:last-of-type):before {
-    content: none;
-  }
-
-  .tabulator-details .tab.active {
-    color: #fff;
-    background-color: #00ad5d;
-  }
-
-  .tabulator-details .tab.active span {
-    border-bottom: 0;
-  }
-
-  .tabulator-details .tab:hover:not(.active) {
-    background-color: #dadada;
-  }
-
-  .tabulator-details .tab span {
-    padding-top: 16px;
-    padding-bottom: 16px;
   }
 
   .cart-modal_top {
