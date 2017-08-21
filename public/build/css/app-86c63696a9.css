@@ -10483,6 +10483,9 @@ h3 {
 .look-book-slider__item {
   position: relative;
   opacity: .3;
+  -webkit-transition: opacity .2s ease;
+  -o-transition: opacity .2s ease;
+  transition: opacity .2s ease;
 }
 
 .look-book-slider__item.active {
