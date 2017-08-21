@@ -283,8 +283,6 @@
 
         <section class="content-full-width">
 
-            @include('looks.product_detailed')
-
             {{--<!-- Seo text-->
             <div class="page-text">
                 <div class="page-text__title page-text__title_h2 page-text__title_700">Плавные линии в сочетании с уверенными и яркими формами
@@ -298,9 +296,12 @@
                 </p><a class="youtube-video" href="#"><span class="youtube-video__play"></span><img class="youtube-video__image" src="/img/product-video2-min.jpg" alt="" role="presentation"/><span class="youtube-video__title youtube-video__title_top-left-white">Всё, что нужно занать о нашей спортивной одежде</span></a>
             </div>--}}
 
-            {{--@widget('InstagramWidget')--}}
+            @widget('InstagramWidget')
 
             @widget('ViewProductsWidget', ['product_id' => $product->id])
+            
+            @include('looks.product_detailed')
+
             @widget('SimilarProductsWidget', ['product' => $product])
             @widget('SubscribeWidget')
         </section>
