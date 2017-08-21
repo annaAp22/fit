@@ -13,6 +13,7 @@ class Page extends Model
         'title',
         'description',
         'keywords',
+        'status',
 
     ];
 
@@ -24,6 +25,9 @@ class Page extends Model
                             $query->where('var', 'type')
                                     ->where('value', 'info');
                         });
+    }
+    public function scopePublished($query) {
+        return $query->where('status', '1');
     }
     // pages with type
     public function scopeType($query, $type)

@@ -175,7 +175,7 @@
 
                     <div class="product-detailed__column">
                         <!-- Description-->
-                        <div class="product-detailed__subtitle product-detailed__subtitle_des">Описание товара:</div>
+                        <div class="product-detailed__subtitle product-detailed__subtitle_des">Характеристики:</div>
                         <div class="description-scroll product-detailed__description">
                             <div class="description-scroll__body">
                                 <!-- Color-->
@@ -183,7 +183,6 @@
                                     $main_color = $product->attributes->where('name', 'Основной цвет')->first();
                                     $sub_color = $product->attributes->where('name', 'Цвет вставок')->first();
                                     $country_of_origin = $product->attributes->where('name', 'Страна производства')->first();
-                                    // dd($main_color, $sub_color);
                                 @endphp
                                 <div class="description-scroll__color-wrap">
                                     @if($main_color)
@@ -223,9 +222,9 @@
                                     <a href="https://fit2u.ru/page/iz_chego_shem">Подробнее о тканях</a>
                                 @endif
                                 <!-- Other description-->
-                                <div class="description-scroll__param-value description-scroll__mt">
-                                    {!! $product->text !!}
-                                </div>
+                                {{--<div class="description-scroll__param-value description-scroll__mt">--}}
+                                    {{--{!! $product->text !!}--}}
+                                {{--</div>--}}
                             </div>
                         </div>
                         <!-- Warranty-->

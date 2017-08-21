@@ -925,16 +925,19 @@ function elementsRender(data) {
     var obj;
     var s;
     var i;
+    //перейти на страницу
     obj = data['redirect'];
     if(typeof obj !== 'undefined' && obj) {
         location.href = obj;
         return true;
     }
+    //обновить страницу
     obj = data['reload'];
     if(typeof obj !== 'undefined' && obj) {
         location.reload();
     }
     $.fancybox.close();
+    //обновляем текст в блоке
     obj = data['text'];
     if (typeof obj !== 'undefined') {
         for(s in obj) {
