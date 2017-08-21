@@ -657,7 +657,7 @@ class FrontApiController extends Controller
             $count = 0;
             foreach($cart as $product_id => $items)
             {
-                foreach( $items as $size => $product )
+                foreach( $items as $product )
                 {
                     $response['amount'] += $product['price']*$product['cnt'];
                     $count++;
