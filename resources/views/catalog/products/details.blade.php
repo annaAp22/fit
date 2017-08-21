@@ -298,6 +298,8 @@
                 </p><a class="youtube-video" href="#"><span class="youtube-video__play"></span><img class="youtube-video__image" src="/img/product-video2-min.jpg" alt="" role="presentation"/><span class="youtube-video__title youtube-video__title_top-left-white">Всё, что нужно занать о нашей спортивной одежде</span></a>
             </div>--}}
 
+            {{--@widget('InstagramWidget')--}}
+
             @widget('ViewProductsWidget', ['product_id' => $product->id])
             @widget('SimilarProductsWidget', ['product' => $product])
             @widget('SubscribeWidget')
