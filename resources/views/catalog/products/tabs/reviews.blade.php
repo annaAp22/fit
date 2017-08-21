@@ -64,14 +64,14 @@
                 @endif
             </div>
         </div>
-        <div class="page js-tab-page active">
+        <div class="page js-tab-page">
             <div class="product-vk-comments js-reviews" id="js-vk_comments">
             </div>
         </div>
-        <div class="page js-tab-page active">
+        <div class="page js-tab-page">
             {!! $product->text !!}
         </div>
-        <div id="js-delivery-mini" class="page js-tab-page active">
+        <div id="js-delivery-mini" class="page js-tab-page">
             @if(isset($delivery))
                 {!! $delivery->content !!}
             @endif
