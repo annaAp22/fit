@@ -364,6 +364,8 @@ $(function(){
     }
 
 
+    productsSliderInit();
+
     // Load VK comments widget
     $(".js-vk-comments-widget").on('click.vk',function() {
         $(this).off('click.vk');
@@ -1069,4 +1071,11 @@ function productsSliderInit() {
         }
     }
 }
-productsSliderInit();
+
+function carouselInit(selector, options) {
+    if( typeof selector === 'undefined' )
+        return false;
+    if( typeof options === 'undefined' )
+        options = {};
+    $(selector).carousel(options);
+}

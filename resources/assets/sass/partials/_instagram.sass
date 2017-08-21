@@ -1,0 +1,40 @@
+.instagram
+  &__title
+    & > *
+      vertical-align: bottom
+    & > img
+      margin-left: 20px
+  &__track
+    & > a
+      height: 280px
+      background-size: cover
+      background-repeat: no-repeat
+      background-position: center
+      position: relative
+      &:before
+        content: ""
+        display: block
+        position: absolute
+        width: 100%
+        height: 100%
+        background-color: rgba(0, 0, 0, .3)
+        visibility: hidden
+        opacity: 0
+        transition: opacity .2s ease, visibility 0s
+      &:after
+        position: absolute
+        content: url('/img/zoom-min.png')
+        visibility: hidden
+        opacity: 0
+        transition: opacity .2s ease, visibility 0s
+        top: 50%
+        left: 50%
+        margin-left: -20px
+        margin-top: -20px
+
+      &:hover
+        &:before, &:after
+          opacity: 1
+          visibility: visible
+          transition: opacity .2s ease, visibiliy 0s .2s
+
