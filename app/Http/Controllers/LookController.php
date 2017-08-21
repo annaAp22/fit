@@ -10,7 +10,7 @@ class LookController extends Controller
     public function index()
     {
         $books = LookCategory::with(['looks' => function($query) {
-                        $query->with('products', 'products.attributes');
+                        $query->published()->with('products', 'products.attributes');
                     }])
                     ->published()
                     ->get();
