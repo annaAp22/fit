@@ -68,17 +68,26 @@
 .tabulator-details
   padding-bottom: 40px
   padding-top: 40px
-  +col(18)
+  +col(24)
+  +media-lg(up)
+    +col(18)
   pointer-events: none
   > *
     pointer-events: auto
   .tab-wrapper
     display: table
     margin-bottom: 24px
-    +media-xs(down)
-      display: block
+    +media-md(down)
+      display: flex
+      flex-wrap: wrap
+      margin-left: -12px
+      margin-right: -12px
   .tab
     font-size: 20px
+    +media-sm(down)
+      font-size: 16px
+      strong
+        font-size: 14px
     &:not(:last-of-type)
       padding-right: 40px
       &:before
@@ -94,15 +103,11 @@
       font-size: 18px
       color: #969696
       font-weight: inherit
-    +media-sm(down)
-      width: auto
-      padding-right: 20px
-    +media-xs(down)
-      display: table
-      width: 100%
+    +media-md(down)
+      +col(12)
       padding-right: 0
       background-color: #e8e8e8
-      margin-bottom: 4px
+      margin-bottom: 24px
       &:not(:last-of-type)
         border-bottom: 1px solid #e6e6e6
         padding-right: 0
@@ -113,11 +118,16 @@
         background-color: #00ad5d
         span
           border-bottom: 0
+        strong
+          color: inherit
       &:hover:not(.active)
         background-color: #dadada
       span
         padding-top: 16px
         padding-bottom: 16px
+    +media-xs()
+      +col(24)
+      margin-bottom: 4px
     text-align: center
     cursor: pointer
     display: table-cell
