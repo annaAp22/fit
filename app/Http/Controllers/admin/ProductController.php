@@ -26,58 +26,62 @@ class ProductController extends Controller
     {
         $this->authorize('index', Product::class);
 
-        $products = Product::with('categories.children', 'brand', 'tags')
-            ->orderBy('id', 'desc');
+        $products = Product::with('categories.children', 'brand', 'tags');
 
         $filters = $this->getFormFilter($request->input());
-        if (!empty($filters) && !empty($filters['name']))
-            $products->where('name', 'LIKE', '%'.$filters['name'].'%');
-
-        if (!empty($filters) && !empty($filters['sysname']))
-            $products->where('sysname', 'LIKE', '%'.$filters['sysname'].'%');
-
-        if (!empty($filters) && !empty($filters['id_category']))
-            $products->whereHas('categories', function ($query) use ($filters) {
-                $query->where('category_id', $filters['id_category']);
-            });
-
-        if (!empty($filters) && !empty($filters['brand_id']))
-            $products->where('brand_id', $filters['brand_id']);
-
-        if (!empty($filters) && !empty($filters['tag']))
-            $products->whereHas('tags', function ($query) use ($filters) {
-                $query->where('tag_id', $filters['tag']);
-            });
-
-        if (!empty($filters) && !empty($filters['attributes']))
-            foreach($filters['attributes'] as $attribute_id => $value) {
-                if($value) {
-                    $products->whereHas('attributes', function ($query) use ($value, $attribute_id) {
-                        $query->where('attribute_id', $attribute_id)->where('value', $value);
-                    });
+        if(!empty($filters)) {
+            if (!empty($filters['name'])) {
+                $products->where('name', 'LIKE', '%'.$filters['name'].'%');
+            }
+            if (!empty($filters['sysname']))
+                $products->where('sysname', 'LIKE', '%'.$filters['sysname'].'%');
+            if (!empty($filters['id_category']))
+                $products->whereHas('categories', function ($query) use ($filters) {
+                    $query->where('category_id', $filters['id_category']);
+                });
+            if (!empty($filters['brand_id']))
+                $products->where('brand_id', $filters['brand_id']);
+            if (!empty($filters['tag']))
+                $products->whereHas('tags', function ($query) use ($filters) {
+                    $query->where('tag_id', $filters['tag']);
+                });
+            if (!empty($filters['attributes']))
+                foreach($filters['attributes'] as $attribute_id => $value) {
+                    if($value) {
+                        $products->whereHas('attributes', function ($query) use ($value, $attribute_id) {
+                            $query->where('attribute_id', $attribute_id)->where('value', $value);
+                        });
+                    }
+                }
+            if (isset($filters['status']) && $filters['status']!='')
+                $products->where('status', $filters['status']);
+            if (isset($filters['deleted']) && $filters['deleted'])
+                $products->withTrashed();
+            if (!empty($filters['sort'])) {
+                switch ($filters['sort']) {
+                    case 'hit':$products->orderBy('hit', 'desc');break;
+                    case 'act':$products->orderBy('act', 'desc');break;
+                    case 'new':$products->orderBy('new', 'desc');break;
+                    case 'cheaper':$products->orderBy('price');break;
+                    case 'expensive':$products->orderBy('price', 'desc');break;
+                    default:$products->orderBy('id', 'desc');
                 }
             }
-
-        if (!empty($filters) && isset($filters['status']) && $filters['status']!='')
-            $products->where('status', $filters['status']);
-
-        if (!empty($filters) && isset($filters['deleted']) && $filters['deleted'])
-            $products->withTrashed();
-
+        }
         $products   = $products->paginate($filters['perpage'], null, 'page', !empty($filters['page']) ? $filters['page'] : null);
         $categories = Category::with('children.children')->roots()->orderBy('sort')->get();
         $tags       = Tag::orderBy('views', 'desc')->orderBy('name')->get();
         $brands     = Brand::orderBy('name')->get();
         $attributes = Attribute::where('is_filter', 1)->orderBy('name')->get();
-
-        return view('admin.products.index', [
-            'products'   => $products,
-            'categories' => $categories,
-            'tags'       => $tags,
-            'brands'     => $brands,
-            'filters'    => $filters,
-            'attributes' => $attributes
-        ]);
+        $sorts = [
+            'hit' => 'сначала хиты',
+            'act' => 'сначала акции',
+            'new' => 'сначала новинки',
+            'expensive' => 'сначала дороже',
+            'cheaper' => 'сначала дешевле',
+        ];
+        $this->setMetaTags(null, ' Список всех товаров');
+        return view('admin.products.index',compact('products', 'categories', 'tags', 'brands', 'filters', 'attributes', 'sorts'));
     }
 
     /**
@@ -99,7 +103,7 @@ class ProductController extends Controller
                 $related = Product::whereIn('id', old('related'))->get();
             }
         }
-
+        $this->setMetaTags(null, ' Создание товара');
         return view('admin.products.create', compact('categories', 'tags', 'brands', 'attributes', 'related', 'kits'));
     }
 
@@ -179,7 +183,7 @@ class ProductController extends Controller
         } else {
             $related = $product->related;
         }
-
+        $this->setMetaTags(null, ' Редактирование товара');
         return view('admin.products.edit', compact('product', 'categories', 'tags','brands', 'related', 'attributes', 'kits'));
     }
 

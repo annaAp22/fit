@@ -79,7 +79,6 @@ Route::group([
     Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
     //test page
     //Route::get('/test.html', 'TestController@index')->name('test');
-    //Route::get('/update-price-and-stock.html', 'RunOnceController@updatePriceAndStock')->name('update-price-and-stock');
     //Route::get('/one-more-test.html', 'TestController@oneMoreTest')->name('one-more-test');
 
     // Product comments

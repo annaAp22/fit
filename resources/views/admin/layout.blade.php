@@ -3,11 +3,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title></title>
-
-    <meta name="description" content="Static &amp; Dynamic Tables" />
+    {!! Meta::render() !!}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
+    @include('blocks.favicons')
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/assets/admin/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/admin/font-awesome/4.7.0/css/font-awesome.min.css" />

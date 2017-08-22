@@ -125,10 +125,10 @@
                                     @endforeach
                                     @endif
                                     <div class="row">
-                                        <div class="col-xs-2 col-lg-5">
-                                            <div class="dataTables_length">
+                                        <div class="col-xs-2 col-lg-4">
+                                            <div class="dataTables_filter">
                                                 <label>Тэг:
-                                                    <select name="f[tag]" class="form-control input-sm">
+                                                    <select name="f[tag]" class="form-control input-sm" style="width:80%">
                                                         <option value="">--Не выбрана--</option>
                                                         @foreach($tags as $tag)
                                                         <option value="{{$tag->id}}" @if (isset($filters['tag']) &&  $filters['tag']== $tag->id) selected="selected" @endif>{{$tag->name}}</option>
@@ -160,6 +160,18 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-4">
+                                            <div class="dataTables_filter">
+                                                <label>Сортировка:
+                                                    <select name="f[sort]">
+                                                        <option value="">--Не выбрана--</option>
+                                                        @foreach($sorts as $key => $value)
+                                                            <option value="{{$key}}" @if(isset($filters['sort']) && $filters['sort'] == $key) selected="selected" @endif>{{$value}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
                                             <div class="dataTables_length">
                                                 <label>На странице
                                                     <select name="f[perpage]" class="form-control input-sm">
@@ -170,7 +182,7 @@
                                                     </select> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-4">
                                             <div class="dataTables_filter">
                                                 <a class="btn  btn-xs" href="{{route('admin.products.index')}}?refresh=1">
                                                     Сбросить
