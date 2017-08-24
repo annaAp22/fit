@@ -225,15 +225,15 @@ class CatalogController extends Controller
                     break;
                 // сначала популярные товары
                 case 'hit':
-                    $products->orderBy('hit', 'desc')->orderBy('name');
+                    $products->orderBy('hit', 'desc')->orderBy('hit_sort', 'asc');
                     break;
                 // сначала акционные товары
                 case 'act':
-                    $products->orderBy('act', 'desc')->orderBy('name');
+                    $products->orderBy('act', 'desc')->orderBy('act_sort', 'asc');
                     break;
                 // сначала новинки
                 case 'new':
-                    $products->orderBy('new', 'desc')->orderBy('name');
+                    $products->orderBy('new', 'desc')->orderBy('new_sort', 'asc');
                     break;
                 // по названию товара
                 case 'name':
@@ -462,7 +462,7 @@ class CatalogController extends Controller
             $request->request->add([$field => '1', 'category_id' => $category->id]);
             $this->saveFilters($request, $postfix);
             if(!session()->has('filters.product.'.$postfix.$category->id)) {
-                $products = Product::inCategory($category)->where($field, 1)->orderBy('sort')->distinctPaginate($category->perpage);
+                $products = Product::inCategory($category)->where($field, 1)->orderBy($field.'_sort')->distinctPaginate($category->perpage);
             }else {
                 $products = $this->filteredProducts($category->id, $postfix);
             }

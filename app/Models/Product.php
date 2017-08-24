@@ -34,8 +34,11 @@ class Product extends Model
         'sku',
 
         'new',
+        'new_sort',
         'act',
+        'act_sort',
         'hit',
+        'hit_sort',
 
         'ya_market',
         'merchant',

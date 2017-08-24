@@ -51,6 +51,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::put('/payments/restore/{id}', ['as' => 'payments.restore', 'uses' => 'PaymentController@restore'])->where(['id' => '[0-9]+']);
 
     Route::resource('products', 'ProductController', ['except' => ['show']]);
+    Route::any('/products/sort/unique_offers', 'ProductController@uniqueOffersSort')->name('products.sort.unique-offers');
     Route::put('/products/restore/{id}', ['as' => 'products.restore', 'uses' => 'ProductController@restore'])->where(['id' => '[0-9]+']);
     Route::post('/products/search', ['as' => 'products.search', 'uses' => 'ProductController@search']);
     Route::get('/products/category/{id}/sort', ['as' => 'products.category.sort', 'uses' => 'ProductController@sortCategory'])->where(['id' => '[0-9]+']);

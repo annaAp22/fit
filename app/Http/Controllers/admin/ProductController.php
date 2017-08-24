@@ -328,7 +328,44 @@ class ProductController extends Controller
         }
         return response()->json($data);
     }
+    /**
+     * Сортировка товаров с филтром по уникальным предложеним и полу
+     * @param $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function uniqueOffersSort(Request $request) {
 
+        $filter = [
+            'type' => $request->input('type', 'hit'),
+            'sex' => $request->input('sex', 'woman'),
+            'types' => [
+                'hit' => 'хит',
+                'new' => 'новинка',
+                'act' => 'акция',
+            ],
+            'sex_types' => [
+                'man' => 'Мужской',
+                'woman' => 'Женский',
+            ],
+        ];
+        $sort = $filter['type'].'_sort';
+        $sex = $filter['sex_types'][$filter['sex']];
+
+        $products = Product::join('attribute_product', 'products.id', 'product_id')->select('products.*')->where('value', $sex)->where($filter['type'], 1)->published()->orderBy($sort)->distinct()->get();
+        //сохранение сортировки
+        if($request->has('ids') && $request->has('ids.0')) {
+            $data = $request->input('ids.0');
+            foreach($data as $key => $product_id) {
+                $product = $products->find($product_id);
+                if($product) {
+                    $product->update([$sort => $key]);
+                }
+            }
+            return redirect()->back()->withMessage('Сортировка сохранена');
+        }
+        $this->setMetaTags(null, ' Сортировка товаров');
+        return view('admin.products.sort.unique-offers', compact('filter', 'products'))->withMessage('Сортировка сохранена');
+    }
     /**
      * Сортировка товаров внутри категории
      * @param $id
