@@ -39,7 +39,7 @@
                 <div class="tabbable">
                     <ul class="nav nav-tabs" id="myTab">
                         <li>
-                            <a data-toggle="tab" href="{{route('admin.products.index')}}" aria-expanded="true">
+                            <a href="{{route('admin.products.index')}}">
                                 Товары
                             </a>
                         </li>
