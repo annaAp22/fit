@@ -146,7 +146,6 @@ class CatalogController extends Controller
         if($category_id) {
             $session = session()->get('filters.product.'.$postfix.$category_id);
             $category = Category::with(['parent', 'children_rec'])->findOrFail($category_id);
-            $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
             //добавил выбор id по первой таблице(products.id), так как он затирался id из второй таблицы и соответственно товар получал чужие аттрибуты
             $products = Product::inCategory($category);
         } elseif(session()->has('tag_id')) {//товары из тегов

@@ -212,6 +212,13 @@ class Product extends Model
         $products = $query->distinct($field)->published()->paginate($perpage);
         $products->totalCount = $query->count($field);
         $products->totalPages = intval(($products->totalCount + $perpage - 1) / $perpage);
+        foreach($products as $product) {
+            $categories = $product->categories;
+            $category = $product->categories[0];
+            if(isset($category->pivot->sort)) {
+                $product->sort = $category->pivot->sort;
+            }
+        }
         return $products;
     }
     public function scopeWithInfo($query) {
@@ -219,7 +226,8 @@ class Product extends Model
             'attributes',
             'comments' => function($query){
                 $query->average();
-            }
+            },
+            'categories',
         ]);
     }
     /*
@@ -227,7 +235,8 @@ class Product extends Model
      * **/
     public function scopeInCategory($query, $category) {
         $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
-        $query->join('category_product', 'products.id','category_product.product_id')->select('products.*','sort')
+
+        $query->join('category_product', 'products.id','category_product.product_id')->select('products.*')
             ->whereIn('category_product.category_id', collect($category_ids))
             ->withInfo();
     }
