@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Indiesoft\LaravelUploads\LaravelUploads;
 use Validator;
@@ -209,11 +210,11 @@ class Product extends Model
      * **/
     public function scopeDistinctPaginate($query, $perpage) {
         $field = $this->getTable().'.id';
-        $products = $query->distinct($field)->published()->paginate($perpage);
+        //$products = $query->distinct($field)->published()->paginate($perpage);
+        $products = $query->published()->paginate($perpage);
         $products->totalCount = $query->count($field);
         $products->totalPages = intval(($products->totalCount + $perpage - 1) / $perpage);
         foreach($products as $product) {
-            $categories = $product->categories;
             $category = $product->categories[0];
             if(isset($category->pivot->sort)) {
                 $product->sort = $category->pivot->sort;
@@ -235,10 +236,18 @@ class Product extends Model
      * **/
     public function scopeInCategory($query, $category) {
         $category_ids = $category->hasChildren ? $category->children_ids($category, collect([])) : $category->id;
-
-        $query->join('category_product', 'products.id','category_product.product_id')->select('products.*')
-            ->whereIn('category_product.category_id', collect($category_ids))
+        $query->select('products.*', 't.sort as sort')
+            ->distinct()
+            ->whereHas('categories', function($query) use($category_ids) {
+                $query->whereIn('categories.id', collect($category_ids));
+            })
+            ->join(DB::raw('(SELECT product_id, sort FROM `category_product` GROUP BY product_id) t'), function($query) {
+                $query->on('products.id', '=', 't.product_id');
+            } )
             ->withInfo();
+//        $query->join('category_product', 'products.id','category_product.product_id')->select('products.*')
+//            ->whereIn('category_product.category_id', collect($category_ids))
+//            ->withInfo();
     }
     /*
      * получаем запрос товаров для заданной категории вместе с комментариями

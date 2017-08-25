@@ -245,7 +245,7 @@ class CatalogController extends Controller
                         $products->orderBy('product_tag.sort');
                     }
                     else {
-                        $products->orderBy('category_product.sort', 'asc');
+                        $products->orderBy('sort', 'asc');
                         //$products->orderBy('id');
                     }
             }
@@ -257,7 +257,7 @@ class CatalogController extends Controller
                 $products->orderBy('product_tag.sort');
             }
             else {
-                $products->orderBy('category_product.sort', 'asc');
+                $products->orderBy('sort', 'asc');
             }
         }
 
