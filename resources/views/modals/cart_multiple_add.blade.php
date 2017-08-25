@@ -1,9 +1,9 @@
 <div id="cart-modal" class="modal-box cart-multiple-add" style="display: inline-block;">
-    <form action="{{ route('ajax.cart.multiple.add') }}" method="POST" class="js-form-ajax" data-submit-on-close="true">
+    <form action="{{ route('ajax.cart.multiple.add') }}" method="POST" class="js-form-ajax">
         {{ csrf_field() }}
         <input type="hidden" name="size_choose" value="0">
         <div class="cart-modal_top">
-            <div class="form-modal_title">ТОВАРЫ ДОБАВЛЕНЫ В КОРЗИНУ!</div>
+            <div class="form-modal_title">ВЫБЕРИТЕ РАЗМЕРЫ ДЛЯ ДОБАВЛЕНИЯ В КОРЗИНУ!</div>
         </div>
 
             @foreach($products as $product)
@@ -19,7 +19,8 @@
                     <div class="cart-modal_top_counter">
                         @if($product->sizes)
                             <label class="cart-multiple-add__size-label" for="size">Размер: </label>
-                            <select name="sizes[{{$product->id}}]" id="size">
+                            <select class="js-required-fields" name="sizes[{{$product->id}}]" id="size">
+                                <option value="">не задан</option>
                                     @foreach($product->sizes as $size)
                                         <option value="{{ $size }}">{{ $size }}</option>
                                     @endforeach
@@ -43,7 +44,9 @@
             @endforeach
         <div class="cart-modal_bottom">
             <input type="hidden" name="checkout" value="1" disabled id="checkout">
-            <a data-fancybox-close href="{{ route('cart') }}" class="btn btn_green" onclick="document.getElementById('checkout').disabled = false">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</a>
+            <button class="btn btn_green js-link js-add-to-cart-btn">ДОБАВИТЬ В КОРЗИНУ</button>
+            <div class="btn btn_green js-added-to-cart-btn fake disabled">ДОБАВЛЕНО</div>
+            <a href="{{ route('cart') }}" class="btn btn_green" onclick="document.getElementById('checkout').disabled = false">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</a>
             <button data-fancybox-close class="btn btn_show-all">Продолжить покупки</button>
         </div>
     </form>

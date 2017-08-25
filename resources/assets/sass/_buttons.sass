@@ -9,6 +9,8 @@ button
   transition: background-color .3s ease, color .3s ease
   font-family: "museo_sans_cyrl", sans-serif
   display: inline-block
+  &.fake:not(.active)
+    display: none
   &.arrowed
     > span
       display: inline-block
@@ -87,12 +89,12 @@ button
     font-weight: 900
     padding: 15px
     position: relative
-    &:hover
+    &:hover:not(.disabled)
       &:not(:disabled)
         background-color: #006a39
     & > span + i, & > i + span
       margin-left: 10px
-    &:disabled
+    &:disabled, &.disabled
       cursor: auto
       background-color: #a8a8a8
   &_more

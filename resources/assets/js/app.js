@@ -389,6 +389,11 @@ $(function(){
         nextStep($(this));
     });
 
+    $body.on('click', '.js-link', function(e) {
+        if($(this).hasClass('disabled')) {
+            e.preventDefault();
+        }
+    });
 
     // Delivery price calc
     $body.on('click', '.js-delivery', function(e) {
@@ -581,23 +586,23 @@ $(function(){
     // Mask phone
     $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
     // Check required fields
-    $body.on('input', '.js-required-fields', function(e) {
-        var fields = $('.js-required-fields');
+    function checkRequiresFields($obj) {
+        var $form = $($obj.form);
+        var fields = $form.find('.js-required-fields');
         if( formValid(fields) ) {
             $('.js-step-next').attr('disabled', false);
+            $form.find('.js-link').removeClass('disabled');
         }
         else{
             $('.js-step-next').attr('disabled', true);
+            $form.find('.js-link').addClass('disabled');
         }
+    }
+    $body.on('input', '.js-required-fields', function(e) {
+        checkRequiresFields(this);
     });
     $body.on('click', '.js-required-fields', function(e) {
-        var fields = $('.js-required-fields');
-        if( formValid(fields) ) {
-            $('.js-step-next').attr('disabled', false);
-        }
-        else{
-            $('.js-step-next').attr('disabled', true);
-        }
+        checkRequiresFields(this)
     });
     //тут же проверяем на валидность поля, так, как они могут быть заполнены автоматически
     $('form').find('.js-required-fields:first').click();
@@ -743,8 +748,9 @@ function scrollToEl2($el) {
 function updateCart(data){
     if(typeof data.count !== 'undefined') {
         $(".js-cart-quantity").text(data.count);
+        $(".js-add-to-cart-btn").hide();
+        $(".js-added-to-cart-btn").addClass('active');
     }
-
     if(typeof data.modal !== 'undefined') {
         openModal(data);
     }
@@ -796,6 +802,7 @@ function openModal(data) {
                     }
                 }
             });
+        $('form').find('.js-required-fields:first').click();
     }
 }
 

@@ -14,12 +14,9 @@ Route::group([
     'middleware' => ['location', 'settings']
 ], function() {
     Auth::routes();
-    //Route::group(['middleware' => 'with_sidebar'], function() {
     // Страницы
     Route::get('/', ['as' => 'index', 'uses' => 'MainController@index']);
-//        Route::get('/about.html', ['as' => 'about', 'uses' => 'MainController@content']); not used
     Route::get('/delivery', ['as' => 'delivery', 'uses' => 'MainController@delivery']);
-//        Route::get('/warranty.html', ['as' => 'warranty', 'uses' => 'MainController@warranty']); // not used
     Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
     Route::get('/articles', 'MainController@articles')->name('articles');
     Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
@@ -27,18 +24,7 @@ Route::group([
     // All other pages
     Route::get('/agencies', 'CityController@index')->name('agencies');
     Route::get('/agencies/{sysname}', 'CityController@details')->name('agencies.details');
-//        Route::get('/page/agencies', function() {
-//            return redirect()->route('agencies');
-//        })->name('agencies.redirect');
     Route::get('/page/{sysname}', 'MainController@page')->name('page')->where(['sysname' => '[a-zA-Z0-9_-]+']);
-
-    // Нет в верстке
-//        Route::get('/sertificates.html', ['as' => 'sertificates', 'uses' => 'MainController@sertificates']); // not used
-//        Route::get('/samovyvoz.html', ['as' => 'pickup', 'uses' => 'MainController@pickup']); // not used
-
-
-    // Поиск
-    //Route::match(['get', 'post'], '/search', ['as' => 'search', 'uses' => 'CatalogController@search']);
     Route::any('/search', ['as' => 'search', 'uses' => 'CatalogController@search']);
 
     // Каталог
@@ -60,6 +46,7 @@ Route::group([
     // Новости
     Route::get('/news', ['as' => 'news', 'uses' => 'MainController@news']);
     Route::get('/news/{sysname}', ['as' => 'news.record', 'uses' => 'MainController@newsSingle']);
+    //личный кабинет
     Route::get('/room', 'RoomController@index')->name('room');
     Route::get('/room/orders', 'RoomController@orders')->name('orders-history');
     //});
@@ -127,5 +114,3 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/me',                  [ 'as' => 'customer.dashboard', 'uses' => 'CustomerAccountController@me']);
     Route::get('/my_order/{order_id}', [ 'as' => 'customer.order',     'uses' => 'CustomerAccountController@order']);
 });
-
-//Route::match(['get', 'head'], '/login', ['middleware' => 'guest', 'uses' => 'Auth\AuthController@showLoginForm']);

@@ -9,10 +9,12 @@
                         @foreach($look->products as $product)
                             <input type="hidden" name="product_ids[]" value="{{$product->id}}">
                         @endforeach
-                        <button class="btn btn_green btn-look-book_buy">
-                            <i class="sprite_main sprite_main-product__basket"></i>
-                            <span>Купить весь комплект</span>
-                        </button>
+                        @if($look->hasCommonSizes())
+                            <button class="btn btn_green btn-look-book_buy">
+                                <i class="sprite_main sprite_main-product__basket"></i>
+                                <span>Купить весь комплект</span>
+                            </button>
+                        @endif
                     </form>
 
 

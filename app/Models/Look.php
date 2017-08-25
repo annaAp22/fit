@@ -40,7 +40,33 @@ class Look extends Model
     {
         return $this->belongsTo('App\Models\LookCategory', 'category_id');
     }
-
+    /*
+     * @return false, если у товаров нет общих размеров иначе true.
+     * в сравнении учавствуют только те товары, у которых есть размеры
+     * **/
+    public function hasCommonSizes() {
+        $arr = [];
+        $count = 0;
+        foreach($this->products as $product) {
+            $sizes = $product->sizes;
+            if(count($sizes)) {
+                $count++;
+                foreach ($sizes as $size) {
+                    if(!isset($arr[$size])) {
+                        $arr[$size] = 1;
+                    }else {
+                        $arr[$size]++;
+                    }
+                }
+            }
+        }
+        foreach ($arr as $val) {
+            if($val === $count) {
+                return true;
+            }
+        }
+        return false;
+    }
     // Scopes
     public function scopePublished($query)
     {
