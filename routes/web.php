@@ -62,6 +62,10 @@ Route::group([
     // Look Book
     Route::get('/look-book', 'LookController@index')->name('look_book');
 
+    // Woman adn man main category
+//    Route::get('woman', 'CatalogController@main_category')->name('main_woman');
+//    Route::get('man', 'CatalogController@main_category')->name('main_man');
+
     // Каталог (совместимость со старым ЧПУ)
     Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
     //test page

@@ -20,6 +20,7 @@ class Category extends Model
 
         'name',
         'text',
+        'text_preview',
 
         'title',
         'description',

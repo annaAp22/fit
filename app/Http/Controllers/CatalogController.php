@@ -699,5 +699,16 @@ class CatalogController extends Controller
     }
 
 
+    public function main_category(Request $request)
+    {
+        $sysname = $request->path();
+        $category = Category::where('sysname', $sysname)->published()->firstOrFail();
+        $this->setMetaTags(null, $category->title, $category->description, $category->keywords);
+        $categories = $category->children()->with('children')->published()->get();
+
+        return view('catalog.' . $sysname, compact('category', 'categories'));
+    }
+
+
 
 }

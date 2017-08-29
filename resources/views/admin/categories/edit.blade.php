@@ -207,6 +207,14 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Текст анонса</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="5" name="text_preview">{{ old('text', $category->text_preview) }}</textarea>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="editor2"> Текст </label>
                         <div class="col-sm-9">
