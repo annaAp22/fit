@@ -17123,6 +17123,10 @@ h3 {
     display: none;
   }
 
+  .instagram__title>img {
+    width: 20%;
+  }
+
   .cat_woman__item__img {
     display: none;
   }
