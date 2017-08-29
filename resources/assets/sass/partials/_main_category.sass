@@ -78,6 +78,7 @@
               +col(11)
       &_02
         background-color: #fcefd4
+        // IE bug fix
         @media all and (-ms-high-contrast:none)
           margin-left: 11px
       &_03
@@ -110,7 +111,7 @@
 
             & > div
               margin: 0 auto 0
-      &_04, &_07, &_11, &_12
+      &_04, &_07, &_11, &_12, &_15
         background-color: #fff794
         +media-lg(up)
           +col(8)
@@ -121,7 +122,7 @@
               +col(11)
             &:last-child
               +col(11)
-      &_05, &_06, &_10, &_13
+      &_05, &_06, &_10, &_13, &_14
         background-color: #f5e4e7
         +media-lg(up)
           +col(16)
@@ -177,6 +178,18 @@
             flex-direction: column
             & > div
               margin-top: 0
+        
+      &_14
+        background-color: #f5e4e7
+      &_15
+        background-color: #fff794
+
+      &_14, &_15
+        & > div
+          &:last-child
+              & > div
+                margin-top: auto
+                margin-bottom: auto
       &_00, &_01, &_02, &_03, &_04, &_05, &_06, &_07,
       &_10, &_11, &_12, &_13, &_14, &_15
         +media-md(down)
