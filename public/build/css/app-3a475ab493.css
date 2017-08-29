@@ -10856,6 +10856,7 @@ h3 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  position: relative;
 }
 
 .cat_woman__item-title>div {
@@ -10905,10 +10906,10 @@ h3 {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
 }
 
 .cat_woman__item__img>div {
@@ -10952,6 +10953,11 @@ h3 {
 }
 
 .cat_woman__item_03>div:last-child {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   margin-left: -webkit-calc(100%/24 * 2 + 24px/2)!important;
   margin-left: calc(100% / 24 * 2 + 24px / 2)!important;
   margin-right: -webkit-calc(100%/24 * 2 + 24px/2);
@@ -10997,6 +11003,14 @@ h3 {
   max-width: 150px;
 }
 
+.cat_woman__item_07>div:last-child {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .cat_woman__item_07>div:last-child>div {
   margin-top: 0;
 }
@@ -11030,12 +11044,28 @@ h3 {
   margin-top: 50px;
 }
 
+.cat_woman__item_12>div:last-child {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .cat_woman__item_12>div:last-child>div {
   margin-top: 0;
 }
 
 .cat_woman__item_13 {
   background-color: #e5f5fd;
+}
+
+.cat_woman__item_13>div:last-child {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .cat_woman__item_13>div:last-child>div {
@@ -14463,6 +14493,11 @@ h3 {
   .best-clothes {
     max-width: 1155px;
   }
+
+  .cat_woman__item_03>div:last-child>div>img {
+    max-width: 70%;
+    margin: 0 auto;
+  }
 }
 
 @media screen and (max-width:1202px) {
@@ -15299,10 +15334,6 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 10 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 10 - 24px);
     flex-basis: calc(100% / 24 * 10 - 24px);
-  }
-
-  .cat_woman__item_03>div:last-child>div>img {
-    max-width: 70%;
   }
 
   .cat_woman__item_00,
@@ -17955,5 +17986,11 @@ h3 {
 @media screen and (max-width:1202px) and (min-width:576px) {
   .main-find-size__title>div>span:first-child {
     font-size: 30px;
+  }
+}
+
+@media (-ms-high-contrast:none) {
+  .cat_woman__item_02 {
+    margin-left: 11px;
   }
 }
