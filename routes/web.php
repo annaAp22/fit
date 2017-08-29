@@ -63,7 +63,7 @@ Route::group([
     Route::get('/look-book', 'LookController@index')->name('look_book');
 
     // Woman adn man main category
-//    Route::get('woman', 'CatalogController@main_category')->name('main_woman');
+    Route::get('woman', 'CatalogController@main_category')->name('main_woman');
 //    Route::get('man', 'CatalogController@main_category')->name('main_man');
 
     // Каталог (совместимость со старым ЧПУ)
