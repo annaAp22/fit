@@ -8,7 +8,7 @@
     <main>
         <div class="container">
 
-            <section class="content-full-width">
+            <section class="content-full-width main-category">
                 {{-- Header --}}
                 <div class="container-in">
                     <div class="header-listing">

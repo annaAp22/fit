@@ -1,3 +1,5 @@
+.main-category
+  margin-top: 0
 .cat
   &_woman
     margin-top: -24px
@@ -210,3 +212,39 @@
             +media-md(down)
               +offset(right,2)
               +col(10)
+
+  &_man
+    margin-top: -24px
+    &__item-title
+      margin-top: 30px
+      & > div
+        display: inline-block
+        font-weight: 700
+        font-size: 28px
+    &__item-preview
+      margin-top: 20px
+      font-size: 14px
+    &__item
+      text-decoration: none
+      color: #000000
+      padding-bottom: 20px
+      margin-top: 24px
+      &_00
+        +media-md(up)
+          +col(16)
+        +media-sm(down)
+          +col(24)
+      &_01, &_02, &_03, &_04
+        +media-md(up)
+          +col(8)
+        +media-sm(down)
+          +col(12)
+      & > div
+        &:first-child
+          & > img
+            max-width: 100%
+            display: block
+      &_04
+        // IE bug fix
+        @media all and (-ms-high-contrast:none)
+          margin-left: 11px

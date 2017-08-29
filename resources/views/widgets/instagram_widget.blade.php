@@ -25,11 +25,19 @@
 
     window.instagramProcessResult = function( data ) {
         for( x in data.data ){
-            container.innerHTML += '<a data-fancybox="group_2" href="' + data.data[x].images.standard_resolution.url + '" style="background-image:url(' + data.data[x].images.low_resolution.url + ')"></a>';
+            container.innerHTML += '<a class="hover-zoom-dark" data-fancybox="group_2" href="' + data.data[x].images.standard_resolution.url + '" style="background-image:url(' + data.data[x].images.low_resolution.url + ')"></a>';
             if(x == (num_photos - 1) )
             {
                 carouselInit('.js-instagram-gallery', {
-                    margin: 0
+                    margin: 0,
+                    responsive: {
+                        1492 : {items: 5},
+                        1203 : {items: 4},
+                        840 : {items: 3},
+                        576 : {items: 2},
+                        300 : {items: 1},
+                        0 : {items: 1}
+                    }
                 });
             }
 
