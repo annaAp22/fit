@@ -9717,6 +9717,11 @@ h3 {
   flex-basis: calc(100% / 24 * 24 - 24px);
 }
 
+.page-text ul {
+  font-size: 14px;
+  line-height: 24px;
+}
+
 .circle-black-white {
   margin-top: 30px;
   color: #fff;
