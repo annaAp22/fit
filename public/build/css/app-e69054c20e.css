@@ -11009,24 +11009,8 @@ h3 {
   background-color: #ffe2e2;
 }
 
-.cat_woman__item_07>div:first-child {
-  margin-top: 200px;
-}
-
 .cat_woman__item_07>div:first-child .cat_woman__item-title>div {
   max-width: 150px;
-}
-
-.cat_woman__item_07>div:last-child {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.cat_woman__item_07>div:last-child>div {
-  margin-top: 0;
 }
 
 .cat_woman__item_10 {
