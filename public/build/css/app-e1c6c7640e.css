@@ -1017,7 +1017,7 @@ template {
   height: 120px;
   -webkit-animation: a 2s linear infinite;
   animation: a 2s linear infinite;
-  z-index: 12;
+  z-index: 13;
 }
 
 @-webkit-keyframes a {
@@ -1057,7 +1057,7 @@ template {
   -webkit-transition-timing-function: cubic-bezier(.22,.61,.36,1);
   -o-transition-timing-function: cubic-bezier(.22,.61,.36,1);
   transition-timing-function: cubic-bezier(.22,.61,.36,1);
-  z-index: 11;
+  z-index: 12;
 }
 
 .sprite_main-icon__arrow_black_to_right,
@@ -3107,7 +3107,7 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 12;
+  z-index: 13;
   -webkit-tap-highlight-color: transparent;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -3116,7 +3116,7 @@ button {
 }
 
 .fancybox-container~.fancybox-container {
-  z-index: 11;
+  z-index: 12;
 }
 
 .fancybox-bg,
@@ -3161,7 +3161,7 @@ button {
 .fancybox-toolbar {
   position: absolute;
   direction: ltr;
-  z-index: 15;
+  z-index: 16;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity .25s,visibility 0s linear .25s;
@@ -3214,7 +3214,7 @@ button {
 .fancybox-stage {
   overflow: hidden;
   direction: ltr;
-  z-index: 13;
+  z-index: 14;
   -webkit-transform: translateZ(0);
 }
 
@@ -3232,7 +3232,7 @@ button {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   text-align: center;
-  z-index: 13;
+  z-index: 14;
   -webkit-overflow-scrolling: touch;
   display: none;
   -webkit-backface-visibility: hidden;
@@ -3280,7 +3280,7 @@ button {
 }
 
 .fancybox-slide--next {
-  z-index: 14;
+  z-index: 15;
 }
 
 .fancybox-slide>* {
@@ -3304,7 +3304,7 @@ button {
   margin: 0;
   padding: 0;
   border: 0;
-  z-index: 14;
+  z-index: 15;
   background: transparent;
   cursor: default;
   overflow: visible;
@@ -3408,7 +3408,7 @@ button {
   border-radius: 0;
   outline: none;
   background: transparent;
-  z-index: 6;
+  z-index: 7;
   cursor: pointer;
 }
 
@@ -3614,7 +3614,7 @@ button {
   outline: none;
   background: none;
   cursor: pointer;
-  z-index: 14;
+  z-index: 15;
   opacity: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -3678,7 +3678,7 @@ button {
   left: 50%;
   margin-top: -25px;
   margin-left: -25px;
-  z-index: 16;
+  z-index: 17;
 }
 
 @-webkit-keyframes b {
@@ -4287,7 +4287,7 @@ header .line_lg {
 }
 
 .header__enter {
-  z-index: 8;
+  z-index: 9;
   background: #fff;
   height: 60px;
   position: relative;
@@ -4335,7 +4335,7 @@ header .line_lg {
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   display: none;
   max-height: 0;
-  z-index: 8;
+  z-index: 9;
   -webkit-transition: max-height .3s ease 0s;
   -o-transition: max-height .3s ease 0s;
   transition: max-height .3s ease 0s;
@@ -4421,7 +4421,7 @@ header .line_lg {
 .nav-catalog__item:hover {
   cursor: pointer;
   border-color: #fcd82f;
-  z-index: 5;
+  z-index: 6;
 }
 
 .nav-catalog__item.active>i {
@@ -4571,7 +4571,7 @@ header .line_lg {
   position: absolute;
   left: 0;
   width: 100%;
-  z-index: 4;
+  z-index: 5;
 }
 
 .catalog-dropdown__item {
@@ -10518,7 +10518,7 @@ h3 {
 .look-book__buy-package-form {
   display: none;
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   bottom: 0;
   right: 0;
 }
@@ -10677,7 +10677,7 @@ h3 {
 }
 
 .moving-dot.active {
-  z-index: 6;
+  z-index: 7;
 }
 
 .moving-dot.active>span {
@@ -11134,7 +11134,7 @@ h3 {
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   transform: scale(0);
-  z-index: 4;
+  z-index: 5;
   -webkit-transition: -webkit-transform .3s ease-in-out;
   transition: -webkit-transform .3s ease-in-out;
   -o-transition: transform .3s ease-in-out;
@@ -11228,7 +11228,7 @@ h3 {
   max-width: 90%;
   left: 10000px;
   top: 0;
-  z-index: 9;
+  z-index: 10;
   display: none;
   font-size: 12px;
   border: 1px solid #000;
@@ -11247,7 +11247,7 @@ h3 {
   padding: 28px 45px 70px;
   -webkit-box-shadow: 0 0 21px 0 rgba(0,0,0,.13);
   box-shadow: 0 0 21px 0 rgba(0,0,0,.13);
-  z-index: 7;
+  z-index: 8;
   visibility: hidden;
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
@@ -11695,7 +11695,7 @@ h3 {
     -ms-overflow-style: -ms-autohiding-scrollbar;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    z-index: 14;
+    z-index: 15;
   }
 
   .fancybox-show-thumbs .fancybox-thumbs {
@@ -11769,7 +11769,7 @@ h3 {
     -webkit-border-radius: 2px;
     border-radius: 2px;
     border: 4px solid #4ea7f9;
-    z-index: 10;
+    z-index: 11;
     opacity: 0;
     -webkit-transition: all .2s cubic-bezier(.25,.46,.45,.94);
     -o-transition: all .2s cubic-bezier(.25,.46,.45,.94);

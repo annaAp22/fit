@@ -586,30 +586,33 @@ $(function(){
 
     // Mask phone
     $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
+
     // Check required fields
-    function checkRequiresFields($obj) {
-        var $form = $($obj.form);
-        var fields = $form.find('.js-required-fields');
+    $body.on('input change click', '.js-required-fields', function(){
+        var form = $(this).closest('form');
+        formFieldsValidate(form);
+    });
+    function formFieldsValidate(form) {
+        var fields = form.find('.js-required-fields');
         if( formValid(fields) ) {
             $('.js-step-next').attr('disabled', false);
-            $form.find('.js-link').removeClass('disabled');
+            form.find('.js-link').removeClass('disabled');
         }
         else{
             $('.js-step-next').attr('disabled', true);
-            $form.find('.js-link').addClass('disabled');
+            form.find('.js-link').addClass('disabled');
         }
     }
-    $body.on('change', '.js-required-fields', function(e) {
-        checkRequiresFields(this);
-    });
-    $body.on('input', '.js-required-fields', function(e) {
-        checkRequiresFields(this);
-    });
-    $body.on('click', '.js-required-fields', function(e) {
-        checkRequiresFields(this)
-    });
+
+    // TODO: Поместить в функцию, где нужно проверить форму. Вызывать метод проверки, а не событие нажатия.
+    // Ну кто блин так делает? Зачем при каждой закгрузке любой страницы вызывать это событие?
+    // Да ещё и не саму проверку, а событие нажатия. А если на этом поле ещё другая функция на нажатие повешена?
+    // Как теперь понять, где это испоьлзуется? P.S. Поменял временно на change
+    //
     //тут же проверяем на валидность поля, так, как они могут быть заполнены автоматически
-    $('form').find('.js-required-fields:first').click();
+    $('form').find('.js-required-fields:first').change();
+
+
     // Product gallery thumbs switch
     $body.on('click', '.js-gallery-thumb', function(e) {
         var $this = $(this),
@@ -806,7 +809,8 @@ function openModal(data) {
                     }
                 }
             });
-        $('form').find('.js-required-fields:first').click();
+
+        $('form').find('.js-required-fields:first').change();
     }
 }
 

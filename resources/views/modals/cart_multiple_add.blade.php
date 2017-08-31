@@ -30,13 +30,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
-                            {{--<select class="js-required-fields" name="sizes[{{$product->id}}]" id="size">
-                                <option value="">не задан</option>
-                                    @foreach($product->sizes as $size)
-                                        <option value="{{ $size }}">{{ $size }}</option>
-                                    @endforeach
-                            </select>--}}
                         @else
                             <input type="hidden" name="sizes[{{$product->id}}]" value="0">
                         @endif
