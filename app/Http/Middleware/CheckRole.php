@@ -17,7 +17,7 @@ class CheckRole
     {
         $group = $request->user()->group()->first();
         //disabled denied in admin panel
-        if ($group->name == 'customer') {
+        if ( !isset($group->name) || $group->name == 'customer' ) {
             // Redirect...
             abort(404);
         }

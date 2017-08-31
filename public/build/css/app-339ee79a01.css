@@ -10642,9 +10642,6 @@ h3 {
 .moving-dot {
   display: none;
   position: absolute;
-  width: 38px;
-  height: 38px;
-  line-height: 37px;
   background-color: #fff;
   -webkit-border-radius: 20px;
   border-radius: 20px;
@@ -10673,11 +10670,7 @@ h3 {
 .moving-dot:before {
   content: "";
   position: absolute;
-  top: -11px;
-  left: -11px;
   display: block;
-  width: 56px;
-  height: 56px;
   border: 2px solid #fff;
   -webkit-border-radius: 30px;
   border-radius: 30px;
@@ -10721,10 +10714,6 @@ h3 {
   -o-transition: visibility 0s ease,opacity .2s ease,transform .2s ease;
   transition: visibility 0s ease,opacity .2s ease,transform .2s ease;
   transition: visibility 0s ease,opacity .2s ease,transform .2s ease,-webkit-transform .2s ease;
-}
-
-.moving-dot__plus {
-  font-size: 30px;
 }
 
 .look-book-product {
@@ -10821,8 +10810,6 @@ h3 {
 }
 
 .btn-look-book_buy {
-  padding: 0 20px;
-  height: 50px;
   font-weight: 700;
   color: #fff;
   font-size: 14px;
@@ -11647,6 +11634,28 @@ h3 {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+  }
+
+  .moving-dot {
+    width: 38px;
+    height: 38px;
+    line-height: 37px;
+  }
+
+  .moving-dot:before {
+    top: -11px;
+    left: -11px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .moving-dot__plus {
+    font-size: 30px;
+  }
+
+  .btn-look-book_buy {
+    padding: 0 20px;
+    height: 50px;
   }
 }
 
@@ -17225,8 +17234,30 @@ h3 {
     display: block;
   }
 
-  .look-book-slider {
+  .moving-dot {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .moving-dot:before {
+    top: -6px;
+    left: -6px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .moving-dot__plus {
+    font-size: 16px;
+  }
+
+  .look-book-product {
     display: none;
+  }
+
+  .btn-look-book_buy {
+    padding: 0 10px;
+    height: 36px;
   }
 
   .instagram__title {

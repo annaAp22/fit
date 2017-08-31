@@ -35,7 +35,7 @@
   margin-bottom: 90px
   +media-md(down)
     margin-top: 24px
-  +hidden-xs()
+  //+hidden-xs()
   &__wrap
     margin: 0 auto
     max-width: 866px
@@ -98,9 +98,14 @@
 .moving-dot
   display: none
   position: absolute
-  width: 38px
-  height: 38px
-  line-height: 37px
+  +media-sm(up)
+    width: 38px
+    height: 38px
+    line-height: 37px
+  +media-xs(down)
+    width: 20px
+    height: 20px
+    line-height: 20px
   background-color: #ffffff
   border-radius: 20px
   text-align: center
@@ -117,11 +122,17 @@
   &:before
     content: ""
     position: absolute
-    top: -11px
-    left: -11px
     display: block
-    width: 56px
-    height: 56px
+    +media-sm(up)
+      top: -11px
+      left: -11px
+      width: 56px
+      height: 56px
+    +media-xs(down)
+      top: -6px
+      left: -6px
+      width: 28px
+      height: 28px
     border: 2px solid #fff
     border-radius: 30px
   &.active
@@ -142,7 +153,10 @@
       transform: rotate(0deg) !important
       transition: visibility 0s ease, opacity .2s ease, transform .2s ease
   &__plus
-    font-size: 30px
+    +media-sm(up)
+      font-size: 30px
+    +media-xs(down)
+      font-size: 16px
 
 
 
@@ -155,6 +169,7 @@
   opacity: 0
   transition: visibility 0s ease .2s, opacity .2s ease, transform .2s ease
   box-shadow: 0 0 30px -10px rgba(0,0,0,.1)
+  +hidden-xs()
   &:after
     content: ""
     display: block
@@ -204,8 +219,12 @@
       bottom: -15px
 
 .btn-look-book_buy
-  padding: 0 20px
-  height: 50px
+  +media-sm(up)
+    padding: 0 20px
+    height: 50px
+  +media-xs(down)
+    padding: 0 10px
+    height: 36px
   font-weight: 700
   color: #fff
   font-size: 14px
