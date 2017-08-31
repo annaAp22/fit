@@ -2247,6 +2247,10 @@ button {
   flex-wrap: wrap;
 }
 
+.cart-modal_top_visible {
+  overflow: visible;
+}
+
 .cart-modal_top_img {
   border: 1px solid #f2f2f2;
   text-align: center;
@@ -6104,6 +6108,11 @@ header .line_lg {
   font-size: 14px;
   position: relative;
   cursor: pointer;
+}
+
+.sorting-select_size {
+  margin-top: 5px;
+  width: 110px;
 }
 
 .sorting-select.type-2 {

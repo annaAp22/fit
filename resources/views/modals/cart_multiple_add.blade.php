@@ -7,7 +7,7 @@
         </div>
 
             @foreach($products as $product)
-                <div class="cart-modal_top">
+                <div class="cart-modal_top cart-modal_top_visible">
                     <input type="hidden" name="product_ids[]" value="{{$product->id}}">
                     <figure class="cart-modal_top_img align-table-wrap">
                         <div><img src="{{ $product->uploads->img->modal->url() }}"></div>
@@ -19,12 +19,24 @@
                     <div class="cart-modal_top_counter">
                         @if($product->sizes)
                             <label class="cart-multiple-add__size-label" for="size">Размер: </label>
-                            <select class="js-required-fields" name="sizes[{{$product->id}}]" id="size">
+
+                            <div id="size" class="sorting-select sorting-select_size js-toggle-active js-select">
+                                <input class="js-value js-required-fields" type="hidden" name="sizes[{{$product->id}}]" value="1"/>
+                                <span class="js-selected">Не задан</span>
+                                <i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                                <div class="sorting-select__dropdown">
+                                    @foreach($product->sizes as $size)
+                                        <div class="sorting-select__option js-option">{{ $size }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            {{--<select class="js-required-fields" name="sizes[{{$product->id}}]" id="size">
                                 <option value="">не задан</option>
                                     @foreach($product->sizes as $size)
                                         <option value="{{ $size }}">{{ $size }}</option>
                                     @endforeach
-                            </select>
+                            </select>--}}
                         @else
                             <input type="hidden" name="sizes[{{$product->id}}]" value="0">
                         @endif
@@ -45,8 +57,8 @@
         <div class="cart-modal_bottom">
             <input type="hidden" name="checkout" value="1" disabled id="checkout">
             <button class="btn btn_green js-link js-add-to-cart-btn">ДОБАВИТЬ В КОРЗИНУ</button>
-            <div class="btn btn_green js-added-to-cart-btn fake disabled">ДОБАВЛЕНО</div>
-            <a href="{{ route('cart') }}" class="btn btn_green" onclick="document.getElementById('checkout').disabled = false">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</a>
+            {{--<div class="btn btn_green js-added-to-cart-btn fake disabled">ДОБАВЛЕНО</div>--}}
+            <a href="{{ route('cart') }}" class="btn btn_green js-added-to-cart-btn fake" onclick="document.getElementById('checkout').disabled = false">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</a>
             <button data-fancybox-close class="btn btn_show-all">Продолжить покупки</button>
         </div>
     </form>

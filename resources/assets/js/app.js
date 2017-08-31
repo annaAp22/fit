@@ -109,6 +109,7 @@ $(function(){
                     val = text;
                 }
                 $hidden_input.val(val);
+                $hidden_input.trigger('change');
             }
         });
     });
@@ -598,6 +599,9 @@ $(function(){
             $form.find('.js-link').addClass('disabled');
         }
     }
+    $body.on('change', '.js-required-fields', function(e) {
+        checkRequiresFields(this);
+    });
     $body.on('input', '.js-required-fields', function(e) {
         checkRequiresFields(this);
     });
