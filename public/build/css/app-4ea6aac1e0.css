@@ -1815,6 +1815,7 @@ button {
 }
 
 .youtube-video__play {
+  font-size: 0;
   position: absolute;
   padding: 20px;
   margin-top: -35px;
