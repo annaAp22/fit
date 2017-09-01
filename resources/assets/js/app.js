@@ -734,6 +734,41 @@ $(function(){
             location.reload();
         }
     });
+
+
+    //event for filter button showing while mosemove in filter section
+    $('#js-filters').hover(
+        function () {
+            $( "#js-filters" ).mousemove(function( event ) {
+                var filtherH = $( "#js-filters" ).height();
+                var colorFH = $( ".color-filter" ).height();
+                if(colorFH == null){
+                    colorFH = 0;
+                }
+                var parentOffset = $(this).offset();
+                var relY = event.pageY - 22 - parentOffset.top;
+                //alert('relY'+relY);
+                var filterMH = filtherH - (colorFH + 125);
+                $('#append_btn').css('top', relY );
+                if(relY <= 100){
+                    $('#append_btn').css('display', 'none' );
+
+                }else if(relY >= filterMH){
+
+
+                    $('#append_btn').css('display', 'none' );
+                }else{
+                    $('#append_btn').css('display', 'block' );
+                }
+            });
+            $('#js-filters').css('position', 'relative');
+            $(this).append('<button id="append_btn" class="btn btn_yellow btn_w100p js-close-filters" style="width: 202px; position: absolute; top: 0;left: 100%; z-index: 10;" name="apply">Применить</button>');
+        },function () {
+            $( this ).find( "#append_btn" ).remove();
+        }
+    );
+
+    $('.js-youtube-video').fancybox();
 });
 // scroll to element
 function scrollToEl($el) {
@@ -899,38 +934,6 @@ function paginationAppend(data) {
 
     }
 }
-
-//event for filter button showing while mosemove in filter section
-$('#js-filters').hover(
-    function () {
-        $( "#js-filters" ).mousemove(function( event ) {
-            var filtherH = $( "#js-filters" ).height();
-            var colorFH = $( ".color-filter" ).height();
-            if(colorFH == null){
-                colorFH = 0;
-            }
-            var parentOffset = $(this).offset();
-            var relY = event.pageY - 22 - parentOffset.top;
-            //alert('relY'+relY);
-            var filterMH = filtherH - (colorFH + 125);
-            $('#append_btn').css('top', relY );
-            if(relY <= 100){
-                $('#append_btn').css('display', 'none' );
-
-            }else if(relY >= filterMH){
-
-
-                $('#append_btn').css('display', 'none' );
-            }else{
-                $('#append_btn').css('display', 'block' );
-            }
-        });
-        $('#js-filters').css('position', 'relative');
-        $(this).append('<button id="append_btn" class="btn btn_yellow btn_w100p js-close-filters" style="width: 202px; position: absolute; top: 0;left: 100%; z-index: 10;" name="apply">Применить</button>');
-    },function () {
-        $( this ).find( "#append_btn" ).remove();
-    }
-);
 
 //обновление данных на странице
 function elementsRender(data) {
