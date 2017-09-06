@@ -139,7 +139,7 @@
             </section>
             <section class="content-full-width">
                 <!-- Page text-->
-                <article class="page-text">
+                <article class="page-text page_text__row">
                     @if(isset($category))
                         {!! $category->text !!}
                     @elseif(isset($tag))

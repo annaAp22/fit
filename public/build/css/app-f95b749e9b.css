@@ -9649,6 +9649,13 @@ h3 {
   font-size: 20px;
 }
 
+.page-text__row:after,
+.page-text__row:before {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 .page-text__title_900 {
   font-weight: 900;
 }
