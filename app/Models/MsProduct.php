@@ -16,6 +16,8 @@ class MsProduct extends Model
         'ms_externalCode',
         'ms_quantity',
         'ms_salePrice',
+        'ms_weight',
+        'ms_volume',
         'ms_buyPrice',
         'created_at',
         'updated_at'

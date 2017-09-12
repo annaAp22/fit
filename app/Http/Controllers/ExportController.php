@@ -49,6 +49,9 @@ class ExportController extends Controller
         //id торгового предложения
         $offer->offer_id = $ms_product->ms_uuid;
         $offer->xmlId = $ms_product->ms_externalCode;
+        $offer->weight = $ms_product->ms_weight;
+        $offer->volume = $ms_product->ms_volume;
+        $offer->buyPrice = $ms_product->ms_buyPrice;
         $offer->size = $size;
         $offer->quantity = $ms_product->ms_quantity;
         $offers->push($offer);

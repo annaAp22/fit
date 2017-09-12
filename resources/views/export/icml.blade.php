@@ -19,6 +19,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>'."\n";
                     @endforeach
                     <url>{{ route('product', ['sysname' => $offer->sysname]) }}</url>
                     <price>{{ $offer->price }}</price>
+                    <purchasePrice>{{ $offer->buyPrice }}</purchasePrice>
                     @if($offer->originalPrice)
                         <oldprice>{{ $offer->originalPrice }}</oldprice>
                     @endif
@@ -29,6 +30,8 @@ echo '<?xml version="1.0" encoding="utf-8"?>'."\n";
                     @if($offer->brand)
                         <vendor>{{ $offer->brand->name }}</vendor>
                     @endif
+                    <param name="Вес" code="weight">{{$offer->weight}} кг</param>
+                    <param name="Объем" code="volume">{{$offer->volume}}</param>
                     <param name="Артикул" code="article">{{$offer->sku}}</param>
                     @isset($offer->size)
                     <param name="Размер" code="size" unit="RU">{{ $offer->size }}</param>

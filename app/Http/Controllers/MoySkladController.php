@@ -319,16 +319,22 @@ class MoySkladController extends Controller
     $siteProducts = $temp;
 
         $syncProducts = [];
+        $buyPrice = 0;
+        $weight = 0;
+        $volume = 0;
         //Insert products to db
         foreach( $products as $product )
         {
-            $salePrice = isset($product->salePrices) ?   $product->salePrices[0]->value / 100 : 0;
-            //закупочная цена
-            $buyPrice = isset($product->buyPrice) ?   $product->buyPrice->value / 100 : 0;
+            $salePrice = isset($product->salePrices) ? $product->salePrices[0]->value / 100 : 0;
             if( isset($product->code) )
             {
                 if( isset($siteProducts[$product->code]) )
                 {
+                    //закупочная цена
+                    $buyPrice = isset($product->buyPrice) ? $product->buyPrice->value / 100 : 0;
+                    //
+                    $weight = isset($product->weight) ? $product->weight : 0;
+                    $volume = isset($product->volume) ? $product->volume : 0;
                     // Simple products and products of some color
                     $syncProducts[] = [
                         'product_id' => $siteProducts[$product->code],
@@ -339,6 +345,8 @@ class MoySkladController extends Controller
                         'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
                         'ms_salePrice' => $salePrice,
                         'ms_buyPrice' => $buyPrice,
+                        'ms_weight' => $weight,
+                        'ms_volume' => $volume,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
                     ];
@@ -348,6 +356,11 @@ class MoySkladController extends Controller
                     $code = explode('-', $product->code)[0];
                     if( isset($siteProducts[$code]) )
                     {
+                        //берем закупочную цену продукта, если у модификации нет своей(в массиве продукты стоят перед своими модификациями)
+                        $buyPrice = isset($product->buyPrice) ? $product->buyPrice->value / 100 : $buyPrice;
+                        //вес и объем так же могут клонироваться в модификацию из продукта
+                        $weight = isset($product->weight) ? $product->weight : $weight;
+                        $volume = isset($product->volume) ? $product->volume : $volume;
                         $syncProducts[] = [
                             'product_id' => $siteProducts[$code],
                             'ms_sku' => $product->code,
@@ -357,6 +370,8 @@ class MoySkladController extends Controller
                             'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
                             'ms_salePrice' => $salePrice,
                             'ms_buyPrice' => $buyPrice,
+                            'ms_weight' => $weight,
+                            'ms_volume' => $volume,
                             'created_at' => date('Y-m-d H:i:s'),
                             'updated_at' => date('Y-m-d H:i:s')
                         ];
