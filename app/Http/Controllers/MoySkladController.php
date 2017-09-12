@@ -328,13 +328,14 @@ class MoySkladController extends Controller
             $salePrice = isset($product->salePrices) ? $product->salePrices[0]->value / 100 : 0;
             if( isset($product->code) )
             {
-                if( isset($siteProducts[$product->code]) )
-                {
+                if($product->meta->type == 'product') {
                     //закупочная цена
                     $buyPrice = isset($product->buyPrice) ? $product->buyPrice->value / 100 : 0;
-                    //
                     $weight = isset($product->weight) ? $product->weight : 0;
                     $volume = isset($product->volume) ? $product->volume : 0;
+                }
+                if( isset($siteProducts[$product->code]) )
+                {
                     // Simple products and products of some color
                     $syncProducts[] = [
                         'product_id' => $siteProducts[$product->code],
