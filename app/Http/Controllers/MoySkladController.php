@@ -319,15 +319,16 @@ class MoySkladController extends Controller
     $siteProducts = $temp;
 
         $syncProducts = [];
-        $salePrice = 0;
         //Insert products to db
         foreach( $products as $product )
         {
+            $salePrice = isset($product->salePrices) ?   $product->salePrices[0]->value / 100 : 0;
+            //закупочная цена
+            $buyPrice = isset($product->buyPrice) ?   $product->buyPrice->value / 100 : 0;
             if( isset($product->code) )
             {
                 if( isset($siteProducts[$product->code]) )
                 {
-                    $salePrice = isset($product->salePrices) ?   $product->salePrices[0]->value / 100 : $salePrice;
                     // Simple products and products of some color
                     $syncProducts[] = [
                         'product_id' => $siteProducts[$product->code],
@@ -337,6 +338,7 @@ class MoySkladController extends Controller
                         'ms_externalCode' => $product->externalCode,
                         'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
                         'ms_salePrice' => $salePrice,
+                        'ms_buyPrice' => $buyPrice,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
                     ];
@@ -354,6 +356,7 @@ class MoySkladController extends Controller
                             'ms_externalCode' => $product->externalCode,
                             'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
                             'ms_salePrice' => $salePrice,
+                            'ms_buyPrice' => $buyPrice,
                             'created_at' => date('Y-m-d H:i:s'),
                             'updated_at' => date('Y-m-d H:i:s')
                         ];
