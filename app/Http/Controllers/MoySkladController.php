@@ -322,6 +322,8 @@ class MoySkladController extends Controller
         $buyPrice = 0;
         $weight = 0;
         $volume = 0;
+        //id текущего товара с типом product
+        $last_code = '';
         //Insert products to db
         foreach( $products as $product )
         {
@@ -333,11 +335,16 @@ class MoySkladController extends Controller
                     $buyPrice = isset($product->buyPrice) ? $product->buyPrice->value / 100 : 0;
                     $weight = isset($product->weight) ? $product->weight : 0;
                     $volume = isset($product->volume) ? $product->volume : 0;
+                    $parent_code = '';
+                    $last_code = $product->externalCode;
+                }else {
+                    $parent_code = $last_code;
                 }
                 if( isset($siteProducts[$product->code]) )
                 {
                     // Simple products and products of some color
                     $syncProducts[] = [
+                        'parent_code' => $parent_code,
                         'product_id' => $siteProducts[$product->code],
                         'ms_sku' => $product->code,
                         'ms_uuid' => $product->id,
@@ -363,6 +370,7 @@ class MoySkladController extends Controller
                         $weight = isset($product->weight) ? $product->weight : $weight;
                         $volume = isset($product->volume) ? $product->volume : $volume;
                         $syncProducts[] = [
+                            'parent_code' => $parent_code,
                             'product_id' => $siteProducts[$code],
                             'ms_sku' => $product->code,
                             'ms_uuid' => $product->id,

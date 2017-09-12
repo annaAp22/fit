@@ -8,6 +8,7 @@ class MsProduct extends Model
 {
     protected $dates = ['created_at, updated_at'];
     protected $fillable = [
+        'parent',
         'product_id',
         'ms_uuid',
         'ms_sku',
