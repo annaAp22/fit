@@ -586,7 +586,21 @@ $(function(){
 
     // Mask phone
     $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
-
+    $body.on('focus', '.js-phone', function(e) {
+        if(this.value.length < 2) {
+            this.value = '+7';
+        }
+    });
+    $body.on('input', '.js-phone', function(e) {
+        if(this.value.length < 2) {
+            var input = this;
+            input.value = '+7';
+            setTimeout(function(e) {
+                input.selectionStart = input.value.length;
+                input.selectionStart = input.value.length;
+            }, 10);
+        }
+    });
     // Check required fields
     $body.on('input change click', '.js-required-fields', function(){
         var form = $(this).closest('form');
