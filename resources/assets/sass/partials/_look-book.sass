@@ -38,6 +38,8 @@
   margin-top: 20px
   position: relative
   margin-bottom: 90px
+  +media-xs(down)
+    margin-bottom: 60px
   +media-md(down)
     margin-top: 24px
   //+hidden-xs()
@@ -80,7 +82,8 @@
     &.right
       right: 0
   & > .carousel-pagination
-    bottom: -60px
+    position: static
+    margin-top: 20px
     & > .carousel-pagination__page
       border-color: #bebebe
       position: relative

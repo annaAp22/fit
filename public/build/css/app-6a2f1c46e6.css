@@ -10619,7 +10619,8 @@ h3 {
 }
 
 .look-book-slider>.carousel-pagination {
-  bottom: -60px;
+  position: static;
+  margin-top: 20px;
 }
 
 .look-book-slider>.carousel-pagination>.carousel-pagination__page {
@@ -17252,6 +17253,10 @@ h3 {
 
   .look-book-notice {
     display: block;
+  }
+
+  .look-book-slider {
+    margin-bottom: 60px;
   }
 
   .moving-dot {
