@@ -240,11 +240,17 @@ class Product extends Model
             ->distinct()
             ->whereHas('categories', function($query) use($category_ids) {
                 $query->whereIn('categories.id', collect($category_ids));
-            })
-            ->join(DB::raw('(SELECT product_id, sort FROM `category_product` GROUP BY product_id) t'), function($query) {
+            });
+        if($category->hasChildren) {
+            $query->join(DB::raw('(SELECT product_id, sort FROM `category_product` GROUP BY product_id) t'), function($query) {
                 $query->on('products.id', '=', 't.product_id');
-            } )
-            ->withInfo();
+            } );
+        }else {
+            $query->join(DB::raw('(SELECT product_id, sort FROM `category_product` where category_id = '.$category->id.') as t'), function($query) {
+                $query->on('products.id', '=', 't.product_id');
+            } );
+        }
+        $query->withInfo();
 //        $query->join('category_product', 'products.id','category_product.product_id')->select('products.*')
 //            ->whereIn('category_product.category_id', collect($category_ids))
 //            ->withInfo();
