@@ -1,10 +1,15 @@
 // Look Book slider
 .look-book
   margin: 20px auto 0
-  max-width: 866px
+  width: 866px
+  max-width: 100%
+  +media-xs(down)
+    margin-top: 0
   &__title
     font-size: 36px
     text-align: center
+    +media-xs(down)
+      font-size: 28px
     & > span
       &:not(:nth-child(2))
         font-weight: 700
