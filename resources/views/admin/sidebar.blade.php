@@ -279,6 +279,15 @@
                     <b class="arrow"></b>
                 </li>
                 @endcan
+                @can('index', new App\User())
+                    <li>
+                        <a href="{{route('admin.subscribers')}}" download="subscribers.xls">
+                            <i class="menu-icon fa fa-address-card"></i>
+                            <span class="menu-text"> Выгрузить подписчиков </span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                @endcan
                 <li @if( str_is('admin.cache-clear', Route::currentRouteName())) class="active" @endif>
                     <a href="{{route('admin.cache-clear')}}">
                         <i class="menu-icon fa fa-refresh"></i>

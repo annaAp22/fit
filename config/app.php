@@ -200,6 +200,8 @@ return [
 
         // Composers
         App\Providers\ComposerServiceProvider::class,
+        //Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -258,5 +260,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Widget'       => Arrilot\Widgets\Facade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 ];

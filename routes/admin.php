@@ -85,4 +85,5 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::resource('offers', 'OfferController', ['except' => ['show']]);
     Route::put('/offers/restore/{id}', ['as' => 'offers.restore', 'uses' => 'OfferController@restore'])->where(['id' => '[0-9]+']);
+    Route::get('/subscribers', 'SubscriberController@xls')->name('subscribers');
     });

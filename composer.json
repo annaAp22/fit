@@ -15,6 +15,7 @@
         "jenssegers/date": "^3.2",
         "kodicms/laravel-assets": "^0.3.5",
         "laravel/framework": "5.4.*",
+        "maatwebsite/excel": "~2.1.0",
         "predis/predis": "^1.1",
         "retailcrm/api-client-php": "~5.0",
         "stevebauman/location": "^2.0"
