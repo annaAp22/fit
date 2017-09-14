@@ -40,5 +40,10 @@ class UserGroupSeeder extends Seeder
             'name_rus'=> 'Покупатель',
             'descr'   => 'Группа покупателей с доступом к ЛК, без доступа к панели управления'
         ]);
+        App\Models\UserGroup::firstOrCreate([
+            'name'    => 'partner',
+            'name_rus'=> 'Партнер',
+            'descr'   => 'Группа покупателей с доступом к ЛК и своим рефералам, без доступа к панели управления'
+        ]);
     }
 }
