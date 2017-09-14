@@ -4,15 +4,16 @@
 @section('breadcrumbs')
     {!!  Breadcrumbs::render('product', $product) !!}
 @endsection
-
 @section('content')
     <main class="container container_block" role="main">
-        <section class="container-in product-detailed">
+        <section class="container-in product-detailed" itemscope itemtype="http://schema.org/Product">
             <!-- H1 title md down-->
-            <h1 class="product-detailed__title product-detailed__title_md-down">
+            <h1 class="product-detailed__title product-detailed__title_md-down" itemprop="name">
                 {{ $product->name }}
             </h1>
-
+            <span itemprop="description" hidden>
+                {{$product->descr}}
+            </span>
             <!-- Article md down-->
             <div class="product-detailed__subtitle product-detailed__art product-detailed__art_md-down">
                 Артикул: {{ $product->sku }}
@@ -48,7 +49,7 @@
                 </div>
                 <div class="product-gallery__image-wrap">
                     <a class="product-gallery__image-link active js-gallery-big" data-fancybox="group" href="{{ $product->uploads->img->url() }}">
-                        <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
+                        <img class="product-gallery__image" src="{{ $product->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation" itemprop="image"/>
                     </a>
 
                     @if($product->video_url)
@@ -100,13 +101,15 @@
                         </div>
 
                         <!-- Price-->
-                        <div class="product-detailed__price product__price">
+                        <div class="product-detailed__price product__price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             @if($product->originalPrice)
                                 <i class="sprite_main sprite_main-product__old-price_detailed old-price">
                                     <span>{{ number_format($product->originalPrice, 0, '.', ' ') }} ₽</span>
                                 </i>
                             @endif
-                            <span class="current">{{ number_format($product->price, 0, '.', ' ') }} ₽</span>
+                            <span class="current"><span itemprop="price">{{ number_format($product->price, 0, '.', ' ') }}</span> ₽</span>
+                                <!--В поле priceCurrency указывается валюта.-->
+                                <span itemprop="priceCurrency" hidden>RUB</span>
                         </div>
 
                         @include('catalog.products.rating')
@@ -306,4 +309,13 @@
             @widget('SubscribeWidget')
         </section>
     </main>
+    <!-- Yandex Adviser Remove Start -->
+    <script>
+        $(document).ready(function(){
+            $("*").each(function( ) {
+                if ($(this).attr("itemprop")) { $(this).removeAttr("itemprop"); }
+            });
+        });
+    </script>
+    <!-- Yandex Adviser Remove End -->
 @endsection
