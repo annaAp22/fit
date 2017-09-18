@@ -42,6 +42,7 @@
             </ul>
         </li>
         @endcan
+
         @can('index', new App\Models\Product())
         <li @if( str_is('admin.products*', Route::currentRouteName()) ||
                  str_is('admin.attributes*', Route::currentRouteName()))
@@ -227,6 +228,29 @@
             <b class="arrow"></b>
         </li>
         @endcan
+            @can('index', new App\Models\RetailOrder())
+                <li @if( str_is('admin.retail-orders*', Route::currentRouteName()))
+                    class="active open"
+                        @endif >
+                    <a href="#"  class="dropdown-toggle">
+                        <i class="menu-icon">
+                            <img  src="/img/retailcrm.ru-min.png" alt="">
+                        </i>
+                        <span class="menu-text"> RetailCRM </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li  @if( str_is('admin.retailCRM*', Route::currentRouteName())) class="active" @endif>
+                            <a href="{{route('admin.retailcrm_order_statuses.index')}}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                <span class="menu-text"> Статусы заказа </span>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
 
         @if(Gate::check('index', new App\Models\Page()) || Gate::check('index', new App\Models\Metatag()) || Gate::check('index', new App\Models\Setting()) || Gate::check('index', new App\User()))
 

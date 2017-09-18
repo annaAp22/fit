@@ -86,4 +86,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::resource('offers', 'OfferController', ['except' => ['show']]);
     Route::put('/offers/restore/{id}', ['as' => 'offers.restore', 'uses' => 'OfferController@restore'])->where(['id' => '[0-9]+']);
     Route::get('/subscribers', 'SubscriberController@xls')->name('subscribers');
+    Route::resource('retailcrm_order_statuses', 'RetailCRMOrderStatusesController', ['except' => ['show']]);
+    Route::put('/retailcrm_order_statuses/{id}', ['as' => 'retailcrm_order_statuses.restore', 'uses' => 'RetailCRMOrderStatusesController@restore'])->where(['id' => '[0-9]+']);
+    Route::get('/retailcrm_order_statuses/load', 'RetailCRMOrderStatusesController@load')->name('retailcrm_order_statuses.load');
     });

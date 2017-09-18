@@ -85,6 +85,7 @@
 
 
                     <div class="form-group">
+                        <div class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="Зарезирвированные переменные: type=info - страницы будут отображаться в блоке информация template_vars=шаблон1,шаблон2 - вставляет в страницу на место <!--&#123;{имя шаблона}}--> подходящий шаблон" title="" data-original-title="">?</div>
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-4"> Дополнительные данные </label>
                         <div class="col-sm-9">
                             <div class="dynamic-input">

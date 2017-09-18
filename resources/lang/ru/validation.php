@@ -140,6 +140,7 @@ return [
         'email' => 'email',
         'sysname' => 'символьный код(чпу)',
         'content' => 'описание',
+        'status_id' => 'статус'
     ],
 
 ];
