@@ -49,10 +49,15 @@ class ComposerServiceProvider extends ServiceProvider
             ->with('geo_location', $location)
             ->with('routeName', $routeName);
       });
+      //передаем данные в модальники и письма
+        View::composer(['modals.*','emails,.*'], function($view) {
+            $settings = Setting::all()->keyBy('var');
+            $view->with('settings', $settings);
+        });
       //передаем пользователя в представления
       View::composer(
           [
-              'modals.quick_order_product', 'order.order', 'content.orders_history'
+              'modals.quick_order_product', 'order.order', 'content.orders_history', 'content.referrals_orders_history', 'forms.partners', 'blocks.header.index'
           ],
           function($view) {
             $user = Auth::check()?Auth::user():null;
