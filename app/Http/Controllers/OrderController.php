@@ -6,6 +6,9 @@ use App\Models\Delivery;
 use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
+use App\Models\Partner;
+use App\Models\PartnerTransfer;
+use App\Models\Referral;
 use App\Models\RetailOrder;
 use Illuminate\Http\Request;
 
@@ -13,8 +16,9 @@ use App\Http\Requests;
 use App\Models\Product;
 use App\Models\Order;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -105,7 +109,30 @@ class OrderController extends Controller
     $this->setMetaTags();
     return view('order.order', ['cart' => $cart, 'deliveries' => $deliveries, 'payments' => $payments]);
   }
-
+    public function checkDiscountCode(Request $request) {
+        $data = $request->input();
+        $user = Auth::user();
+        //если пользователь уже стал рефералосм, то болше не может использовать скидочный код
+        if(isset($data['discount_code']) && isset($data['phone'])) {
+            $referral = Referral::where('phone', $data['phone'])->first();
+            $is_partner = ($user && $user->partner);
+            if(!$referral && !$is_partner) {
+                $validate['discount_code'] = 'exists:partners,code,code,'.$data['discount_code'];
+            }else {
+                $validate['discount_code'] = 'size:0';
+            }
+        }
+        $validator = Validator::make($data, $validate);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false
+            ]);
+        }else {
+            return response()->json([
+                'success' => true
+            ]);
+        }
+    }
   /**
    * Сохранение заказа
    * @param Requests\DeliveryRequest $request
@@ -115,13 +142,50 @@ class OrderController extends Controller
     if(!session()->has('products.cart')) {
       return redirect()->route('cart');
     }
-
+    $user = Auth::user();
     $data = $request->input();
 
     $data['email'] = $data['email'] ?: 'no email';
 
     $data['datetime'] = date('Y-m-d H:i:s');
     $data['status'] = 'wait';
+      if(isset($user)) {
+          $data['customer_id'] = $user->id;
+      }
+
+      $validate = [
+          'name' => 'required',
+          'phone' => 'required',
+      ];
+
+      //находит реферала по номеру телефона
+      if(isset($data['phone'])) {
+          $referral = Referral::where('phone', $data['phone'])->first();
+      }
+      $is_partner = ($user && $user->partner);
+      //если пользователь уже стал рефералосм, то болше не может использовать скидочный код
+      if(isset($data['discount_code'])) {
+          if(!$referral && !$is_partner) {
+              $validate['discount_code'] = 'exists:partners,code,code,'.$data['discount_code'];
+              $partner = Partner::where('code', $data['discount_code'])->first();
+          }else {
+              $validate['discount_code'] = 'size:0';
+          }
+      }
+      $validator = Validator::make($data, $validate);
+      if ($validator->fails()) {
+          $messages = $validator->messages()->messages();
+          foreach($messages as $key => $val) {
+              $fields[] = $key;
+          }
+          return response()->json([
+              'error' => 1,
+              'message' => 'При оформлении заказа произошла ошибка. Попробуйте снова.',
+              'error_type' => 'validation',
+              'fields' => $fields,
+          ]);
+      }
+
     if(isset($data['delivery_id'])) {
       $delivery = Delivery::where('id', $data['delivery_id'])->published()->first();
     }
@@ -131,6 +195,7 @@ class OrderController extends Controller
 
     //$data['payment_add'] = 'Почтовый индекс: '.$data['index'].'. Комментарий: '.$data['payment_add'];
     $order = Order::create($data);
+
     $amount = 0;
     foreach( session()->get('products.cart') as $product_id => $items )
     {
@@ -149,6 +214,33 @@ class OrderController extends Controller
       }
     }
      $order->update(['amount' => $amount]);
+      if(isset($order)) {
+          //сохраняем пользователя как реферала, если он пришел по коду партнера и заказ успешно сохранился
+          if(isset($partner)) {
+              Referral::create([
+                  'name' => $order->name,
+                  'partner_id' => $partner->id,
+                  'order_id' => $order->id,
+                  'email' => $order->email,
+                  'phone' => $order->phone,
+              ]);
+          }elseif($referral) {
+              $partner = Partner::find($referral->partner_id);
+          }
+          //сохраняем скидку в дополнителные параметры заказа
+          if($partner) {
+              $extra_params = $order->extra_params;
+              //если это первый заказ по скидочному коду, то даем скидку
+              if(!$referral) {
+                  $extra_params['discount_percent'] = $partner->referral_discount_percent;
+                  $extra_params['discount'] = $order->amount * $partner->referral_discount_percent / 100;
+              }
+              $extra_params['referrer'] = $partner->id;
+              $order->extra_params = $extra_params;
+              $order->save();
+          }
+      }
+
     //если включена опция локалка, то не используем мой склад
     if(!env('IS_LOCALHOST', 0)) {
         // Add new order to moySklad orders table
@@ -163,6 +255,11 @@ class OrderController extends Controller
        ]);
 
        $positions = [];
+        //считаем скидку по заказу
+        $discount_percent = 0;
+        if(isset($order->extra_params['discount_percent'])) {
+            $discount_percent = $order->extra_params['discount_percent'];
+        }
        foreach ($order->products as $product)
        {
            $params = json_decode($product->pivot->extra_params);
@@ -172,8 +269,9 @@ class OrderController extends Controller
            {
               $positions[] = [
                  "quantity" => intval($product->pivot->cnt),
-                 "price" => (floatval($product->price) / (100 - $product->discount))  * 100 * 100,
-                 "discount" => floatval($product->discount),
+                  "price" => (floatval($product->price) / (100 - $product->discount - $discount_percent))  * 100 * 100,
+                  "discount" => floatval($product->discount + $discount_percent),
+
                  "vat" => 0,
                  "assortment" => [
                      "meta" => [

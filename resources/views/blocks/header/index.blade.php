@@ -125,6 +125,9 @@
                     <div id="js-autorized"  @if(!Auth::check()) hidden @endif>
                             <a href="{{route('room')}}">Мои данные</a>
                             <a href="{{route('orders-history')}}">Мои заказы</a>
+                            @if(isset($user) && $user->partner)
+                            <a href="{{route('orders-history', ['referrals' => 1])}}">Заказы рефералов</a>
+                            @endif
                         <a  class="js-action-link" data-url="{{ route('ajax.logout') }}">Выйти</a>
                     </div>
                 </div>

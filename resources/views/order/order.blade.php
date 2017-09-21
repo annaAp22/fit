@@ -46,6 +46,7 @@
             @include('order.partials.goods')
             <!--  Order form-->
             <form name="checkout-form" class="checkout-form" action="{{ route('order.details') }}" method="post">
+                <input name="_token" type="hidden" value="{{csrf_token()}}">
                 <div class="form-header">
                     <!-- Step 1-->
                     <div class="form-header__title js-step js-step js-step_1 active"><i class="sprite_main sprite_main-form-header-smile-green"></i><span>Давайте знакомиться!</span>
@@ -83,6 +84,11 @@
                         <div class="form-input form-body__input">
                             <div class="form-label">Я живу по адресу:
                             </div><input class="input input_text form-input__input" type="text" name="address" placeholder="г. Город ул. Улица д. 1 этаж 1 кв. 1" /><i class="form-input__icon sprite sprite_main sprite sprite_main-form-input-point-green"></i>
+                        </div>
+                        <div class="form-input form-body__input">
+                            <div class="form-label">У меня есть скидочный код:
+                                <input title="Скидочный код можно получить у наших партнеров. По этому коду дается единоразовая скидка {{$global_settings['referral_discount_percent']->value}}%" class="js-required-fields input input_text js-discount-validate" type="text" name="discount_code"/>
+                            </div>
                         </div>
                         <div class="form-modal_center">
                             <label class="radio radio_box">

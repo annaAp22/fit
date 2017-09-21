@@ -38,8 +38,9 @@ class RoomController extends Controller
     //получаем коллекцию заказов в зависимости от номера страницы и количества на странице
     //если указан флаг рефералов, то получаем заказы рефералов, а не самого пользователя
     if($is_referrals && isset($user->partner)) {
-        $ids = $user->partner->referrals->pluck('order_id');
-        $orderRequest = Order::whereIn('id', $ids)->orderBy('created_at', 'decs');
+        $referrals = $user->partner->referrals;
+        $phones = $referrals->pluck('phone');
+        $orderRequest = Order::whereIn('phone', $phones)->where('extra_params', 'like', '%referrer%')->orderBy('created_at', 'decs');
     } else {
         $is_referrals = false;
         $orderRequest = Order::where('email', $user->email)->orWhere('customer_id', $user->id)->orderBy('created_at', 'decs');

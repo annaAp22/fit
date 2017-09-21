@@ -37,5 +37,5 @@ Email: <b>{{$order->email}}</b><br>
         </tr>
     @endforeach
 </table>
-    <p>Общая стоимость(с учетом доставки): <b>{{$order->totalWithDelivery }} р.</b></p>
+    <p>Общая стоимость(с учетом доставки и скидки): <b>{{$order->totalWithDelivery }} р.</b></p>
 </body>

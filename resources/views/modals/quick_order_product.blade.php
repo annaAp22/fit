@@ -3,8 +3,10 @@
         <div class="form-modal">
             {{ csrf_field() }}
             <input type="hidden" name="id" value="{{ $product->id }}">
+            @if(isset($user))
+                <input type="hidden" name="user_id" value="{{$user->id}}">
+            @endif
             <input type="hidden" name="size" value="{{ $size }}">
-
             <div class="form-modal_title">БЫСТРЫЙ ЗАКАЗ ТОВАРА</div>
             <div class="form-modal_line">
                 <label>Ваше имя: <span class="mod-col-or">*</span></label>
@@ -20,6 +22,10 @@
                 <script type="text/javascript">
                     $('.js-phone').mask("+7 000 000 00 00", {placeholder: "+7 ___ ___ __ __"});
                 </script>
+            </div>
+            <div class="form-modal_line">
+                <label>Скидочный код:</label>
+                <input title="Скидочный код можно получить у наших партнеров. По этому коду дается единоразовая скидка {{$settings['referral_discount_percent']->value}}%" class="js-required-fields input input_text js-validate" type="text" name="discount_code"/>
             </div>
             <div class="form-modal_line">
                 <label class="radio radio_box">

@@ -54,7 +54,7 @@ Route::group([
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
     Route::get('/order.html', ['as' => 'order', 'uses' => 'OrderController@order']);
     Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
-    //Route::post('/order/check-discount-code', 'OrderController@checkDiscountCode')->name('check_discount_code');
+    Route::post('/order/check-discount-code', 'OrderController@checkDiscountCode')->name('check_discount_code');
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Customers Photos

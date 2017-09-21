@@ -109,7 +109,13 @@ class Order extends Model
     public function payment() {
         return $this->belongsTo('App\Models\Payment', 'payment_id');
     }
-
+    public function getDeliveryPriceAttribute() {
+        if(isset($this->extra_params['delivery_price'])) {
+            return $this->extra_params['delivery_price'];
+        } else {
+          return 0;
+        }
+    }
     public function delivery() {
         return $this->belongsTo('App\Models\Delivery', 'delivery_id');
     }

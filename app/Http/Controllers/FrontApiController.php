@@ -6,8 +6,12 @@ use App\Models\Article;
 use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
+use App\Models\Partner;
+use App\Models\PartnerTransfer;
 use App\Models\ProductComment;
+use App\Models\Referral;
 use App\Models\RetailOrder;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -364,8 +368,8 @@ class FrontApiController extends Controller
      */
     public function fast(Request $request) {
         $data = $request->input();
+        $user = Auth::user();
         $is_multiple = $request->input('is_multiple', 0);
-
         $validate = [
             'name' => 'required',
             'phone' => 'required',
@@ -373,10 +377,32 @@ class FrontApiController extends Controller
         if( !$is_multiple) {
             $validate['id'] = 'required|exists:products,id';
         }
+        //находит реферала по номеру телефона
+        if(isset($data['phone'])) {
+            $referral = Referral::where('phone', $data['phone'])->first();
+        }
+        $is_partner = ($user && $user->partner);
+        //если пользователь уже стал рефералосм, то болше не может использовать скидочный код
+        if(isset($data['discount_code'])) {
+            if(!$referral && !$is_partner) {
+                $validate['discount_code'] = 'exists:partners,code,code,'.$data['discount_code'];
+                $partner = Partner::where('code', $data['discount_code'])->first();
+            }else {
+                $validate['discount_code'] = 'size:0';
+            }
+        }
         $validator = Validator::make($data, $validate);
-
         if ($validator->fails()) {
-            return response()->json(['error' => 1, 'message' => 'При оформлении заказа произошла ошибка. Попробуйте снова.']);
+            $messages = $validator->messages()->messages();
+            foreach($messages as $key => $val) {
+                $fields[] = $key;
+            }
+            return response()->json([
+                'error' => 1,
+                'message' => 'При оформлении заказа произошла ошибка. Попробуйте снова.',
+                'error_type' => 'validation',
+                'fields' => $fields,
+            ]);
         }
         $data = [
             'name' => $request->input('name'),
@@ -384,11 +410,14 @@ class FrontApiController extends Controller
             'datetime' => date('Y-m-d H:i:s'),
             'status' => 'wait',
             'email' => $request->input('email', 'no email'),
-            'extra_params' => ['type' => 'one-click'],
+            'extra_params' => [
+                'type' => 'one-click'
+            ],
         ];
-        if(Auth::check()) {
-            $data['customer_id'] = Auth::user()->id;
+        if(isset($user)) {
+            $data['customer_id'] = $user->id;
         }
+
         if($is_multiple)
         {
             $order = Order::create($data);
@@ -434,6 +463,11 @@ class FrontApiController extends Controller
             ]);
 
             $positions = [];
+            //считаем скидку по заказу
+            $discount_percent = 0;
+            if(isset($order->extra_params['discount_percent'])) {
+                $discount_percent = $order->extra_params['discount_percent'];
+            }
             foreach ($order->products as $product)
             {
                 $params = json_decode($product->pivot->extra_params);
@@ -443,8 +477,8 @@ class FrontApiController extends Controller
                 {
                     $positions[] = [
                         "quantity" => intval($product->pivot->cnt),
-                        "price" => (floatval($product->price) / (100 - $product->discount))  * 100 * 100,
-                        "discount" => floatval($product->discount),
+                        "price" => (floatval($product->price) / (100 - $product->discount - $discount_percent))  * 100 * 100,
+                        "discount" => floatval($product->discount + $discount_percent),
                         "vat" => 0,
                         "assortment" => [
                             "meta" => [
@@ -477,6 +511,35 @@ class FrontApiController extends Controller
             $msOrder->ms_positions = json_encode($positions);
             $msOrder->save();
         }
+
+
+        if(isset($order)) {
+            //сохраняем пользователя как реферала, если он пришел по коду партнера и заказ успешно сохранился
+            if(isset($partner)) {
+                Referral::create([
+                    'name' => $order->name,
+                    'partner_id' => $partner->id,
+                    'order_id' => $order->id,
+                    'email' => $order->email,
+                    'phone' => $order->phone,
+                ]);
+            }elseif($referral) {
+                $partner = Partner::find($referral->partner_id);
+            }
+            //сохраняем скидку в дополнителные параметры заказа
+            if($partner) {
+                $extra_params = $order->extra_params;
+                //если это первый заказ по скидочному коду, то даем скидку
+                if(!$referral) {
+                    $extra_params['discount_percent'] = $partner->referral_discount_percent;
+                    $extra_params['discount'] = $order->amount * $partner->referral_discount_percent / 100;
+                }
+                $extra_params['referrer'] = $partner->id;
+                $order->extra_params = $extra_params;
+                $order->save();
+            }
+        }
+
         //сохраняем заказ в таблицу для retailcrm
         RetailOrder::create(['order_id' => $order->id]);
         //отправка почты, может быть отключена в настройках

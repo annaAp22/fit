@@ -5,6 +5,7 @@
     <th>Дата оформления</th>
     <th class="count-col">Товаров</th>
     <th>Цена с доставкой</th>
+    <th>Статус</th>
     <th></th>
 </tr>
 @for($i = 0, $j = $lastOrderCount; $i < count($orders); $i++, $j++, $odd = $odd ^ 1)
@@ -17,6 +18,7 @@
         <td>{{$order->created_at->format('d.m.Y')}}</td>
         <td class="count-col">{{$products->sum('pivot.cnt')}}</td>
         <td class="price">{{$order->totalWithDelivery}} ₽</td>
+        <td class="status">{{$order->statusName()}}</td>
         <td class="more-col">
             <div class="more js-toggle-active js-open-order">
                 <span class="text close">Подробнеe</span>

@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Order;
 use App\Models\OrderStatuses;
+use App\Models\Partner;
+use App\Models\PartnerTransfer;
 use App\Models\RetailOrderStatuses;
 use App\Models\Setting;
 use Illuminate\Console\Command;
@@ -53,7 +55,7 @@ class OrdersUpdate extends Command
                 'cancel', 'complete',
             ];
             $orders = Order::whereNotIn('status', $completeStatuses)->orderBy('id', 'desc')->take(100)->get();
-            Log::info($orders->pluck('id'));
+            //Log::info($orders->pluck('id'));
             $orders = $orders->keyBy('id');
             $client = new \RetailCrm\ApiClient(
                 $url,
@@ -76,11 +78,34 @@ class OrdersUpdate extends Command
                 foreach ($response->orders as $order) {
                     $id = $order['externalId'];
                     if(isset($orders[$id])) {
+                        $temp_order = $orders[$id];
                         $retailStatus = $retailStatuses[$order['status']];
-                        $orders[$id]->status = $retailStatus->status->sysname;
+                        $temp_order->status = $retailStatus->status->sysname;
+//                        начисляем процент от заказа партнеру и сохраняем в историю
+                        if($temp_order->status == 'complete' && isset($temp_order->extra_params['referrer'])) {
+                            $partner_id = $temp_order->extra_params['referrer'];
+                            $partner = Partner::find($partner_id);
+                            if($partner) {
+                                if(isset($order['summ']) && isset($order['totalSumm']) && isset($order['delivery']['data']['price'])) {
+                                    $discount = ($order['summ'] + $order['delivery']['data']['price'] - $order['totalSumm']);
+                                } else {
+                                    $discount = 0;
+                                }
+                                if($discount < 0) {
+                                    $discount = 0;
+                                }
+                                $partner->accrue($discount);
+                                PartnerTransfer::create([
+                                    'partner_id' => $partner->id,
+                                    'status' => 'accrue',
+                                    'money' => $discount,
+                                ]);
+                            }
+                        }
+                        $temp_order->save();
                     }
                 }
-                Log::info($response->orders);
+                //Log::info($response->orders);
             }else {
                 Log::info($response->errors);
             }
