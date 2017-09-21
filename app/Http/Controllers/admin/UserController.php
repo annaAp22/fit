@@ -68,6 +68,18 @@ class UserController extends Controller
         User::create($data);
         return redirect()->route('admin.users.index')->withMessage('Пользователь зарегистрирован');
     }
+    /**
+     * Show the form the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::find($id);
+        $groups = UserGroup::orderBy('name_rus')->get();
+        return view('admin.users.show', ['user' => $user, 'groups' => $groups]);
+    }
 
     /**
      * Show the form for editing the specified resource.
