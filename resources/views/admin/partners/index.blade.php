@@ -89,7 +89,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <p>Нет пользователей</p>
+                                    <p>Нет партнеров</p>
                                 @endforelse
                                 </tbody>
                             </table>

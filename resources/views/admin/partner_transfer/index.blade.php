@@ -70,7 +70,7 @@
                                         <th>{{$item->money}} р.</th>
                                     </tr>
                                 @empty
-                                    <p>Нет пользователей</p>
+                                    <p>Нет начислений</p>
                                 @endforelse
                                 </tbody>
                             </table>
