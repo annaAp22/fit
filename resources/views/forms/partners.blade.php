@@ -1,4 +1,4 @@
-@if(!isset($user) || !$user->groupIs('partner'))
+@if(!isset($user) || !$user->partner)
 <form name="registration-form" action="{{route('ajax.register')}}" class="questions-and-offers js-form-ajax" method="POST">
     <input name="last_name" value="registration" type="hidden">
     <input type="hidden" name="partner" value='1'/>
