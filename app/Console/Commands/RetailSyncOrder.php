@@ -106,6 +106,7 @@ class RetailSyncOrder extends Command
             'code' => isset($order->delivery) ? $order->delivery->sysname : null,
             'address' => $address,
         ),
+        'discountManualPercent' => isset($order->extra_params['discount_percent']) ? $order->extra_params['discount_percent'] : null,
         //'payments' => $payments,
     ];
     $client = new \RetailCrm\ApiClient(

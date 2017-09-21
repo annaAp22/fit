@@ -3,11 +3,11 @@
 namespace App\Console;
 
 use App\Console\Commands\MoySkladImportProducts;
+use App\Console\Commands\OrdersUpdate;
 use App\Console\Commands\Phone;
 use App\Console\Commands\ProductsSex;
 use App\Console\Commands\RetailSyncOrder;
 use App\Console\Commands\RetailUnsyncOrders;
-use App\Console\Commands\TestOrders;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
         RetailUnsyncOrders::class,
         ProductsSex::class,
         Phone::class,
+        OrdersUpdate::class,
     ];
 
     /**
