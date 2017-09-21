@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Models\UserGroup;
 use App\User;
 use Illuminate\Http\Request;
@@ -107,10 +108,11 @@ class CustomerAccountController extends Controller
                 $validator->errors()->add('other', 'Регистрация не доступна');
             }
         });
+        $group = 'customer';
         if ($validator->fails()) {
             $messages = $validator->messages()->all();
         } else {
-            $shopper = UserGroup::where('name', 'customer')->first();
+            $shopper = UserGroup::where('name', $group)->first();
             if(!$shopper) {
                 $messages = array(
                     'other' => 'На данный момент регистрация отключена'
@@ -124,6 +126,13 @@ class CustomerAccountController extends Controller
                     'group_id' => $shopper->id,
                     'status' => 1,
                 ]);
+                if($user && isset($data['partner'])) {
+                    $code = Partner::generateSaleCode();
+                    $partner = Partner::create([
+                        'user_id' => $user->id,
+                        'code' => $code,
+                    ]);
+                }
             }
         }
         if(isset($user)) {
