@@ -527,7 +527,7 @@ class FrontApiController extends Controller
                 $partner = Partner::find($referral->partner_id);
             }
             //сохраняем скидку в дополнителные параметры заказа
-            if($partner) {
+            if(isset($partner)) {
                 $extra_params = $order->extra_params;
                 //если это первый заказ по скидочному коду, то даем скидку
                 if(!$referral) {
