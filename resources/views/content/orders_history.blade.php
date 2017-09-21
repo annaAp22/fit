@@ -14,6 +14,18 @@
                 <div class="corner"></div>
             </div>
         </div>
+        @if(isset($user->partner))
+            <div>Персоналный номер, передается покупателю для получения им разовой скидки, при этом процент с выполненнго заказа начисляется на личный счет владельца номера.</div>
+            <div class="personal-number">
+                {{$user->partner->code}}
+            </div>
+            <div>
+                Всего заработано: <b>{{$user->partner->make_money}}</b> р.<br/>
+                Снято со счета: <b>{{$user->partner->spent_money}}</b> р.<br/>
+                Осталось на счету: <b>{{$user->partner->remain_money}}</b> р.<br/>
+            </div>
+            <br/>
+        @endif
         <div class="orders-table_caption">ИСТОРИЯ ЗАКАЗОВ</div>
         <div class="orders-table_wrapper js-horizontal-scroll">
             <table class="orders-table js-orders-table">
