@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Mail;
@@ -34,6 +33,23 @@ class User extends Authenticatable
     public function group() {
         return $this->belongsTo('App\Models\UserGroup', 'group_id');
     }
+    public function partner() {
+        return $this->hasOne('App\Models\Partner');
+    }
+    /*
+    * проверяет, является ли пользователь рефералом
+     * если пользователь не является рефералом, но использует другой номер телефона, то проверяет, является ли рефералом
+     * пользователь с заданным номером.
+    */
+    public function isReferral($otherPhone = null) {
+        if($this->referrer) {
+            return true;
+        }
+        if($otherPhone != null) {
+            $referrer = self::where('phone', $otherPhone)->whereNotNull('referrer')->first();
+        }
+        return isset($referrer);
+    }
     public function orders() {
         return $this->hasMany('App\Models\Order', 'customer_id');
     }
@@ -46,6 +62,11 @@ class User extends Authenticatable
             $result->merge($order->products);
 
         return $result;
+    }
+    public function groupIs($name) {
+        if($this->group()->first()->name == $name) {
+            return true;
+        } else return false;
     }
     /*
      * send mail on reset password

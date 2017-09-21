@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\admin;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends Request
+class PartnerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class UserRequest extends Request
     public function rules()
     {
         return [
-            'group_id' => 'required|exists:user_groups,id',
-            'name' => 'required|max:255|not_in:System,system,Система,система',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            //
+            'user_id' => 'required',
+            'code' => 'unique:partners',
         ];
     }
 }

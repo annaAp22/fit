@@ -69,8 +69,11 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/tags/{id}/products', ['as' => 'tags.products', 'uses' => 'TagController@products']);
     Route::post('/tags/{id}/products', ['as' => 'tags.products.sync', 'uses' => 'TagController@productsSync']);
 
-    Route::resource('users', 'UserController', ['except' => ['show']]);
+    Route::resource('users', 'UserController');
     Route::put('/users/restore/{id}', ['as' => 'users.restore', 'uses' => 'UserController@restore'])->where(['id' => '[0-9]+']);
+    Route::resource('partners', 'PartnerController');
+    Route::put('/partners/restore/{id}', ['as' => 'partners.restore', 'uses' => 'PartnerController@restore'])->where(['id' => '[0-9]+']);
+    Route::resource('partner_transfer', 'PartnerTransferController', ['only' => ['index']]);
 
     Route::get('/image/crop', ['as' => 'image.crop', 'uses' => 'MainController@crop']);
     Route::post('/image/crop', ['as' => 'image.crop.save', 'uses' => 'MainController@cropUpdate']);

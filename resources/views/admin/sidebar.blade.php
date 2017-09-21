@@ -303,6 +303,24 @@
                     <b class="arrow"></b>
                 </li>
                 @endcan
+                @can('index', new App\Models\Partner())
+                    <li @if( str_is('admin.partners*', Route::currentRouteName())) class="active" @endif>
+                        <a href="{{route('admin.partners.index')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span class="menu-text"> Партнеры </span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                @endcan
+                @can('index', new App\Models\PartnerTransfer())
+                    <li @if( str_is('admin.partner_transfer*', Route::currentRouteName())) class="active" @endif>
+                        <a href="{{route('admin.partner_transfer.index')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span class="menu-text"> {{trans('admin.accruals_history')}} </span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                @endcan
                 @can('index', new App\User())
                     <li>
                         <a href="{{route('admin.subscribers')}}" download="subscribers.xls">
