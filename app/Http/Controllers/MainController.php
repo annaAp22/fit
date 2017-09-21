@@ -125,7 +125,8 @@ class MainController extends Controller
                 $page->photos->push($photo);
             }
         }
-// Replace <!--{{block_name}}--> with rendered value
+        //Добавляем на страницу блоки, имена блоков хранятся в переменной template_vars страницы. Блоки разделяются запятой.
+        //каждое имя блока соответствует полному имени представления, например forms.questions
         $vars = [];
         $template_vars = $page->vars->where('var', 'template_vars')->first();
         if($template_vars)

@@ -50,12 +50,7 @@
         </div>
     </form>
     <button data-fancybox-close class="modal-close">&#10006;</button>
-    <script type="text/javascript">
-        var reg_form = document.forms['registration-form'];
-        reg_form.onsubmit = function(e) {
-            reg_form['last_name'].value = 444 + 222;
-        };
-    </script>
+    @include('scripts.registration_protection')
     @if(View::exists('users.fill_fields'))
         @include('users.fill_fields')
     @endif

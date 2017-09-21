@@ -23,7 +23,7 @@
     {{-- Contacts --}}
     <a class="nav-pages__item" href="{{ route('contacts') }}"><span>Контакты</span></a>
 
-    {{-- Info pages --}}
+    {{-- Info pages - pages with type = info --}}
     <div class="nav-pages__item js-toggle-active" data-reset=".js-catalog">
         <span>Информация</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
 

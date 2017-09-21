@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+    /**
+     */
     protected $table = 'settings';
 
     protected $fillable = ['type', 'var', 'value'];
 
 
-
+    /**
+    * @return string|array
+     */
     public static function getVar($var) {
         $setting = self::where('var', $var)->first();
         if(!empty($setting)) {
