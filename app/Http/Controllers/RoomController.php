@@ -7,13 +7,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\Referral;
 use App\Models\Setting;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RoomController extends Controller
 {
-  private $perpage = 20;
+  private $perpage = 10;
   private $pageLimit = 200;
   //
   public function index() {
@@ -26,27 +29,32 @@ class RoomController extends Controller
     $orders_count = min($orders_count, $this->pageLimit);
     return view('content.room', compact('user', 'orders_count'));
   }
-  public function orders(Request $request) {
+  public function orders(Request $request, $is_referrals = false) {
     $user = Auth::user();
     if(!$user) {
       abort('404');
     }
     $this->setMetaTags();
     //получаем коллекцию заказов в зависимости от номера страницы и количества на странице
-    $orderRequest = Order::where('email', $user->email)->orWhere('customer_id', $user->id)->orderBy('created_at', 'decs');
-    $perPage = Setting::getVar('perpage') ?: $this->perpage;
-    $perPage = 10;
+    //если указан флаг рефералов, то получаем заказы рефералов, а не самого пользователя
+    if($is_referrals && isset($user->partner)) {
+        $ids = $user->partner->referrals->pluck('order_id');
+        $orderRequest = Order::whereIn('id', $ids)->orderBy('created_at', 'decs');
+    } else {
+        $is_referrals = false;
+        $orderRequest = Order::where('email', $user->email)->orWhere('customer_id', $user->id)->orderBy('created_at', 'decs');
+    }
     $page = $request->input('page', null);
     $lastOrderCount = 0;
     if($page == null) {
-      $orders = $orderRequest->take($this->pageLimit)->paginate($perPage);
+      $orders = $orderRequest->take($this->pageLimit)->paginate($this->perpage);
     }
     else {
-      $lastOrderCount = ($page - 1) * $perPage;
+      $lastOrderCount = ($page - 1) * $this->perpage;
       if($request->input('perPage') == 'all') {
         $orders = $orderRequest->skip($lastOrderCount)->take($this->pageLimit)->get();
       } else {
-        $orders = $orderRequest->take($this->pageLimit)->paginate($perPage);
+        $orders = $orderRequest->take($this->pageLimit)->paginate($this->perpage);
       }
     }
     //получаем коллекцию скидок
@@ -54,8 +62,10 @@ class RoomController extends Controller
     //дописываем в каждый товар заказа его размер, а в сам заказ стоимость скидки
     foreach ($orders as $order) {
       $order->products = $order->getProducts();
+      $discount_kf = (100 - $order->discount_percent) / 100;
       foreach($order->products as $product) {
-        if(isset($product->pivot->extra_params)) {
+          $product->discount_price = $product->pivot->price * $discount_kf;
+          if(isset($product->pivot->extra_params)) {
           $extra_params = json_decode($product->pivot->extra_params);
           if(isset($extra_params->size) ){
             $product->size = $extra_params->size;
@@ -80,7 +90,7 @@ class RoomController extends Controller
     }
     
     $orders_count = count($orders);
-    //считаем, сколько страниц осталосб
+    //считаем, сколько страниц осталось
     if(!method_exists($orders, 'currentPage') || $orders->currentPage() == $orders->lastPage()) {
       $ordersRemained = 0;
     }else {
@@ -94,7 +104,11 @@ class RoomController extends Controller
         return [];
       }
       //получаем представления заказов
-      $tableRows = view('blocks.orders_rows', compact('orders', 'odd', 'lastOrderCount'))->render();
+        if($is_referrals) {
+            $tableRows = view('blocks.referrals_orders_rows', compact('orders', 'odd', 'lastOrderCount'))->render();
+        } else {
+            $tableRows = view('blocks.orders_rows', compact('orders', 'odd', 'lastOrderCount'))->render();
+        }
       $odd = $odd + $orders_count % 2;
       //получает представление постраничной навигации
       if($ordersRemained == 0) {
@@ -113,8 +127,16 @@ class RoomController extends Controller
       );
       return $result;
     } else {
-      return view('content.orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount'));
+        if($is_referrals) {
+            return view('content.referrals_orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount'));
+        }else {
+            return view('content.orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount'));
+        }
+
     }
+
+  }
+  public function referralsOrders() {
 
   }
 }

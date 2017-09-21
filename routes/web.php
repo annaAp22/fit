@@ -48,12 +48,13 @@ Route::group([
     Route::get('/news/{sysname}', ['as' => 'news.record', 'uses' => 'MainController@newsSingle']);
     //личный кабинет
     Route::get('/room', 'RoomController@index')->name('room');
-    Route::get('/room/orders', 'RoomController@orders')->name('orders-history');
+    Route::get('/room/orders/{referrals?}', 'RoomController@orders')->name('orders-history');
     //});
 
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
     Route::get('/order.html', ['as' => 'order', 'uses' => 'OrderController@order']);
     Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
+    //Route::post('/order/check-discount-code', 'OrderController@checkDiscountCode')->name('check_discount_code');
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Customers Photos
@@ -70,13 +71,6 @@ Route::group([
     Route::any('{sysname}', ['as' => 'catalog', 'uses' => 'CatalogController@catalog'])->where(['sysname' => '[a-zA-Z0-9_-]+']);
     //test page
     //Route::get('/test.html', 'TestController@index')->name('test');
-    //Route::get('/one-more-test.html', 'TestController@oneMoreTest')->name('one-more-test');
-
-    // Product comments
-//    Route::post('/comment', ['as' => 'comment', 'uses' => 'FrontApiController@comment']);
-//    Route::get('/comments', ['as' => 'comments', 'uses' => 'FrontApiController@comments']);
-
-
     //run onece
     //Route::get('/run-once/add-ms-sizes.html', 'RunOnceController@addMsSizesAttribute')->name('add-ms-sizes');
     Route::get('/run-once/remove-sizes-type.html', 'RunOnceController@removeSizesType')->name('remove-sizes-type');
