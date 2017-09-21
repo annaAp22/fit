@@ -2,6 +2,7 @@ $(function(){
     ///^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i;
     var email_pattern =/.+@.+\..+/i;
     var $body = $('body');
+    var discountCodes = {};
 
     // Toggle active class
     $body.on("click", ".js-toggle-active", function(e){
@@ -425,7 +426,21 @@ $(function(){
         parent.addClass("active");
         iframe.attr("src", iframe.data('src'));
     });
-
+    //
+    function validateForm(form, el) {
+        var $form = $(form);
+        var url = $form.attr('action'),
+            postData = $form.serialize();
+        $.post(url, postData, function(data){
+            if(typeof data.error !== 'undefined' && data.error_type == 'validation') {
+                $(el).addClass('error');
+                console.log('result = false');
+            } else {
+                $(el).removeClass('error');
+                console.log('result = true');
+            }
+        }, 'json');
+    }
     // Ajax form submit
     function formSubmit(form) {
         var url = form.attr('action'),
@@ -436,6 +451,13 @@ $(function(){
                 // Exception
                 if(typeof data.error !== 'undefined'){
                     console.log(data.message);
+                    if(typeof data.fields !== 'undefined') {
+                        console.log('data.fields');
+                        for(i = 0; i < data.fields.length; i++) {
+                            s = data.fields[i];
+                            $(form.get(0)[s]).addClass('error');
+                        }
+                    }
                 }
                 // Do some action
                 if(typeof data.action !== 'undefined'){
@@ -475,7 +497,9 @@ $(function(){
             errors = false;
 
         var checked = 0;
+        var old_checked;
         fields.each(function(index, el) {
+            old_checked = checked;
             if(el.name == 'email') {
                 if(el.value.search(email_pattern) == 0) {
                     $(el).removeClass('error');
@@ -493,8 +517,18 @@ $(function(){
                     if(errors)
                         $(el).addClass('error');
                 }
-            }
-            else {
+            } else if(el.name == 'discount_code') {
+                if( el.value.length == 0 || el.value.length == 6 ) {
+                    checked++;
+                    $(el).removeClass('error');
+                }
+                else {
+                    if(errors) {
+                        $(el).addClass('error');
+                        console.log('add error');
+                    }
+                }
+            } else {
                 if(el.value && el.value.length > 1) {
                     checked++;
                     $(el).removeClass('error');
@@ -609,8 +643,37 @@ $(function(){
     function formFieldsValidate(form) {
         var fields = form.find('.js-required-fields');
         if( formValid(fields) ) {
-            $('.js-step-next').attr('disabled', false);
-            form.find('.js-link').removeClass('disabled');
+            //для проверки скидочного кода отправляем запрос на сервер и запоминаем результаты, чтоб лишний раз не отправлять запросы
+            var discount_code = form.find('input[name=discount_code]');
+            if(discount_code.length && discount_code.val().length == 6) {
+                $('.js-step-next').attr('disabled', true);
+                form.find('.js-link').addClass('disabled');
+                if(discountCodes[discount_code.val()] === 0) {
+
+                } else if(discountCodes[discount_code.val()] === 1) {
+                    discount_code.removeClass('error');
+                    $('.js-step-next').attr('disabled', false);
+                    form.find('.js-link').removeClass('disabled');
+                } else {
+                    var postData = form.serialize();
+                    url = '/order/check-discount-code';
+                    $.post(url, postData, function(data){
+                        if(typeof data != 'undefined' &&  data.success == true) {
+                            discount_code.removeClass('error');
+                            $('.js-step-next').attr('disabled', false);
+                            form.find('.js-link').removeClass('disabled');
+                            discountCodes[discount_code.val()] = 1;
+                        }else {
+                            discount_code.addClass('error');
+                            discountCodes[discount_code.val()] = 0;
+                        }
+                    }, 'json');
+                }
+            } else {
+                discount_code.removeClass('error');
+                $('.js-step-next').attr('disabled', false);
+                form.find('.js-link').removeClass('disabled');
+            }
         }
         else{
             $('.js-step-next').attr('disabled', true);

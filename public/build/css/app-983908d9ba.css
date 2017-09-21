@@ -2672,6 +2672,15 @@ button {
   top: 10px;
 }
 
+.field-wrapper-2 {
+  text-align: right;
+  padding-top: 24px;
+}
+
+.field-wrapper-2 .btn {
+  width: 100%!important;
+}
+
 .questions-and-offers {
   margin-top: 60px;
 }
@@ -10499,6 +10508,15 @@ h3 {
 .no-orders {
   margin-top: 30px;
   text-align: center;
+}
+
+.personal-number {
+  border: 2px dotted #000;
+  padding: 5px;
+  margin: 5px;
+  font-size: 30px;
+  font-weight: 700;
+  display: table;
 }
 
 .look-book {
