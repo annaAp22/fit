@@ -129,9 +129,11 @@ class RoomController extends Controller
       return $result;
     } else {
         if($is_referrals) {
-            return view('content.referrals_orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount'));
+            $active = 'referrals_orders_history';
+            return view('content.referrals_orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount', 'active'));
         }else {
-            return view('content.orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount'));
+            $active = 'orders_history';
+            return view('content.orders_history', compact('orders', 'odd', 'ordersRemained', 'page', 'lastOrderCount', 'active'));
         }
 
     }
