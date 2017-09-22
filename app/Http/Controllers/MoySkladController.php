@@ -141,7 +141,7 @@ class MoySkladController extends Controller
             $resultMessage .= $log_message;
             Log::warning($order['name'].' '.$log_message);
             Log::warning('key='.$key);
-            Log::warning($lastOrder);
+            Log::warning($lastOrder->name);
         }
         else
         {
