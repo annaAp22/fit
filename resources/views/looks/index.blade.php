@@ -22,7 +22,7 @@
                                 <div class="look-book__title">
                                     <span>{{ strstr($book->name, ' ', true) }}</span> <span>\</span> <span>{{ strstr($book->name, ' ') }}</span>
                                 </div>
-                                @include('looks.carousel', ['looks' => $book->looks])
+                                @include('looks.carousel', ['looks' => $book->looks, 'book_id' => $book->id])
                             </div>
                         @endif
                     @endforeach

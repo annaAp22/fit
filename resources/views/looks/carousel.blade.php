@@ -22,8 +22,8 @@
                         $top = 100*$product->position->top/$look->uploads->image->normal->height;
                         $left = 100*$product->position->left/$look->uploads->image->normal->width;
                         @endphp
-                        <div class="moving-dot js-moving-dot" id="js-moving-dot-{{$key.$ind}}" style="top:{{ $top }}%;left:{{ $left }}%">
-                            <span class="moving-dot__plus {{ $top > 60 ? 'bottom' : 'top' }} {{ $left > 50 ? "left" : "right" }} js-toggle-active-target" data-target="#js-moving-dot-{{$key.$ind}}" data-reset=".js-moving-dot" data-toggle="0">+</span>
+                        <div class="moving-dot js-moving-dot" id="js-moving-dot-{{$book_id.'_'.$key.'_'.$ind}}" style="top:{{ $top }}%;left:{{ $left }}%">
+                            <span class="moving-dot__plus {{ $top > 60 ? 'bottom' : 'top' }} {{ $left > 50 ? "left" : "right" }} js-toggle-active-target" data-target="#js-moving-dot-{{$book_id.'_'.$key.'_'.$ind}}" data-reset=".js-moving-dot" data-toggle="0">+</span>
 
                             {{-- Product --}}
                             <form class="look-book-product {{ $top > 60 ? 'bottom' : 'top' }} {{ $left > 50 ? "left" : "right" }} js-form-ajax" action="{{ route('ajax.cart.add', ['id' => $product->id, 'cnt' => 1]) }}" method="post">
