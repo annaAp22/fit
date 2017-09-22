@@ -139,7 +139,7 @@ class MoySkladController extends Controller
             $msOrder->save();
             $log_message = 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
             $resultMessage .= $log_message;
-            Log::warning($log_message);
+            Log::warning($order['name'].' '.$log_message);
         }
         else
         {
