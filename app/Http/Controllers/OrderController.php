@@ -269,7 +269,7 @@ class OrderController extends Controller
            {
               $positions[] = [
                  "quantity" => intval($product->pivot->cnt),
-                  "price" => (floatval($product->price) / (100 - $product->discount - $discount_percent))  * 100 * 100,
+                  "price" => (floatval($product->price) / (100 - $product->discount))  * 100 * 100,
                   "discount" => floatval($product->discount + $discount_percent),
 
                  "vat" => 0,
