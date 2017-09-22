@@ -40,16 +40,16 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         // Export customers orders to MoySklad
-        $schedule->call('App\Http\Controllers\MoySkladController@exportOrders')
-            ->name('export-orders')
-            ->withoutOverlapping();
+//        $schedule->call('App\Http\Controllers\MoySkladController@exportOrders')
+//            ->name('export-orders')
+//            ->withoutOverlapping();
         // Update stock rests
         $schedule->call('App\Http\Controllers\MoySkladController@updatePriceAndStock')
             ->hourly();
         // Truncate database and import products from MoySklad
         $schedule->call('App\Http\Controllers\MoySkladController@importProducts')->dailyAt('4:00');
         // Import new agents
-        $schedule->call('App\Http\Controllers\MoySkladController@updateAgents')->hourly();
+        //$schedule->call('App\Http\Controllers\MoySkladController@updateAgents')->hourly();
         //Export orders to retailrcrm
         $schedule->command('retailcrm:send_order')->everyMinute();
         //Update orders statuses
