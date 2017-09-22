@@ -33,9 +33,11 @@ class MoySkladController extends Controller
       foreach ($msOrders as $key => $msOrder)
       {
         $newOrderId = sprintf('%05d', $lastOrderId + $key + 1);
-        $order['name'] = $newOrderId;
+          $des = json_decode($msOrder->ms_description);
+        //$order['name'] = $newOrderId;
+          $order['name'] = 'fit_'.$des->order_id;
 
-        $des = json_decode($msOrder->ms_description);
+
         $order['description'] = "Заказ №: ". $des->order_id . "; ФИО: ". $des->name ."; E-mail: ". $des->email ."; Телефон: ". $des->phone . "; Адрес доставки: ". $des->address . "; Доставка(". $des->delivery . ")";
 
         $order['organization'] = [
@@ -140,8 +142,6 @@ class MoySkladController extends Controller
             $log_message = 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
             $resultMessage .= $log_message;
             Log::warning($order['name'].' '.$log_message);
-            Log::warning('key='.$key);
-            Log::warning($lastOrder->name);
         }
         else
         {
