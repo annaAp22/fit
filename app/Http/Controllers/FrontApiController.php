@@ -465,8 +465,8 @@ class FrontApiController extends Controller
             $positions = [];
             //считаем скидку по заказу
             $discount_percent = 0;
-            if(isset($order->extra_params['discount_percent'])) {
-                $discount_percent = $order->extra_params['discount_percent'];
+            if(isset($partner)) {
+                $discount_percent = $partner->referral_discount_percent;
             }
             foreach ($order->products as $product)
             {
