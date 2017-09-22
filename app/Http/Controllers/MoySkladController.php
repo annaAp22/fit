@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\MsAgent;
+use Illuminate\Support\Facades\Log;
 
 class MoySkladController extends Controller
 {
@@ -136,7 +137,9 @@ class MoySkladController extends Controller
             $msOrder->error = 1;
             $msOrder->error_message = $res->errors;
             $msOrder->save();
-            $resultMessage .= 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
+            $log_message = 'Ошибка в заказе №:' . $msOrder->id . ' ' . $res->errors[0]->error . '/r/n';
+            $resultMessage .= $log_message;
+            Log::warning($log_message);
         }
         else
         {
