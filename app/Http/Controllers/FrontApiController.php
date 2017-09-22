@@ -753,7 +753,15 @@ class FrontApiController extends Controller
         $cart = session()->get('products.cart');
         $response['amount'] = 0;
         $count = 0;
-
+        //если почистил куку - перезагружаем ему страницу
+        if(!$cart) {
+            return response()->json(
+                [
+                    'action' => 'elementsRender',
+                    'reload' => 1,
+                ]
+            );
+        }
         foreach($cart as $product_id => $items)
         {
             // Remove product completely if all sizes removed
