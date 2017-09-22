@@ -52,6 +52,8 @@ class Kernel extends ConsoleKernel
         $schedule->call('App\Http\Controllers\MoySkladController@updateAgents')->hourly();
         //Export orders to retailrcrm
         $schedule->command('retailcrm:send_order')->everyMinute();
+        //Update orders statuses
+        $schedule->command('command:orders_update')->everyThirtyMinutes();
    
     }
 
