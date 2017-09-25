@@ -7,6 +7,8 @@ use App\Models\UserGroup;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerAccountController extends Controller
@@ -80,7 +82,8 @@ class CustomerAccountController extends Controller
                 'show' => [
                     '#js-autorized',
                 ],
-                'reload' => true,
+                'redirect' => URL::route('orders-history'),
+                //'reload' => true,
             );
             return json_encode($result);
         } else {
