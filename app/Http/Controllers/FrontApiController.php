@@ -607,7 +607,7 @@ class FrontApiController extends Controller
         if($product_id) {
             $comments->where('product_id', $product_id);
         }
-        $comments = $comments->paginate($perPage);
+        $comments = $comments->orderBy('created_at', 'desc')->paginate($perPage);
         $next_page = $comments->lastPage() > $comments->currentPage() ? ($comments->currentPage() + 1) : null; // номер следующей страницы
         $count = $next_page ? $comments->total() - ($comments->currentPage() * $comments->perPage()) : 0; // количество оставшихся комментариев
 
