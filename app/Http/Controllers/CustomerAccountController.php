@@ -139,8 +139,13 @@ class CustomerAccountController extends Controller
             }
         }
         if(isset($user)) {
-            $result['modal'] = view('modals.registration_success')->render();
+            //$result['modal'] = view('modals.registration_success')->render();
             Auth::attempt(['email' => $data['email'], 'password' => $data['password']]);
+            //авто вход в аккаунт после регистрации
+            $result = [
+                'action' => 'elementsRender',
+                'redirect' => URL::route('orders-history'),
+            ];
             return $result;
         }elseif(!$messages) {
             $messages = array(
