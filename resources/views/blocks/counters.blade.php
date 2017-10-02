@@ -96,5 +96,14 @@
         });
     </script>
     <!-- // Rating@Mail.ru counter dynamic remarketing appendix -->
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107390344-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments)};
+        gtag('js', new Date());
+
+        gtag('config', 'UA-107390344-1');
+    </script>
 @endif
 <!-- END counters-->
