@@ -263,7 +263,15 @@ class MoySkladController extends Controller
       }
       $product->save();
     }
-
+    $task = MsCronCounter::firstOrCreate([
+        'action' => 'import_attributes',
+    ]);
+    $task->update([
+        'offset' => $offset,
+        'total' => count($rests),
+        'limit' => 100,
+        'updated_at' => Carbon::now(),
+    ]);
     return "Получено остатков: " . count($rests);
 
   }

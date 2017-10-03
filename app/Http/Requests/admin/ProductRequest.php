@@ -49,6 +49,9 @@ class ProductRequest extends Request
             'sku' => 'required|unique:products,sku,'.$id,
             'img' => 'image',
             'text' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'keywords' => 'required',
 //            'brand_id' => 'exists:brands,id'
         ];
     }

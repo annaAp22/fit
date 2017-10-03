@@ -47,6 +47,16 @@ jQuery(function($) {
             }
         });
     });
+    $(".action-sync").on(ace.click_event, function() {
+        var $this = $(this);
+        console.log('1');
+        bootbox.confirm("Синхронизация может занять несколько минут, продолжить?", function(result) {
+            if(result) {
+                $this.closest('form').submit();
+                return true;
+            }
+        });
+    });
 
     $(".action-restore").on(ace.click_event, function() {
         var $this = $(this);

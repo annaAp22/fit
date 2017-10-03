@@ -11,6 +11,7 @@ class MsCronCounter extends Model
         'updated_at',
     ];
     protected $fillable = [
+        'action',
         'offset',
         'total',
         'limit',

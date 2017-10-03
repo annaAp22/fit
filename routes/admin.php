@@ -93,3 +93,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::put('/retailcrm_order_statuses/{id}', ['as' => 'retailcrm_order_statuses.restore', 'uses' => 'RetailCRMOrderStatusesController@restore'])->where(['id' => '[0-9]+']);
     Route::get('/retailcrm_order_statuses/load', 'RetailCRMOrderStatusesController@load')->name('retailcrm_order_statuses.load');
     });
+    Route::get('/moysklad/sync', 'MoySkladController@sync')->name('moysklad.sync');
+    Route::get('/moysklad/sync_products', 'MoySkladController@updateProducts')->name('moysklad.sync_products');
+    Route::get('/moysklad/sync_attributes', 'MoySkladController@updateAttributes')->name('moysklad.sync_attributes');

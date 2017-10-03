@@ -251,6 +251,29 @@
                     </ul>
                 </li>
             @endcan
+            @can('index', new App\Models\MsProduct())
+                <li @if( str_is('admin.moy_sklad*', Route::currentRouteName()))
+                    class="active open"
+                        @endif >
+                    <a href="#"  class="dropdown-toggle">
+                        <i class="menu-icon">
+                            <img  src="/img/moysklad.ru.png" alt="">
+                        </i>
+                        <span class="menu-text"> Мой склад </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li  @if( str_is('admin.moy_sklad*', Route::currentRouteName())) class="active" @endif>
+                            <a href="{{route('admin.moysklad.sync')}}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                <span class="menu-text"> Синхронизация </span>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
 
         @if(Gate::check('index', new App\Models\Page()) || Gate::check('index', new App\Models\Metatag()) || Gate::check('index', new App\Models\Setting()) || Gate::check('index', new App\User()))
 
