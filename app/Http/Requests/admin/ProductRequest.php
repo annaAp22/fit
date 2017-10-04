@@ -51,6 +51,7 @@ class ProductRequest extends Request
             'text' => 'required',
             'title' => 'required',
             'description' => 'required',
+            'descr' => 'required',
             'keywords' => 'required',
 //            'brand_id' => 'exists:brands,id'
         ];
