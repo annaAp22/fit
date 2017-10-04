@@ -50,7 +50,7 @@ class ProductRequest extends Request
             'img' => 'image',
             'text' => 'required',
             'title' => 'required',
-            'descr' => 'required',
+            'description' => 'required',
             'keywords' => 'required',
 //            'brand_id' => 'exists:brands,id'
         ];
