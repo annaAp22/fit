@@ -296,7 +296,7 @@ class Product extends Model
      * @return bool
      */
     public function setAttributesFromRequest($sync = false) {
-        if(!Request::has('attributes')) return false;
+        if(!Request::has('attributes')) return true;
         $allSaved = true;
 
         $attributes = [];

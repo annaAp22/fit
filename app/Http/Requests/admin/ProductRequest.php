@@ -48,7 +48,7 @@ class ProductRequest extends Request
             'discount' => 'numeric',
             'sku' => 'required|unique:products,sku,'.$id,
             'img' => 'image',
-            'text' => 'required',
+            //'text' => 'required',
             'title' => 'required',
             'description' => 'required',
             'descr' => 'required',

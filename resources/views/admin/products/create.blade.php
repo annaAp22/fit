@@ -43,15 +43,17 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-20"> Категория </label>
                         <div class="col-sm-9">
-                            <select multiple="" name="categories[]" class="chosen-select form-control tag-input-style" id="form-field-20" data-placeholder="Выберите категории...">
-                                <option value="">--Не выбрана--</option>
-                                @foreach($categories as $category)
-                                <option value="{{$category->id}}" @if(old() && old('categories') && in_array($category->id, old('categories')))selected="selected"@endif>{{$category->name}}</option>
-                                @if($category->children->count()))
-                                    @include('admin.products.dropdown', ['cats' => $category->children, 'index' => 1])
-                                @endif
-                                @endforeach
-                            </select>
+                            <div class="hidden-field-wrapper">
+                                <select multiple="" required name="categories[]" class="chosen-select form-control tag-input-style" id="form-field-20" data-placeholder="Выберите категории...">
+                                    <option value="">--Не выбрана--</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" @if(old() && old('categories') && in_array($category->id, old('categories')))selected="selected"@endif>{{$category->name}}</option>
+                                        @if($category->children->count()))
+                                        @include('admin.products.dropdown', ['cats' => $category->children, 'index' => 1])
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -70,7 +72,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-0"> Название </label>
                         <div class="col-sm-9">
-                            <input type="text" id="form-field-0" name="name" placeholder="Название" value="{{ old('name') }}" class="col-sm-12">
+                            <input type="text" id="form-field-0" required name="name" placeholder="Название" value="{{ old('name') }}" class="col-sm-12">
                         </div>
                     </div>
 
@@ -85,7 +87,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-23"> Описание </label>
                         <div class="col-sm-9">
-                            <textarea name="descr" class="form-control limited" id="form-field-23" maxlength="200" class="col-sm-12">{{old('descr')}}</textarea>
+                            <textarea required name="descr" class="form-control limited" id="form-field-23" maxlength="200" class="col-sm-12">{{old('descr')}}</textarea>
                         </div>
                     </div>
 
@@ -118,13 +120,13 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-10"> Цена </label>
                         <div class="col-sm-9" style="padding-left: 12px;">
                             <div class="col-sm-2 input-group" style="float: left;">
-                                <input name="price" value="{{old('price')}}" placeholder="Цена" type="text" id="form-field-10" class="input-number form-control" title="Цена на сайте">
+                                <input required name="price" value="{{old('price')}}" placeholder="Цена" type="text" id="form-field-10" class="input-number form-control" title="Цена на сайте">
                                 <span class="input-group-addon">
                                     <i class="fa fa-rub bigger-110"></i>
                                 </span>
                             </div>
                             <div class="col-sm-2 input-group" style="float: left; margin-left: 20px;">
-                                <input name="discount" value="{{old('discount')}}" placeholder="Скидка" type="text" class="form-control input-number">
+                                <input required name="discount" value="{{old('discount')}}" placeholder="Скидка" type="text" class="form-control input-number">
                                 <span class="input-group-addon">%</span>
                             </div>
                             <div class="col-sm-3 input-group" style="float: left; margin-left: 20px;">
@@ -139,7 +141,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-11"> Артикул </label>
                         <div class="col-sm-9">
-                            <input type="text" id="form-field-11" name="sku" placeholder="Название" value="{{ old('sku') }}" class="col-sm-2">
+                            <input type="text" id="form-field-11" required name="sku" placeholder="Название" value="{{ old('sku') }}" class="col-sm-2">
                         </div>
                     </div>
 
@@ -261,21 +263,21 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-6"> Title </label>
                         <div class="col-sm-9">
-                            <input type="text" id="form-field-6" name="title" placeholder="Title" value="{{ old('title') }}" class="col-sm-12">
+                            <input type="text" id="form-field-6" required name="title" placeholder="Title" value="{{ old('title') }}" class="col-sm-12">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-7"> Description </label>
                         <div class="col-sm-9">
-                            <textarea id="form-field-7" name="description" placeholder="Description" class="col-sm-12">{{ old('description') }}</textarea>
+                            <textarea id="form-field-7" required name="description" placeholder="Description" class="col-sm-12">{{ old('description') }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-8"> Keywords </label>
                         <div class="col-sm-9">
-                            <textarea id="form-field-8" name="keywords" placeholder="Keywords" class="col-sm-12">{{ old('keywords') }}</textarea>
+                            <textarea id="form-field-8" required name="keywords" placeholder="Keywords" class="col-sm-12">{{ old('keywords') }}</textarea>
                         </div>
                     </div>
 
