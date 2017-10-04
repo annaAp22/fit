@@ -14,7 +14,6 @@ class SubscriberController extends Controller
         Excel::create('subscribers', function($excel) {
             $excel->sheet('Электронные адреса подписчиков', function($sheet) {
                 $subscribers = Subscriber::select('email')->published()->get()->toArray();
-                Log::info($subscribers);
                 $sheet->fromArray($subscribers, null, 'A1', false, false);
 
             });
