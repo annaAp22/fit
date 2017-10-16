@@ -151,6 +151,21 @@ class FrontApiController extends Controller
             'action' => 'openModal',
             'modal' => view('modals.letter_success')->render()
         ]);
+        
+        //отправка данных в roistat
+        $roistatData = array(
+            'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
+            'key' => 'NjM4OTo1ODI4NTo2MDlhZTA0NWEwMTRiMjM3Yzg0MGRmY2M4MGVmN2MxZA==', // Замените SECRET_KEY на секретный ключ из пункта меню Настройки -> Интеграция со сделками в нижней части экрана и строчке Ключ для интеграций
+            'title' => $request->input('name'),
+            'comment' => "",
+            'name' => $request->input('name'),
+            'email' => "",
+            'phone' => $request->input('phone'),
+            'fields' => "",
+            "tags" => 'fit2u.ru',
+        );
+        $data = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
+        
     }
     /**
      * Заказ обратного звонка
