@@ -159,7 +159,11 @@ class FrontApiController extends Controller
             "tags" => 'fit2u.ru',
         );
         $data = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
-        file_put_contents(__DIR__ . '/lead_phone.txt', print_r($roistatData, true));
+        
+        $strFile = "/lead_phone.txt";
+        $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
+        fwrite($hdlFile,mydump($roistatData));
+        fclose($hdlFile);
 
         return response()->json([
             'result' => 'ok',
@@ -448,7 +452,11 @@ class FrontApiController extends Controller
             "tags" => 'fit2u.ru',
         );
         $data = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
-        file_put_contents(__DIR__ . '/lead_orders.txt', print_r($roistatData, true));
+        
+        $strFile = "/lead_orders.txt";
+        $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
+        fwrite($hdlFile,mydump($roistatData));
+        fclose($hdlFile);
 
         if($is_multiple)
         {
