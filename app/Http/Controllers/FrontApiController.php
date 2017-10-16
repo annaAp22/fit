@@ -162,7 +162,7 @@ class FrontApiController extends Controller
         
         $strFile = "/lead_phone.txt";
         $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
-        fwrite($hdlFile,mydump($roistatData));
+        fwrite($hdlFile,print_r($roistatData, true));
         fclose($hdlFile);
 
         return response()->json([
@@ -455,7 +455,7 @@ class FrontApiController extends Controller
         
         $strFile = "/lead_orders.txt";
         $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
-        fwrite($hdlFile,mydump($roistatData));
+        fwrite($hdlFile,print_r($roistatData, true));
         fclose($hdlFile);
 
         if($is_multiple)
