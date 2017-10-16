@@ -146,12 +146,6 @@ class FrontApiController extends Controller
                 $message->to($email)->subject($caption);
             });
 
-        return response()->json([
-            'result' => 'ok',
-            'action' => 'openModal',
-            'modal' => view('modals.letter_success')->render()
-        ]);
-        
         //отправка данных в roistat
         $roistatData = array(
             'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
@@ -165,6 +159,13 @@ class FrontApiController extends Controller
             "tags" => 'fit2u.ru',
         );
         $data = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
+
+        return response()->json([
+            'result' => 'ok',
+            'action' => 'openModal',
+            'modal' => view('modals.letter_success')->render()
+        ]);
+               
         
     }
     /**
