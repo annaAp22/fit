@@ -147,7 +147,9 @@ class FrontApiController extends Controller
             });
 
         //отправка данных в roistat
-        $roistatData = array(
+        $fields = array();
+        
+        $roistatDataCallBack = array(
             'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
             'key' => 'NjM4OTo1ODI4NTo2MDlhZTA0NWEwMTRiMjM3Yzg0MGRmY2M4MGVmN2MxZA==', // Замените SECRET_KEY на секретный ключ из пункта меню Настройки -> Интеграция со сделками в нижней части экрана и строчке Ключ для интеграций
             'title' => $request->input('name'),
@@ -158,13 +160,8 @@ class FrontApiController extends Controller
             'fields' => array(),
             "tags" => 'fit2u.ru',
         );
-        $roistatData = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
+        $roistatDataCallBackSend = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatDataCallBack));
         
-        $strFile = "/lead_phone.txt";
-        $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
-        fwrite($hdlFile,print_r($roistatData, true));
-        fclose($hdlFile);
-
         return response()->json([
             'result' => 'ok',
             'action' => 'openModal',
@@ -440,7 +437,7 @@ class FrontApiController extends Controller
         }
         
         //отправка данных в roistat
-        $roistatData = array(
+        $roistatDataOrder = array(
             'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
             'key' => 'NjM4OTo1ODI4NTo2MDlhZTA0NWEwMTRiMjM3Yzg0MGRmY2M4MGVmN2MxZA==', // Замените SECRET_KEY на секретный ключ из пункта меню Настройки -> Интеграция со сделками в нижней части экрана и строчке Ключ для интеграций
             'title' => $request->input('name'),
@@ -451,12 +448,7 @@ class FrontApiController extends Controller
             'fields' => array(),
             "tags" => 'fit2u.ru',
         );
-        $roistatData = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
-        
-        $strFile = "/lead_orders.txt";
-        $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
-        fwrite($hdlFile,print_r($roistatData, true));
-        fclose($hdlFile);
+        $roistatDataSend = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatDataOrder));
 
         if($is_multiple)
         {
