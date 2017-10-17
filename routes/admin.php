@@ -96,3 +96,5 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/moysklad/sync', 'MoySkladController@sync')->name('moysklad.sync');
     Route::get('/moysklad/sync_products', 'MoySkladController@updateProducts')->name('moysklad.sync_products');
     Route::get('/moysklad/sync_attributes', 'MoySkladController@updateAttributes')->name('moysklad.sync_attributes');
+    Route::get('/moysklad/missing_products', 'MoySkladController@missingProducts')->name('moysklad.missing_products');
+    Route::get('/moysklad/not_synchronizing_products', 'MoySkladController@notSynchronizingProducts')->name('moysklad.not_synchronizing_products');

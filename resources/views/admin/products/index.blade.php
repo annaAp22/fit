@@ -24,7 +24,12 @@
                 Товары
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
-                    Список всех товаров
+                    @if(isset($data['title']))
+                        {{$data['title']}}
+                    @else
+                        Список всех товаров
+                    @endif
+
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -41,24 +46,30 @@
                                 Товары
                             </a>
                         </li>
+                        @if(!isset($data['hide_sort']))
                         <li>
                             <a  href="{{route('admin.products.sort.unique-offers')}}">
                                 Сортировка
                             </a>
                         </li>
+                        @endif
                     </ul>
                     <div class="tab-content">
                         <div id="field-img-now" class="tab-pane fade active in">
                             <div class="table-header">
-                                Список всех товаров
-
+                                @if(isset($data['title']))
+                                    {{$data['title']}}
+                                @else
+                                    Список всех товаров
+                                @endif
+                                @if(!isset($data['hide_tools']))
                                 <div class="ibox-tools">
                                     <a href="{{route('admin.products.create')}}" class="btn btn-success btn-xs">
                                         <i class="fa fa-plus"></i>
                                         Добавить товар
                                     </a>
                                 </div>
-
+                                @endif
                             </div>
                             <div>
                                 <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
@@ -66,6 +77,7 @@
                                     <div class="row">
 
                                         <!-- FILTERS -->
+                                        @if(!isset($data['hide_filter']))
                                         <div class="row">
                                             <form method="GET" action="{{route('admin.products.index')}}">
                                                 <div class="row">
@@ -211,6 +223,7 @@
                                                 </div>
                                             </form>
                                         </div>
+                                        @endif
                                         <div class="row">
                                             <table id="simple-table" class="table table-striped table-bordered table-hover">
                                                 <thead>

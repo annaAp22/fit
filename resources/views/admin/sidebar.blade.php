@@ -252,7 +252,7 @@
                 </li>
             @endcan
             @can('index', new App\Models\MsProduct())
-                <li @if( str_is('admin.moy_sklad*', Route::currentRouteName()))
+                <li @if( str_is('admin.moysklad*', Route::currentRouteName()))
                     class="active open"
                         @endif >
                     <a href="#"  class="dropdown-toggle">
@@ -264,13 +264,28 @@
                     </a>
                     <b class="arrow"></b>
                     <ul class="submenu">
-                        <li  @if( str_is('admin.moy_sklad*', Route::currentRouteName())) class="active" @endif>
+                        <li  @if( str_is('admin.moysklad.sync*', Route::currentRouteName())) class="active" @endif>
                             <a href="{{route('admin.moysklad.sync')}}">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 <span class="menu-text"> Синхронизация </span>
                             </a>
                             <b class="arrow"></b>
                         </li>
+                        <li  @if( str_is('admin.moysklad.missing_products', Route::currentRouteName())) class="active" @endif>
+                            <a href="{{route('admin.moysklad.missing_products')}}">
+                                <i class="menu-icon fa  fa-caret-right"></i>
+                                <span class="menu-text"> Отсутствующие товары </span>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li  @if( str_is('admin.moysklad.not_synchronizing_products', Route::currentRouteName())) class="active" @endif>
+                            <a href="{{route('admin.moysklad.not_synchronizing_products')}}">
+                                <i class="menu-icon fa  fa-caret-right"></i>
+                                <span class="menu-text"> не синхронизирующиеся товары </span>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
                     </ul>
                 </li>
             @endcan
