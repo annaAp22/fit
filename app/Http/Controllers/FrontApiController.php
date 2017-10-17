@@ -155,10 +155,10 @@ class FrontApiController extends Controller
             'name' => $request->input('name'),
             'email' => "",
             'phone' => $request->input('phone'),
-            'fields' => "",
+            'fields' => array(),
             "tags" => 'fit2u.ru',
         );
-        $data = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
+        $roistatData = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
         
         $strFile = "/lead_phone.txt";
         $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
@@ -448,10 +448,10 @@ class FrontApiController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email', 'no email'),
             'phone' => $request->input('phone'),
-            'fields' => "",
+            'fields' => array(),
             "tags" => 'fit2u.ru',
         );
-        $data = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
+        $roistatData = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatData));
         
         $strFile = "/lead_orders.txt";
         $hdlFile = fopen($_SERVER['DOCUMENT_ROOT'].$strFile,"wb");
