@@ -148,7 +148,7 @@ class FrontApiController extends Controller
 
         //отправка данных в roistat
         $fields = array();
-        
+
         $roistatDataCallBack = array(
             'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
             'key' => 'NjM4OTo1ODI4NTo2MDlhZTA0NWEwMTRiMjM3Yzg0MGRmY2M4MGVmN2MxZA==', // Замените SECRET_KEY на секретный ключ из пункта меню Настройки -> Интеграция со сделками в нижней части экрана и строчке Ключ для интеграций
@@ -161,6 +161,7 @@ class FrontApiController extends Controller
             "tags" => 'fit2u.ru',
         );
         $roistatDataCallBackSend = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatDataCallBack));
+
         
         return response()->json([
             'result' => 'ok',
@@ -436,20 +437,6 @@ class FrontApiController extends Controller
             $data['customer_id'] = $user->id;
         }
         
-        //отправка данных в roistat
-        $roistatDataOrder = array(
-            'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
-            'key' => 'NjM4OTo1ODI4NTo2MDlhZTA0NWEwMTRiMjM3Yzg0MGRmY2M4MGVmN2MxZA==', // Замените SECRET_KEY на секретный ключ из пункта меню Настройки -> Интеграция со сделками в нижней части экрана и строчке Ключ для интеграций
-            'title' => $request->input('name'),
-            'comment' => "",
-            'name' => $request->input('name'),
-            'email' => $request->input('email', 'no email'),
-            'phone' => $request->input('phone'),
-            'fields' => array(),
-            "tags" => 'fit2u.ru',
-        );
-        $roistatDataSend = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatDataOrder));
-
         if($is_multiple)
         {
             $order = Order::create($data);
@@ -601,6 +588,20 @@ class FrontApiController extends Controller
         $res['action'] = 'openModal';
         $res['modal'] = view('modals.order_success', ['user_name' => $data['name'], 'order_id' => $order->id])->render();
 
+        //отправка данных в roistat
+        $roistatDataOrder = array(
+            'roistat' => isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null,
+            'key' => 'NjM4OTo1ODI4NTo2MDlhZTA0NWEwMTRiMjM3Yzg0MGRmY2M4MGVmN2MxZA==', // Замените SECRET_KEY на секретный ключ из пункта меню Настройки -> Интеграция со сделками в нижней части экрана и строчке Ключ для интеграций
+            'title' => $request->input('name'),
+            'comment' => "",
+            'name' => $request->input('name'),
+            'email' => $request->input('email', 'no email'),
+            'phone' => $request->input('phone'),
+            'fields' => array(),
+            "tags" => 'fit2u.ru',
+        );
+        $roistatDataSend = file_get_contents("https://cloud.roistat.com/api/proxy/1.0/leads/add?" . http_build_query($roistatDataOrder));
+        
         return $res;
     }
 
