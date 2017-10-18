@@ -416,6 +416,10 @@ class FrontApiController extends Controller
                 'type' => 'one-click'
             ],
         ];
+        $roistat = isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null;
+        if($roistat) {
+            $data['extra_params']['roistat'] = $roistat;
+        }
         if(isset($user)) {
             $data['customer_id'] = $user->id;
         }

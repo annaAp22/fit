@@ -106,6 +106,9 @@ class RetailSyncOrder extends Command
             'code' => isset($order->delivery) ? $order->delivery->sysname : null,
             'address' => $address,
         ),
+        'customFields' => [
+            'roistat' => isset($order->extra_params['roistat']) ? $order->extra_params['roistat'] : null,
+        ],
         'discountManualPercent' => isset($order->extra_params['discount_percent']) ? $order->extra_params['discount_percent'] : null,
         //'payments' => $payments,
     ];

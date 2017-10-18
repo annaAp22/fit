@@ -192,6 +192,10 @@ class OrderController extends Controller
     if($delivery) {
       $data['extra_params'] = ['delivery_price' => $delivery->price];
     }
+      $roistat = isset($_COOKIE['roistat_visit']) ? $_COOKIE['roistat_visit'] : null;
+      if($roistat) {
+          $data['extra_params']['roistat'] = $roistat;
+      }
 
     //$data['payment_add'] = 'Почтовый индекс: '.$data['index'].'. Комментарий: '.$data['payment_add'];
     $order = Order::create($data);
