@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CallbackMail;
 use App\Models\Article;
+use App\Models\Callback;
 use App\Models\MsAgent;
 use App\Models\MsOrder;
 use App\Models\MsParam;
 use App\Models\Partner;
-use App\Models\PartnerTransfer;
 use App\Models\ProductComment;
 use App\Models\Referral;
 use App\Models\RetailOrder;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -129,7 +129,8 @@ class FrontApiController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function callback(Request $request) {
-        $validator = Validator::make($request->input(), [
+        $data = $request->input();
+        $validator = Validator::make($data, [
             'phone' => 'required',
             'name' => 'required',
         ]);
@@ -137,14 +138,26 @@ class FrontApiController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => 'При запросе произошла ошибка. Попробуйте снова.']);
         }
+        $callback = Callback::create([
+            'name' => $data['name'],
+            'phone' => $data['phone'],
+        ]);
+        if(!$callback) {
+            return response()->json(['message' => 'При запросе произошла ошибка. Попробуйте снова.']);
+        }
 
-        Mail::send('emails.support.callback',
-            ['name' => $request->input('name'),
-                'phone' => $request->input('phone')], function ($message) use ($request) {
-                $email = \App\Models\Setting::getVar('email_support');
-                $caption = 'Запрос обратного звонка '.$request->root();
-                $message->to($email)->subject($caption);
-            });
+        $message = (new CallbackMail($callback))->onQueue('emails');
+        Mail::send($message);
+
+//        Mail::queue('emails.support.callback',
+//            [
+//                'callback' => $callback
+//            ],
+//            function ($message) use ($request) {
+//                $email = Setting::getVar('email_support');
+//                $caption = 'Запрос обратного звонка '.$request->root();
+//                $message->to($email)->subject($caption);
+//            });
 
         return response()->json([
             'result' => 'ok',
