@@ -18,6 +18,7 @@ class CreateCallbacksTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->text('extra')->nullable();
+            $table->boolean('send')->default(0);
             $table->timestamps();
         });
     }

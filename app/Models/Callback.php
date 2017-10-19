@@ -15,6 +15,6 @@ class Callback extends Model
     ];
     //scopes
     public function scopeLast($query) {
-        $query->orderBy('created_at', 'desc');
+        $query->where('send', 0)->orderBy('created_at', 'desc');
     }
 }

@@ -138,16 +138,21 @@ class FrontApiController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => 'При запросе произошла ошибка. Попробуйте снова.']);
         }
+        $extra = [];
+        if(isset($_COOKIE['roistat_visit'])) {
+            $extra['roistat'] = $_COOKIE['roistat_visit'];
+        }
         $callback = Callback::create([
             'name' => $data['name'],
             'phone' => $data['phone'],
+            'extra' => $extra,
         ]);
         if(!$callback) {
             return response()->json(['message' => 'При запросе произошла ошибка. Попробуйте снова.']);
         }
 
         $message = (new CallbackMail($callback))->onQueue('emails');
-        Mail::later(20,$message);
+        Mail::send($message);
 
 //        Mail::queue('emails.support.callback',
 //            [

@@ -6,6 +6,7 @@ use App\Console\Commands\MoySkladImportProducts;
 use App\Console\Commands\OrdersUpdate;
 use App\Console\Commands\Phone;
 use App\Console\Commands\ProductsSex;
+use App\Console\Commands\RetailSyncCallback;
 use App\Console\Commands\RetailSyncOrder;
 use App\Console\Commands\RetailUnsyncOrders;
 use Illuminate\Console\Scheduling\Schedule;
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
         ProductsSex::class,
         Phone::class,
         OrdersUpdate::class,
+        RetailSyncCallback::class,
     ];
 
     /**
@@ -54,8 +56,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('retailcrm:send_order')->everyMinute();
         //Update orders statuses
         $schedule->command('command:orders_update')->everyThirtyMinutes();
-        $schedule->command('queue:work --queue=emails')->everyFiveMinutes();
-   
+
     }
 
     /**
