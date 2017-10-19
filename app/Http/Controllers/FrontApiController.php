@@ -147,7 +147,7 @@ class FrontApiController extends Controller
         }
 
         $message = (new CallbackMail($callback))->onQueue('emails');
-        Mail::send($message);
+        Mail::later(20,$message);
 
 //        Mail::queue('emails.support.callback',
 //            [
