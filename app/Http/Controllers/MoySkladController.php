@@ -167,6 +167,7 @@ class MoySkladController extends Controller
     $paramsString = http_build_query([
         'offset' => 0,
         'limit' => 100,
+        'stockMode' => 'all',
     ]);
     $rests = [];
     $res = $ms->getStock($paramsString);
@@ -183,6 +184,7 @@ class MoySkladController extends Controller
         $paramsString = http_build_query([
             'offset' => $offset,
             'limit'  => $limit,
+            'stockMode' => 'all',
         ]);
         if( $res = $ms->getStock($paramsString) )
         {
