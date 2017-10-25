@@ -53,7 +53,10 @@
                     </i>
                     &nbsp;
                 </div>
-                <div class="header__item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
+                <div class="header__item">
+                    {{--{!! $global_settings['phone_number']->value['msk'] !!}<br/>--}}
+                    <span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }}
+                        <br/>без выходных</span>
                 </div>
                 <div class="header__item">{!! $global_settings['phone_number']->value['free'] !!}<br/><span>Бесплатно по России</span>
                 </div>
