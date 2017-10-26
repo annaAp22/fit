@@ -357,7 +357,9 @@ $(function(){
                 320: 1
             },
             afterLoad: function(instance) {
+                //не перематываем на централный элемент
                 if(instance.items.length > 2) {
+                    //instance.middle();
                     instance.next();
                 }
                 return false;

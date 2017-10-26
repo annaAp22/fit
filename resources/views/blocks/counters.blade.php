@@ -105,6 +105,15 @@
 
         gtag('config', 'UA-107390344-1');
     </script>
+    <!-- Yandex Adviser Remove Start -->
+    <script>
+        $(document).ready(function(){
+            $("*").each(function( ) {
+                if ($(this).attr("itemprop")) { $(this).removeAttr("itemprop"); }
+            });
+        });
+    </script>
+    <!-- Yandex Adviser Remove End -->
 @endif
 <!-- END counters-->
 

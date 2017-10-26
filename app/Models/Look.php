@@ -46,5 +46,10 @@ class Look extends Model
     {
         return $query->where('status', 1);
     }
-
+    public function scopeForProducts($query, $ids)
+    {
+        return $query->whereHas('products', function($query) use($ids) {
+            $query->whereIn('products.id', $ids);
+        });
+    }
 }

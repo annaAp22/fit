@@ -108,6 +108,14 @@
                 self.move();
             }
         };
+        // Middle slide
+        this.middle = function(){
+            self.position = Math.ceil(self.count / 2);
+            self.delta = self.move((-self.position + 1) * (self.dimension));
+            console.log(self.position);
+            console.log(self.delta);
+            console.log(self.dimension);
+        };
 
         // Previous slide
         this.prev = function(){

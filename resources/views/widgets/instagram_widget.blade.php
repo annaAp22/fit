@@ -15,6 +15,12 @@
             <i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
         </button>
     </div>
+    @if(isset($global_settings['social_instagram']))
+    <a href="{{$global_settings['social_instagram']->value}}" class="instagram__link" target="_blank">
+        <span>Присоединяйтесь к нам в Instagram</span>
+        <div class="sprite_main sprite_main-instagram"></div>
+    </a>
+    @endif
 </div>
 
 <script>

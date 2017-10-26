@@ -285,37 +285,12 @@
         </section>
 
         <section class="content-full-width">
-
-            {{--<!-- Seo text-->
-            <div class="page-text">
-                <div class="page-text__title page-text__title_h2 page-text__title_700">Плавные линии в сочетании с уверенными и яркими формами
-                </div>
-                <p class="page-text__text">
-                    Каждый веб-разработчик знает, что такое текст-«рыба». Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.
-                </p>
-                <div class="page-text__title page-text__title_h2 page-text__title_700">Подчеркнет Ваше превосходство
-                </div>
-                <p class="page-text__text">Каждый веб-разработчик знает, что такое текст-«рыба». Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.
-                </p><a class="youtube-video" href="#"><span class="youtube-video__play"></span><img class="youtube-video__image" src="/img/product-video2-min.jpg" alt="" role="presentation"/><span class="youtube-video__title youtube-video__title_top-left-white">Всё, что нужно занать о нашей спортивной одежде</span></a>
-            </div>--}}
-
-            @widget('InstagramWidget')
-
-            @widget('ViewProductsWidget', ['product_id' => $product->id])
-            
             @include('looks.product_detailed')
-
+            @widget('InstagramWidget')
+            <div class="height-70"></div>
             @widget('SimilarProductsWidget', ['product' => $product])
+            @widget('ViewProductsWidget', ['product_id' => $product->id])
             @widget('SubscribeWidget')
         </section>
     </main>
-    <!-- Yandex Adviser Remove Start -->
-    <script>
-        $(document).ready(function(){
-            $("*").each(function( ) {
-                if ($(this).attr("itemprop")) { $(this).removeAttr("itemprop"); }
-            });
-        });
-    </script>
-    <!-- Yandex Adviser Remove End -->
 @endsection

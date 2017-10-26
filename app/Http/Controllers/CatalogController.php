@@ -688,6 +688,17 @@ class CatalogController extends Controller
         }
 
         $looks = $product->looks()->published()->with('products', 'products.attributes')->get();
+        //добавляем несколько looks из комплектов, чтоб слайдер луков товаров не пустовал
+        $kit = $product->kits->flatMap(function($values) {
+            return $values->products;
+        })->merge($product->restKit);
+        if(!$looks->isEmpty() && $kit) {
+            $kit_products_ids = $kit->pluck('id')->unique();
+            $kits_looks = Look::published()->forProducts($kit_products_ids)->with('products', 'products.attributes')->take(10)->get();
+            //ставим look товара посередине других луков
+            $looks = $looks->merge($kits_looks);
+            $looks->prepend($looks->pop());
+        }
 
         return view('catalog.products.details', [
             'product' => $product,
