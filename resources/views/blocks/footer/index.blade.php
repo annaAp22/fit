@@ -11,11 +11,10 @@
             </div>
             <ul>
               <li class="navigation-footer__phone"><i class="sprite_main sprite_main-footer__phone"></i>
-                <div class="item">{!! $global_settings['phone_number']->value['free'] !!}<br/><span>Бесплатно по России</span>
-                </div>
-              </li>
-              <li class="navigation-footer__phone"><i class="sprite_main sprite_main-footer__phone"></i>
-                <div class="item">{!! $global_settings['phone_number']->value['msk'] !!}<br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
+                <div class="item">{!! $global_settings['phone_number']->value['free'] !!}
+                  <br/><span>Бесплатно по России</span>
+                  <br/><span>с {{ $global_settings['schedule']->value['start_workday'] }} до {{ $global_settings['schedule']->value['end_workday'] }} без выходных</span>
+
                 </div>
               </li>
               <li class="navigation-footer__phone">
