@@ -38,6 +38,17 @@ jQuery(function($) {
     $('[data-rel=tooltip]').tooltip({container:'body'});
     $('[data-rel=popover]').popover({container:'body'});
 
+    $(".js-action-update-all").on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        bootbox.confirm("Вы уверены? Это действие будет применено ко всем товарам в базе данных!", function(result) {
+            if(result) {
+                $this.closest('form').submit();
+                return true;
+            }
+        });
+    });
+
     $(".action-delete").on(ace.click_event, function() {
         var $this = $(this);
         bootbox.confirm("Вы уверены что хотите удалить объект?", function(result) {
@@ -100,22 +111,23 @@ jQuery(function($) {
 
     if($('.calculate').length) {
         $('.calculate input[name="price"]').change(function(){
-            var price = $('.calculate input[name="price"]').val();
-            var price_old = $('.calculate input[name="price_old"]').val();
+            var $parent = $(this).closest('.calculate');
+            var price = $parent.find('input[name="price"]').val();
+            var price_old = $parent.find('input[name="price_old"]').val();
             if(price && price_old) {
                 var discount = Math.ceil( ((price_old - price)/price_old) * 100 );
                 if(discount < 0) {
                     discount = 0;
                 }
-                $('.calculate input[name="discount"]').val(discount)
+                $parent.find('input[name="discount"]').val(discount)
             }
-
         });
 
         $('.calculate input[name="price_old"]').change(function(){
-            var discountEl = $('.calculate input[name="discount"]'),
+            var $parent = $(this).closest('.calculate');
+            var discountEl = $parent.find('input[name="discount"]'),
                 discount = discountEl.val(),
-                priceEl = $('.calculate input[name="price"]'),
+                priceEl = $parent.find('input[name="price"]'),
                 price = priceEl.val(),
                 price_old = $(this).val();
             if(discount) {
@@ -133,10 +145,11 @@ jQuery(function($) {
 
         $('.calculate input[name="discount"]').change(function(){
             var discount = $(this).val();
-            var price_old = $('.calculate input[name="price_old"]').val();
+            var $parent = $(this).closest('.calculate');
+            var price_old = $parent.find('input[name="price_old"]').val();
             if(price_old) {
                 var price = Math.ceil(  price_old * ( 1 - (discount / 100) ) );
-                $('.calculate input[name="price"]').val(price)
+                $parent.find('input[name="price"]').val(price)
             }
         });
     }
@@ -487,6 +500,130 @@ jQuery(function($) {
         e.preventDefault();
         $(this).parents('.js-dynamic-product-input').remove();
     });
+    //
+    var t = 0;
+
+    // $('body').on('change', '.js-quick-save-product input', function(e){
+    //     var $this = $(this);
+    //     clearInterval(t);
+    //     t = setInterval(function(){
+    //         // save field
+    //         var $tr = $this.closest('tr');
+    //         var url = $tr.data('url');
+    //         var inputs = $tr.get(0).getElementsByTagName('input');
+    //         postData = {};
+    //         var input;
+    //         for(var i = 0; i < inputs.length; i++) {
+    //             input = inputs[i];
+    //             if(input.name != '_method') {
+    //                 postData[input.name] = input.value;
+    //             }
+    //         }
+    //         $.post(url, postData, function(data) {
+    //             // Exception
+    //             if(typeof data.error !== 'undefined'){
+    //                 console.log(data.message);
+    //             }
+    //             // Do some action
+    //             if(typeof data.action !== 'undefined'){
+    //                 var fn = window[data.action];
+    //                 if(typeof fn === 'function') {
+    //                     fn(data);
+    //                 }
+    //             }
+    //         }, 'json').fail(function() {
+    //             savingError();
+    //         });
+    //     }, 1000);
+    //
+    // });
+    $('.js-discount-apply').click(function(e) {
+        var $this = $(this);
+        var $parent = $this.closest('.js-groups-data');
+        var $discount = $parent.find('input[name=group-discount]');
+        var discount = parseInt( $discount.val() );
+        var target = $discount.data('target');
+        var $discounts = $(target).find('input[name=discount]');
+        var $groups = $(target).find('input[name=group]');
+        var i;
+        if($groups.length != $discounts.length) {
+            console.log('количество групп не совпадает с количеством рядов');
+            console.log($groups.length);
+            console.log($discounts.length);
+            return false;
+        }
+        var j = 0;
+        for(i = 0; i < $groups.length; i++) {
+            if($groups[i].checked) {
+                $discounts[i].value = discount;
+                $discounts.eq(i).change();
+                j++;
+            }
+        }
+        console.log('количество применненных скидок:'+ j);
+    });
+    $('.js-discount-apply-all').click(function(e) {
+        console.log('js-discount-apply-all');
+        var $this = $(this);
+        var $parent = $this.closest('.js-groups-data');
+        var $discount = $parent.find('input[name=group-discount]');
+        var discount = parseInt( $discount.val() );
+        var target = $discount.data('target');
+        var $discounts = $(target).find('input[name=discount]');
+        var $groups = $(target).find('input[name=group]');
+        var i;
+        if($groups.length != $discounts.length) {
+            console.log('количество групп не совпадает с количеством рядов');
+            console.log($groups.length);
+            console.log($discounts.length);
+            return false;
+        }
+        var j = 0;
+        for(i = 0; i < $groups.length; i++) {
+            $discounts[i].value = discount;
+            $discounts.eq(i).change();
+            j++;
+        }
+        console.log('количество применненных скидок:'+ j);
+    });
+    $body.on('click', '.js-quick-save', function(e) {
+        var $target = $($(this).data('target'));
+        var url = $target.data('url');
+        var $items = $target.find('.js-item');
+        var $inputs;
+        var index;
+        var postData = {};
+        $items.each(function(i, el){
+            index = i;
+            postData[index] = {};
+            $inputs = $(el).find('input');
+            $inputs.each(function(i, el){
+                postData[index][el.name] = el.value;
+            });
+        });
+        $.post(url, postData, function(data) {
+            // Exception
+            if(typeof data.error !== 'undefined'){
+                console.log(data.message);
+            }
+            // Do some action
+            if(typeof data.action !== 'undefined'){
+                var fn = window[data.action];
+                if(typeof fn === 'function') {
+                    fn(data);
+                }
+            }
+        }, 'json').fail(function() {
+            savingError();
+        });
+    });
+    var $quick_panel = $('.js-quick-panel');
+    $quick_panel.width($quick_panel.parent().width());
+    $body.on('change', '.calculate input[name="price"], .calculate input[name="discount"]', function(e) {
+        if($quick_panel.css('display') == 'none') {
+            $quick_panel.show(500);
+        }
+    });
     // Do some action by ajax
     $body.on('click', '.js-save-check', function(e) {
         var $this = $(this),
@@ -514,8 +651,29 @@ jQuery(function($) {
     });
 });
 //показывает уведомление о сохранении
-function saveComplete() {
-    $('#saveComplete').animate({'opacity':'1'}, 100, function() {
-      $(this).animate({'opacity':'0'}, 5000);
+function saveComplete(data) {
+    $item = $('#saveComplete');
+    if(data && typeof data.text != 'undefined') {
+        $item.text(data.text);
+    }else {
+        $item.text('Ошибка');
+    }
+    $item.animate({'opacity':'1'}, 100, function() {
+        $(this).animate({'opacity':'0'}, 5000);
+    });
+    var $quick_panel = $('.js-quick-panel');
+    if($quick_panel) {
+        $quick_panel.hide(500);
+    }
+}
+function savingError(data) {
+    $item = $('#js-save-error');
+    if(data && typeof data.text != 'undefined') {
+        $item.text(data.text);
+    }else {
+        $item.text('Ошибка');
+    }
+    $item.animate({'opacity':'1'}, 100, function() {
+        $(this).animate({'opacity':'0'}, 5000);
     })
 }

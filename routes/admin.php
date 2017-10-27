@@ -59,6 +59,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/products/tag/{id}/sort', ['as' => 'products.tag.sort', 'uses' => 'ProductController@sortTag'])->where(['id' => '[0-9]+']);
     Route::post('/products/tag/{id}/sort/save', ['as' => 'products.tag.sort.save', 'uses' => 'ProductController@sortTagSave'])->where(['id' => '[0-9]+']);
     Route::post('/products/remove/{id}', 'ProductController@remove')->where(['id' => '[0-9]+'])->name('products.remove');
+    //discount menaging
+    Route::get('/products/quick_edit', 'ProductController@quickEdit')->name('products-quick_edit');
 
     Route::resource('reviews', 'ReviewController', ['except' => ['show']]);
 

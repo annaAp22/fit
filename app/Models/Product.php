@@ -185,7 +185,9 @@ class Product extends Model
                 'attribute_id')
             ->withPivot('value');
     }
-
+    public function ms_product() {
+        return $this->hasOne('App\Models\MsProduct');
+    }
     public function ms_products()
     {
         return $this->hasMany('App\Models\MsProduct');

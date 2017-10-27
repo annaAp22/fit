@@ -62,7 +62,7 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
-                <li  @if( str_is('admin.products*', Route::currentRouteName())) class="active" @endif>
+                <li  @if( str_is('admin.products.*', Route::currentRouteName())) class="active" @endif>
                     <a href="{{route('admin.products.index')}}">
                         <i class="menu-icon fa  fa-caret-right"></i>
                         <span class="menu-text"> Товары </span>
@@ -73,6 +73,13 @@
                     <a href="{{route('admin.kits.index')}}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         <span class="menu-text"> Комплекты </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li  @if( str_is('admin.products-quick_edit', Route::currentRouteName())) class="active" @endif>
+                    <a href="{{route('admin.products-quick_edit')}}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Быстрое редактирование </span>
                     </a>
                     <b class="arrow"></b>
                 </li>

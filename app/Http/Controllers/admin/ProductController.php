@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\ProductPhoto;
 use App\Models\Attribute;
 
+use Illuminate\Support\Facades\Input;
 use Validator;
 use Session;
 
@@ -167,8 +168,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('brand', 'categories.children', 'tags')->findOrFail($id);
-        $product->price_old = ceil( ( $product->price / (100 - $product->discount) ) * 100 );
+        $product = Product::with('brand', 'categories.children', 'tags', 'ms_product')->findOrFail($id);
+        //$product->price_old = ceil( ( $product->price / (100 - $product->discount) ) * 100 );
+        $product->price_old = intval($product->ms_product->ms_salePrice);
         $categories = Category::with('children.children')->where('parent_id', 0)->orderBy('sort')->get();
         $tags = Tag::orderBy('views', 'desc')->orderBy('name')->get();
         $brands = Brand::orderBy('name')->get();
@@ -185,6 +187,79 @@ class ProductController extends Controller
         }
         $this->setMetaTags(null, ' Редактирование товара');
         return view('admin.products.edit', compact('product', 'categories', 'tags','brands', 'related', 'attributes', 'kits'));
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function quickEdit(Request $request)
+    {
+        $this->authorize('index', Product::class);
+
+        $products = Product::with('categories.children', 'brand', 'tags', 'ms_product');
+        $filters = $this->getFormFilter($request->input());
+        if(!empty($filters)) {
+            if (!empty($filters['name'])) {
+                $products->where('name', 'LIKE', '%'.$filters['name'].'%');
+            }
+            if (!empty($filters['sysname']))
+                $products->where('sysname', 'LIKE', '%'.$filters['sysname'].'%');
+            if (!empty($filters['id_category']))
+                $products->whereHas('categories', function ($query) use ($filters) {
+                    $query->where('category_id', $filters['id_category']);
+                });
+            if (!empty($filters['brand_id']))
+                $products->where('brand_id', $filters['brand_id']);
+            if (!empty($filters['tag']))
+                $products->whereHas('tags', function ($query) use ($filters) {
+                    $query->where('tag_id', $filters['tag']);
+                });
+            if (!empty($filters['attributes']))
+                foreach($filters['attributes'] as $attribute_id => $value) {
+                    if($value) {
+                        $products->whereHas('attributes', function ($query) use ($value, $attribute_id) {
+                            $query->where('attribute_id', $attribute_id)->where('value', $value);
+                        });
+                    }
+                }
+            if (isset($filters['status']) && $filters['status']!='')
+                $products->where('status', $filters['status']);
+            if (isset($filters['deleted']) && $filters['deleted'])
+                $products->withTrashed();
+            if (!empty($filters['sort'])) {
+                switch ($filters['sort']) {
+                    case 'hit':$products->orderBy('hit', 'desc');break;
+                    case 'act':$products->orderBy('act', 'desc');break;
+                    case 'new':$products->orderBy('new', 'desc');break;
+                    case 'cheaper':$products->orderBy('price');break;
+                    case 'expensive':$products->orderBy('price', 'desc');break;
+                    default:$products->orderBy('id', 'desc');
+                }
+            }
+        }
+        $categories = Category::with('children.children')->roots()->orderBy('sort')->get();
+        $tags       = Tag::orderBy('views', 'desc')->orderBy('name')->get();
+        $brands     = Brand::orderBy('name')->get();
+
+        $products   = $products->paginate($filters['perpage'], null, 'page', !empty($filters['page']) ? $filters['page'] : null);
+        foreach ($products as $product) {
+            if($product->ms_product) {
+                $product->price_old = intval($product->ms_product->ms_salePrice);
+            } else {
+                $product->price_old = floor( ( $product->price / (100 - $product->discount) ) * 100 );
+            }
+        }
+        $attributes = Attribute::where('is_filter', 1)->orderBy('name')->get();
+        $sorts = [
+            'hit' => 'сначала хиты',
+            'act' => 'сначала акции',
+            'new' => 'сначала новинки',
+            'expensive' => 'сначала дороже',
+            'cheaper' => 'сначала дешевле',
+        ];
+        $this->setMetaTags(null, ' Список всех товаров');
+        return view('admin.products.quick_edit',compact('products', 'categories', 'tags', 'brands', 'filters', 'attributes', 'sorts'));
     }
 
     /**
@@ -469,6 +544,56 @@ class ProductController extends Controller
             ];
         }
     }
+    /*
+     * quic save fields
+     * **/
+    public function quickSave(Request $request) {
+        $data = $request->input();
+        $fields = [
+            'id' => 'required|integer',
+            'price' => 'integer',
+            'discount' => 'integer',
+        ];
+        $validate_fields = [];
+        foreach ($fields as $key => $field) {
+            $validate_fields['*.'.$key] = $field;
+        }
+        $new_data = [];
+        $ids = [];
 
+        $this->validate($request, $validate_fields);
+        foreach ($data as $row) {
+            if(!isset($row['id'])) {
+                $response = [
+                    'status' => '400',
+                    'action '=> 'savingError',
+                ];
+                return $response;
+            }
+            array_push($ids, $row['id']);
+            $row = array_intersect_key($row, $fields);
+            $new_data[$row['id']] = $row;
+        }
+        $products = Product::whereIn('id', $ids)->get();
+        $count = 0;
+        foreach ($products as $product) {
+            $product->fill($new_data[$product->id]);
+            $original = $product->getOriginal();
+            $attributes = $product->getAttributes();
+            foreach ($original as $key => $value) {
+                if($attributes[$key] != $value) {
+                    $product->save();
+                    $count++;
+                    break;
+                }
+            }
+        }
+        $response = [
+            'status' => 200,
+            'action' => 'saveComplete',
+            'text' => 'Сохранено товаров:'.$count
+        ];
+        return $response;
+    }
 
 }

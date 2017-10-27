@@ -42,6 +42,7 @@ Route::group([ 'prefix' => 'product' ], function() {
 
 
     Route::get('/comments', 'FrontApiController@comments')->name('product.comments');
+    Route::post('/quick_save', 'admin\ProductController@quickSave')->name('product.quick_save');
 });
 
 Route::group(['prefix' => 'cart'], function() {

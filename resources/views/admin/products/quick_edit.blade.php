@@ -79,16 +79,44 @@
                                         <!-- FILTERS -->
                                         @if(!isset($data['hide_filter']))
                                         <div class="row">
-                                            <form method="GET" action="{{route('admin.products.index')}}">
+                                            <form method="GET" action="{{route('admin.products-quick_edit')}}">
                                                 <div class="row">
                                                     <div class="col-xs-4">
-                                                        <div class="dataTables_filter">
+                                                        <div class="">
                                                             <label>Название:
                                                                 <input type="text" name="f[name]" value="{{$filters['name'] or ''}}" class="form-control input-sm">
                                                             </label>
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-xs-3">
+                                                        <div class="">
+                                                            <label>ЧПУ:
+                                                                <input type="text" name="f[sysname]" value="{{$filters['sysname'] or ''}}" class="form-control input-sm">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <div class="">
+                                                            <label>Статус
+                                                                <select name="f[status]" class="form-control input-sm">
+                                                                    <option value="" @if (!isset($filters['status'])) selected="selected" @endif>Все</option>
+                                                                    <option value="1" @if (isset($filters['status']) &&  $filters['status']==1) selected="selected" @endif>Опубликовано</option>
+                                                                    <option value="0" @if (isset($filters['status']) &&  $filters['status']==='0') selected="selected" @endif>Черновик</option>
+
+                                                                </select> </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <div class="dataTables_length">
+                                                            <div class="checkbox">
+                                                                <label class="block">
+                                                                    <input name="f[deleted]" value="1" type="checkbox" @if (isset($filters['deleted'])) checked="checked" @endif class="ace input-lg">
+                                                                    <span class="lbl"> С удаленными</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-xs-4">
                                                         <div class="dataTables_filter">
                                                             <label>Категория:
@@ -119,39 +147,6 @@
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <div class="dataTables_filter">
-                                                            <label>ЧПУ:
-                                                                <input type="text" name="f[sysname]" value="{{$filters['sysname'] or ''}}" class="form-control input-sm">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @if($attributes->count())
-                                                    @foreach($attributes->chunk(3) as $block)
-                                                        <div class="row">
-                                                            @foreach($block as $attribute)
-                                                                <div class="col-xs-4">
-                                                                    <div class="dataTables_filter">
-                                                                        <label>{{$attribute->name}}:
-                                                                            @if($attribute->type == 'list')
-                                                                                <select name="f[attributes][{{$attribute->id}}]"  class="form-control input-sm">
-                                                                                    <option value="">--Не выбран--</option>
-                                                                                    @forelse($attribute->getLists() as $key => $value)
-                                                                                        <option value="{{$value}}" @if(isset($filters['attributes'][$attribute->id]) && $filters['attributes'][$attribute->id]==$value)selected="selected"@endif>{{$value}}</option>
-                                                                                        @endforeach
-                                                                                </select>
-                                                                            @else
-                                                                                <input type="text" name="f[attributes][{{$attribute->id}}]" value="{{$filters['attributes'][$attribute->id] or ''}}" class="form-control input-sm">
-                                                                            @endif
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                                <div class="row">
-                                                    <div class="col-xs-2 col-lg-4">
-                                                        <div class="dataTables_filter">
                                                             <label>Тэг:
                                                                 <select name="f[tag]" class="form-control input-sm" style="width:80%">
                                                                     <option value="">--Не выбрана--</option>
@@ -161,31 +156,11 @@
                                                                 </select> </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-3">
-                                                        <div class="dataTables_filter">
-                                                            <label>Статус
-                                                                <select name="f[status]" class="form-control input-sm">
-                                                                    <option value="" @if (!isset($filters['status'])) selected="selected" @endif>Все</option>
-                                                                    <option value="1" @if (isset($filters['status']) &&  $filters['status']==1) selected="selected" @endif>Опубликовано</option>
-                                                                    <option value="0" @if (isset($filters['status']) &&  $filters['status']==='0') selected="selected" @endif>Черновик</option>
 
-                                                                </select> </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-3 col-lg-4">
-                                                        <div class="dataTables_filter">
-                                                            <div class="checkbox">
-                                                                <label class="block">
-                                                                    <input name="f[deleted]" value="1" type="checkbox" @if (isset($filters['deleted'])) checked="checked" @endif class="ace input-lg">
-                                                                    <span class="lbl bigger-120"> С удаленными</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-4">
-                                                        <div class="dataTables_filter">
+                                                        <div class="">
                                                             <label>Сортировка:
                                                                 <select name="f[sort]">
                                                                     <option value="">--Не выбрана--</option>
@@ -197,7 +172,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4">
-                                                        <div class="dataTables_length">
+                                                        <div class="">
                                                             <label>На странице
                                                                 <select name="f[perpage]" class="form-control input-sm">
                                                                     <option value="10" @if (isset($filters['perpage']) &&  $filters['perpage']== 10) selected="selected" @endif>10</option>
@@ -224,18 +199,40 @@
                                             </form>
                                         </div>
                                         @endif
+                                        <form class="row col-xs-12 js-groups-data">
+                                            <diw class="row">
+                                                <div class="h4">Групповое редактирование</div>
+                                                <div class="h6">Применяется к выбранным элементам на странице</div>
+                                            </diw>
+                                            <div class="col-xs-4">
+                                                <div class="">
+                                                    <label>Скидка %:
+                                                        <input name="group-discount" value="0" class="form-control input-sm " data-target="#simple-table" type="number">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <button class="btn btn-info btn-xs js-discount-apply" type="button">Применить к выбранным</button>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <button class="btn btn-info btn-xs js-discount-apply-all" type="button">Применить ко всем</button>
+                                            </div>
+                                            <div class="dataTables_filter col-xs-4">
+                                                {{--<button class="btn btn-info btn-xs js-discount-apply-space">Сохранить для всех товаров</button>--}}
+                                            </div>
+                                        </form>
                                         <div class="row">
-                                            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                                            <table id="simple-table" class="table table-striped table-bordered table-hover" data-url="{{route('ajax.product.quick_save')}}">
                                                 <thead>
                                                 <tr>
+                                                    <th>Выбрать</th>
                                                     <th>Название</th>
-                                                    <th>Цена</th>
+                                                    <th>Цена в МойСклад руб.</th>
+                                                    <th>Цена руб.</th>
+                                                    <th>Скидка %</th>
                                                     <th>Изображение</th>
-                                                    <th>Категории</th>
-                                                    <th>Бренд</th>
                                                     <th>ЧПУ</th>
                                                     <th>Ярлыки</th>
-                                                    <th>Теги</th>
                                                     <th>Статус</th>
                                                     <th></th>
                                                 </tr>
@@ -243,11 +240,28 @@
 
                                                 <tbody class="ace-thumbnails clearfix">
                                                 @forelse($products as $item)
-                                                    <tr @if($item->trashed())style="background-color: #F6CECE"@endif>
+                                                    <tr @if($item->trashed())style="background-color: #F6CECE"@endif class="calculate js-item js-quick-save-product" data-url="{{route('ajax.product.quick_save')}}">
                                                         <td>
+                                                            <label class="block">
+                                                                <input name="group" data-id="{{$item->id}}" value="0" autocomplete="off" class="ace input-lg" type="checkbox">
+                                                                <span class="lbl"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="hidden" name="id" value="{{$item->id}}"/>
                                                             <a href="{{route('admin.products.edit', $item->id)}}">{{$item->name}}</a>
                                                         </td>
-                                                        <td>{{$item->price}} руб.</td>
+
+                                                        <td>
+                                                            {{$item->price_old}}
+                                                            <input name="price_old" type="hidden" value="{{$item->price_old}}" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input name="price" type="number" value="{{$item->price}}" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input name="discount" type="number" value="{{$item->discount}}" autocomplete="off">
+                                                        </td>
                                                         <td class="col-sm-1 center">
                                                             @if($item->uploads)
                                                                 <a data-rel="colorbox" href="{{ $item->uploads->img->url() }}">
@@ -255,8 +269,6 @@
                                                                 </a>
                                                             @endif
                                                         </td>
-                                                        <td>@if($item->categories->count()) {{ $item->categories->implode('name', ', ')}} @endif</td>
-                                                        <td>@if($item->brand) {{$item->brand->name}} @endif</td>
                                                         <td>{{$item->sysname}}</td>
                                                         <td>
                                                             <label class="block">
@@ -281,11 +293,6 @@
                                                                 <span class="label  label-purple arrowed">Под заказ</span>
                                                             @endif
 
-                                                        </td>
-                                                        <td>
-                                                            @foreach($item->tags as $tag)
-                                                                <span class="label label-info arrowed-in-right arrowed">{{$tag->name}}</span>
-                                                            @endforeach
                                                         </td>
                                                         <td class="col-sm-1 center"><i class="ace-icon glyphicon @if($item->status) glyphicon-ok green @else glyphicon-remove red @endif  bigger-120"></i></td>
                                                         <td class="col-sm-1 center">
@@ -343,10 +350,18 @@
 
                         </div>
                     </div>
-
                 </div>
+
             </div><!-- /.col -->
         </div><!-- /.row -->
+        <div>
+            <div class="quick-panel js-quick-panel">
+                <div class="wrapper">
+                    <button class="js-quick-save btn btn-info btn-xs" data-target="#simple-table">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
     </div><!-- /.page-content -->
     <div id="saveComplete" class="saved">С о х р а н е н о</div>
+    <div id="js-save-error" class="saved error">Ошибка</div>
 @stop
