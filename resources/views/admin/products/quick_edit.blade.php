@@ -199,7 +199,7 @@
                                             </form>
                                         </div>
                                         @endif
-                                        <form class="row col-xs-12 js-groups-data">
+                                        <div class="row col-xs-12 js-groups-data">
                                             <diw class="row">
                                                 <div class="h4">Групповое редактирование</div>
                                                 <div class="h6">Применяется к выбранным элементам на странице</div>
@@ -217,10 +217,10 @@
                                             <div class="col-xs-2">
                                                 <button class="btn btn-info btn-xs js-discount-apply-all" type="button">Применить ко всем</button>
                                             </div>
-                                            <div class="dataTables_filter col-xs-4">
-                                                {{--<button class="btn btn-info btn-xs js-discount-apply-space">Сохранить для всех товаров</button>--}}
+                                            <div class="dataTables_filter col-xs-4 js-action-update-all" data-url="{{route('ajax.product.quick_save')}}">
+                                                <button class="btn btn-info btn-xs">Сохранить для всех товаров</button>
                                             </div>
-                                        </form>
+                                        </div>
                                         <div class="row">
                                             <table id="simple-table" class="table table-striped table-bordered table-hover" data-url="{{route('ajax.product.quick_save')}}">
                                                 <thead>
@@ -257,10 +257,10 @@
                                                             <input name="price_old" type="hidden" value="{{$item->price_old}}" autocomplete="off">
                                                         </td>
                                                         <td>
-                                                            <input name="price" type="number" value="{{$item->price}}" autocomplete="off">
+                                                            <input style="width:100px;" name="price" type="text" readonly value="{{$item->price}}" autocomplete="off">
                                                         </td>
                                                         <td>
-                                                            <input name="discount" type="number" value="{{$item->discount}}" autocomplete="off">
+                                                            <input style="width:100px;" name="discount" type="number" value="{{$item->discount}}" autocomplete="off">
                                                         </td>
                                                         <td class="col-sm-1 center">
                                                             @if($item->uploads)

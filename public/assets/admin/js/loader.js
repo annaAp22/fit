@@ -9,4 +9,3 @@ $(function() {
         if (!window.loader.hasClass('hidden')) $(window.loader).addClass('hidden');
     });
 });
-//# sourceMappingURL=lib.js.map

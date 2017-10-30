@@ -25,13 +25,6 @@ gulp.task('postcss', function() {
         //.pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));
 });
-gulp.task('timeout', function() {
-    setTimeout(function(e) {
-    }, 1000);
-});
-gulp.task('sass-compile', ['sass', 'timeout', 'version']);
-gulp.task('sass-compile-release', ['postcss', 'timeout', 'version']);
-
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -67,9 +60,9 @@ elixir(function(mix) {
         'map.js',
         'app.js'
     ], 'public/js/app.js');
-    // mix.version(
-    //     'css/app.css'
-    // );
+    // elixir(function(mix) {
+    //     mix.sass('loader.sass');
+    // });
     mix.version([
         'assets/admin/css/admin.css',
         'assets/admin/js/admin.js',

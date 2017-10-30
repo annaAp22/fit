@@ -20,6 +20,7 @@
 
 
     <link rel="stylesheet" href="{{ elixir('assets/admin/css/admin.css') }}" />
+    <link rel="stylesheet" href="{{ elixir('assets/admin/css/loader.css') }}" />
 
     <link rel="stylesheet" href="/assets/admin/css/colorbox.min.css" />
 
@@ -95,7 +96,7 @@
 
     <!-- color picker -->
     <script src="/assets/admin/js/palette-color-picker.min.js"></script>
-
+    <script src="{{elixir('assets/admin/js/loader.js')}}"></script>
     <script src="{{elixir('assets/admin/js/admin.js')}}"></script>
 
 </head>
@@ -126,5 +127,9 @@
 </div><!-- /.main-container -->
 
     {{--<script src="{{ elixir('js/admin/app.js') }}"></script>--}}
+    <div class="hidden" id="loader">
+        <div class="loader-bg"></div>
+        <div class="loader"></div>
+    </div>
 </body>
 </html>

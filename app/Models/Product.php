@@ -105,6 +105,12 @@ class Product extends Model
             return null;
         }
     }
+    //calculate price
+    public function calculatePrice() {
+        if($this->ms_product) {
+            $this->price = ceil($this->ms_product->ms_salePrice * (100 - $this->discount)/100);
+        }
+    }
     /*
      * wrap the article in a name by tag span
      * **/

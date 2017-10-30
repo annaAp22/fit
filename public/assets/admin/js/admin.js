@@ -39,12 +39,20 @@ jQuery(function($) {
     $('[data-rel=popover]').popover({container:'body'});
 
     $(".js-action-update-all").on('click', function(e) {
-        e.preventDefault();
+
         var $this = $(this);
         bootbox.confirm("Вы уверены? Это действие будет применено ко всем товарам в базе данных!", function(result) {
             if(result) {
-                $this.closest('form').submit();
+                var $inputs = $('.js-groups-data input');
+                var postData = {
+                };
+                for(var i = 0; i < $inputs.length; i++) {
+                    postData[$inputs[i].name] = $inputs[i].value;
+                }
+                sendData($this.data('url'), postData);
                 return true;
+            } else {
+                e.preventDefault();
             }
         });
     });
@@ -505,8 +513,8 @@ jQuery(function($) {
 
     // $('body').on('change', '.js-quick-save-product input', function(e){
     //     var $this = $(this);
-    //     clearInterval(t);
-    //     t = setInterval(function(){
+    //     clearTimeout(t);
+    //     t = setTimeout(function(){
     //         // save field
     //         var $tr = $this.closest('tr');
     //         var url = $tr.data('url');
@@ -562,6 +570,7 @@ jQuery(function($) {
         }
         console.log('количество применненных скидок:'+ j);
     });
+    //применить скидку ко всем элементам на странице
     $('.js-discount-apply-all').click(function(e) {
         console.log('js-discount-apply-all');
         var $this = $(this);
@@ -586,6 +595,9 @@ jQuery(function($) {
         }
         console.log('количество применненных скидок:'+ j);
     });
+    // $('.js-discount-apply-space').click(function(e) {
+    //
+    // })
     $body.on('click', '.js-quick-save', function(e) {
         var $target = $($(this).data('target'));
         var url = $target.data('url');
@@ -650,6 +662,22 @@ jQuery(function($) {
         }, 'json');
     });
 });
+function sendData(url, postData) {
+    $.post(url, postData, function(data) {
+        // Exception
+        if(typeof data.error !== 'undefined'){
+            console.log(data.message);
+        }
+        // Do some action
+        if(typeof data.action !== 'undefined'){
+            var fn = window[data.action];
+            if(typeof fn === 'function') {
+                fn(data);
+            }
+        }
+    }, 'json');
+}
+
 //показывает уведомление о сохранении
 function saveComplete(data) {
     $item = $('#saveComplete');
@@ -665,6 +693,12 @@ function saveComplete(data) {
     if($quick_panel) {
         $quick_panel.hide(500);
     }
+}
+function saveCompleteAndReload(data) {
+    saveComplete(data);
+    setTimeout(function(e) {
+        location.reload();
+    }, 3000);
 }
 function savingError(data) {
     $item = $('#js-save-error');

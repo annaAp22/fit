@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\MsProduct;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
@@ -549,9 +550,36 @@ class ProductController extends Controller
      * **/
     public function quickSave(Request $request) {
         $data = $request->input();
+        $count = 0;
+        //сохраняем скидку для всех товаров
+        if(isset($data['group-discount'])) {
+            $fields = [
+                'group-discount' => 'integer',
+            ];
+            $this->validate($request, $fields);
+            $products = Product::published()->with([
+                'ms_product'
+            ])->get();
+            foreach ($products as $product) {
+                $product->discount = $data['group-discount'];
+                $product->calculatePrice();
+                $date = $product->updated_at;
+                $product->save();
+                if($date != $product->updated_at) {
+                    $count++;
+                }
+            }
+            $response = [
+                'status' => 200,
+                'action' => 'saveCompleteAndReload',
+                'text' => 'Сохранено товаров:'.$count
+            ];
+            return $response;
+        }
+        //сохраняем данные для выбранных товаров
         $fields = [
             'id' => 'required|integer',
-            'price' => 'integer',
+            //'price' => 'integer',
             'discount' => 'integer',
         ];
         $validate_fields = [];
@@ -574,18 +602,17 @@ class ProductController extends Controller
             $row = array_intersect_key($row, $fields);
             $new_data[$row['id']] = $row;
         }
-        $products = Product::whereIn('id', $ids)->get();
-        $count = 0;
+        $products = Product::whereIn('id', $ids)->with(['ms_product'])->get();
         foreach ($products as $product) {
-            $product->fill($new_data[$product->id]);
-            $original = $product->getOriginal();
-            $attributes = $product->getAttributes();
-            foreach ($original as $key => $value) {
-                if($attributes[$key] != $value) {
-                    $product->save();
-                    $count++;
-                    break;
-                }
+            $item = $new_data[$product->id];
+            $product->fill($item);
+            if(isset($item['discount'])) {
+                $product->calculatePrice();
+            }
+            $date = $product->updated_at;
+            $product->save();
+            if($date != $product->updated_at) {
+                $count++;
             }
         }
         $response = [
