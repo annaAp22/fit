@@ -107,7 +107,7 @@
     </script>
     <!-- Yandex Adviser Remove Start -->
     <script>
-        $(document).ready(function(){
+        document.addEventListener('DOMContentLoaded', function(){
             $("*").each(function( ) {
                 if ($(this).attr("itemprop")) { $(this).removeAttr("itemprop"); }
             });
