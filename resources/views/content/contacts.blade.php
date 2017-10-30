@@ -13,27 +13,19 @@
             <!-- Header -->
             <div class="header-listing">
                 <h1>Контакты</h1>
-                <!-- Back to shopping link-->
-                {{--<a class="btn btn_back-link" href="#" onclick="location.href = document.referrer;">--}}
-                        {{--<span class="icon-fade">--}}
-                            {{--<i class="sprite_main sprite_main-icon-arrow-small-left-gray normal"></i>--}}
-                            {{--<i class="sprite_main sprite_main-icon-arrow-small-left-green_active active"></i>--}}
-                            {{--<span>Назад к покупкам</span>--}}
-                        {{--</span>--}}
-                {{--</a>--}}
             </div>
 
             <!-- Phones -->
             <div class="contacts__phones">
                 <div class="page-text__title_h3 page-text__title_700">По всем вопросам звоните:</div>
-                {{--<div class="contacts__text contacts__text_phones">--}}
-                    {{--Телефон магазина: <br><strong>{!! $global_settings['phone_number']->value['msk'] !!}</strong>--}}
-                {{--</div>--}}
                 <div class="contacts__text contacts__text_phones">
                     Бесплатный номер: <br><strong>{!! $global_settings['phone_number']->value['free'] !!}</strong>
-                    {{--<img src="{{ asset('assets/uploads/contacts-phones-2-min.jpg') }}" alt="">--}}
                     <a target="_blank" href="https://mssg.me/fit2u" rel="nofollow">
-                        <img src="{{ asset('assets/uploads/contacts-phones-1-min.jpg') }}" alt="">
+                        <div class="sprite_main sprite_main-big_phone"></div>
+                        <div class="sprite_main sprite_main-social_32_viber"></div>
+                        <div class="sprite_main sprite_main-social_32_whatsapp"></div>
+                        <div class="sprite_main sprite_main-social_32_vk"></div>
+                        <div class="sprite_main sprite_main-social_32_telegram"></div>
                     </a>
 
                 </div>
