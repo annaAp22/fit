@@ -24,7 +24,7 @@
 </div>
 
 <script>
-    var token = '1362627527.6de15d4.46dd652a7de942b3a96c39e79b571054',
+    var token = '1362627527.1677ed0.07441c45fbf744948535035d55afdff0',
             num_photos = 10,
             container = document.getElementById( 'js-instafeed' ),
             scrElement = document.createElement( 'script' );
