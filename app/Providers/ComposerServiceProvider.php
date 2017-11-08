@@ -91,6 +91,9 @@ class ComposerServiceProvider extends ServiceProvider
       });
         View::composer('cooperation.index', function ($view) {
             $page = Page::where('sysname', 'cooperation')->first();
+            Meta::setTitle($page->title)
+                ->setMetaDescription($page->description)
+                ->setMetaKeywords($page->keywords);
             $view->with(compact('page'));
         });
     }
