@@ -1,6 +1,6 @@
 $(function(){
-    ///^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i;
-    var email_pattern =/.+@.+\..+/i;
+    //var email_pattern =/.+@.+\..+/i;
+    var email_pattern=/^.+@[a-z\d-]+\.[a-z]+$/i;
     var $body = $('body');
     var discountCodes = {};
 

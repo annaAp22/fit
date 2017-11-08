@@ -1,6 +1,6 @@
 <div id="letter-success">
     <div class="modal-box">
-        <div class="form-success form-success_modal"><i class="sprite_main sprite_main-form-succsess-smile-gray"></i>
+        <div class="form-success form-success_modal"><i class="sprite_main sprite_main-form-error-smile-gray"></i>
             <div class="form-success__title">Ошибка!
             </div>
             <div class="form-success__text">

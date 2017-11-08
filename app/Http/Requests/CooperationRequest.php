@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class CooperationRequest extends FormRequest
 {
@@ -25,6 +27,25 @@ class CooperationRequest extends FormRequest
         $phone = preg_replace('/[^+0-9]/', '', $this->input('phone'));
         $this->request->add(['phone' => $phone]);
         // no default action
+    }
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $exception = new ValidationException($validator, $this->response(
+            [
+                'action' => 'openModal',
+                'modal' => view('modals.letter_fail')->render(),
+            ]
+        ));
+        $exception->response->setStatusCode(200);
+        throw $exception;
     }
 
     /**
