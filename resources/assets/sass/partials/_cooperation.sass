@@ -1,0 +1,313 @@
+.cooperation
+  &__world
+    width: 100%
+    padding: 30px 0
+    text-align: center
+    img
+      max-width: 100%
+  &__caption
+    color: #292929
+    font-size: 30px
+    font-weight: 900
+    text-align: center
+    margin-bottom: 30px
+  &__phone
+    font-weight: 700
+    font-size: 36px
+    color: #fff
+    margin-bottom: 10px
+    +media-md(down)
+      color: #000
+    +media-xs(down)
+      font-size: 24px
+  &__work-time
+    color: #fff
+    font-size: 16px
+    +media-md(down)
+      color: #000
+  &__header
+    background: url('/img/black_women.jpg')right top no-repeat
+    background-size: auto 100%
+    padding-top: 20px !important
+    padding-bottom: 20px !important
+    +grid(fluid)
+    width: 100%
+    +align(between)
+    +media-md(down)
+      +align(center)
+      background: #f3f3f3
+    .right
+      +col(8)
+      +media-md(down)
+        +col(24)
+        text-align: center
+        margin-top: 40px
+  &__footer
+    background: #0272bd
+    background-image: linear-gradient(-45deg, #0171bd, #28a9e2)
+    padding: 20px 0
+  &__info
+    background-color: #ececec
+    padding: 20px
+    +grid(fluid)
+    width: 100%
+    +align(stretch, stretch)
+    .item
+      padding: 15px 0
+      font-size: 18px
+      font-weight: 700
+      color: #202020
+      position: relative
+      +grid()
+      +col(7.9)
+      +align(center, center)
+      +media-xs(down)
+        +col(24)
+      +media-sm(up)
+        &:not(:last-child):before
+          content: ""
+          position: absolute
+          right: -15px
+          top: 5%
+          height: 90%
+          width: 6px
+          background-color: #ffd200
+      .text
+        width: 200px
+        letter-spacing: 0.5px
+        +media-md(down)
+          width: 90%
+          text-align: center
+          margin-top: 10px
+        +media-xs(down)
+          width: calc(100% - 120px)
+          text-align: left
+          margin-top: 0
+      .icon-wrapper
+        width: 100px
+        height: 75px
+  &__unknown-block-1
+    margin-top: 20px
+    margin-bottom: 40px
+    +align(between)
+    .img
+      +hidden-sm(down)
+      +col(11)
+      margin-left: 0
+      min-height: 300px
+      background: url('/img/women.jpg') center center
+      background-size: cover
+    .items
+      padding: 20px 0
+      +media-md(up)
+        +col(13)
+      .caption
+        color: #101010
+        font-size: 24px
+        font-weight: 700
+        margin-bottom: 24px
+      .text
+        font-size: 16px
+        color: #272727
+        &:not(:last-child)
+          margin-bottom: 32px
+  &__who-benefits
+    background-color: #f3f3f3
+    padding: 30px 0
+    .items
+      +grid()
+      +align(center)
+      &.between
+        +media-lg(up)
+          +align(between)
+      margin-top: 80px
+      width: 100%
+    .item
+      &.in-row-3
+        +col(7)
+        +media-md(down)
+          +col(12)
+          &:nth-last-child(n+2)
+            margin-bottom: 80px
+        +media-sm(down)
+          +col(24)
+      &.in-row-4
+        +col(6)
+        +media-md(down)
+          +col(12)
+          &:nth-last-child(n+3)
+            margin-bottom: 80px
+        +media-sm(down)
+          +col(24)
+          &:nth-last-child(n+2)
+            margin-bottom: 80px
+      background-color: #fff
+      box-shadow: 0px -5px 7.68px 0.32px rgba(0, 0, 0, 0.08)
+      padding: 50px 20px
+      position: relative
+      text-align: center
+      .img
+        position: absolute
+        margin: 0 auto 0
+        top: -50px
+        left: 0
+        right: 0
+        width: 98px
+        height: 98px
+        border-radius: 50%
+        background: #fff
+        box-shadow: 0px -5px 7.68px 0.32px rgba(0, 0, 0, 0.11)
+        .icon
+          position: absolute
+          left: 0
+          right: 0
+          top: 0
+          bottom: 0
+          margin: auto
+      .caption
+        font-size: 24px
+        color: #161515
+        font-weight: 900
+        margin-bottom: 30px
+      .text
+        color: #161515
+        font-size: 16px
+        padding: 0 10px
+  &__pros
+    padding: 40px 0
+    position: relative
+    &-caption
+      color: #fff
+      font-weight: 900
+      font-size: 48px
+      text-transform: uppercase
+      text-align: center
+      margin-bottom: 30px
+      +media-sm(down)
+        font-size: 36px
+      +media-xs(down)
+        font-size: 24px
+    &-img
+      +col(6)
+      position: relative
+      display: flex
+      +hidden-sm(down)
+      img
+        position: absolute
+        top: 0
+        bottom: 0
+        right: -40px
+        margin: auto 0
+        height: 100%
+    .right-wrapper
+      +grid(fluid)
+      padding: 30px 0
+      width: calc(100%/24 *18)
+      +media-sm(down)
+        min-width: 100%
+    .wrapper
+      width: 100%
+      padding: 50px 40px
+      background-color: #00a8cd
+    .items
+      +align(between)
+    .item
+      +col(7)
+      +media-xs(down)
+        +col(24)
+      margin-bottom: 30px
+      .caption
+        font-size: 16px
+        color: #fff
+        margin-top: 30px
+        text-align: center
+      .img
+        width: 98px
+        height: 98px
+        border-radius: 50%
+        background: #fff
+        margin: 0 auto
+        position: relative
+        .icon
+          @include absolute-center
+.cooperation-form
+  max-width: 600px
+  +col(8)
+  text-align: center
+  padding: 20px 10px
+  +media-md(down)
+    +col(20)
+    max-width: 100%
+  +media-xs(down)
+    +col(24)
+  .caption
+    font-weight: 900
+    font-size: 32px
+    color: #141414
+    .square
+      span
+        position: relative
+        z-index: 1
+      +media-xs(up)
+        position: relative
+        &:before
+          content: ""
+          width: 56px
+          height: 56px
+          border: 2px solid #dddddd
+          position: absolute
+          right: 0
+          top: -12px
+  .text
+    margin: 40px 0
+    font-size: 24px
+    font-weight: 700
+    color: #141414
+  input
+    &::placeholder
+      color: #6c6c6c
+    border: 4px solid #dddddd
+    display: block
+    margin: 10px 0
+    height: 50px
+    width: 100%
+    text-align: center
+  button
+    width: auto
+    font-weight: 900
+    padding: 10px 30px
+    margin-top: 20px
+.cooperation-form-wide
+  width: 100%
+  max-width: 1000px
+  margin: 0 auto
+  text-align: center
+  padding: 20px 10px
+  color: #fff
+  .caption
+    font-weight: 900
+    font-size: 30px
+  .text
+    margin: 10px 0 30px
+    font-size: 24px
+    font-weight: 700
+  .wrapper
+    +grid()
+    +align(center)
+  input
+    input
+    &::placeholder
+      color: #6c6c6c
+    border: 4px solid #dddddd
+    height: 50px
+    margin: 0 10px 20px
+    text-align: center
+    +col(7.8)
+    +media-md(down)
+      +col(24)
+  button
+    width: auto
+    font-weight: 900
+    padding: 10px 30px
+    margin: 0 auto 0
+    display: block

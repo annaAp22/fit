@@ -8,7 +8,6 @@ use Date;
 class ProductComment extends Model
 {
     protected $table = 'product_comments';
-
     protected $fillable = [
         'product_id',
         'name',

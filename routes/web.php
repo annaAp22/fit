@@ -17,7 +17,13 @@ Route::group([
     // Страницы
     Route::get('/', ['as' => 'index', 'uses' => 'MainController@index']);
     Route::get('/delivery', ['as' => 'delivery', 'uses' => 'MainController@delivery']);
+    //contacts
     Route::get('/contacts', ['as' => 'contacts', 'uses' => 'MainController@contacts']);
+    //cooperation
+    Route::get('/cooperation', function() {
+        return view('cooperation.index');
+    })->name('cooperation');
+    //
     Route::get('/articles', 'MainController@articles')->name('articles');
     Route::get('/articles/{sysname}', ['as' => 'article', 'uses' => 'MainController@article']);
     Route::get('articles/{tag_sysname}/{sysname}', 'MainController@tagArticle')->name('tag.article');

@@ -666,8 +666,9 @@ class FrontApiController extends Controller
         $data['product_id'] = $product_id;
 
         $validatorOptions = [
-            'name' => 'required',
-            'text' => 'required',
+            'name' => 'required|min:3|regex:/^[a-z,а-я,\x20].*$/i',
+            'text' => 'required|min:5|regex:/^(?!.*\.[a-z].)/i',
+            'type' => 'required|in:666',
         ];
         $validator = Validator::make($data, $validatorOptions);
 

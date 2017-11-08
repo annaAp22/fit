@@ -7,7 +7,9 @@ var elixir = require('laravel-elixir'),
     fonts = require('postcss-font-magician'),
     sass = require('gulp-sass'),
     media = require('gulp-group-css-media-queries'),
+    run = require("run-sequence"),
     sourcemaps = require('gulp-sourcemaps');
+
 
 //require('laravel-elixir-vue-2');
 
@@ -25,6 +27,14 @@ gulp.task('postcss', function() {
         //.pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));
 });
+gulp.task("mmm", function(fn) {
+    run(
+        "postcss",
+        "version",
+        fn
+    );
+});
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -60,9 +70,6 @@ elixir(function(mix) {
         'map.js',
         'app.js'
     ], 'public/js/app.js');
-    // elixir(function(mix) {
-    //     mix.sass('loader.sass');
-    // });
     mix.version([
         'assets/admin/css/admin.css',
         'assets/admin/js/admin.js',

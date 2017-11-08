@@ -78,17 +78,17 @@
         </div>
     </div>
 </div>
-<form class="product-review-form js-form-ajax" method="post" action="{{ route('ajax.product.comment', ['id' => $product->id ]) }}">
+<form name="review-form" class="product-review-form js-form-ajax" method="post" action="{{ route('ajax.product.comment', ['id' => $product->id ]) }}">
+    <input type="hidden" name="type">
     <div class="product-review-form__title">Оставить свой отзыв
     </div>
     <!-- Form body-->
     <div class="product-review-form__body js-comment-success">
 
         <!-- Form fields-->
-        <div class="product-review-form__label">Представьтесь
-        </div><input class="input input_text js-required-fields" type="text" name="name" placeholder="Ваше имя"/>
-        <div class="product-review-form__label product-review-form__label_mt">Оцените товар по 5-ти бальной шкале
-        </div>
+        <div class="product-review-form__label">Представьтесь</div>
+        <input class="input input_text js-required-fields" type="text" name="name" placeholder="Ваше имя"/>
+        <div class="product-review-form__label product-review-form__label_mt">Оцените товар по 5-ти бальной шкале</div>
         <div class="rating-inputs">
             <label class="radio radio_square">
                 <input type="radio" name="rating" value="1"/><span class="fake-input"><span></span></span><span class="label">1</span>
@@ -113,3 +113,4 @@
 
     {{ csrf_field() }}
 </form>
+@include('scripts.review_protection')

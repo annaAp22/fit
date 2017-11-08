@@ -27,6 +27,7 @@
 // @import "section"
 @import "fonts"
 @import "sprite_main"
+@import "sprites/_cooperation"
 @import "animations"
 @import "loader"
 .sprite_main-icon__arrow_green_down, .sprite_main-icon__arrow_green_up, .sprite_main-icon__arrow_black_to_right
@@ -68,6 +69,21 @@ a
     max-width: $lg - $margin * 2
   +media-xs()
     padding: 0 12px
+.container-wide
+  display: flex
+  flex-wrap: wrap
+  margin:
+    left: auto
+    right: auto
+  +media-md(down)
+    max-width: 100%
+    padding: 0 12px
+  +media-xl()
+    max-width: $xl - $margin
+  +media-lg()
+    max-width: $lg -$margin
+  +media-xs()
+    padding: 0
 .container-in
   +grid-in()
 input, textarea
@@ -75,6 +91,10 @@ input, textarea
   font-size: 16px
   font-family: "museo_sans_cyrl", sans-serif
   resize: none
+
+input[type=text], input[type=email], input[type=phone], textarea
+  &.error
+    border: 1px solid red
 
 .input, .textarea
   transition: border-color .3s ease
@@ -496,6 +516,7 @@ input, textarea
 @import "partials/look-book"
 @import "partials/instagram"
 @import "partials/main_category"
+@import "partials/cooperation"
 
 @import "popup"
 

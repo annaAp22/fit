@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Messanger;
 use App\Console\Commands\MoySkladImportProducts;
 use App\Console\Commands\OrdersUpdate;
 use App\Console\Commands\Phone;
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
         Phone::class,
         OrdersUpdate::class,
         RetailSyncCallback::class,
+        Messanger::class,
     ];
 
     /**
@@ -57,8 +59,8 @@ class Kernel extends ConsoleKernel
         //Update orders statuses
         $schedule->command('command:orders_update')->everyThirtyMinutes();
         $schedule->command('retailcrm:sync_callback')->everyMinute();
-
-
+        //send cooperation message and order
+        $schedule->command('command:message cooperation')->everyMinute();
     }
 
     /**

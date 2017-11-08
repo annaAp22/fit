@@ -3,18 +3,20 @@
 namespace App\Console\Commands;
 
 use App\Models\Callback;
+use App\Models\Cooperation;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-
+/**
+ * Отправляет заявку в retailCRM
+ * Поддерживаемые заявки:callback, cooperation
+ */
 class RetailSyncCallback extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
      * @var string
      */
-    protected $signature = 'retailcrm:sync_callback {--log}';
+    protected $signature = 'retailcrm:sync_callback {method=callback} {id?} {--log}';
 
     /**
      * The console command description.
@@ -37,18 +39,19 @@ class RetailSyncCallback extends Command
      * send order to retail crm
      * @return order id into crm or false
      * **/
-    public function sendOrder($order)
+    public function sendOrder($order, $data)
     {
         //достаем url и ключ для подключения к crm
         $retail_api_key = env('RETAIL_CRM_API_KEY');
         $url = Setting::where('var', 'retailcrm_url')->first()->value;
         //достаем торговое предложение, нам нужен внешний id, по которому будем искать товар
         $retailOrderData = [
-            'externalId' => 'callback-' . $order->id,
+            'externalId' => $data['order_prefix'].'-' . $order->id,
             'firstName' => $order->name,
             'phone' => $order->phone,
+            'email' => $order->email,
             'createdAt' => $order->created_at->format('Y-m-d H:i:s'),
-            'orderMethod' => 'callback',
+            'orderMethod' => $data['method'],
             'customFields' => [
                 'roistat' => isset($order->extra['roistat']) ? $order->extra['roistat'] : null,
             ],
@@ -75,9 +78,11 @@ class RetailSyncCallback extends Command
         }
 
         if ($response->isSuccessful() && 201 === $response->getStatusCode()) {
-            $order->update([
-                'send' => 1,
-            ]);
+            if($data['method'] == 'callback') {
+                $order->update([
+                    'send' => 1,
+                ]);
+            }
             return $response->id;
         } else {
             if (isset($response['errors'])) {
@@ -87,9 +92,11 @@ class RetailSyncCallback extends Command
             } else {
                 $err = $response->getErrorMsg();
                 if ($err == 'Order already exists.') {
-                    $order->update([
-                        'send' => 1,
-                    ]);
+                    if($data['method'] == 'callback') {
+                        $order->update([
+                            'send' => 1,
+                        ]);
+                    }
                     $err = 'RetailCRM ' . $err;
                     $this->info($err);
                     $this->info('Order is removed from the list, now');
@@ -110,13 +117,35 @@ class RetailSyncCallback extends Command
      */
     public function handle()
     {
-        $order = Callback::last()->first();
-        if (!$order) {
-            $this->info('callbacks not found');
+        $method = $this->argument('method');
+        $id = $this->argument('id');
+        $data = [
+            'method' => $method
+        ];
+        if($method == 'callback') {
+            if($id) {
+                $order = Callback::find($id);
+            } else {
+                $order = Callback::last()->first();
+            }
+            $data['order_prefix'] = 'callback';
+        }elseif($method == 'cooperation') {
+            if($id) {
+                $order = Cooperation::find($id);
+            } else {
+                $order = Cooperation::notNotified()->first();
+            }
+            $data['order_prefix'] = 'cp';
+        } else {
+            $this->info('unknown method');
             return false;
         }
-        $this->sendOrder($order);
-        $order_id = $this->sendOrder($order);
+
+        if (!$order) {
+            $this->info('orders not found');
+            return false;
+        }
+        $order_id = $this->sendOrder($order, $data);
         if ($order_id) {
             $this->info(' success, was created RetailCRM order:' . $order_id);
         }

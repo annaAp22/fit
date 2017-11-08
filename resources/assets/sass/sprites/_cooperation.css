@@ -1,0 +1,100 @@
+.sprite_cooperation {
+    background-image: url(/img/sprite-cooperation-min.png?v=1);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.sprite_cooperation-complete {
+    width: 50px;
+    height: 53px;
+    background-position: -4px -4px;
+}
+
+.sprite_cooperation-fitness {
+    width: 64px;
+    height: 31px;
+    background-position: -62px -4px;
+}
+
+.sprite_cooperation-money_flower {
+    width: 71px;
+    height: 71px;
+    background-position: -134px -4px;
+}
+
+.sprite_cooperation-order {
+    width: 50px;
+    height: 58px;
+    background-position: -4px -83px;
+}
+
+.sprite_cooperation-plane {
+    width: 55px;
+    height: 31px;
+    background-position: -62px -83px;
+}
+
+.sprite_cooperation-pros_equipment {
+    width: 39px;
+    height: 36px;
+    background-position: -125px -83px;
+}
+
+.sprite_cooperation-pros_fabric {
+    width: 43px;
+    height: 43px;
+    background-position: -172px -83px;
+}
+
+.sprite_cooperation-pros_industry {
+    width: 46px;
+    height: 46px;
+    background-position: -62px -134px;
+}
+
+.sprite_cooperation-pros_promote {
+    width: 48px;
+    height: 52px;
+    background-position: -116px -134px;
+}
+
+.sprite_cooperation-pros_quality {
+    width: 41px;
+    height: 53px;
+    background-position: -172px -134px;
+}
+
+.sprite_cooperation-pros_rocket {
+    width: 41px;
+    height: 41px;
+    background-position: -4px -195px;
+}
+
+.sprite_cooperation-request {
+    width: 63px;
+    height: 45px;
+    background-position: -53px -195px;
+}
+
+.sprite_cooperation-rocket {
+    width: 72px;
+    height: 73px;
+    background-position: -223px -4px;
+}
+
+.sprite_cooperation-sportpit {
+    width: 51px;
+    height: 56px;
+    background-position: -223px -85px;
+}
+
+.sprite_cooperation-tie {
+    width: 33px;
+    height: 78px;
+    background-position: -282px -85px;
+}
+
+.sprite_cooperation-wagon {
+    width: 79px;
+    height: 67px;
+    background-position: -221px -171px;
+}

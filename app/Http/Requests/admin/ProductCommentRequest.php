@@ -25,9 +25,11 @@ class ProductCommentRequest extends Request
     {
         return [
             'product_id' => 'required|exists:products,id',
-            'name' => 'required',
+            //разрешаем только буквы и пробел
+            'name' => 'required|min:3|regex:/^[a-z,а-я,\x20].*$/i',
             'date' => 'required|date',
-            'text' => 'required',
+            //исключаем домены в тексте
+            'text' => 'required|min:5|regex:/^(?!.*\.[a-z].)/i',
         ];
     }
 }
