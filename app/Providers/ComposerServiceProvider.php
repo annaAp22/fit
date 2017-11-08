@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Order;
+use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,10 @@ class ComposerServiceProvider extends ServiceProvider
         }
         $view->with('global_settings', $result);
       });
+        View::composer('cooperation.index', function ($view) {
+            $page = Page::where('sysname', 'cooperation')->first();
+            $view->with(compact('page'));
+        });
     }
 
     /**
