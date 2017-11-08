@@ -9,7 +9,7 @@
         <h1>Оптовикам</h1>
     </div>
     <div class="cooperation__header">
-        <form name="cooperation_form_1" action="{{route('ajax.cooperation')}}" class="cooperation-form js-form-ajax" method="post">
+        <form name="cooperation_form_1" action="{{route('ajax.cooperation')}}" class="cooperation-form js-form-ajax js-cooperation" method="post">
             <div class="caption">
                 <span class="square"><span>Пр</span></span>одавать Profit вместе – путь<br>к успеху вашей компании!
             </div>
@@ -31,7 +31,7 @@
 {!! $page->content !!}
 <!-- нижняя форма сотрудничества -->
 <div class="cooperation__footer">
-    <form name="cooperation_form_2" action="{{route('ajax.cooperation')}}" class="cooperation-form-wide js-form-ajax" method="post">
+    <form name="cooperation_form_2" action="{{route('ajax.cooperation')}}" class="cooperation-form-wide js-form-ajax js-cooperation" method="post">
         <div class="caption">
             Оставьте заявку
         </div>

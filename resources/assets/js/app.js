@@ -858,6 +858,28 @@ $(function(){
     );
 
     $('.js-youtube-video').fancybox();
+    //отправка данных по формам сотрудничества в какую-то crm
+    $(".js-cooperation").on("submit", function () {
+        var formTags = $(this).serializeArray();
+        var formFields = {};
+        $.each(formTags, function() { formFields[this.name] = this.value; });
+        var data = {
+            "name" : formFields["name"],
+            "phone" : formFields["phone"],
+            "email" : formFields["email"],
+            "hash" : "3942499be057166c9d2dbefd2eeaf607",
+        };
+        data = JSON.stringify(data);
+        $.ajax({
+            url: 'http://fresh24.bz/siteform/intercept',
+            data: data,
+            dataType   : 'json',
+            contentType: 'application/json; charset=UTF-8',
+            type: 'POST',
+        });
+        return true;
+    });
+
 });
 // scroll to element
 function scrollToEl($el) {
