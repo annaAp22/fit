@@ -106,6 +106,8 @@
     </button>
     <button class="btn btn_reset btn_w100p js-filters-reset" name="reset"><i class="sprite_main sprite_main-listing__filter_reset_red"></i><span>Сбросить фильтры</span>
     </button>
+    <button class="btn btn-sidebar-close btn_w100p js-toggle-sidebar js-filter-visible" type="button">Скрыть панель
+    </button>
     @yield('more_filters')
 </form>
 @endif
