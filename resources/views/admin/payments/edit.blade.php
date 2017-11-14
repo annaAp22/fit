@@ -48,11 +48,32 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-0"> Символьный код </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="form-field-0" name="sysname" placeholder="" value="{{ old('name', $payment->sysname) }}" class="col-sm-12">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-17"> Описание </label>
                         <div class="col-sm-9">
                             <textarea id="form-field-17" name="descr" placeholder="Описание" class="col-sm-12">{{ old('descr', $payment->descr) }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-20"> Доставка </label>
+                        <div class="col-sm-9">
+                            <div class="hidden-field-wrapper">
+                                <select multiple="" name="deliveries[]" class="chosen-select form-control tag-input-style" id="form-field-20" data-placeholder="Привязать доставку...">
+                                    <option value="">--Не выбрана--</option>
+                                    @foreach($deliveries as $delivery)
+                                        <option value="{{$delivery->id}}" @if ((old() && old('deliveries') && in_array($delivery->id, old('deliveries'))) || (!old() && !empty($payment) && $payment->deliveries->count() && $payment->deliveries->find($delivery->id))) selected="selected" @endif>
+                                            {{$delivery->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -30,7 +31,8 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('admin.payments.create');
+        $deliveries = Delivery::published()->get();
+        return view('admin.payments.create', compact('deliveries'));
     }
 
     /**
@@ -54,7 +56,8 @@ class PaymentController extends Controller
     public function edit($id)
     {
         $payment = Payment::findOrFail($id);
-        return view('admin.payments.edit', ['payment' => $payment]);
+        $deliveries = Delivery::published()->get();
+        return view('admin.payments.edit', compact('payment', 'deliveries'));
     }
 
     /**
@@ -66,7 +69,10 @@ class PaymentController extends Controller
      */
     public function update(\App\Http\Requests\admin\PaymentRequest $request, $id)
     {
-        Payment::findOrFail($id)->update($request->all());
+        $payment = Payment::findOrFail($id);
+        $payment->deliveries()->sync($request->input('deliveries'));
+        $payment->update($request->except('deliveries'));
+
         return redirect()->route('admin.payments.index')->withMessage('Способ оплаты изменен');
     }
 

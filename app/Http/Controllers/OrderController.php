@@ -8,6 +8,7 @@ use App\Models\MsOrder;
 use App\Models\MsParam;
 use App\Models\Partner;
 use App\Models\PartnerTransfer;
+use App\Models\Payment;
 use App\Models\Referral;
 use App\Models\RetailOrder;
 use Illuminate\Http\Request;
@@ -104,10 +105,45 @@ class OrderController extends Controller
     //способы доставки
     $deliveries = \App\Models\Delivery::where('status', 1)->orderBy('id')->get();
     //способы оплаты
-    $payments = \App\Models\Payment::where('status', 1)->orderBy('name')->get();
+    $payments = Payment::published()->orderBy('name')->get();
 
     $this->setMetaTags();
     return view('order.order', ['cart' => $cart, 'deliveries' => $deliveries, 'payments' => $payments]);
+  }
+  public function fail(Request $request) {
+      $cart = session()->get('products.cart');
+      $products = Product::whereIn('id', array_keys($cart))->published()->get();
+      $cart_products = collect();
+
+      foreach($cart as $product_id => $sizes)
+      {
+          foreach($sizes as $size => $item )
+          {
+              $product = clone $products->where('id', $product_id)->first();
+              $product->size = $size;
+              $product->count = $item['cnt'];
+              $product->amount = $item['cnt'] * $product->price;
+
+              $cart_products->push($product);
+          }
+      }
+      $cart['products'] = $cart_products;
+      $cart['amount'] = $cart['products']->sum('amount');
+      $error_code = $request->input('ErrorCode');
+      switch ($error_code) {
+          case 1:
+              $message = 'Сервис временно не доступен, попробуйте повторить попытку позже';
+              break;
+          case 2:
+              $message = 'Невозможно провести платеж по банковской карте';
+              break;
+          case 3:
+              $message = 'Банк отклонил платеж! Попробуйте связаться с банком для выяснения причины или воспользуйтесь другим способом оплаты';
+              break;
+          default:
+              $message = 'При оформлении заказа произошла ошибка!';
+      }
+      return view('order.fail', compact('cart', 'message'));
   }
     public function checkDiscountCode(Request $request) {
         $data = $request->input();

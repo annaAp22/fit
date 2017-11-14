@@ -65,7 +65,7 @@
                                 @forelse($payments as $item)
                                     <tr @if($item->trashed())style="background-color: #F6CECE"@endif>
                                         <td>
-                                            <a href="{{route('admin.deliveries.edit', $item->id)}}">{{$item->name}}</a>
+                                            <a href="{{route('admin.payments.edit', $item->id)}}">{{$item->name}}</a>
                                         </td>
                                         <td class="col-sm-1 center"><i class="ace-icon glyphicon @if($item->status) glyphicon-ok green @else glyphicon-remove red @endif  bigger-120"></i></td>
                                         <td>

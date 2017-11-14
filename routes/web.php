@@ -58,9 +58,12 @@ Route::group([
     //});
 
     Route::get('/cart', ['as' => 'cart', 'uses' => 'OrderController@cart']);
+
     Route::get('/order.html', ['as' => 'order', 'uses' => 'OrderController@order']);
     Route::post('/order/details', ['as'   => 'order.details', 'uses' => 'OrderController@details']);
     Route::post('/order/check-discount-code', 'OrderController@checkDiscountCode')->name('check_discount_code');
+    //ошибка при оформлении заказа
+    Route::get('/order/fail', 'OrderController@fail')->name('order.fail');
 //    Route::get('/order/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 
     // Customers Photos
@@ -106,7 +109,7 @@ Route::group([
 
 
 });
-
+Route::get('pay-online/callback', 'PayOnlineController@callback')->name('pay-online.callback');
 //Route::get('/offer.html', ['as' => 'offer', function(){
 //    return 'Страница публичной офферты';
 //}]);

@@ -98,10 +98,11 @@
 
                     </div>
                     <!-- Step 2-->
-                    <div class="container-in js-step js-step_2">
+                    <div class="js-step js-step_2">
+                    <div class="container-in">
                         @isset($deliveries)
                             @foreach($deliveries as $key => $delivery)
-                                <label class="checkout-delivery js-delivery">
+                                <label class="checkout-delivery js-delivery" data-payments="[{{$delivery->payments_list}}]">
                                     <input class="checkout-delivery__input" type="radio" name="delivery_id" value="{{ $delivery->id }}" {{ $key ? '' : 'checked="checked"' }}/>
                                     <span class="checkout-delivery__fake-radio">
                                         <i class="sprite_main sprite_main-checkout-checked-green"></i>
@@ -115,6 +116,19 @@
                                 </label>
                             @endforeach
                         @endisset
+                    </div>
+                    {{--<h2>Способ оплаты</h2>--}}
+                    {{--<div class="container-in">--}}
+                        {{--@foreach($payments as $payment)--}}
+                        {{--<label id="payment-{{$payment->id}}" class="checkout-delivery js-payment">--}}
+                            {{--<input class="checkout-delivery__input" type="radio" name="payment_id" value=""/>--}}
+                            {{--<span class="checkout-delivery__fake-radio">--}}
+                                {{--<i class="sprite_main sprite_main-checkout-checked-green"></i>--}}
+                            {{--</span>--}}
+                            {{--<p>{{$payment->name}}</p>--}}
+                        {{--</label>--}}
+                        {{--@endforeach--}}
+                    {{--</div>--}}
                     </div>
                     <!-- Step 3-->
                     <div class="container-in js-step js-step_3" id="order-success"></div>

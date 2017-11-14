@@ -22,9 +22,17 @@ class Delivery extends Model
     public function orders() {
         return $this->hasMany('App\Models\Order', 'delivery_id');
     }
+    //
+    public function payments() {
+        return $this->belongsToMany('App\Models\Payment');
+    }
     //scopes
     /*
      * @return published records
      * **/
     public function scopePublished($query) { return $query->where('status', 1); }
+    //accessors
+    public function getPaymentsListAttribute() {
+        return implode(',', $this->payments->pluck('id')->toArray());
+    }
 }

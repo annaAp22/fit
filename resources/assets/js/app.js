@@ -405,6 +405,11 @@ $(function(){
             total = $(".js-total"),
             delivery = parseInt($this.find('.js-price').data('price')),
             newTotal = parseInt(total.data('amount')) + delivery;
+        var payments = $this.data('payments');
+        $('.js-payment').hide();
+        for(var i = 0; i < payments.length; i++) {
+            $('#payment-'+payments[i]).show();
+        }
         total.text(number_format(newTotal, 0, '.', ' ') + ' ₽');
     });
     //кликаем на первый попавшийся способ доставки, чтоб правильно посчиталась цена
