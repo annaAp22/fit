@@ -77,40 +77,40 @@
                             {{--<img class="banner-look__image banner-look__image_md" src="{{ $offer->uploads->image->lg->url() }}" alt="" role="presentation"/>--}}
                         </a>
                     @endif
-                            <!-- Show filters button md down-->
-                    <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры подбора товаров</button>
-                    <!-- Sorting and view-->
-                    <div class="goods-sorting"><i class="sprite_main sprite_main-listing__filter"></i><span>Сортировать товары:</span>
-                        @php
-                        $sortNames = array(
-                        'sort' => 'По умолчанию',
-                        'expensive' => 'Сначала дороже',
-                        'cheaper' => 'Сначала дешевле',
-                        'hit' => 'По популярности',
-                        'act' => 'По акциям',
-                        'new' => 'По новинкам',
-                        )
-                        @endphp
-                        <div class="sorting-select js-toggle-active js-select"><span class="js-selected">{{$sortNames[$filters['sort']]}}</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
-                            <div class="sorting-select__dropdown">
-                                @foreach($sortNames as $key => $value)
-                                    <div class="sorting-select__option js-option js-sort" data-sort="{{$key}}">{{$value}}</div>
-                                @endforeach
+                    <div class="listing-settings">
+                        <!-- Sorting and view-->
+                        <div class="goods-sorting"><i class="sprite_main sprite_main-listing__filter"></i><span>Сортировать товары:</span>
+                            @php
+                            $sortNames = array(
+                            'sort' => 'По рейтингу',
+                            'expensive' => 'Сначала дороже',
+                            'cheaper' => 'Сначала дешевле',
+                            'hit' => 'По популярности',
+                            'act' => 'По акциям',
+                            'new' => 'По новинкам',
+                            )
+                            @endphp
+                            <div class="sorting-select js-toggle-active js-select"><span class="js-selected">{{$sortNames[$filters['sort']]}}</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
+                                <div class="sorting-select__dropdown">
+                                    @foreach($sortNames as $key => $value)
+                                        <div class="sorting-select__option js-option js-sort" data-sort="{{$key}}">{{$value}}</div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Change goods view-->
-                    <div class="goods-view"><span>Отображать товары:</span>
-                        <div class="icon-fade active js-toggle-active-target" data-target=".js-view" data-switch="s1"><i class="sprite_main sprite_main-listing__switch_tile normal"></i><i class="sprite_main sprite_main-listing__switch_tile_active active"></i>
+                        <!-- Show filters button md down-->
+                        <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры</button>
+                        <!-- Look md down-->
+                        <a class="btn btn_look" href="#">Подобрать<strong> Look</strong></a>
+                        <!-- Change goods view-->
+                        <div class="goods-view"><span>Отображать товары:</span>
+                            <div class="icon-fade active js-toggle-active-target" data-target=".js-view" data-switch="s1"><i class="sprite_main sprite_main-listing__switch_tile normal"></i><i class="sprite_main sprite_main-listing__switch_tile_active active"></i>
+                            </div>
+                            <div class="icon-fade js-toggle-active-target" data-target=".js-view" data-switch="s1"><i class="sprite_main sprite_main-listing__switch_tile-wide normal"></i><i class="sprite_main sprite_main-listing__switch_tile-wide_active active"></i>
+                            </div>
                         </div>
-                        <div class="icon-fade js-toggle-active-target" data-target=".js-view" data-switch="s1"><i class="sprite_main sprite_main-listing__switch_tile-wide normal"></i><i class="sprite_main sprite_main-listing__switch_tile-wide_active active"></i>
-                        </div>
+
                     </div>
-
-                    <!-- Look md down-->
-                    <a class="btn btn_look" href="#">Подобрать<strong> Look</strong></a>
-
                     <!-- Goods listing-->
                     <div class="goods-listing js-view" id="js-goods">
                         @if($products->count())

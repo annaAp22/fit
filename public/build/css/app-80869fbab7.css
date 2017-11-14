@@ -1698,7 +1698,7 @@ button {
   font-size: 16px;
   color: #000;
   border: 1px solid #b0c0ce;
-  padding: 10px;
+  padding: 7px;
 }
 
 .btn_filter.active,
@@ -1707,15 +1707,17 @@ button {
 }
 
 .btn_look {
+  border: 3px solid #fcd82f;
   font-size: 18px;
   font-weight: 700;
   color: #000;
-  background-color: #fcd82f;
-  padding: 10px;
+  padding: 7px;
 }
 
+.btn_look.active,
+.btn_look:active,
 .btn_look:hover {
-  background-color: #fcc52f;
+  background-color: #fcd82f;
 }
 
 .btn_carousel-control {
@@ -6260,12 +6262,11 @@ header .line_lg {
   flex: 0 0 auto;
   margin-left: 12px;
   margin-right: 12px;
-  max-width: -webkit-calc(100%/24 * 24 - 24px);
-  max-width: calc(100% / 24 * 24 - 24px);
-  -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
-  -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
-  flex-basis: calc(100% / 24 * 24 - 24px);
-  margin-bottom: 25px;
+  max-width: -webkit-calc(100%/24 * 8 - 24px);
+  max-width: calc(100% / 24 * 8 - 24px);
+  -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
+  -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
+  flex-basis: calc(100% / 24 * 8 - 24px);
 }
 
 .goods-sorting {
@@ -6277,11 +6278,11 @@ header .line_lg {
   flex: 0 0 auto;
   margin-left: 12px;
   margin-right: 12px;
-  max-width: -webkit-calc(100%/24 * 24 - 24px);
-  max-width: calc(100% / 24 * 24 - 24px);
-  -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
-  -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
-  flex-basis: calc(100% / 24 * 24 - 24px);
+  max-width: -webkit-calc(100%/24 * 8 - 24px);
+  max-width: calc(100% / 24 * 8 - 24px);
+  -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
+  -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
+  flex-basis: calc(100% / 24 * 8 - 24px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6290,10 +6291,10 @@ header .line_lg {
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .goods-sorting>* {
@@ -6413,11 +6414,11 @@ header .line_lg {
   flex: 0 0 auto;
   margin-left: 12px;
   margin-right: 12px;
-  max-width: -webkit-calc(100%/24 * 12 - 24px);
-  max-width: calc(100% / 24 * 12 - 24px);
-  -webkit-flex-basis: -webkit-calc(100%/24 * 12 - 24px);
-  -ms-flex-preferred-size: calc(100% / 24 * 12 - 24px);
-  flex-basis: calc(100% / 24 * 12 - 24px);
+  max-width: -webkit-calc(100%/24 * 8 - 24px);
+  max-width: calc(100% / 24 * 8 - 24px);
+  -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
+  -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
+  flex-basis: calc(100% / 24 * 8 - 24px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6471,8 +6472,6 @@ header .line_lg {
   -webkit-flex-basis: -webkit-calc(100%/24 * 8 - 24px);
   -ms-flex-preferred-size: calc(100% / 24 * 8 - 24px);
   flex-basis: calc(100% / 24 * 8 - 24px);
-  margin-left: -webkit-calc(100%/24 * 2 + 24px/2)!important;
-  margin-left: calc(100% / 24 * 2 + 24px / 2)!important;
 }
 
 .goods-listing {
@@ -6792,6 +6791,18 @@ header .line_lg {
   margin-top: 30px;
   z-index: 1;
   background-color: #fff;
+}
+
+.listing-settings {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 footer {
@@ -12864,22 +12875,6 @@ h3 {
     font-size: 32px;
   }
 
-  .goods-sorting {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    margin-left: 12px;
-    margin-right: 12px;
-    max-width: -webkit-calc(100%/24 * 14 - 24px);
-    max-width: calc(100% / 24 * 14 - 24px);
-    -webkit-flex-basis: -webkit-calc(100%/24 * 14 - 24px);
-    -ms-flex-preferred-size: calc(100% / 24 * 14 - 24px);
-    flex-basis: calc(100% / 24 * 14 - 24px);
-  }
-
   .goods-listing>.product {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -13935,26 +13930,6 @@ h3 {
   }
 
   .btn_filter {
-    display: none;
-  }
-
-  .goods-sorting {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    margin-left: 12px;
-    margin-right: 12px;
-    max-width: -webkit-calc(100%/24 * 12 - 24px);
-    max-width: calc(100% / 24 * 12 - 24px);
-    -webkit-flex-basis: -webkit-calc(100%/24 * 12 - 24px);
-    -ms-flex-preferred-size: calc(100% / 24 * 12 - 24px);
-    flex-basis: calc(100% / 24 * 12 - 24px);
-  }
-
-  .btn_look {
     display: none;
   }
 
@@ -15662,6 +15637,14 @@ h3 {
     display: none;
   }
 
+  .goods-sorting>:not(:last-child) {
+    display: none;
+  }
+
+  .sorting-select {
+    width: 100%;
+  }
+
   .goods-view {
     display: none;
   }
@@ -16821,16 +16804,39 @@ h3 {
     display: none;
   }
 
+  .btn_filter {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 12 - 24px);
+    max-width: calc(100% / 24 * 12 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 12 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 12 - 24px);
+    flex-basis: calc(100% / 24 * 12 - 24px);
+  }
+
   .goods-sorting {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-  }
-
-  .sorting-select {
-    width: 100%;
-    margin: 20px 0;
-    padding: 11px 18px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    max-width: -webkit-calc(100%/24 * 12 - 24px);
+    max-width: calc(100% / 24 * 12 - 24px);
+    -webkit-flex-basis: -webkit-calc(100%/24 * 12 - 24px);
+    -ms-flex-preferred-size: calc(100% / 24 * 12 - 24px);
+    flex-basis: calc(100% / 24 * 12 - 24px);
   }
 
   .btn_look {

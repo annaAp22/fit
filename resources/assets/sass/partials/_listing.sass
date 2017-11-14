@@ -241,18 +241,20 @@
 // Filter show button
 .btn_filter
   +hidden-lg(up)
-  +col(24)
-  margin-bottom: 25px
-
+  +col(8)
+  +media-sm(down)
+    +col(12)
 // Sorting
 .goods-sorting
+  & > *:not(:last-child)
+    +hidden-md(down)
   +media-sm(down)
     flex-wrap: wrap
-  +col(24)
-  +col-lg(12)
-  +col-md(14)
+  +col(8)
+  +media-sm(down)
+    +col(12)
   display: flex
-  +align(start, center)
+  +align(start)
   & > *
     vertical-align: middle
   & > span
@@ -268,6 +270,8 @@
   font-size: 14px
   position: relative
   cursor: pointer
+  +media-md(down)
+    width: 100%
   &_size
     margin-top: 5px
     width: 110px
@@ -285,10 +289,6 @@
     width: 42%
   &.year
     width: 23%
-  +media-sm(down)
-    width: 100%
-    margin: 20px 0
-    padding: 11px 18px
   i
     position: absolute
     right: 10px
@@ -322,7 +322,7 @@
 
 // Goods change view
 .goods-view
-  +col(12)
+  +col(8)
   display: flex
   +align(end, center)
   +hidden-md(down)
@@ -341,10 +341,7 @@
 // Look link
 .btn_look
   +hidden-sm(down)
-  +hidden-lg(up)
   +col(8)
-  +offset(right, 2)
-
 // Goods listing
 .goods-listing
   margin-top: 30px
@@ -641,3 +638,7 @@
   margin-top: 30px
   z-index: 1
   background-color: #ffffff
+.listing-settings
+  display: flex
+  width: 100%
+  align-items: flex-start
