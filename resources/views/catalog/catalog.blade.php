@@ -64,7 +64,7 @@
                             <h1>{{ $page->name }}</h1>
                         @endif
                         <div class="goods-count">
-                            <span>Товаров в категории</span>
+                            <span>Товаров</span>
                             <i class="sprite_main sprite_main-icon__goods_count">{{ $products->totalCount }}</i>
                         </div>
                     </div>
