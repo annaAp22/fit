@@ -101,7 +101,7 @@
                         <!-- Show filters button md down-->
                         <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры</button>
                         <!-- Look md down-->
-                        <a class="btn btn_look" href="#">Подобрать<strong> Look</strong></a>
+                        <a class="btn btn_look" href="{{route('look_book')}}">Подобрать<strong> Look</strong></a>
                         <!-- Change goods view-->
                         <div class="goods-view"><span>Отображать товары:</span>
                             <div class="icon-fade active js-toggle-active-target" data-target=".js-view" data-switch="s1"><i class="sprite_main sprite_main-listing__switch_tile normal"></i><i class="sprite_main sprite_main-listing__switch_tile_active active"></i>
