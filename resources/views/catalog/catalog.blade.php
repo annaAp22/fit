@@ -68,7 +68,8 @@
                             <i class="sprite_main sprite_main-icon__goods_count">{{ $products->totalCount }}</i>
                         </div>
                     </div>
-
+                    {{-- баннер --}}
+                    @include('catalog.banner')
                     {{-- Category Offer Look banner --}}
                     @if( isset($category->offers) && $category->offers->count() )
                         @php $offer = $category->offers->first(); @endphp
