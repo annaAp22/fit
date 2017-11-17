@@ -1709,6 +1709,7 @@ button {
 .btn_look {
   border: 3px solid #fcd82f;
   font-size: 16px;
+  line-height: 20px;
   font-weight: 700;
   color: #000;
   padding: 4px;
