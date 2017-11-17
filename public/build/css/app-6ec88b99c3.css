@@ -1708,10 +1708,10 @@ button {
 
 .btn_look {
   border: 3px solid #fcd82f;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #000;
-  padding: 7px;
+  padding: 4px;
 }
 
 .btn_look.active,
