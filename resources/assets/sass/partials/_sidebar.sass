@@ -13,7 +13,7 @@
       display: inline-block
       top: -16px
       font-size: 12px
-      line-height: 24px
+      line-height: 20px
       margin-left: 16px
       padding: 0 8px
       background-color: #fff
@@ -420,7 +420,7 @@ body
   left: 0
   width: 260px
   visibility: hidden
-  padding: 50px 20px 50px 20px
+  padding: 0 20px 20px
   transition: visibility 0s ease .3s
   .btn_more
     color: #515151
@@ -434,20 +434,24 @@ body
     transition: visibility 0s ease
   &__title
     text-transform: uppercase
-    font-size: 24px
+    font-size: 16px
     font-weight: 900
     line-height: 36px
     color: #272727
-    margin-bottom: 20px
+    .name
+      background-color: #f7f7f7
+      margin: 0 -24px
+      padding: 10px 20px
   &__catalog
     list-style: none
     padding: 0
-  &__catalog-item
-    font-size: 16px
+    margin: 0
+  &__catalog-item, &__catalog-subitem
+    font-size: 14px
     font-weight: 900
     text-transform: uppercase
-    padding: 20px
-    margin: 0 -20px
+    padding: 10px 20px
+    margin: 0 -24px
     display: flex
     +align(between, center)
     cursor: pointer
@@ -462,9 +466,40 @@ body
     &.active
       & > div
         transform: translateX(0) translateZ(0)
+  &__catalog-subitem
+    & > i
+      transform: rotate(90deg)
+  .catalog-dropdown
+    &__categories
+      margin: 0 -20px
+      padding: 0
+      width: auto
+      max-width: none
+    &__column, &__column-fake
+      padding: 0 20px
+      width: 100%
+      li
+        padding: 5px 20px
+        margin: 0 -20px
+        &:hover, &:focus
+          background-color: #f3f3f3
+        a
+          padding: 0
+          color: #272727
+          font-size: 16px
+          line-height: 18px
+          transition: all .3s ease
+          &:hover
+            color: #272727
+            font-size: 16px
+            font-weight: 400
+    &__title
+      background-color: #f7f7f7
+      height: auto
   &__level-2
-    padding: 50px 10px 50px 20px
-    width: 260px
+    min-height: 500px
+    padding: 0 20px 20px
+    width: 264px
     position: absolute
     top: 0
     left: 0
@@ -474,14 +509,19 @@ body
     cursor: auto
     z-index: 1
     & > .catalog-dropdown__categories
-      margin-left: 0
+      //margin-left: 0
       flex-direction: column
       padding: 0
 
     .catalog-dropdown__title
       font-size: 18px
+      +media-lg(down)
+        font-size: 14px
+        font-weight: 900
+        text-transform: uppercase
+        padding: 10px 20px
+        margin: 0 -20px
     .catalog-dropdown__column, .catalog-dropdown__column-fake
-      margin-bottom: 30px
       a
         font-size: 16px
         line-height: 24px
@@ -494,12 +534,13 @@ body
   & > .nav-pages
     flex-direction: column
     margin-right: 0
-    margin-bottom: 50px
+    //margin-bottom: 20px
     .nav-pages__item
+      padding: 5px 20px
       position: static
       display: flex
+      margin: 0 -24px
       +align(between, center)
-      margin: 0 -20px
       font-size: 16px
       & > i
         transform: rotate(-90deg)
@@ -510,8 +551,8 @@ body
       cursor: auto
       box-shadow: none
       top: 0
-      padding: 50px 10px 50px 20px
-      width: 260px
+      padding: 0 20px 50px
+      width: 264px
       min-height: 1000px
       z-index: 1
       transition: transform .3s ease
@@ -538,7 +579,7 @@ body
     font-weight: 400
     cursor: pointer
     padding: 20px
-    margin: 20px -20px 0
+    margin: 0 -20px
     & > *
       vertical-align: middle
     & > i:last-child
@@ -550,5 +591,6 @@ body
       margin-top: 40px
       &__body
         max-height: 290px
-
+.geo-city-search
+  margin-top: 10px
 

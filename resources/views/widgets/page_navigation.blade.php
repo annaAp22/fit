@@ -25,7 +25,7 @@
     {{-- cooperations --}}
     <a class="nav-pages__item" href="{{ route('cooperation') }}"><span>Опт</span></a>
     {{-- Info pages - pages with type = info --}}
-    <div class="nav-pages__item js-toggle-active" data-reset=".js-catalog">
+    <div class="nav-pages__item js-toggle-active hidden-md-down" data-reset=".js-catalog">
         <span>Информация</span><i class="sprite_main sprite_main-icon__arrow_green_down"></i>
 
         <ul class="nav-pages__dropdown">
@@ -40,4 +40,5 @@
 
         </ul>
     </div>
+    @include('catalog.info_dropdown')
 </div>

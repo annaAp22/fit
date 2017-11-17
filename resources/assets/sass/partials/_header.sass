@@ -374,6 +374,8 @@ header
 .nav-pages
   display: flex
   margin-right: 30px
+  .item-bookmarks
+    +hidden-lg(up)
   &__item
     padding: 20px 15px
     text-decoration: none
@@ -501,18 +503,14 @@ header
     +hidden-md(down)
   &__column, &__column-fake
     padding-right: 30px
-    li
-      &:before
-        content: attr(data-text)
-        height: 1px
-        visibility: hidden
-        overflow: hidden
-        font-weight: 700
-        display: block
-  &__column-fake
-    +media-md(down)
-      margin-top: -30px
-
+    //li
+    //  &:before
+    //    content: attr(data-text)
+    //    height: 1px
+    //    visibility: hidden
+    //    overflow: hidden
+    //    font-weight: 700
+    //    display: block
   .star
     margin-top: 30px
     span

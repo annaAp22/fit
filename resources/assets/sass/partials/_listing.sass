@@ -207,6 +207,8 @@
     font-size: 22px
     +media-md(up)
       font-size: 32px
+    +media-xs()
+      margin: 12px 0
     font-weight: 700
     color: #272727
     margin: 36px 0
@@ -216,7 +218,8 @@
       font-size: 14px
       color: #999898
       margin-right: 20px
-      +hidden-sm(down)
+      +media-xs()
+        margin-right: 4px
     & > i
       font-size: 12px
       color: #303030
@@ -226,6 +229,11 @@
       font-style: normal
       position: relative
       top: -15px
+      +media-xs()
+        position: static
+        background: none
+        width: auto
+        height: auto
 // Look banner
 .banner-look
   +hidden-sm(down)
@@ -653,3 +661,6 @@
   display: flex
   width: 100%
   align-items: flex-start
+.good-exists
+  margin: 12px 0
+  +col(24)
