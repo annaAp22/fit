@@ -79,8 +79,12 @@
                         </a>
                     @endif
                     <div class="listing-settings">
+                        <!-- Show filters button md down-->
+                        <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры</button>
                         <!-- Sorting and view-->
-                        <div class="goods-sorting"><i class="sprite_main sprite_main-listing__filter"></i><span>Сортировать товары:</span>
+                        <div class="goods-sorting">
+                            {{--<i class="sprite_main sprite_main-listing__filter"></i>--}}
+                            {{--<span>Сортировать товары:</span>--}}
                             @php
                             $sortNames = array(
                             'sort' => 'По рейтингу',
@@ -99,8 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Show filters button md down-->
-                        <button class="btn btn_filter js-toggle-sidebar" data-target=".js-filter-visible">Фильтры</button>
                         <!-- Look md down-->
                         <a class="btn btn_look" href="{{route('look_book')}}">Подобрать<strong> Look</strong></a>
                         <!-- Change goods view-->

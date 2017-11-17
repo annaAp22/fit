@@ -265,8 +265,8 @@
     background-color: #fcd82f
 // Sorting
 .goods-sorting
-  & > *:not(:last-child)
-    +hidden-md(down)
+  //& > *:not(:last-child)
+  //  +hidden-md(down)
   +media-sm(down)
     flex-wrap: wrap
   +col(8)
@@ -283,14 +283,12 @@
     margin-left: 10px
     margin-right: 20px
 .sorting-select
-  width: 198px
+  width: 100%
   padding: 8px 18px
   border: 1px solid #B0C0CE
   font-size: 14px
   position: relative
   cursor: pointer
-  +media-md(down)
-    width: 100%
   &_size
     margin-top: 5px
     width: 110px

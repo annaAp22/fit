@@ -6381,7 +6381,7 @@ header .line_lg {
 }
 
 .sorting-select {
-  width: 198px;
+  width: 100%;
   padding: 8px 18px;
   border: 1px solid #b0c0ce;
   font-size: 14px;
@@ -15735,14 +15735,6 @@ h3 {
 
   .subscription__image {
     display: none;
-  }
-
-  .goods-sorting>:not(:last-child) {
-    display: none;
-  }
-
-  .sorting-select {
-    width: 100%;
   }
 
   .goods-view {
