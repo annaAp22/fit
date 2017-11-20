@@ -198,7 +198,11 @@ header
     i
       +hidden-xs()
   &__basket
-    +col(6)
+    +media-xs()
+      width: 120px
+      max-width: none
+      +align(end, center)
+    +col(7)
     +col-sm(7)
     +col-md(6)
     +col-lg(4)
@@ -344,6 +348,50 @@ header
       vertical-align: middle
     &:hover
       background-color: #f3f3f3
+  &__phone-menu
+    margin: 0 10px
+    +hidden-sm(up)
+    .icon
+      cursor: pointer
+    .phone
+      text-decoration: none
+      font-weight: 700
+      font-size: 14px
+      color: #000000
+      +col(8)
+      span
+        font-size: 14px
+        line-height: 18px
+        font-weight: 300
+        color: #b0b0b0
+    .messanger
+      +col(8)
+    .time
+      text-align: center
+      font-size: 14px
+      line-height: 18px
+      font-weight: 300
+      color: #b0b0b0
+      +col(8)
+    .wrapper
+      display: block
+      top: 132px
+      left: 0
+      right: 0
+      margin: 0 auto
+      position: absolute
+      width: 90%
+      background: #fff
+      padding: 10px
+      z-index: 10
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)
+      //+align(between, center)
+      &.active
+        display: block
+      a
+        text-decoration: none
+
+//end of header__
 .nav-catalog
   display: flex
   margin-bottom: -3px
