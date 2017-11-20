@@ -872,11 +872,17 @@ $(function(){
             "name" : formFields["name"],
             "phone" : formFields["phone"],
             "email" : formFields["email"],
-            "hash" : "3942499be057166c9d2dbefd2eeaf607",
         };
         data = JSON.stringify(data);
+        // $.ajax({
+        //     url: 'http://fresh24.bz/siteform/intercept',
+        //     data: data,
+        //     dataType   : 'json',
+        //     contentType: 'application/json; charset=UTF-8',
+        //     type: 'POST',
+        // });
         $.ajax({
-            url: 'http://fresh24.bz/siteform/intercept',
+            url: '/ajax/amo/cooperation',
             data: data,
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',

@@ -18,7 +18,7 @@
             </div>
             <input type="hidden" name="type" value="">
             <input type="text" name="name" placeholder="Ваше имя" class="js-required-fields">
-            <input type="text" name="phone" placeholder="Ваш номер телефона" class="js-required-fields">
+            <input type="text" name="phone" placeholder="Ваш номер телефона" class="js-required-fields js-phone">
             <input type="text" name="email" placeholder="E-mail" class="js-required-fields">
             <button class="btn btn_orange-border" type="submit">Узнать условия</button>
         </form>
@@ -39,7 +39,7 @@
         <div class="wrapper">
             <input type="hidden" name="type" value="">
             <input type="text" name="name" placeholder="Ваше имя" class="js-required-fields">
-            <input type="text" name="phone" placeholder="Ваш номер телефона" class="js-required-fields">
+            <input type="text" name="phone" placeholder="Ваш номер телефона" class="js-required-fields js-phone">
             <input type="text" name="email" placeholder="E-mail" class="js-required-fields">
         </div>
         <button class="btn btn_sky-border-900">Узнать условия</button>

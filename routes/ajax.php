@@ -94,6 +94,8 @@ Route::post('widget', 'WidgetController@showWidget')->name('widget');
 Route::post('products/check', 'admin\ProductController@saveChecker')->name('product-check');
 //cooperation
 Route::post('/cooperation', 'CooperationController@create')->name('cooperation');
+//amo crm
+Route::post('/amo/cooperation', 'AmoCRMController@cooperationOrder')->name('amo.cooperation');
 //page
 Route::get('page/{sysname}', 'MainController@page')->name('page');
 //

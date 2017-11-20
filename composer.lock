@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d786413594d37ae571287f5d9dde1f44",
+    "content-hash": "eae51c99f1217048d9535b214af477ee",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -633,6 +633,50 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "dotzero/amocrm",
+            "version": "v0.3.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dotzero/amocrm-php.git",
+                "reference": "425b09bf149669ac52842a44c5b492ba8c2c5db6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dotzero/amocrm-php/zipball/425b09bf149669ac52842a44c5b492ba8c2c5db6",
+                "reference": "425b09bf149669ac52842a44c5b492ba8c2c5db6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AmoCRM\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "dotzero",
+                    "email": "mail@dotzero.ru"
+                }
+            ],
+            "description": "Удобный и быстрый клиент для работы с API amoCRM",
+            "keywords": [
+                "amoCRM",
+                "api",
+                "crm"
+            ],
+            "time": "2017-11-06T09:09:00+00:00"
         },
         {
             "name": "erusev/parsedown",

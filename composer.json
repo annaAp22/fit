@@ -10,6 +10,7 @@
         "barryvdh/laravel-debugbar": "^2.3",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "doctrine/dbal": "^2.5",
+        "dotzero/amocrm": "^0.3.26",
         "indiesoft/laravel-uploads": "^0.1",
         "ivanlemeshev/laravel5-cyrillic-slug": "^1.0",
         "jenssegers/date": "^3.2",
