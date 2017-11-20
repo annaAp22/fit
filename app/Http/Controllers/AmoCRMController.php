@@ -13,7 +13,7 @@ class AmoCRMController extends Controller
         $subdomain = Setting::where('var', 'amo_crm_domain')->first();
         $login = 'fit2u@ya.ru';
         $hash = '93bb7f29582c73c6593909c04569c297';
-        $amo = new Client($subdomain, $login, $hash);
+        $amo = new Client($subdomain->value, $login, $hash);
 
         // SUBDOMAIN может принимать как часть перед .amocrm.ru,
         // так и домен целиком например test.amocrm.ru или test.amocrm.com
