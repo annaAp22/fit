@@ -101,6 +101,7 @@ header
     height: 1px
     +media-lg(up)
       order: 0
+    +hidden-xs()
     div
       position: absolute
       left: 0
@@ -124,9 +125,9 @@ header
     line-height: 30px
   &__hamburger
     +hidden-lg(up)
-    +col(3)
+    padding: 0 $padding
   &__logo
-    min-width: 130px
+    min-width: 80px
     +col(8)
     +col-sm(6)
     +col-lg(3)
@@ -137,6 +138,8 @@ header
     text-align: center
     +media-xl(up)
       padding: 25px 0
+    +media-sm(down)
+      margin: 0
     .wrapper
       display: table
     img
@@ -164,11 +167,13 @@ header
       max-width: 70%
     +col-lg(10)
     +col-xl(6)
+    +hidden-xs(down)
   &__phones
     +col-xl(8)
     +col-md(12)
     +col-sm(16)
     +col(24)
+    +hidden-xs()
     & > div
       margin: 5px 0 10px
     +media-sm(down)
@@ -199,8 +204,8 @@ header
       +hidden-xs()
   &__basket
     +media-xs()
-      width: 120px
       max-width: none
+      min-width: 140px
       +align(end, center)
     +col(7)
     +col-sm(7)
@@ -226,7 +231,9 @@ header
     .basket
       width: 44px
       height: 46px
-
+      +hidden-xs()
+      &-min
+        +hidden-sm(up)
     .count
       text-align: center
       width: 21px
@@ -263,6 +270,7 @@ header
     position: relative
     order: 1
     cursor: pointer
+    +hidden-xs()
     +media-lg(up)
       +col(4)
     +media-md()
@@ -300,6 +308,7 @@ header
         max-height: none
     + .vl
       +hidden-lg(up)
+      +hidden-xs()
       width: 1px
       height: 60px
       order: 2
@@ -348,46 +357,74 @@ header
       vertical-align: middle
     &:hover
       background-color: #f3f3f3
-  &__phone-menu
-    margin: 0 10px
+  &__bookmarks
+    +hidden-xs()
+  &__search-btn
+    margin-right: $padding
     +hidden-sm(up)
     .icon
       cursor: pointer
+    .form-search
+      margin: 0 $padding
+    .wrapper
+      position: absolute
+      z-index: 101
+      top: 81px
+      left: 0
+      right: 0
+      margin: 0 auto
+      position: absolute
+      width: 100%
+      display: none
+      &.active
+        display: block
+  &__phone-menu
+    margin: 0 $padding
+    text-align: center
+    +hidden-sm(up)
+    .icon
+      cursor: pointer
+      height: 19px
     .phone
+      margin-top: 10px
       text-decoration: none
       font-weight: 700
       font-size: 14px
       color: #000000
-      +col(8)
       span
-        font-size: 14px
-        line-height: 18px
+        display: block
+        margin-top: 4px
+        font-size: 13px
+        line-height: 14px
         font-weight: 300
         color: #b0b0b0
-    .messanger
-      +col(8)
+    .messenger
+      min-width: 140px
     .time
+      margin-top: 6px
       text-align: center
       font-size: 14px
       line-height: 18px
       font-weight: 300
       color: #b0b0b0
-      +col(8)
+      //+col(8)
+      width: 100%
     .wrapper
-      display: block
-      top: 132px
+      +grid()
+      z-index: 101
+      top: 71px
       left: 0
       right: 0
       margin: 0 auto
       position: absolute
-      width: 90%
+      width: 280px
       background: #fff
-      padding: 10px
-      z-index: 10
-      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)
-      //+align(between, center)
+      padding: 20px
+      box-shadow: 0 0 36px 0 rgba(0, 0, 0, 0.3)
+      +align(center, center)
+      display: none
       &.active
-        display: block
+        display: flex
       a
         text-decoration: none
 

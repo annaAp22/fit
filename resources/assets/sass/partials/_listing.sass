@@ -129,6 +129,9 @@
   padding-bottom: 60px
   +media-lg(up)
     padding-bottom: 30px
+  +media-xs()
+    border-top-width: 24px
+    padding-bottom: 24px
   &__image
     +media-md(down)
       display: none
@@ -148,6 +151,8 @@
     margin-bottom: 30px
     +media-sm(down)
       text-align: center
+    +media-xs()
+      margin: 24px 0
   &__percent-icon
     padding: 20px
     background-color: #fe7f39
@@ -363,7 +368,8 @@
 .goods-listing
   margin-top: 30px
   width: 100%
-
+  +media-xs()
+    margin-top: 24px
   +media-md(down)
     +grid-in()
     margin-left: 0
@@ -443,6 +449,19 @@
     text-decoration: none
   &__price
     position: relative
+    display: flex
+    +align(center, center)
+    +media-xs()
+      .current
+        font-size: 14px
+        margin-right: 12px
+        order: 0
+      .old-price
+        font-size: 13px
+        width: auto
+        background: none
+        padding: 0
+        margin-right: 0
     +media-md(down)
       margin-top: auto
     +media-md()
@@ -455,22 +474,21 @@
       color: #000000
       font-size: 20px
       font-weight: 700
+      order: 1
     .old-price
+      +media-sm(up)
+        margin-top: -18px
       +media-sm(down)
         position: static
         display: block
       padding-right: 24px
       font-size: 13px
-      position: absolute
+      //position: absolute
       font-style: normal
       line-height: 27px
       margin-right: 10px
       top: 24px
       text-align: center
-      +media-lg(up)
-        top: -11px
-        left: 50%
-        margin-left: -133px
       span
         position: relative
         &:after
@@ -486,7 +504,8 @@
   &__description
     position: relative
     padding-top: 25px
-
+    +media-xs()
+      padding-top: 12px
     +media-md(down)
       height: auto
       padding-bottom: 0

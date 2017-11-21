@@ -8,6 +8,16 @@ use AmoCRM\Client;
 class AmoCRMController extends Controller
 {
     function cooperationOrder(Request $request) {
+        return false;
+//        $url = 'http://fresh24.bz/siteform/intercept';
+//        if( $curl = curl_init() ) {
+//
+//            curl_setopt($curl, CURLOPT_URL, $url);
+//            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+//            $response = curl_exec($curl);
+//            curl_close($curl);
+//        }
+//        return true;
         $data = $request->input();
         // Создание клиента
         $subdomain = Setting::where('var', 'amo_crm_domain')->first();
@@ -21,9 +31,11 @@ class AmoCRMController extends Controller
         // Получение экземпляра модели для работы с аккаунтом
         $lead = $amo->lead;
         $lead['name'] = 'Сотрудничество';
-        $lead->addCustomField(300, $data['name'], 'name');
-        $lead->addCustomField(300, $data['phone'], 'phone');
-        $lead->addCustomField(300, $data['name'], 'email');
+        $contact['created_user_id'] = 0;
+
+        $lead->addCustomField(1, $data['name'], 'name');
+        $lead->addCustomField(1, $data['phone'], 'phone');
+        $lead->addCustomField(1, $data['name'], 'email');
         return $lead->apiAdd();
 
 //        try {

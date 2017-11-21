@@ -34,10 +34,10 @@
         {{ csrf_field() }}
         <a class="product__name" href="{{ route('product', $product->sysname) }}">{!! $product->getWrapTagInName() !!}</a>
         <div class="product__price">
+            <span class="current">{{ number_format($product->price, 0, '.', ' ') }} ₽</span>
             @if($product->originalPrice)
                 <i class="sprite_main sprite_main-product__old-price old-price"><span>{{ number_format($product->originalPrice, 0, '.', ' ') }} ₽</span></i>
             @endif
-            <span class="current">{{ number_format($product->price, 0, '.', ' ') }} ₽</span>
         </div>
         <div class="product__hidden">
 

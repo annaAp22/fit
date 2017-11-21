@@ -4,6 +4,13 @@ $(function(){
     var $body = $('body');
     var discountCodes = {};
 
+    //
+    $body.on("click", ".js-input-focus", function(e){
+        var $this = $(this);
+        setTimeout(function() {
+            $($this.data('focus')).focus();
+        }, 200)
+    });
     // Toggle active class
     $body.on("click", ".js-toggle-active", function(e){
         e.stopPropagation();

@@ -66,8 +66,9 @@
 
 
             <div class="header__basket">
+
                 {{-- WishList--}}
-                <a href="{{ route('bookmarks') }}" class="js-hover-notice">
+                <a href="{{ route('bookmarks') }}" class="header__bookmarks js-hover-notice">
 
 
                     <div class="count count_wishlist @if($countD = count($defer)){{'active'}}@endif">
@@ -109,7 +110,35 @@
                         <span class="popup-notice__text">Просмотренное</span>
                     </span>
                 </a>
-
+                <div class="header__search-btn">
+                    <i class="icon sprite_main sprite_main-header__search_active js-toggle-active-target js-input-focus" data-target=".js-search-dropdown" data-focus="#js-search-input"></i>
+                    <div class="wrapper js-search-dropdown">
+                        <form class="form-search" method="POST" action="{{ route('search') }}">
+                            {{ csrf_field() }}
+                            <button class="icon-fade" type="submit">
+                                <i class="sprite_main sprite_main-header__search_active normal"></i>
+                                <i class="sprite_main sprite_main-header__search active"></i>
+                            </button>
+                            <input id="js-search-input" type="search" name="text" placeholder="Поиск по товарам..."/>
+                        </form>
+                    </div>
+                </div>
+                <div class="header__phone-menu">
+                    <img class="icon js-toggle-active-target" src="/img/phone-call.svg" alt="" data-target=".js-phone-dropdown">
+                    <div class="wrapper js-phone-dropdown">
+                        <a target="_blank" href="https://mssg.me/fit2u" rel="nofollow" class="messenger">
+                            <div class="sprite_main sprite_main-social_32_whatsapp"></div>
+                            <div class="sprite_main sprite_main-social_32_viber"></div>
+                            <div class="sprite_main sprite_main-social_32_vk"></div>
+                            <div class="sprite_main sprite_main-social_32_telegram"></div>
+                        </a>
+                        <div class="time">с 10 до 20 <br> без выходных</div>
+                        <a class="phone roistat-phone" href="tel:+78002221546">
+                            <div>8 (800) 222-15-46</div>
+                            <span>Бесплатно по России</span>
+                        </a>
+                    </div>
+                </div>
                 {{-- Basket--}}
                 @widget('HeaderBasket')
 
@@ -121,7 +150,7 @@
             <!-- Site login-->
             <div class="header__enter js-toggle-active" href="#">
                 <i class="sprite_main sprite_main-header__enter"></i>
-                <span class="js-user-name">{{Auth::check()?Auth::user()->name:'Войти / Вступить'}}</span>
+                <span class="js-user-name">{{Auth::check()?Auth::user()->name:'Личный кабинет'}}</span>
                 <div class="dropdown">
                     <div id="js-not-autorized" @if(Auth::check()) hidden @endif>
                         <a id="js-user-login" class= "js-action-link" data-modal="login" data-url="{{route('ajax.modal')}}">Войти в систему</a>

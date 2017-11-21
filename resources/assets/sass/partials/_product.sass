@@ -1,6 +1,8 @@
 .product-detailed
   flex-grow: 1
   padding-top: 30px
+  +media-xs()
+    padding-top: $padding
   &__gallery
     //background-color: yellow
     +media-md(down)
@@ -20,6 +22,8 @@
     margin-top: 0
     margin-bottom: 0
     font-size: 24px
+    +media-xs()
+      font-size: 20px
     &_lg-up
       +hidden-md(down)
     &_md-down
@@ -49,7 +53,7 @@
   &__subtitle
     font-size: 14px
     color: #a9a9a9
-    margin-bottom: 15px
+    margin-bottom: 12px
     &_size
       margin-top: 20px
       +media-md(down)
@@ -70,6 +74,7 @@
   &__price
     +media-xs()
       +col(24)
+      margin-top: $padding
     +media-md(down)
       +col(12)
       margin-top: 30px
@@ -176,6 +181,7 @@
   +media-sm(down)
     width: 100%
     flex-direction: column
+    margin-top: 0
   display: flex
   &__navigation
     +media-sm(down)
@@ -230,6 +236,12 @@
     background-color: #ffffff
     cursor: pointer
     transition: box-shadow .3s ease
+    //+media-xs()
+    //  width: 12px
+    //  height: 12px
+    //  background: silver
+    //  img
+    //    display: none
     &:first-child
       border-top: 1px solid #dddddd
     & > img
@@ -293,7 +305,7 @@
     position: relative
     display: block
     +media-sm(down)
-      height: 442px
+      height: 420px
     +media-md(up)
       height: 613px
       width: calc(100% - 97px)
@@ -841,6 +853,10 @@
   margin-top: 30px
   +col(24)
   +col-lg(6)
+  +media-xs()
+    margin-top: 0
+    &__title
+      padding: 12px 0
   &__title
     font-size: 20px
     color: #000000
@@ -872,6 +888,8 @@
   border-bottom: 1px solid #EBEBEB
   padding: 100px 0 185px
   +col(24)
+  +media-xs()
+    padding: 0
   &__title
     margin-top: 30px
     font-weight: 900

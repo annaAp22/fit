@@ -16,7 +16,7 @@ var elixir = require('laravel-elixir'),
 gulp.task('postcss', function() {
     const processor = ([
         autoprefixer({browsers: ['last 10 version']}),
-        cssnano(),
+        cssnano({ zindex: false }),
         fonts()
     ]);
     return gulp.src('./resources/assets/sass/*.sass')

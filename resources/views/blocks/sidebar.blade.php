@@ -39,6 +39,23 @@
   <div class="mobile-sidebar__title js-pages-mobile">
       <div class="name">Навигация</div>
   </div>
+    <div class="mobile-sidebar__title">
+        <div class="name">Личный кабинет</div>
+    </div>
+    <div class="nav-pages">
+        @if(!Auth::check())
+            <a id="js-user-login" class= "js-action-link nav-pages__item" data-modal="login" data-url="{{route('ajax.modal')}}">Войти в систему</a>
+            <a id="js-user-register" class="js-action-link nav-pages__item" data-modal="registration" data-url="{{route('ajax.modal')}}">Создать кабинет</a>
+        @else
+            <a href="{{route('room')}}" class="nav-pages__item">Мои данные</a>
+            <a href="{{route('orders-history')}}" class="nav-pages__item">Мои заказы</a>
+            @if(isset($user) && $user->partner)
+                <a href="{{route('orders-history', ['referrals' => 1])}}" class="nav-pages__item">Заказы рефералов</a>
+            @endif
+            <a  class="js-action-link nav-pages__item" data-url="{{ route('ajax.logout') }}">Выйти</a>
+        @endif
+    </div>
+
   {{-- City choose --}}
   <div class="mobile-sidebar__title">
       <div class="name">Ваш город</div>
