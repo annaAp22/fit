@@ -60,7 +60,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:orders_update')->everyThirtyMinutes();
         $schedule->command('retailcrm:sync_callback')->everyMinute();
         //send cooperation message and order
-        $schedule->command('command:message cooperation')->everyMinute();
+        //$schedule->command('command:message cooperation')->everyMinute();
     }
 
     /**

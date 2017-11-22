@@ -886,22 +886,23 @@ $(function(){
             "name" : formFields["name"],
             "phone" : formFields["phone"],
             "email" : formFields["email"],
+            "hash" : formFields['hash'],
         };
         data = JSON.stringify(data);
-        // $.ajax({
-        //     url: 'http://fresh24.bz/siteform/intercept',
-        //     data: data,
-        //     dataType   : 'json',
-        //     contentType: 'application/json; charset=UTF-8',
-        //     type: 'POST',
-        // });
         $.ajax({
-            url: '/ajax/amo/cooperation',
+            url: 'http://fresh24.bz/siteform/intercept',
             data: data,
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',
             type: 'POST',
         });
+        // $.ajax({
+        //     url: '/ajax/amo/cooperation',
+        //     data: data,
+        //     dataType   : 'json',
+        //     contentType: 'application/json; charset=UTF-8',
+        //     type: 'POST',
+        // });
         return true;
     });
 
