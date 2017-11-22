@@ -39,6 +39,7 @@
         <div class="text">и начните сотрудничать с брендом Profit</div>
         <div class="wrapper">
             <input type="hidden" name="type" value="">
+            <input type="hidden" name="hash" value="3942499be057166c9d2dbefd2eeaf607">
             <input type="text" name="name" placeholder="Ваше имя" class="js-required-fields">
             <input type="text" name="phone" placeholder="Ваш номер телефона" class="js-required-fields js-phone">
             <input type="text" name="email" placeholder="E-mail" class="js-required-fields">
