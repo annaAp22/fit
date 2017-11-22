@@ -46,6 +46,7 @@
     & > .product-rating
       +media-xs()
         +col(24)
+        margin-top: 12px
       +media-md(down)
         +col(12)
         margin-top: 30px
@@ -184,6 +185,7 @@
     margin-top: 0
   display: flex
   &__navigation
+    position: relative
     +media-sm(down)
       display: flex
       flex-wrap: wrap
@@ -208,7 +210,32 @@
           margin-left: 12px
           & > i
             transform: rotate(90deg)
+    .btn_carousel-control
+      +hidden-xs()
+    & > .carousel-pagination
+      position: static
+      margin-top: 60px
+      +hidden-sm(up)
+      & > .carousel-pagination__page
+        border-color: #bebebe
+        position: relative
+        &:after
+          content: ""
+          position: absolute
+          width: 13px
+          height: 13px
+          border-radius: 100%
+          transition: width .2s ease, height .2s ease
+        &.active
+          border-color: #ffffff
+          &:after
+            top: -8px
+            left: -8px
+            width: 21px
+            height: 21px
+            border: 2px solid #bebebe
   &__wrap
+    +hidden-xs()
     overflow: hidden
     +media-sm(down)
       width: 100%
@@ -304,6 +331,7 @@
   &__image-wrap
     position: relative
     display: block
+    overflow: hidden
     +media-sm(down)
       height: 420px
     +media-md(up)
@@ -312,7 +340,10 @@
     border: 1px solid #dddddd
   &__image
     +image-center()
-
+    +media-xs()
+      bottom: auto
+      max-height: none
+      width: 100%
   &__image-link
     display: none
     &.active
@@ -652,11 +683,9 @@
     width: 100%
     position: relative
     border: 1px solid #ebebeb
-    //height: 180px
     display: block
     overflow: hidden
     & > img
-      //+image-center()
       width: 100%
       display: block
   &__name

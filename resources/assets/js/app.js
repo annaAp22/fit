@@ -310,17 +310,19 @@ $(function(){
     $("#js-product-gallery-nav").carousel({
         vertical : true,
         margin: 0,
+        pagination: true,
         responsive: {
             1492: {items: 5, options: {margin: 0, vertical: true}},
             1203: {items: 5, options: {margin: 0, vertical: true}},
             840: {items: 5, options: {margin: 0, vertical: true}},
             576: {items: 5, options: {margin: 0, vertical: false}},
-            320: {items: 3, options: {margin: 0, vertical: false}}
+            320: {items: 1, options: {margin: 0, vertical: false}}
         }
     });
 
     //Product set carousel
     $("#js-product-set").carousel( {
+        margin: 6,
         responsive: {
             1492 : {items: 5},
             1203 : {items: 4},
@@ -331,7 +333,9 @@ $(function(){
         }
     });
     // Product seen carousel
-    $(".js-product-carousel").carousel();
+    $(".js-product-carousel").carousel({
+        margin: 6
+    });
 
     // Main page banners slider
     $(".js-single-banner").carousel({
@@ -723,7 +727,10 @@ $(function(){
         images.removeClass('active');
         images.eq($this.index()).addClass('active');
     });
-
+    $body.on('click', '#js-product-gallery-nav .carousel-pagination__page', function(e) {
+        $this = $(this);
+        $('.js-gallery-thumb:eq(' + $this.index() + ')').click();
+    });
     $.fancybox.defaults.hash = false;
     //прокрутка до последнего просмотренного продукта
     $scrollTarget = $('#scrollTarget');
@@ -1209,6 +1216,7 @@ function productsSliderInit() {
             slider = $sliders[i];
             productsSlider.push(slider);
             $(slider).carousel({
+                margin: 6,
                 responsive: {
                     1492 : {items: 6},
                     1203 : {items: 5},

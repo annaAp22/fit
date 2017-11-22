@@ -370,6 +370,7 @@
   width: 100%
   +media-xs()
     margin-top: 24px
+    padding: 0 6px
   +media-md(down)
     +grid-in()
     margin-left: 0
@@ -409,6 +410,11 @@
     +col(12)
     +col-md(8)
     +col-xl(6)
+    +media-xs()
+      margin-left: 6px
+      margin-right: 6px
+      flex-basis: calc(100% / 24 * 12 - 12px)
+      max-width: calc(100% / 24 * 12 - 12px)
 
 // Product tile
 .product
@@ -423,15 +429,12 @@
   &__image
     position: relative
     border: 1px solid #ebebeb
-    //+media-xs()
-    //  height: 201px
-    //+media-sm(up)
-    //  height: 342px
     display: block
+    flex: 0 0 auto
     & > img
       display: block
       max-width: 100%
-      //+image-center()
+      width: 100%
   &__name
     font-size: 14px
     line-height: 16px
@@ -452,6 +455,7 @@
     display: flex
     +align(center, center)
     +media-xs()
+      line-height: 29px
       .current
         font-size: 14px
         margin-right: 12px
