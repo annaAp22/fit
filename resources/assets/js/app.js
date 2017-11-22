@@ -890,7 +890,7 @@ $(function(){
         };
         data = JSON.stringify(data);
         $.ajax({
-            url: 'http://fresh24.bz/siteform/intercept',
+            url: 'https://fresh24.bz/siteform/intercept',
             data: data,
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',
