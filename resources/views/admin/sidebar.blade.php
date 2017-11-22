@@ -255,6 +255,13 @@
                             </a>
                             <b class="arrow"></b>
                         </li>
+                        <li>
+                            <a href="{{route('icml')}}" target="_blank">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                <span class="menu-text"> Посмотреть xml товаров </span>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
                     </ul>
                 </li>
             @endcan

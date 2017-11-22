@@ -12,7 +12,7 @@ use App\Library\MoySklad\Ms;
 class ExportController extends Controller
 {
   //export goods to specified format
-  public function exportTo($view) {
+  public function exportTo($view, $published = true) {
     // Get all categories
     $categories = Category::published()
         ->sorted()
@@ -21,11 +21,14 @@ class ExportController extends Controller
       $query->select('categories.id');
     }, 'attributes' => function($query) {
       $query->whereIn('name', ['Размеры', 'Цвет', 'Пол', 'Материал']);
-    }, 'brand'])
-        ->published()
-        ->orderBy('id')
-        ->get();
-    //получаем товары из таблицы моего склада, для создания торговых предложений одного товара.
+    }, 'brand']);
+
+    if($published) {
+        $products = $products->published();
+    }
+    $products = $products->orderBy('id')->get();
+
+      //получаем товары из таблицы моего склада, для создания торговых предложений одного товара.
     //из этой таблицы нам понадобится id торгового предложения - scu и количество товара
     $ms_products = MsProduct::where('ms_type', 'variant')->get()->groupBy('product_id');
     $offers = collect();
@@ -62,7 +65,7 @@ class ExportController extends Controller
   // Export goods to icml format
   public function icml()
   {
-    return $this->exportTo('export.icml');
+    return $this->exportTo('export.icml', false);
   }
   // Export goods to yml format
   public function yml()
