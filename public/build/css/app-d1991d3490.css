@@ -11367,7 +11367,7 @@ h3 {
   display: block;
   text-align: center;
   text-decoration: none;
-  margin: 20px 0 0;
+  margin: 20px 0 50px;
 }
 
 .instagram__link div,
@@ -18856,6 +18856,10 @@ h3 {
   .instagram__title>img {
     width: 70px;
     margin-left: 0;
+  }
+
+  .instagram__link {
+    margin: 12px 0 24px;
   }
 
   .cat_woman__item__img {

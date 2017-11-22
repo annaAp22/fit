@@ -287,7 +287,6 @@
         <section class="content-full-width">
             @include('looks.product_detailed')
             @widget('InstagramWidget')
-            <div class="height-70"></div>
             @widget('SimilarProductsWidget', ['product' => $product])
             @widget('ViewProductsWidget', ['product_id' => $product->id])
             @widget('SubscribeWidget')
