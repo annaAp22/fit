@@ -179,6 +179,7 @@
   &__link
     min-width: 20px
 .product-gallery
+  +hidden-xs()
   +media-sm(down)
     width: 100%
     flex-direction: column
@@ -962,3 +963,54 @@
       font-size: 18px
       margin-bottom: 10px
     color: #272727
+.product-details-carousel
+  position: relative
+  display: flex
+  +align(start,center)
+  overflow: hidden
+  & > .products-carousel__wrap
+    overflow: visible
+    &_ovh
+      overflow: hidden
+    &:before, &:after
+      content: ""
+      display: block
+      position: absolute
+      background-color: #fff
+      width: 100%
+      height: 100%
+      top: 0
+      z-index: 1
+    &:before
+      +media-md(up)
+        left: calc(32px - 100%)
+      +media-sm(down)
+        left: 100%
+    &:after
+      +media-md(up)
+        right: calc(32px - 100%)
+      +media-sm(down)
+        right: 100%
+  +hidden-sm(up)
+  & > .carousel-pagination
+    position: static
+    margin: 12px 0
+    +hidden-sm(up)
+    & > .carousel-pagination__page
+      border-color: #bebebe
+      position: relative
+      &:after
+        content: ""
+        position: absolute
+        width: 13px
+        height: 13px
+        border-radius: 100%
+        transition: width .2s ease, height .2s ease
+      &.active
+        border-color: #ffffff
+        &:after
+          top: -8px
+          left: -8px
+          width: 21px
+          height: 21px
+          border: 2px solid #bebebe

@@ -8494,6 +8494,77 @@ footer .line {
   color: #272727;
 }
 
+.product-details-carousel {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.product-details-carousel>.products-carousel__wrap {
+  overflow: visible;
+}
+
+.product-details-carousel>.products-carousel__wrap_ovh {
+  overflow: hidden;
+}
+
+.product-details-carousel>.products-carousel__wrap:after,
+.product-details-carousel>.products-carousel__wrap:before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.product-details-carousel>.carousel-pagination {
+  position: static;
+  margin: 12px 0;
+}
+
+.product-details-carousel>.carousel-pagination>.carousel-pagination__page {
+  border-color: #bebebe;
+  position: relative;
+}
+
+.product-details-carousel>.carousel-pagination>.carousel-pagination__page:after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  -webkit-transition: width .2s ease,height .2s ease;
+  -o-transition: width .2s ease,height .2s ease;
+  transition: width .2s ease,height .2s ease;
+}
+
+.product-details-carousel>.carousel-pagination>.carousel-pagination__page.active {
+  border-color: #fff;
+}
+
+.product-details-carousel>.carousel-pagination>.carousel-pagination__page.active:after {
+  top: -8px;
+  left: -8px;
+  width: 21px;
+  height: 21px;
+  border: 2px solid #bebebe;
+}
+
 .main-slider {
   position: relative;
 }
@@ -12662,6 +12733,14 @@ h3 {
     font-size: 20px;
   }
 
+  .product-details-carousel {
+    display: none;
+  }
+
+  .product-details-carousel>.carousel-pagination {
+    display: none;
+  }
+
   .main-benefits-made-from__image_mt {
     margin: 20px auto;
   }
@@ -13340,6 +13419,16 @@ h3 {
 
   .products-carousel-block__title {
     font-size: 24px;
+  }
+
+  .product-details-carousel>.products-carousel__wrap:before {
+    left: -webkit-calc(32px - 100%);
+    left: calc(32px - 100%);
+  }
+
+  .product-details-carousel>.products-carousel__wrap:after {
+    right: -webkit-calc(32px - 100%);
+    right: calc(32px - 100%);
   }
 
   .main-slider__banner_sm {
@@ -17420,6 +17509,14 @@ h3 {
     margin-bottom: 10px;
   }
 
+  .product-details-carousel>.products-carousel__wrap:before {
+    left: 100%;
+  }
+
+  .product-details-carousel>.products-carousel__wrap:after {
+    right: 100%;
+  }
+
   .main-slider__banner_md-up {
     display: none;
   }
@@ -18468,6 +18565,10 @@ h3 {
     -webkit-flex-basis: -webkit-calc(100%/24 * 24 - 24px);
     -ms-flex-preferred-size: calc(100% / 24 * 24 - 24px);
     flex-basis: calc(100% / 24 * 24 - 24px);
+  }
+
+  .product-gallery {
+    display: none;
   }
 
   .product-gallery__navigation .btn_carousel-control {

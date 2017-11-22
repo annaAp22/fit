@@ -336,6 +336,19 @@ $(function(){
     $(".js-product-carousel").carousel({
         margin: 6
     });
+    $("#js-product-details-carousel").carousel({
+        margin: 0,
+        pagination: true,
+        items: 1,
+        responsive: {
+            // 1492 : {items: 5},
+            // 1203 : {items: 4},
+            // 840 : {items: 3},
+            // 576 : {items: 2},
+            // 300 : {items: 1},
+            0 : {items: 1}
+        }
+    });
 
     // Main page banners slider
     $(".js-single-banner").carousel({
