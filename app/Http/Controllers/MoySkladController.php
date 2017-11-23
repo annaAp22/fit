@@ -365,7 +365,7 @@ class MoySkladController extends Controller
                         'ms_uuid' => $product->id,
                         'ms_type' => $product->meta->type,
                         'ms_externalCode' => $product->externalCode,
-                        'ms_quantity' => $product->quantity > 0 ? $product->quantity : 0,
+                        'ms_quantity' => (isset($product->quantity) && $product->quantity > 0) ? $product->quantity : 0,
                         'ms_salePrice' => $salePrice,
                         'ms_buyPrice' => $buyPrice,
                         'ms_weight' => $weight,
