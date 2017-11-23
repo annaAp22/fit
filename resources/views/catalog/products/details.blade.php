@@ -20,13 +20,12 @@
             </div>
 <!-- -->
             <div class="product-details-carousel" id="js-product-details-carousel">
-                <div class="products-carousel__wrap">
-                    <div class="products-carousel__track">
+                <div class="product-details-carousel__wrap">
+                    <div class="product-details-carousel__track">
                         @foreach($product->photos as $i => $photo)
                             <a class="product__image" data-fancybox="group" href="{{ $photo->uploads->img->url() }}">
                                 <img src="{{ $photo->uploads->img->detail->url() }}" alt="{{ $product->name }}" role="presentation"/>
                             </a>
-
                         @endforeach
                     </div>
                 </div>

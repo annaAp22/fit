@@ -964,38 +964,27 @@
       margin-bottom: 10px
     color: #272727
 .product-details-carousel
+  +hidden-sm(up)
   position: relative
   display: flex
-  +align(start,center)
   overflow: hidden
-  & > .products-carousel__wrap
-    overflow: visible
-    &_ovh
-      overflow: hidden
-    &:before, &:after
-      content: ""
-      display: block
-      position: absolute
-      background-color: #fff
+  flex-wrap: wrap
+  +align(between)
+  &__wrap
+    min-width: calc(100% - 2*47px)
+    overflow: hidden
+    +media-sm(down)
       width: 100%
-      height: 100%
-      top: 0
-      z-index: 1
-    &:before
-      +media-md(up)
-        left: calc(32px - 100%)
-      +media-sm(down)
-        left: 100%
-    &:after
-      +media-md(up)
-        right: calc(32px - 100%)
-      +media-sm(down)
-        right: 100%
-  +hidden-sm(up)
+  &__track
+    +grid-in()
+    &:not(.js-dragged)
+      transition: transform .3s ease
+  &:hover
+    overflow: visible
+    z-index: 2
   & > .carousel-pagination
     position: static
     margin: 12px 0
-    +hidden-sm(up)
     & > .carousel-pagination__page
       border-color: #bebebe
       position: relative

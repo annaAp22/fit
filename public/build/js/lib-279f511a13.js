@@ -1,1 +1,0 @@
-$(function(){window.loader=$("#loader"),$(document).ajaxSend(function(d,a,o){var n=["https://cartprotector.com/"];$.inArray(o.url,n)!=-1||window.loader.hasClass("hidden")&&$(window.loader).removeClass("hidden")}),$(document).ajaxStart(function(){}),$(document).ajaxStop(function(){window.loader.hasClass("hidden")||$(window.loader).addClass("hidden")})});
