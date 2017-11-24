@@ -92,6 +92,7 @@
                 });
             }
             self.items.attr('draggable', false);
+            self.items.attr('ondragstart', 'return false;');
             self.items.find('*').attr('draggable', false);
             self.position = 0;
             self.delta = 0;
