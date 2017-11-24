@@ -240,7 +240,9 @@ class MoySkladController extends Controller
         }
       }
     }
-
+    if(!count($products)) {
+        return "Получено остатков: 0. Синхронизация не выполнена";
+    }
     //Reset all size attributes
     \DB::table('attribute_product')
         ->where('attribute_id', $sizes->id)->orWhere('attribute_id', $allSizes->id)
@@ -249,7 +251,12 @@ class MoySkladController extends Controller
     foreach ($products as $id => $msProduct)
     {
       $product = Product::find($id);
-      $product->price = (100 - $product->discount)/100 * $msProduct['salePrice'];
+      if(!$product) {
+          continue;
+      }
+      if(isset($msProduct['salePrice'])) {
+          $product->price = (100 - $product->discount)/100 * $msProduct['salePrice'];
+      }
       $product->stock = 1;
       if(isset($msProduct['sizes']))
       {
