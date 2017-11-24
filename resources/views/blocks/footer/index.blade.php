@@ -33,6 +33,12 @@
               <a href="{!! $global_settings['social_instagram']->value !!}" target="_blank"><i class="sprite_main sprite_main-social__footer_instagram"></i></a>
             </div>
           </div>
+          <a href="http://mm-media.ru" target="_blank" class="footer-media">
+            <div>
+              <img src="/img/footer-media.png" alt="">
+            </div>
+            <p>Создание и продвижение сайтов</p>
+          </a>
         </div>
       </div>
       <div class="footer__info">
