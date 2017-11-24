@@ -7,8 +7,14 @@
 @section('content')
     <main class="container container_block" role="main">
         <section class="container-in product-detailed" itemscope itemtype="http://schema.org/Product">
+            {{----}}
             <!-- H1 title md down-->
             <h1 class="product-detailed__title product-detailed__title_md-down" itemprop="name">
+                @if($link = $product->categories->first())
+                <a href="{{route('catalog', ['sysname' => $link->sysname])}}" class="btn listing__back-btn">
+                    <i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
+                </a>
+                @endif
                 {{ $product->name }}
             </h1>
             <span itemprop="description" hidden>
