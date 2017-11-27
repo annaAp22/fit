@@ -76,7 +76,7 @@ class RetailSyncOrder extends Command
       ];
       $item = [
           'offer' => $offer,
-          'quantity' => $product->pivot->cnt,
+          'quantity' => $product->pivot->cnt?:1,
 //          'properties' => [
 //              'code' => 'razmer',
 //              'value' => $size,
