@@ -15,7 +15,7 @@
                     <i class="sprite_main sprite_main-icon_arrow_gray_up"></i>
                 </a>
                 @endif
-                {{ $product->name }}
+                <div>{{ $product->name }}</div>
             </h1>
             <span itemprop="description" hidden>
                 {{$product->descr}}
