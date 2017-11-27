@@ -690,7 +690,7 @@ class CatalogController extends Controller
         $looks = $product->looks()->published()->with('products', 'products.attributes')->get();
         //добавляем несколько looks из комплектов, чтоб слайдер луков товаров не пустовал
         $kit = $product->kits->flatMap(function($values) {
-            return $values->products;
+            return $values->products->where('status', 1);
         })->merge($product->restKit);
         if(!$looks->isEmpty() && $kit) {
             $kit_products_ids = $kit->pluck('id')->unique();

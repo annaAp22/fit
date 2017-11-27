@@ -334,16 +334,17 @@ class Product extends Model
     public function getRestKitAttribute() {
 
         // If related not empty (new kit) return related products else old kit products
-        if($this->related()->count())
+        if($this->related()->published()->count())
         {
-            return $this->related;
+            return $this->related->where('status', 1);
+            //return $this->related;
         }
 
         if(!$this->kits->count()) return false;
 
         $kit = $this->kits->first();
 
-        return $kit->products->where('id', '!=', $this->id);
+        return $kit->products()->published()->where('id', '!=', $this->id);
     }
 
     public function getPositionAttribute()

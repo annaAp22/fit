@@ -725,6 +725,9 @@ class FrontApiController extends Controller
                 $product = Product::published()->find($id);
                 if(!$product) {
                     Log::warning('product not found -'.$id);
+                    $response['action'] = 'openModal';
+                    $response['modal'] = view('modals.cart_fail')->render();
+                    return $response;
                 }
                 session()->put('products.cart.'.$id.'.'.$size, [
                     'cnt' => $cnt,
